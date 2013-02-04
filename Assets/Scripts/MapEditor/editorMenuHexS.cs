@@ -22,8 +22,7 @@ public class editorMenuHexS : MonoBehaviour {
 			
 			editorHexS new_hex_script     = new_hex.GetComponent<editorHexS>();
 			new_hex_script.menu_item 	  = true;
-			new_hex_script.menu_item_num  = i;
-//			new_hex_script.hex_type       = hexes[i].GetComponent<editorHexS>().hex_type;
+			new_hex_script.menu_item_num  = i; 
 			
 			new_hex.transform.parent = transform;
 		}

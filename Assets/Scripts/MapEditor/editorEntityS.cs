@@ -37,6 +37,7 @@ public class editorEntityS : MonoBehaviour {
 		if(menu_item)
 		{
 			transform.localScale += new Vector3(.15F, 0F, .15F); 
+			transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
 		}
 	}
 	
@@ -45,6 +46,7 @@ public class editorEntityS : MonoBehaviour {
 		if(menu_item)
 		{
 			transform.localScale -= new Vector3(.15F, 0F, .15F); 
+			transform.position = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
 		}
 	}
 	

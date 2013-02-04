@@ -18,7 +18,7 @@ public class editorMenuEntityS : MonoBehaviour {
 			float x =   Mathf.Cos(interval*i + (Mathf.PI/2))*radial_distance         + transform.position.x;
 			float z = ((Mathf.Sin(interval*i + (Mathf.PI/2))*radial_distance)/1.16F) + transform.position.z;
 			
-			GameObject new_entity = (GameObject) Instantiate(entities[i], new Vector3(x, 5 + (.01F * i), z), Quaternion.identity);	
+			GameObject new_entity = (GameObject) Instantiate(entities[i], new Vector3(x, 5 + (.01F * i) + .01F, z), Quaternion.identity);	
 			
 			editorEntityS new_entity_s = new_entity.GetComponent<editorEntityS>();
 			new_entity_s.menu_item = true;

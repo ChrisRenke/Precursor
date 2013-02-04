@@ -7,7 +7,7 @@ using System.IO;
 
 public class editorEntityManagerS : MonoBehaviour {
 	
-	private Dictionary<int, Dictionary<int, EntityData>> entity_db = new Dictionary<int, Dictionary<int, EntityData>>();  
+	public static Dictionary<int, Dictionary<int, EntityData>> entity_db = new Dictionary<int, Dictionary<int, EntityData>>();  
 	
 	public enum 		Entity    {Player, Base, Enemy, Junkyard, Outpost, Factory};
 	  
@@ -66,6 +66,18 @@ public class editorEntityManagerS : MonoBehaviour {
 		return new_ent;
 	}
 	
+	public void deleteEntity(editorEntityS entity_s)
+	{
+		entity_db[entity_s.x_coord].Remove(entity_s.z_coord);
+		if(entity_db[entity_s.x_coord].Keys.Count == 0)
+		{
+			print("removing sub level");
+			entity_db.Remove(entity_s.x_coord);
+		}
+		
+		Destroy(entity_s.gameObject);
+	}
+	
 	public GameObject AddEntity(Vector3 pos, Entity ent_type, int x, int z)
 	{
 	
@@ -122,10 +134,8 @@ public class editorEntityManagerS : MonoBehaviour {
 		 
 	}
 	
-
 	
-	
-	private class EntityData {
+	public class EntityData {
 		
 		public int x_coord;
 		public int z_coord;

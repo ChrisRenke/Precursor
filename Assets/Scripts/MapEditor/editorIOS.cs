@@ -7,12 +7,12 @@ using System.IO;
 public class editorIOS : MonoBehaviour {
 	
 	
-	public string       level_name; 
+	public string       level_name = "untitled level"; 
 	public int 			version; 
+	 
 	
 	// Use this for initialization
-	void Start () {
-	
+	void Start () { 
 	}
 	
 	// Update is called once per frame
@@ -20,6 +20,22 @@ public class editorIOS : MonoBehaviour {
 	
 	}
 	
+	
+	void OnGUI()
+	{
+		 
+		if(GUI.Button(new Rect(Screen.width - 240, 30, 100, 30), "Save"))
+		{
+			 Save();
+		}
+		
+		if(GUI.Button(new Rect(Screen.width - 130, 30, 100, 30), "Load"))
+		{
+//			 Load();
+		}
+		
+		level_name = GUI.TextField(new Rect(Screen.width - 240, 70, 210, 30), level_name, 30);
+	}
 	
 	public void Save()
 	{
@@ -61,6 +77,28 @@ public class editorIOS : MonoBehaviour {
 		}
 		
         tw.WriteLine("\t}");
+		
+		
+        tw.WriteLine("\tENTITIES\n\t{");
+		
+		foreach(KeyValuePair<int, Dictionary<int, editorEntityManagerS.EntityData>> entry_1 in editorEntityManagerS.entity_db)
+		{
+		    foreach(KeyValuePair<int, editorEntityManagerS.EntityData> entry_2 in entry_1.Value)
+			{
+				
+        		tw.WriteLine("\t\tENTITY{ " );
+        		tw.WriteLine("\t\t\tName = " + entry_2.Value.name);
+        		tw.WriteLine("\t\t\tX    = " + entry_2.Value.x_coord);
+        		tw.WriteLine("\t\t\tZ    = " + entry_2.Value.z_coord);
+        		tw.WriteLine("\t\t\tType = " + entry_2.Value.entity_type);
+        		tw.WriteLine("\t\t}");
+			}
+			// do something with entry.Value or entry.Key
+		}
+		
+        tw.WriteLine("\t}");
+		
+		
         tw.WriteLine("}");
 		
 		
@@ -76,8 +114,6 @@ public class editorIOS : MonoBehaviour {
 //			{
 //			}
 //		}
-        tw.WriteLine(DateTime.Now);
-        tw.WriteLine(DateTime.Now);
 
 		
 
