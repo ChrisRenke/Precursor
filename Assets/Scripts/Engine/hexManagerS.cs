@@ -51,10 +51,40 @@ public class hexManagerS : MonoBehaviour {
 	//ADDED: New/updated functions below ***
 	
 	//Return adjacent hexes for the given entity position
-	public static HexData[] getAdjacent(int tag_row, int tag_col){
+	public static HexData[] getAdjacent(int x, int z){
 		//ADDED:Assumption is that outer tiles in array are marked as invalid like editor tiles ***
 		//		so if we have an 200 by 200 array then at the very least row 0/col 0 and row 200/col 200 are all marked as invalid or editor tiles ***
 		//		even though they won't be visible on actual board, other tiles i assume can also be marked as invalid in the board depending on how hexes are placed i guess ***
+		
+		
+		
+		/*
+		  north 
+      northwest   ___   northeast
+                /    \
+      southwest \___/  southeast
+		south
+		*/
+		
+		//Get North
+		HexData n = hexes[x, z +1];
+		
+		//Get Northeast
+		HexData s = hexes[x+1, z];
+		
+		//Get Southeast
+		HexData s = hexes[x+1, z-1];
+		
+		//Get South
+		HexData s = hexes[x, z-1];
+		
+		//Get Southwest
+		HexData s = hexes[x-1, z];
+		
+		//Get Northwest
+		HexData s = hexes[x-1, z+1];
+		
+		
 		
 		//Get Upper Left
 		HexData hex_uleft = hexes[tag_row - 1,tag_col];
