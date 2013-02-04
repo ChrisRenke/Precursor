@@ -1,23 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Entities Scripts/playerMechS.cs">
-    <Files>
-      <File FileName="Assets/Scripts/Entities Scripts/hexManagerS.cs" Line="52" Column="106" />
-      <File FileName="Assets/Scripts/Entities Scripts/playerMechS.cs" Line="118" Column="3" />
-      <File FileName="Assets/Scripts/Entities Scripts/interfacesS.cs" Line="8" Column="25" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Assets" expanded="True">
-              <Node name="Materials" expanded="True" />
               <Node name="Scripts" expanded="True">
-                <Node name="Engine" expanded="True" />
-                <Node name="Entities Scripts" expanded="True">
-                  <Node name="playerMechS.cs" selected="True" />
+                <Node name="MapEditor" expanded="True">
+                  <Node name="tileManagerS.cs" selected="True" />
                 </Node>
-                <Node name="MapEditor" expanded="True" />
               </Node>
             </Node>
           </Node>

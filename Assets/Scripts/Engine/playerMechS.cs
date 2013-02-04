@@ -113,9 +113,9 @@ public class playerMechS : MonoBehaviour, IMove {
 		//TODO: 1. I think the z_axis needs to be updated, and so will change later
 		//		2. I'm not sure how the hex manager will work, so may or may not need to commit to it
 		//Vector3 temp = new Vector3(hex.x,hex.y,0);
-		player_location.position = temp;
+//		player_location.position = temp;
 		//commit move to hex manager
-		hexManagerS.updateMap(hex, hex); //dummy value
+//		hexManagerS.updateMap(hex, hex); //dummy value
 	}
 	
 	public void makeMove (int x, int z)
@@ -123,9 +123,9 @@ public class playerMechS : MonoBehaviour, IMove {
 		//TODO: 1. I think the z_axis needs to be updated, and so will change later
 		//		2. I'm not sure how the hex manager will work, so may or may not need to commit to it
 		//Vector3 temp = new Vector3(hex.x,hex.y,0);
-		player_location.position = temp;
+//		player_location.position = temp;
 		//commit move to hex manager
-		hexManagerS.updateMap(hex, hex); //dummy value
+//		hexManagerS.updateMap(hex, hex); //dummy value
 	}
 	#endregion
 }
