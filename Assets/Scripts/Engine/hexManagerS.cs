@@ -11,7 +11,7 @@ public class hexManagerS : MonoBehaviour {
 
 	public enum Entities {Player, Enemy, Settlement, ResourceNode};
 
-	public static int[,] hexes;
+	public static Tiles[,] hexes;
 
 	public TextAsset     level_file;
 	
@@ -60,32 +60,32 @@ public class hexManagerS : MonoBehaviour {
 	}
 	
 
-	public class HexData{
-
-		public int	x; 
-		public int	z;  
-		public Tiles hex_type; 
-		public GameObject occupier; //added: should be a GameObject? ***
-		
-		public HexData(int _x, int _z, Tiles _type){
-			x = _x;
-			z = _z; 
-			hex_type = _type;
-		}
-		
-		public HexData(int _x, int _z, Tiles _type, GameObject _occupier){
-			x 		 = _x;
-			z 		 = _z; 
-			hex_type = _type;
-			occupier = _occupier;
-		}
-		
-		public bool isOccupied()
-		{
-			return occupier != null;
-		}
-
-	}
+//	public class HexData{
+//
+//		public int	x; 
+//		public int	z;  
+//		public Tiles hex_type;  
+//		public GameObject occupier; //added: should be a GameObject? ***
+//		
+//		public HexData(int _x, int _z, Tiles _type){
+//			x = _x;
+//			z = _z; 
+//			hex_type = _type;
+//		}
+//		
+//		public HexData(int _x, int _z, Tiles _type, GameObject _occupier){
+//			x 		 = _x;
+//			z 		 = _z; 
+//			hex_type = _type;
+//			occupier = _occupier;
+//		}
+//		
+//		public bool isOccupied()
+//		{
+//			return occupier != null;
+//		}
+//
+//	}
 
 }
 
