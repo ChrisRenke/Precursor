@@ -1,14 +1,24 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MapEditor/editorUserS.cs">
+    <Files>
+      <File FileName="Assets/Scripts/MapEditor/editorMenuEntityS.cs" Line="21" Column="61" />
+      <File FileName="Assets/Scripts/MapEditor/editorMenuHexS.cs" Line="12" Column="14" />
+      <File FileName="Assets/Scripts/MapEditor/editorEntityS.cs" Line="15" Column="4" />
+      <File FileName="Assets/Scripts/MapEditor/editorHexS.cs" Line="9" Column="39" />
+      <File FileName="Assets/Scripts/MapEditor/editorUserS.cs" Line="217" Column="18" />
+      <File FileName="Assets/Scripts/MapEditor/editorHexManagerS.cs" Line="12" Column="2" />
+      <File FileName="Assets/Scripts/MapEditor/editorEntityManagerS.cs" Line="74" Column="22" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
+                <Node name="Engine" expanded="True" />
                 <Node name="MapEditor" expanded="True">
-                  <Node name="tileManagerS.cs" selected="True" />
+                  <Node name="editorUserS.cs" selected="True" />
                 </Node>
               </Node>
             </Node>

@@ -9,7 +9,7 @@ public class hexManagerS : MonoBehaviour {
 
 	public enum Tiles {Grass, Desert, Forest, Farmland, Marsh, Snow, Mountain, Hills, Water, Settlement, Factory, Outpost, Junkyard, EditorTileA, EditorTileB};
 
-	public enum Entities {Player, Enemy, Settlement, ResourceNode};
+	public enum Entities {Player, Enemy, Base, ResourceNode};
  
 	public static HexData[,] hexes; //ADDED: changed from int to HexData array *** 
 
