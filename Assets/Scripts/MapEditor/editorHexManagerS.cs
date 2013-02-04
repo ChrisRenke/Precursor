@@ -20,7 +20,7 @@ public class editorHexManagerS : MonoBehaviour {
 	public GameObject  	marsh_hex; 
 	public GameObject  	mountain_hex;
 	public GameObject  	hills_hex;
-	public GameObject  	water_hex; 
+	public GameObject  	water_hex;  
 	
 	public static Dictionary<Hex, GameObject>  hex_dict    = new Dictionary<Hex, GameObject>();
 	
@@ -28,7 +28,6 @@ public class editorHexManagerS : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
-		CreateHex(true, 1, initial_hex, new Vector3(0, 0, 0), initial_hex.GetComponent<editorHexS>().hex_type, 0, 0);
 		
 		hex_dict.Add(Hex.Grass, grass_hex);
 		hex_dict.Add(Hex.Desert, desert_hex);
@@ -39,6 +38,8 @@ public class editorHexManagerS : MonoBehaviour {
 		hex_dict.Add(Hex.Hills, hills_hex);
 		hex_dict.Add(Hex.Water, water_hex);
 		hex_dict.Add(Hex.EditorTileA, border_hex);
+		
+		CreateHex(true, 1, new Vector3(0, 0, 0), initial_hex.GetComponent<editorHexS>().hex_type, 0, 0);
 		
 	}
 	
@@ -111,7 +112,7 @@ public class editorHexManagerS : MonoBehaviour {
 		return new_hex;
 	}
 	
-	public GameObject CreateHex(bool overwrite, int depth, GameObject hex_type, Vector3 pos, editorHexManagerS.Hex data_type, int x, int z)
+	public GameObject CreateHex(bool overwrite, int depth, Vector3 pos, editorHexManagerS.Hex data_type, int x, int z)
 	{
 		depth--;
 		
@@ -119,6 +120,9 @@ public class editorHexManagerS : MonoBehaviour {
 		{
 			editorUserS.last_created_hex_type = data_type; 
 		}
+		
+		GameObject hex_type = hex_dict[data_type];
+		
 		
 		GameObject created_hex;
 		editorHexS created_hex_script;
@@ -143,12 +147,12 @@ public class editorHexManagerS : MonoBehaviour {
 						
 						if(data_type != Hex.EditorTileA && depth == 0)
 						{
-							SurroundHex(border_hex,  created_hex_script.transform.position, Hex.EditorTileA, 0, x, z);
+							SurroundHex(created_hex_script.transform.position, Hex.EditorTileA, 0, x, z);
 						}
 						else
 						if(depth > 0)
 						{
-							SurroundHex(created_hex,  created_hex_script.transform.position,data_type, depth, x, z);
+							SurroundHex(created_hex_script.transform.position,data_type, depth, x, z);
 						}
 						return created_hex; 
 					}
@@ -181,12 +185,12 @@ public class editorHexManagerS : MonoBehaviour {
 				
 				if(data_type != Hex.EditorTileA && depth == 0)
 				{
-					SurroundHex(border_hex, created_hex_script.transform.position, Hex.EditorTileA, 0, x, z);
+					SurroundHex(created_hex_script.transform.position, Hex.EditorTileA, 0, x, z);
 				}
 				else
 				if(depth > 0)
 				{
-					SurroundHex(created_hex, created_hex_script.transform.position, data_type, depth, x, z);
+					SurroundHex(created_hex_script.transform.position, data_type, depth, x, z);
 				}
 				return created_hex;
 			}
@@ -207,12 +211,14 @@ public class editorHexManagerS : MonoBehaviour {
 			
 			if(data_type != Hex.EditorTileA && depth == 0)
 			{
-				SurroundHex(border_hex, created_hex_script.transform.position,  Hex.EditorTileA, 0, x, z);
+				print ("drawing border...");
+				SurroundHex(created_hex_script.transform.position,  Hex.EditorTileA, 0, x, z);
 			}
 			else
 			if(depth > 0)
 			{
-				SurroundHex(created_hex, created_hex_script.transform.position, data_type, depth, x, z);
+				print ("drawing another layer...");
+				SurroundHex(created_hex_script.transform.position, data_type, depth, x, z);
 			}
 			return created_hex;
 		}
@@ -220,10 +226,11 @@ public class editorHexManagerS : MonoBehaviour {
 	
 
 	
-	public void SurroundHex(GameObject hex_type, Vector3 center_pos, editorHexManagerS.Hex data_type, int depth, int x_coord, int z_coord)
+	public void SurroundHex(Vector3 center_pos, editorHexManagerS.Hex hex_type, int depth, int x_coord, int z_coord)
 	{
 		bool overwrite_enabled;
-		if(data_type != editorHexManagerS.Hex.EditorTileA && editorUserS.overwrite_mode)
+		
+		if(hex_type != editorHexManagerS.Hex.EditorTileA && editorUserS.overwrite_mode)
 		{
 			overwrite_enabled = true;
 		}
@@ -235,33 +242,32 @@ public class editorHexManagerS : MonoBehaviour {
 		//CloneNorth
 		float x_trans = -0.841947F + center_pos.x;
 		float z_trans =  1.81415F  + center_pos.z;
-		 
-		editorUserS.tms.CreateHex(overwrite_enabled,  depth, hex_type, new Vector3(x_trans, 0, z_trans), data_type, x_coord, z_coord + 1);
+		CreateHex(overwrite_enabled, depth, new Vector3(x_trans, 0, z_trans), hex_type, x_coord, z_coord + 1);
 		
 		//CloneNorthEast
 		x_trans = 2.30024F 	  + center_pos.x;
 		z_trans = 1.3280592F  + center_pos.z;
-		editorUserS.tms.CreateHex(overwrite_enabled,  depth, hex_type, new Vector3(x_trans, 0, z_trans), data_type, x_coord + 1, z_coord);
+		CreateHex(overwrite_enabled,  depth, new Vector3(x_trans, 0, z_trans), hex_type, x_coord + 1, z_coord);
 		
 		//CloneSouthEast
 		x_trans = 3.14219F    + center_pos.x;
 		z_trans = -0.486092F  + center_pos.z; 
-		editorUserS.tms.CreateHex(overwrite_enabled,  depth, hex_type, new Vector3(x_trans, 0, z_trans), data_type, x_coord + 1, z_coord - 1);
+		CreateHex(overwrite_enabled,  depth, new Vector3(x_trans, 0, z_trans), hex_type, x_coord + 1, z_coord - 1);
 		
 		//CloneSouth
 		x_trans =  0.841947F + center_pos.x;
 		z_trans = -1.81415F  + center_pos.z;
-		editorUserS.tms.CreateHex(overwrite_enabled,  depth, hex_type, new Vector3(x_trans, 0, z_trans),  data_type, x_coord, z_coord - 1);
+		CreateHex(overwrite_enabled,  depth, new Vector3(x_trans, 0, z_trans),  hex_type, x_coord, z_coord - 1);
 		
 		// CloneSouthWest
 		x_trans = -2.30024F    + center_pos.x;
 		z_trans = -1.3280592F  + center_pos.z;
-		editorUserS.tms.CreateHex(overwrite_enabled,  depth, hex_type, new Vector3(x_trans, 0, z_trans), data_type, x_coord - 1, z_coord);
+		CreateHex(overwrite_enabled,  depth, new Vector3(x_trans, 0, z_trans), hex_type, x_coord - 1, z_coord);
 		
 		//CloneNorthWest
 		x_trans = -3.14219F  + center_pos.x;
 		z_trans = 0.486092F  + center_pos.z;
-		editorUserS.tms.CreateHex(overwrite_enabled,  depth, hex_type, new Vector3(x_trans, 0, z_trans),  data_type, x_coord - 1, z_coord + 1);
+		CreateHex(overwrite_enabled,  depth, new Vector3(x_trans, 0, z_trans),  hex_type, x_coord - 1, z_coord + 1);
 		
 		
 	}

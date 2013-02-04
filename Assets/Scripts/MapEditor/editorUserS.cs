@@ -13,7 +13,6 @@ public class editorUserS : MonoBehaviour {
 	public static GameObject 				selected_hex;
 	public static bool       				selection_menu_displayed;
 	public static bool 						overwrite_mode = false;
-	public GameObject 						circleMenuPrefab;
 	public static int						brush_size = 1;
 	public static int 						tile_counter = 0;
 	
@@ -25,6 +24,8 @@ public class editorUserS : MonoBehaviour {
 	
 	public static bool 						entity_mode = false;
 	
+	public GameObject 						entMenuPrefab;
+	public GameObject 						hexMenuPrefab;
 	 
 	public static editorHexManagerS.Hex           last_created_hex_type; 
 	public static editorEntityManagerS.Entity     last_created_entity_type;
@@ -33,6 +34,11 @@ public class editorUserS : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		tms = GameObject.FindGameObjectWithTag(tileManagerTag).GetComponent<editorHexManagerS>();
+	}
+	
+	void configTMS()
+	{
 		tms = GameObject.FindGameObjectWithTag(tileManagerTag).GetComponent<editorHexManagerS>();
 	}
 	
@@ -49,8 +55,7 @@ public class editorUserS : MonoBehaviour {
 			if(clicked_game_object != null)
 			{
 				hex_script          = clicked_game_object.GetComponent<editorHexS>();
-				editorUserS.tms.CreateHex(true, 1,
-											editorUserS.tms.border_hex, clicked_game_object.transform.position,  
+				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
 											editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);
 			}
 		}
@@ -62,8 +67,7 @@ public class editorUserS : MonoBehaviour {
 			if(clicked_game_object != null)
 			{
 				hex_script          = clicked_game_object.GetComponent<editorHexS>();
-				editorUserS.tms.CreateHex(true, editorUserS.brush_size, 
-											editorHexManagerS.hex_dict[editorUserS.last_created_hex_type], clicked_game_object.transform.position,  
+				editorUserS.tms.CreateHex(true, editorUserS.brush_size,  clicked_game_object.transform.position,  
 											editorUserS.last_created_hex_type, hex_script.x_coord, hex_script.z_coord);		
 			}
 		}
@@ -88,8 +92,7 @@ public class editorUserS : MonoBehaviour {
 			if(clicked_game_object != null)
 			{
 				hex_script          = clicked_game_object.GetComponent<editorHexS>();
-				editorUserS.tms.CreateHex(true, 1,
-											editorUserS.tms.border_hex, clicked_game_object.transform.position,  
+				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
 											editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);
 			}
 		}
@@ -101,8 +104,7 @@ public class editorUserS : MonoBehaviour {
 			if(clicked_game_object != null)
 			{
 				hex_script          = clicked_game_object.GetComponent<editorHexS>();
-				editorUserS.tms.CreateHex(true, editorUserS.brush_size, 
-											editorHexManagerS.hex_dict[editorUserS.last_created_hex_type], clicked_game_object.transform.position,  
+				editorUserS.tms.CreateHex(true, editorUserS.brush_size,  clicked_game_object.transform.position,  
 											editorUserS.last_created_hex_type, hex_script.x_coord, hex_script.z_coord);		
 			}
 		}
@@ -118,8 +120,9 @@ public class editorUserS : MonoBehaviour {
 //			}
 //			if(!menu_item)
 //			{
-			Vector3 p = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 15));
-			terrain_menu = (GameObject) Instantiate(circleMenuPrefab, 
+			Vector3 p = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5));
+			p.y = 5;
+			terrain_menu = (GameObject) Instantiate(hexMenuPrefab, 
 				p,
 				Quaternion.identity);	//new Vector3(transform.position.x, transform.position.y + .5F, transform.position.z), 
 //			}

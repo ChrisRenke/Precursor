@@ -7,9 +7,7 @@ using System.IO;
 
 public class editorEntityManagerS : MonoBehaviour {
 	
-	private Dictionary<int, Dictionary<int, EntityData>> entity_db = new Dictionary<int, Dictionary<int, EntityData>>(); 
-	public GameObject   player_mech;
-	public GameObject   player_base;
+	private Dictionary<int, Dictionary<int, EntityData>> entity_db = new Dictionary<int, Dictionary<int, EntityData>>();  
 	
 	public enum 		Entity    {Player, Base, Enemy, Junkyard, Outpost, Factory};
 	  
