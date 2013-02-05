@@ -454,9 +454,12 @@ public class editorUserS : MonoBehaviour {
 			entity_mode  = !entity_mode;
 		} 
 		
-		brush_size = (int)GUI.HorizontalSlider(new Rect(30, 70,  210, 30), brush_size, (float) min_brush_size, (float) max_brush_size);
+		if(!entity_mode)
+		{
+			brush_size = (int)GUI.HorizontalSlider(new Rect(30, 70,  210, 30), brush_size, (float) min_brush_size, (float) max_brush_size);	
+			GUI.Label(new Rect(250, 65, 70, 30),  "" + brush_size);
+		}
 		
-		GUI.Label(new Rect(250, 65, 70, 30),  "" + brush_size);
 		GUI.Label(new Rect(250, 35, 70, 30),  "" + current_brush);
 		
 		if(Input.GetKey(KeyCode.LeftAlt))

@@ -21,6 +21,29 @@ public class editorEntityManagerS : MonoBehaviour {
 	public static Dictionary<Entity, GameObject> entity_dict = new Dictionary<Entity, GameObject>();
 	
 	
+	
+	
+	//player stuff
+	public int     	   mech_starting_health_percentage = 100;
+	
+	//base stuff
+	public int     	   base_starting_health_percentage = 100;
+	
+	//node stuff
+	public int     	   node_starting_level = 2;  //0 empty, 1 sparse, 2 full	
+	private string     node_label;
+		
+	//enemy stuff
+	public bool 	   enemy_knows_mech_loc = false;
+	public string	   enemy_knows_mech_loc_str_t = "Does NOT know MECH location";
+	public string	   enemy_knows_mech_loc_str_f = "Knows MECH location";
+	private string	   enemy_knows_mech_loc_str;
+	public bool 	   enemy_knows_base_loc = false;
+	public string	   enemy_knows_base_loc_str_t = "Does NOT know BASE location";
+	public string	   enemy_knows_base_loc_str_f = "Knows BASE location";
+	private string	   enemy_knows_base_loc_str;
+	
+	
 	// Use this for initialization
 	void Start () { 
 		entity_dict.Add(Entity.Player, player_entity);
@@ -29,6 +52,8 @@ public class editorEntityManagerS : MonoBehaviour {
 		entity_dict.Add(Entity.Junkyard, junkyard_entity); 
 		entity_dict.Add(Entity.Factory, factory_entity); 
 		entity_dict.Add(Entity.Base, base_entity); 
+		enemy_knows_mech_loc_str = enemy_knows_mech_loc_str_f;
+		enemy_knows_base_loc_str = enemy_knows_base_loc_str_f;
 	}
 	
 	// Update is called once per frame
@@ -78,6 +103,31 @@ public class editorEntityManagerS : MonoBehaviour {
 		Destroy(entity_s.gameObject);
 	}
 	
+	
+	public void setEntityProperties(editorEntityS ent_s)
+	{
+		if(ent_s.entity_type == Entity.Base)
+		{
+			ent_s.base_starting_health_percentage = base_starting_health_percentage;
+		}
+		else if(ent_s.entity_type == Entity.Player)
+		{
+			ent_s.mech_starting_health_percentage = mech_starting_health_percentage;
+		}
+		else if(ent_s.entity_type == Entity.Factory ||
+				ent_s.entity_type == Entity.Junkyard ||
+				ent_s.entity_type == Entity.Outpost)
+		{
+			ent_s.node_starting_level = node_starting_level;
+		}
+		else if(ent_s.entity_type == Entity.Enemy)
+		{
+			ent_s.enemy_knows_base_loc = enemy_knows_base_loc;
+			ent_s.enemy_knows_mech_loc = enemy_knows_mech_loc;
+		} 
+	}
+	
+	
 	public GameObject AddEntity(Vector3 pos, Entity ent_type, int x, int z)
 	{
 	
@@ -96,6 +146,7 @@ public class editorEntityManagerS : MonoBehaviour {
 					{
 						new_ent   = InstantiateEntity(pos, ent_type, x, z);
 						new_ent_s = new_ent.GetComponent<editorEntityS>();
+						setEntityProperties(new_ent_s);
 						
 						//now delete what is already there
 						Destroy(entity_db[x][z].getEntity());
@@ -114,6 +165,8 @@ public class editorEntityManagerS : MonoBehaviour {
 				
 				new_ent = InstantiateEntity(pos, ent_type, x, z);
 				new_ent_s = new_ent.GetComponent<editorEntityS>();
+				setEntityProperties(new_ent_s);
+				
 				entity_db[x].Add(z,  new EntityData(new_ent_s.name, new_ent, ent_type, x, z));   
 				
 			}
@@ -124,6 +177,7 @@ public class editorEntityManagerS : MonoBehaviour {
 			print ("--nothing ever in that x.");  
 			new_ent = InstantiateEntity(pos, ent_type, x, z);
 			new_ent_s = new_ent.GetComponent<editorEntityS>();
+			setEntityProperties(new_ent_s);
 			
 			entity_db.Add(x, new Dictionary<int, EntityData>());
 			entity_db[x].Add(z,  new EntityData(new_ent_s.name, new_ent, ent_type, x, z));  
@@ -141,7 +195,7 @@ public class editorEntityManagerS : MonoBehaviour {
 		public int z_coord;
 		public string name;
 		public editorEntityManagerS.Entity entity_type;   
-		GameObject occupier;
+		public GameObject occupier;
 		
 		public EntityData(string _name, 
 						GameObject _occupier,
@@ -167,4 +221,65 @@ public class editorEntityManagerS : MonoBehaviour {
 		}
 		
 	}	
+	
+	void OnGUI()
+	{
+		if(editorUserS.entity_mode)
+		{
+			//draw Base config options
+			if(editorUserS.last_created_entity_type == Entity.Base)
+			{
+				base_starting_health_percentage = (int)GUI.HorizontalSlider(new Rect( 30, 70, 210, 30), base_starting_health_percentage, (float) 0, (float) 100);	
+				GUI.Label(new Rect(250, 65, 150, 30),  base_starting_health_percentage + "% starting hp" );
+			}
+			else
+			//draw Player config options
+			if(editorUserS.last_created_entity_type == Entity.Player)
+			{ 
+				mech_starting_health_percentage = (int)GUI.HorizontalSlider(new Rect( 30, 70, 210, 30), mech_starting_health_percentage, (float) 0, (float) 100);	
+				GUI.Label(new Rect(250, 65, 150, 30),  mech_starting_health_percentage + "% starting hp");
+			}
+			else
+			//draw node config options
+			if(editorUserS.last_created_entity_type == Entity.Factory ||
+				editorUserS.last_created_entity_type == Entity.Junkyard ||
+				editorUserS.last_created_entity_type == Entity.Outpost)
+			{
+				node_starting_level = (int)GUI.HorizontalSlider(new Rect( 30, 70, 210, 30), node_starting_level, (float) 0, (float) 2);	
+				if(node_starting_level == 0)
+					node_label = "Empty";
+				else if(node_starting_level == 1)
+					node_label = "Sparse";
+				else
+					node_label = "Full";
+				GUI.Label(new Rect(250, 65, 100, 30),  node_label);
+			}
+			else
+			//draw enemy config options
+			if(editorUserS.last_created_entity_type == Entity.Enemy)
+			{
+				if(GUI.Button(new Rect( 30, 70, 210, 30), enemy_knows_base_loc_str))
+				{
+					enemy_knows_base_loc  = !enemy_knows_base_loc;
+					
+					if(enemy_knows_base_loc)
+						enemy_knows_base_loc_str = enemy_knows_base_loc_str_t;
+					else
+						enemy_knows_base_loc_str = enemy_knows_base_loc_str_f;
+				} 
+				
+				if(GUI.Button(new Rect( 30, 110, 210, 30), enemy_knows_mech_loc_str))
+				{
+					enemy_knows_mech_loc  = !enemy_knows_mech_loc;
+					
+					if(enemy_knows_mech_loc)
+						enemy_knows_mech_loc_str = enemy_knows_mech_loc_str_t;
+					else
+						enemy_knows_mech_loc_str = enemy_knows_mech_loc_str_f;
+				} 
+			} 
+		}
+			 
+		
+	}
 }

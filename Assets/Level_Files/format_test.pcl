@@ -1,13 +1,10 @@
 LEVEL
 {
 	EDITOR VER. = 2
-	Name        = test_one
+	Name        = format_test
 	Version     = 3
-	X_dim       = 5
-	Z_dim       = 5
-	Tot_Hex_num = 19
-	GameHex_num = 7
-	Bourder_num = 12
+	x_dimension = 5
+	z_dimension = 5
 	HEXES
 	{
 		HEX{ 
@@ -18,12 +15,12 @@ LEVEL
 		HEX{ 
 			X    = 0
 			Z    = -1
-			Type = EditorTileA
+			Type = Water
 		}
 		HEX{ 
 			X    = 0
 			Z    = 1
-			Type = Grass
+			Type = Hills
 		}
 		HEX{ 
 			X    = 0
@@ -31,14 +28,19 @@ LEVEL
 			Type = EditorTileA
 		}
 		HEX{ 
-			X    = 1
-			Z    = 0
+			X    = 0
+			Z    = -2
 			Type = EditorTileA
 		}
 		HEX{ 
 			X    = 1
+			Z    = 0
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 1
 			Z    = -1
-			Type = EditorTileA
+			Type = Forest
 		}
 		HEX{ 
 			X    = 1
@@ -46,14 +48,24 @@ LEVEL
 			Type = EditorTileA
 		}
 		HEX{ 
+			X    = 1
+			Z    = -2
+			Type = EditorTileA
+		}
+		HEX{ 
 			X    = -1
 			Z    = 0
+			Type = Marsh
+		}
+		HEX{ 
+			X    = -1
+			Z    = 1
 			Type = Desert
 		}
 		HEX{ 
 			X    = -1
-			Z    = 1
-			Type = Water
+			Z    = 2
+			Type = EditorTileA
 		}
 		HEX{ 
 			X    = -1
@@ -61,48 +73,33 @@ LEVEL
 			Type = EditorTileA
 		}
 		HEX{ 
-			X    = -1
-			Z    = 2
-			Type = Mountain
+			X    = 2
+			Z    = 0
+			Type = EditorTileA
 		}
 		HEX{ 
-			X    = -1
-			Z    = 3
+			X    = 2
+			Z    = -1
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 2
+			Z    = -2
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -2
+			Z    = 1
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -2
+			Z    = 2
 			Type = EditorTileA
 		}
 		HEX{ 
 			X    = -2
 			Z    = 0
-			Type = EditorTileA
-		}
-		HEX{ 
-			X    = -2
-			Z    = 1
-			Type = Water
-		}
-		HEX{ 
-			X    = -2
-			Z    = 2
-			Type = Mountain
-		}
-		HEX{ 
-			X    = -2
-			Z    = 3
-			Type = EditorTileA
-		}
-		HEX{ 
-			X    = -3
-			Z    = 1
-			Type = EditorTileA
-		}
-		HEX{ 
-			X    = -3
-			Z    = 2
-			Type = EditorTileA
-		}
-		HEX{ 
-			X    = -3
-			Z    = 3
 			Type = EditorTileA
 		}
 	}
@@ -111,27 +108,39 @@ LEVEL
 		ENTITY{ 
 			X          = 0
 			Z          = 1
-			Type       = Enemy
-			Omnsc Base = True
-			Omnsc Mech = True
+			Type       = Player
+			HP Perc    = 63
 		}
 		ENTITY{ 
-			X          = -2
-			Z          = 2
+			X          = 0
+			Z          = 0
+			Type       = Base
+			HP Perc    = 14
+		}
+		ENTITY{ 
+			X          = 0
+			Z          = -1
+			Type       = Factory
+			Node Lvl   = 2
+		}
+		ENTITY{ 
+			X          = 1
+			Z          = -1
+			Type       = Enemy
+			Omnsc Base = True
+			Omnsc Mech = False
+		}
+		ENTITY{ 
+			X          = -1
+			Z          = 1
 			Type       = Outpost
 			Node Lvl   = 1
 		}
 		ENTITY{ 
 			X          = -1
-			Z          = 2
-			Type       = Base
-			HP Perc    = 100
-		}
-		ENTITY{ 
-			X          = -1
 			Z          = 0
-			Type       = Player
-			HP Perc    = 65
+			Type       = Junkyard
+			Node Lvl   = 0
 		}
 	}
 }
