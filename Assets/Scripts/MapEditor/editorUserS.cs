@@ -46,6 +46,10 @@ public class editorUserS : MonoBehaviour {
 	
 	public static int 							spray_prob = 70;
 	
+	public float								vSensitivity = 1.0F; 
+	public float 								hSensitivity = 1.0F;
+	public float 								zoomSensitivity = 1.0F;
+	
 	
 	
 	// Use this for initialization
@@ -116,24 +120,8 @@ public class editorUserS : MonoBehaviour {
 		
 		GameObject maincam = GameObject.FindGameObjectWithTag("MainCamera");
 		float w = Input.GetAxis("Mouse ScrollWheel");
-		float zSensitivity = 1.0F;
-		float zoom_adjust = w * zSensitivity;
+		float zoom_adjust = w * zoomSensitivity;
 		
-		if(minZoom > maincam.camera.orthographicSize - zoom_adjust)
-		{
-			if(maxZoom < maincam.camera.orthographicSize - zoom_adjust)
-			{
-				maincam.camera.orthographicSize -= zoom_adjust;
-			}
-			else
-			{
-				maincam.camera.orthographicSize = maxZoom;
-			}
-		}
-		else
-		{	
-			maincam.camera.orthographicSize = minZoom;
-		}
 		
 		if(Input.GetKeyDown(KeyCode.Q))
 		{
@@ -154,7 +142,7 @@ public class editorUserS : MonoBehaviour {
 				brush_size++;
 		} 
 		
-		if(Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Colon))
+		if(Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Semicolon))
 		{
 			if(spray_prob > 0)
 				spray_prob-= 5;
@@ -162,7 +150,7 @@ public class editorUserS : MonoBehaviour {
 			if(spray_prob < 1)
 				spray_prob = 1;
 		} 
-		if(Input.GetKeyDown(KeyCode.V) || Input.GetKeyDown(KeyCode.DoubleQuote)) 
+		if(Input.GetKeyDown(KeyCode.V) || Input.GetKeyDown(KeyCode.Quote)) 
 		{
 			if(spray_prob < 100)
 				spray_prob +=5;
@@ -192,15 +180,43 @@ public class editorUserS : MonoBehaviour {
 			maincam.transform.position += deltaPos;
 		} 
 		
+		
+		
+		//zoom out
+		if(Input.GetKey(KeyCode.Minus))
+		{ 
+			zoom_adjust += .5F * zoomSensitivity;
+		}
+		
+		//zoom in
+		if(Input.GetKey(KeyCode.Equals))
+		{
+			zoom_adjust -= .5F * zoomSensitivity;	
+		}
+		
+		if(minZoom > maincam.camera.orthographicSize - zoom_adjust)
+		{
+			if(maxZoom < maincam.camera.orthographicSize - zoom_adjust)
+			{
+				maincam.camera.orthographicSize -= zoom_adjust;
+			}
+			else
+			{
+				maincam.camera.orthographicSize = maxZoom;
+			}
+		}
+		else
+		{	
+			maincam.camera.orthographicSize = minZoom;
+		}
+		
 		if(Input.GetMouseButton(2))
 		{
 			float h = Input.GetAxis("Mouse X");
-			float hSensitivity = -1.0F;
-			maincam.transform.Translate(Vector3.right * h * hSensitivity);
+			maincam.transform.Translate(Vector3.right * h * -1 * hSensitivity);
 			
 			float v  = Input.GetAxis("Mouse Y");
-			float vSensitivity = -1.0F; 
-			maincam.transform.Translate(Vector3.up * v * vSensitivity);
+			maincam.transform.Translate(Vector3.up * v * -1 * vSensitivity);
 			  
 		}
     }
