@@ -535,7 +535,7 @@ public class editorHexManagerS : MonoBehaviour {
 		
 		//draw center hex, the one clicked on
 		
-		if(sprayNum() < (random_percentage_threshold))
+		if(sprayNum() < (editorUserS.spray_prob))
 			current_hex = AddHex(overwrite, clicked_hex_type, brush_size, pos, draw_hex_type, x, z);
 		else
 			current_hex = hex_db[x][z].occupier;
@@ -548,7 +548,7 @@ public class editorHexManagerS : MonoBehaviour {
 			
 				x += 1;
 				z += 0;
-				if(sprayNum() < (random_percentage_threshold )) 
+				if(sprayNum() < (editorUserS.spray_prob)) 
 					current_hex = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
 				
 			//draw the "northeast" portion
@@ -557,7 +557,7 @@ public class editorHexManagerS : MonoBehaviour {
 				x += 1;
 				z -= 1;
 				debug("    drawing a northeast edge.");
-				if(sprayNum() < (random_percentage_threshold)) 
+				if(sprayNum() < (editorUserS.spray_prob)) 
 					current_hex = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
 			}
 			
@@ -567,7 +567,7 @@ public class editorHexManagerS : MonoBehaviour {
 				x += 0;
 				z -= 1;
 				debug("    drawing a southeast edge.");
-				if(sprayNum() < (random_percentage_threshold)) 
+				if(sprayNum() < (editorUserS.spray_prob)) 
 					current_hex = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
 			}
 			
@@ -577,7 +577,7 @@ public class editorHexManagerS : MonoBehaviour {
 				x -= 1;
 				z += 0;
 				debug("    drawing a south edge.");
-				if(sprayNum() < (random_percentage_threshold)) 
+				if(sprayNum() < (editorUserS.spray_prob)) 
 					current_hex  = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
 			}
 			
@@ -587,7 +587,7 @@ public class editorHexManagerS : MonoBehaviour {
 				x -= 1;
 				z += 1;
 				debug("    drawing a southwest edge.");
-				if(sprayNum() < (random_percentage_threshold)) 
+				if(sprayNum() < (editorUserS.spray_prob)) 
 					current_hex  = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
 			}
 			
@@ -597,7 +597,7 @@ public class editorHexManagerS : MonoBehaviour {
 				x -= 0;
 				z += 1;
 				debug("    drawing a northwest edge.");
-				if(sprayNum() < (random_percentage_threshold)) 
+				if(sprayNum() < (editorUserS.spray_prob)) 
 					current_hex  = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
 			}
 			
@@ -607,7 +607,7 @@ public class editorHexManagerS : MonoBehaviour {
 				x += 1;
 				z += 0;
 				debug("    drawing a north edge.");
-				if(sprayNum() < (random_percentage_threshold)) 
+				if(sprayNum() < (editorUserS.spray_prob)) 
 					current_hex  = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
 			}
 		}

@@ -44,6 +44,8 @@ public class editorUserS : MonoBehaviour {
 	public int 									min_brush_size;
 	public int 									max_brush_size;
 	
+	public static int 							spray_prob = 70;
+	
 	
 	
 	// Use this for initialization
@@ -90,10 +92,13 @@ public class editorUserS : MonoBehaviour {
 	void Update() {
 		 
 		if(( (Input.mousePosition.x > 30 &&  Input.mousePosition.x < 240 ) 
-					||
-			(Input.mousePosition.x > Screen.width - 240 && Input.mousePosition.x < Screen.width - 30))
+					&&
+			 (Input.mousePosition.y < Screen.height - 30 &&  Input.mousePosition.y > Screen.height - 140 ))
+			||
+			((Input.mousePosition.x > Screen.width - 240 && Input.mousePosition.x < Screen.width - 30)
 			&&
 			 (Input.mousePosition.y < Screen.height - 30 &&  Input.mousePosition.y > Screen.height - 100 ))
+			)
 		{
 			//do nothing if the mouse is over the gui element areas
 		}
@@ -509,7 +514,10 @@ public class editorUserS : MonoBehaviour {
 		if(!entity_mode)
 		{
 			brush_size = (int)GUI.HorizontalSlider(new Rect(30, 70,  210, 30), brush_size, (float) min_brush_size, (float) max_brush_size);	
-			GUI.Label(new Rect(250, 65, 70, 30),  "" + brush_size);
+			GUI.Label(new Rect(250, 65, 70, 30),  "Size: " + brush_size);
+			
+			spray_prob = (int)GUI.HorizontalSlider(new Rect(30, 110,  210, 30), spray_prob, (float) 1, (float) 100);	
+			GUI.Label(new Rect(250, 105, 110, 30),  "Spray: " + spray_prob + "%");
 		}
 		
 		GUI.Label(new Rect(250, 35, 70, 30),  "" + current_brush);
