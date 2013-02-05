@@ -35,7 +35,7 @@ public class editorIOS : MonoBehaviour {
 		
 		if(GUI.Button(new Rect(Screen.width - 130, 30, 100, 30), "Load"))
 		{
-//			 Load();
+			 Load();
 		}
 		
 		level_name = GUI.TextField(new Rect(Screen.width - 240, 70, 210, 30), level_name, 30);
@@ -164,6 +164,14 @@ public class editorIOS : MonoBehaviour {
 
         // close the stream
         tw.Close();
+	}
+	
+	
+	public void Load()
+	{
+		// 1 - delete EVERYTHING that exists in map
+		// 2 - start drawing hexes from file
+		// 3 - draw and set props of entiteis from file
 	}
 	
 }

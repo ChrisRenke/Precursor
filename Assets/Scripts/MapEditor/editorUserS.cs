@@ -49,6 +49,54 @@ public class editorUserS : MonoBehaviour {
 		tms = GameObject.FindGameObjectWithTag(HexManagerTag).GetComponent<editorHexManagerS>();
 		ems = GameObject.FindGameObjectWithTag(EntityManagerTag).GetComponent<editorEntityManagerS>();
 	}
+	
+	
+	//converts engine coordinates into 3D space cordinates
+	public Vector3 convertGameCoordToEditorCoords(int x, int z)
+	{
+//		float x_trans = 3.14219F    + center_pos.x;
+//		float z_trans = -0.486092F  + center_pos.z; 
+//		return AddHex(overwrite, border_mode, clicked_hex_type, brush_size, new Vector3(x_trans, 0, z_trans),
+		
+		/*
+		//north
+		float x_trans = -0.841947F + center_pos.x;
+		float z_trans =  1.81415F  + center_pos.z;
+		
+		//northeast
+		float x_trans = 2.30024F 	  + center_pos.x;
+		float z_trans = 1.3280592F  + center_pos.z;
+		
+		//southeast
+		float x_trans = 3.14219F    + center_pos.x;
+		float z_trans = -0.486092F  + center_pos.z; 
+				
+		//south
+		float x_trans =  0.841947F + center_pos.x;
+		float z_trans = -1.81415F  + center_pos.z;
+		 
+		//southwest
+		float x_trans = -2.30024F    + center_pos.x;
+		float z_trans = -1.3280592F  + center_pos.z;
+		
+		//northwest
+		float x_trans = -3.14219F  + center_pos.x;
+		float z_trans = 0.486092F  + center_pos.z;
+		
+		*/
+		
+		//if origin
+		if(x == 0 && z == 0)
+		{
+			return new  Vector3(0, 0, 0);
+		} 
+		if(x > 0 && z > 0)
+		{ 
+			return new  Vector3(0, 0, 0);
+		}
+		
+		return new  Vector3(0, 0, 0);
+	}
 	 
 	// Update is called once per frame
 	void Update() {
