@@ -277,19 +277,19 @@ public class editorIOS : MonoBehaviour {
 			switch(ent_type)
 			{
 				case editorEntityManagerS.Entity.Base:
-					int base_hp_percentage = getIntR(reader);
+					editorUserS.ems.base_starting_health_percentage = getIntR(reader);
 					break;
 				case editorEntityManagerS.Entity.Player:
-					int mech_hp_percentage = getIntR(reader);
+					editorUserS.ems.mech_starting_health_percentage = getIntR(reader);
 					break;
 				case editorEntityManagerS.Entity.Enemy:
-					bool enemy_base_know = getBoolR(reader);
-					bool enemy_mech_know = getBoolR(reader);
+					editorUserS.ems.enemy_knows_base_loc = getBoolR(reader);
+					editorUserS.ems.enemy_knows_mech_loc = getBoolR(reader);
 					break;
 				case editorEntityManagerS.Entity.Factory:
 				case editorEntityManagerS.Entity.Junkyard:
 				case editorEntityManagerS.Entity.Outpost:
-					int node_lvl = getIntR(reader);
+					editorUserS.ems.node_starting_level	 = getIntR(reader);
 					break;
 			}
 			 
