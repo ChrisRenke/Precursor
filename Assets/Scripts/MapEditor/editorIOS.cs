@@ -7,7 +7,7 @@ using System.IO;
 public class editorIOS : MonoBehaviour {
 	
 	
-	public string       level_name = "untitled level"; 
+	public string       level_name = "untitled level";  
 	public int 			version; 
 	public int          level_editor_format_version = 2;
 	 
