@@ -188,7 +188,8 @@ public class editorUserS : MonoBehaviour {
 			if(clicked_game_object != null)
 			{
 				hex_script          				= clicked_game_object.GetComponent<editorHexS>();
-				editorUserS.last_created_hex_type 	= hex_script.hex_type; 
+				if(hex_script.hex_type != editorHexManagerS.Hex.EditorTileA)
+					editorUserS.last_created_hex_type 	= hex_script.hex_type; 
 			}
 		}
 		else

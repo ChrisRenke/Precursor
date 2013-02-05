@@ -9,7 +9,7 @@ public class editorHexManagerS : MonoBehaviour {
 	
 	public GameObject  	initial_hex;
 	public GameObject  	border_hex;
-	
+	public bool 		debug_prints = true;
 		
 	public enum 		Hex    {Grass, Desert, Forest, Farmland, Marsh, Snow, Mountain, Hills, Water, EditorTileA};
 	 
@@ -40,7 +40,7 @@ public class editorHexManagerS : MonoBehaviour {
 		hex_dict.Add(Hex.Water, water_hex);
 		hex_dict.Add(Hex.EditorTileA, border_hex);
 		
-		AddHex(true, Hex.EditorTileA, 1, new Vector3(0, 0, 0), initial_hex.GetComponent<editorHexS>().hex_type, 0, 0); 
+		BrushHex(true, Hex.EditorTileA, 1, new Vector3(0, 0, 0), initial_hex.GetComponent<editorHexS>().hex_type, 0, 0); 
 	}
 	
 	// Update is called once per frame
@@ -111,9 +111,20 @@ public class editorHexManagerS : MonoBehaviour {
 	}
 	 
 	
+	public void debug(string str)
+	{
+		if(debug_prints)
+		{
+			print (str);
+		}
+	}
+	
+	
 	public void BrushHex(bool overwrite, Hex clicked_hex_type, int brush_size, Vector3 pos, Hex draw_hex_type, int x, int z)
 	{
 		GameObject current_hex; 
+		
+		debug("BrushHex called");
 		
 		//draw center hex, the one clicked on
 		current_hex = AddHex(overwrite, clicked_hex_type, brush_size, pos, draw_hex_type, x, z);
@@ -121,9 +132,13 @@ public class editorHexManagerS : MonoBehaviour {
 		//enter loop for surrounding hexes
 		for(int ring = 1; ring < brush_size + 1; ring++)
 		{
+			
+			debug("entering ring: ring level " + ring);
 			//if we're in the extra iteration of the loop (hence the +1 to brush size
 			if(ring == brush_size)
 			{
+				
+				debug("setting ring to border mode");
 				//set it to draw BorderTileAs as outerring
 				draw_hex_type = Hex.EditorTileA;
 				
@@ -131,47 +146,64 @@ public class editorHexManagerS : MonoBehaviour {
 				overwrite = false;
 			}
 				
-			//draw the first "north" edge hex
-			current_hex = AddHexN(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, x, z);
+			//draw the first "northeast" edge hex
+			debug("    drawing a northeast edge before initial from");
+			current_hex = AddHexNE(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex));
 			 
 			//draw the "northeast" portion
-			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring-1; ++edge_hexes_drawn)
+			for(int edge_hexes_drawn = 1; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = AddHexSE(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, x, z); 
+				debug("    drawing a northeast edge.");
+				current_hex = AddHexSE(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 			
 			//draw the "southeast" portion
-			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring-1; ++edge_hexes_drawn)
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = AddHexS(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, x, z); 
+				debug("    drawing a southeast edge.");
+				current_hex = AddHexS(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 			
 			//draw the "south" portion
-			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring-1; ++edge_hexes_drawn)
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = AddHexSW(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, x, z); 
+				debug("    drawing a south edge.");
+				current_hex = AddHexSW(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 			
 			//draw the "southwest" portion
-			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring-1; ++edge_hexes_drawn)
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = AddHexNW(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, x, z); 
+				debug("    drawing a southwest edge.");
+				current_hex = AddHexNW(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 			
 			//draw the "northwest" portion
-			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring-1; ++edge_hexes_drawn)
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = AddHexN(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, x, z); 
+				debug("    drawing a northwest edge.");
+				current_hex = AddHexN(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 			
 			//draw the "north" portion
-			for(int edge_hexes_drawn = 1; edge_hexes_drawn < ring-1; ++edge_hexes_drawn)
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = AddHexNE(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, x, z); 
+				debug("    drawing a north edge.");
+				current_hex = AddHexNE(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 		}
 	}
 		
+	
+	public int xcrd(GameObject hex)
+	{
+		return hex.GetComponent<editorHexS>().x_coord;
+	}
+	
+	public int zcrd(GameObject hex)
+	{
+		return hex.GetComponent<editorHexS>().z_coord;
+	}
 	
 	public GameObject AddHexSE(bool overwrite, Hex clicked_hex_type, int brush_size, Vector3 center_pos, Hex draw_hex_type, int x, int z)
 	{
@@ -254,6 +286,7 @@ public class editorHexManagerS : MonoBehaviour {
 			
 			hex_db[x][z]= new HexData(created_hex_script.name, created_hex, draw_hex_type, x, z);
 			
+			debug("    created new hex at " + x + "," + z + "by altering existing");
 			return created_hex;
 		}
 		
@@ -279,19 +312,13 @@ public class editorHexManagerS : MonoBehaviour {
 			//add the entry to the corresponding z dict 
 			hex_db[x].Add(z, db_entry);
 			
+			debug("    created new hex at " + x + "," + z + " from nothing");
 			return created_hex;
 		}
 		
+			debug("    returned existing hex at " + x + "," + z);
 		return hex_db[x][z].occupier;
 	}
-	
-		
-		
-		
-		
-		
-		
-		
 		
 //		
 //		
@@ -420,11 +447,6 @@ public class editorHexManagerS : MonoBehaviour {
 //			return created_hex;
 //		}
 //	}
-	
-	
-	
-	
-	
 
 //	
 //	public void SurroundHex(Vector3 center_pos, editorHexManagerS.Hex hex_type, int depth, int x_coord, int z_coord)
