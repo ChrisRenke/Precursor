@@ -159,8 +159,12 @@ public class editorUserS : MonoBehaviour {
 			if(clicked_game_object != null)
 			{
 				hex_script          = clicked_game_object.GetComponent<editorHexS>();
-				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
-											editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);
+				
+				editorUserS.tms.BrushHex(overwrite_mode, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
+										editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);	 
+				
+//				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
+//											editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);
 			}
 		}
 		else
@@ -171,8 +175,8 @@ public class editorUserS : MonoBehaviour {
 			if(clicked_game_object != null)
 			{
 				hex_script          = clicked_game_object.GetComponent<editorHexS>();
-				editorUserS.tms.CreateHex(true, editorUserS.brush_size,  clicked_game_object.transform.position,  
-											editorUserS.last_created_hex_type, hex_script.x_coord, hex_script.z_coord);		
+				editorUserS.tms.BrushHex(overwrite_mode, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
+										last_created_hex_type, hex_script.x_coord, hex_script.z_coord);		
 			}
 		}
 		else
@@ -196,8 +200,11 @@ public class editorUserS : MonoBehaviour {
 			if(clicked_game_object != null)
 			{
 				hex_script          = clicked_game_object.GetComponent<editorHexS>();
-				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
-											editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);
+				
+				editorUserS.tms.BrushHex(overwrite_mode, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
+										editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);	 
+//				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
+//											editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);
 			}
 		}
 		else
@@ -213,8 +220,11 @@ public class editorUserS : MonoBehaviour {
 				print (editorUserS.brush_size  + " |" +  clicked_game_object.transform.position);
 				bool bs = editorUserS.tms == null;
 				print ("stuff! " + bs.ToString());
-				editorUserS.tms.CreateHex(true, editorUserS.brush_size,  clicked_game_object.transform.position,  
-											editorUserS.last_created_hex_type, hex_script.x_coord, hex_script.z_coord);		
+//				editorUserS.tms.CreateHex(true, brush_size,  clicked_game_object.transform.position,  
+//											editorUserS.last_created_hex_type, hex_script.x_coord, hex_script.z_coord);		
+				
+				editorUserS.tms.BrushHex(overwrite_mode, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
+										last_created_hex_type, hex_script.x_coord, hex_script.z_coord);	 
 			}
 		}
 		else

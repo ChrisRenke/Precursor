@@ -12,11 +12,14 @@ public class editorIOS : MonoBehaviour {
 	 
 	
 	// Use this for initialization
-	void Start () { 
+	void Start () 
+	{ 
+	
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 	
 	}
 	
@@ -70,7 +73,7 @@ public class editorIOS : MonoBehaviour {
         		tw.WriteLine("\t\t\tName = " + entry_2.Value.tile_name);
         		tw.WriteLine("\t\t\tX    = " + entry_2.Value.x_coord);
         		tw.WriteLine("\t\t\tZ    = " + entry_2.Value.z_coord);
-        		tw.WriteLine("\t\t\tType = " + entry_2.Value.data_type);
+        		tw.WriteLine("\t\t\tType = " + entry_2.Value.hex_type);
         		tw.WriteLine("\t\t}");
 			}
 			// do something with entry.Value or entry.Key
