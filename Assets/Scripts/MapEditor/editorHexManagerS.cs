@@ -127,11 +127,24 @@ public class editorHexManagerS : MonoBehaviour {
 		GameObject created_hex;
 		editorHexS created_hex_script;
 		print ("creating : " + x + ", " + z);
+		
+		
+		if(hex_db.ContainsKey(x) && hex_db[x].ContainsKey(z))
+		{
+		}
+		
+		
 		if(hex_db.ContainsKey(x))
 		{ 
 			if(hex_db[x].ContainsKey(z))
 			{
-				if((overwrite && hex_db[x][z].getDataType() != data_type) || (hex_db[x][z].getDataType() == Hex.EditorTileA && data_type != Hex.EditorTileA))  //hex_db[x][z].getDataType() == Hex.EditorTileA && data_type != Hex.EditorTileA
+				if((overwrite 
+					&&
+				 hex_db[x][z].getDataType() != data_type) 
+					|| 
+				(hex_db[x][z].getDataType() == Hex.EditorTileA 
+					&& 
+				data_type != Hex.EditorTileA))  //hex_db[x][z].getDataType() == Hex.EditorTileA && data_type != Hex.EditorTileA
 				{
 					//if there is already an entry there and we want to overwrite, overwrite it
 					print ("if _ if _ if _ replacing : " + x + ", " + z + "with a " + data_type);
@@ -166,7 +179,18 @@ public class editorHexManagerS : MonoBehaviour {
 				else
 				{
 					//there is something there and we dont have overwrite permission, so do nothing
-					print ("if _ if _ else _ Something already there, doin' nothin'. ");
+//					print ("if _ if _ else _ Something already there, doin' nothin'. ");
+					print ("if _ if _ else _ Something already there, surroundin'. ");
+//					return null; 
+					if(data_type != Hex.EditorTileA && depth == 0)
+					{
+						SurroundHex(pos, Hex.EditorTileA, 0, x, z);
+					}
+					else
+					if(depth > 0)
+					{
+						SurroundHex(pos,data_type, depth, x, z);
+					}
 					return null;
 				}
 			}
@@ -223,6 +247,10 @@ public class editorHexManagerS : MonoBehaviour {
 			return created_hex;
 		}
 	}
+	
+	
+	
+	
 	
 
 	

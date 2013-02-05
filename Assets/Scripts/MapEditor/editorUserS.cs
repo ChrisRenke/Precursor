@@ -39,6 +39,9 @@ public class editorUserS : MonoBehaviour {
 	public static editorHexManagerS.Hex         last_created_hex_type; 
 	public static editorEntityManagerS.Entity   last_created_entity_type;
 	
+	public int 									min_brush_size;
+	public int 									max_brush_size;
+	
 	
 	
 	// Use this for initialization
@@ -95,9 +98,19 @@ public class editorUserS : MonoBehaviour {
 		{
 			overwrite_mode = !overwrite_mode;
 		} 
-		if(Input.GetKeyDown(KeyCode.W))
+		if(Input.GetKeyDown(KeyCode.E))
 		{
 			entity_mode = !entity_mode;
+		} 
+		if(Input.GetKeyDown(KeyCode.LeftBracket))
+		{
+			if(brush_size > min_brush_size)
+				brush_size--;
+		} 
+		if(Input.GetKeyDown(KeyCode.RightBracket))
+		{
+			if(brush_size < max_brush_size)
+				brush_size++;
 		} 
 		
 		if(Input.GetKey(KeyCode.W))
@@ -207,21 +220,10 @@ public class editorUserS : MonoBehaviour {
 		else
 		//right click
 		if(Input.GetMouseButton(1) && !selection_menu_displayed)
-		{ 
-//			editorUserS.selected_hex = this.gameObject;
-//			print (editorUserS.selected_hex);
-//			if(terrain_menu != null)
-//			{
-//				Destroy(terrain_menu);
-//			}
-//			if(!menu_item)
-//			{
+		{  
 			Vector3 p = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5));
 			p.y = 5;
-			terrain_menu = (GameObject) Instantiate(hexMenuPrefab, 
-				p,
-				Quaternion.identity);	//new Vector3(transform.position.x, transform.position.y + .5F, transform.position.z), 
-//			}
+			terrain_menu = (GameObject) Instantiate(hexMenuPrefab, p, Quaternion.identity);	 
 			selection_menu_displayed = true;
 			print ("displaying menu");
 		}
@@ -441,7 +443,7 @@ public class editorUserS : MonoBehaviour {
 			entity_mode  = !entity_mode;
 		} 
 		
-		brush_size = (int)GUI.HorizontalSlider(new Rect(30, 70,  210, 30), brush_size, 1.0F, 6.0F);
+		brush_size = (int)GUI.HorizontalSlider(new Rect(30, 70,  210, 30), brush_size, (float) min_brush_size, (float) max_brush_size);
 		
 		GUI.Label(new Rect(250, 65, 70, 30),  "" + brush_size);
 		GUI.Label(new Rect(250, 35, 70, 30),  "" + current_brush);
