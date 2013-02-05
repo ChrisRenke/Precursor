@@ -123,6 +123,7 @@ public class editorHexManagerS : MonoBehaviour {
 	public void BrushHex(bool overwrite, Hex clicked_hex_type, int brush_size, Vector3 pos, Hex draw_hex_type, int x, int z)
 	{
 		GameObject current_hex; 
+		bool border_mode = false;
 		
 		debug("BrushHex called");
 		
@@ -139,6 +140,10 @@ public class editorHexManagerS : MonoBehaviour {
 			{
 				
 				debug("setting ring to border mode");
+				
+				//set border_mode to true
+				border_mode = true;
+				
 				//set it to draw BorderTileAs as outerring
 				draw_hex_type = Hex.EditorTileA;
 				
@@ -148,48 +153,48 @@ public class editorHexManagerS : MonoBehaviour {
 				
 			//draw the first "northeast" edge hex
 			debug("    drawing a northeast edge before initial from");
-			current_hex = AddHexNE(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex));
+			current_hex = AddHexNE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex));
 			 
 			//draw the "northeast" portion
 			for(int edge_hexes_drawn = 1; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
 				debug("    drawing a northeast edge.");
-				current_hex = AddHexSE(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
+				current_hex = AddHexSE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 			
 			//draw the "southeast" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
 				debug("    drawing a southeast edge.");
-				current_hex = AddHexS(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
+				current_hex = AddHexS(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 			
 			//draw the "south" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
 				debug("    drawing a south edge.");
-				current_hex = AddHexSW(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
+				current_hex = AddHexSW(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 			
 			//draw the "southwest" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
 				debug("    drawing a southwest edge.");
-				current_hex = AddHexNW(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
+				current_hex = AddHexNW(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 			
 			//draw the "northwest" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
 				debug("    drawing a northwest edge.");
-				current_hex = AddHexN(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
+				current_hex = AddHexN(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 			
 			//draw the "north" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
 				debug("    drawing a north edge.");
-				current_hex = AddHexNE(overwrite, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
+				current_hex = AddHexNE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 		}
 	}
@@ -205,50 +210,50 @@ public class editorHexManagerS : MonoBehaviour {
 		return hex.GetComponent<editorHexS>().z_coord;
 	}
 	
-	public GameObject AddHexSE(bool overwrite, Hex clicked_hex_type, int brush_size, Vector3 center_pos, Hex draw_hex_type, int x, int z)
+	public GameObject AddHexSE(bool overwrite, bool border_mode, Hex clicked_hex_type, int brush_size, Vector3 center_pos, Hex draw_hex_type, int x, int z)
 	{
 		float x_trans = 3.14219F    + center_pos.x;
 		float z_trans = -0.486092F  + center_pos.z; 
-		return AddHex(overwrite, clicked_hex_type, brush_size, new Vector3(x_trans, 0, z_trans), draw_hex_type, x + 1, z - 1 );
+		return AddHex(overwrite, border_mode, clicked_hex_type, brush_size, new Vector3(x_trans, 0, z_trans), draw_hex_type, x + 1, z - 1 );
 		
 	}
 		
-	public GameObject AddHexS(bool overwrite, Hex clicked_hex_type, int brush_size, Vector3 center_pos, Hex draw_hex_type, int x, int z)
+	public GameObject AddHexS(bool overwrite, bool border_mode, Hex clicked_hex_type, int brush_size, Vector3 center_pos, Hex draw_hex_type, int x, int z)
 	{
 		float x_trans =  0.841947F + center_pos.x;
 		float z_trans = -1.81415F  + center_pos.z;
-		return AddHex(overwrite, clicked_hex_type, brush_size, new Vector3(x_trans, 0, z_trans), draw_hex_type, x , z - 1 );
+		return AddHex(overwrite, border_mode, clicked_hex_type, brush_size, new Vector3(x_trans, 0, z_trans), draw_hex_type, x , z - 1 );
 		
 	}
 		
-	public GameObject AddHexSW(bool overwrite, Hex clicked_hex_type, int brush_size, Vector3 center_pos, Hex draw_hex_type, int x, int z)
+	public GameObject AddHexSW(bool overwrite, bool border_mode, Hex clicked_hex_type, int brush_size, Vector3 center_pos, Hex draw_hex_type, int x, int z)
 	{
 		float x_trans = -2.30024F    + center_pos.x;
 		float z_trans = -1.3280592F  + center_pos.z;
-		return AddHex(overwrite, clicked_hex_type, brush_size, new Vector3(x_trans, 0, z_trans), draw_hex_type, x - 1, z); 
+		return AddHex(overwrite, border_mode, clicked_hex_type, brush_size, new Vector3(x_trans, 0, z_trans), draw_hex_type, x - 1, z); 
 	}
 		
-	public GameObject AddHexNE(bool overwrite, Hex clicked_hex_type, int brush_size, Vector3 center_pos, Hex draw_hex_type, int x, int z)
+	public GameObject AddHexNE(bool overwrite, bool border_mode, Hex clicked_hex_type, int brush_size, Vector3 center_pos, Hex draw_hex_type, int x, int z)
 	{
 		float x_trans = 2.30024F 	  + center_pos.x;
 		float z_trans = 1.3280592F  + center_pos.z;
-		return AddHex(overwrite, clicked_hex_type, brush_size, new Vector3(x_trans, 0, z_trans), draw_hex_type, x+ 1, z );
+		return AddHex(overwrite, border_mode, clicked_hex_type, brush_size, new Vector3(x_trans, 0, z_trans), draw_hex_type, x+ 1, z );
 		
 	}
 		
-	public GameObject AddHexNW(bool overwrite, Hex clicked_hex_type, int brush_size, Vector3 center_pos, Hex draw_hex_type, int x, int z)
+	public GameObject AddHexNW(bool overwrite, bool border_mode, Hex clicked_hex_type, int brush_size, Vector3 center_pos, Hex draw_hex_type, int x, int z)
 	{
 		float x_trans = -3.14219F  + center_pos.x;
 		float z_trans = 0.486092F  + center_pos.z;
-		return AddHex(overwrite, clicked_hex_type, brush_size, new Vector3(x_trans, 0, z_trans), draw_hex_type, x - 1, z + 1);
+		return AddHex(overwrite, border_mode, clicked_hex_type, brush_size, new Vector3(x_trans, 0, z_trans), draw_hex_type, x - 1, z + 1);
 		
 	}
 	
-	public GameObject AddHexN(bool overwrite, Hex clicked_hex_type, int brush_size, Vector3 center_pos, Hex draw_hex_type, int x, int z)
+	public GameObject AddHexN(bool overwrite, bool border_mode, Hex clicked_hex_type, int brush_size, Vector3 center_pos, Hex draw_hex_type, int x, int z)
 	{
 		float x_trans = -0.841947F + center_pos.x;
 		float z_trans =  1.81415F  + center_pos.z;
-		return AddHex(overwrite, clicked_hex_type, brush_size, new Vector3(x_trans, 0, z_trans), draw_hex_type, x, z + 1);
+		return AddHex(overwrite, border_mode, clicked_hex_type, brush_size, new Vector3(x_trans, 0, z_trans), draw_hex_type, x, z + 1);
 	}
 		
 	
@@ -259,6 +264,11 @@ public class editorHexManagerS : MonoBehaviour {
  	 *
 	 */
 	public GameObject AddHex(bool overwrite, Hex clicked_hex_type, int brush_size, Vector3 pos, Hex draw_hex_type, int x, int z)
+	{  
+			return AddHex(overwrite, false, clicked_hex_type, brush_size, pos, draw_hex_type, x, z);
+	}	
+	
+	public GameObject AddHex(bool overwrite, bool border_mode, Hex clicked_hex_type, int brush_size, Vector3 pos, Hex draw_hex_type, int x, int z)
 	{  
 		
 		GameObject created_hex;
@@ -275,6 +285,9 @@ public class editorHexManagerS : MonoBehaviour {
 			&& //and
 			//the existing hex isn't the same as the type we're wanting to make
 			(hex_db[x][z].hex_type != draw_hex_type)
+			&& //and
+			//we're not in border mode, as border mode will never replace existing tiles
+			(!border_mode)
 		)
 		{
 			//create and render the new hex

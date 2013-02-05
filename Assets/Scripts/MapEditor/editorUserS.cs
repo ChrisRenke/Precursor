@@ -102,12 +102,12 @@ public class editorUserS : MonoBehaviour {
 		{
 			entity_mode = !entity_mode;
 		} 
-		if(Input.GetKeyDown(KeyCode.LeftBracket))
+		if(Input.GetKeyDown(KeyCode.LeftBracket) || Input.GetKeyDown(KeyCode.Z))
 		{
 			if(brush_size > min_brush_size)
 				brush_size--;
 		} 
-		if(Input.GetKeyDown(KeyCode.RightBracket))
+		if(Input.GetKeyDown(KeyCode.RightBracket) || Input.GetKeyDown(KeyCode.X)) 
 		{
 			if(brush_size < max_brush_size)
 				brush_size++;
@@ -202,7 +202,7 @@ public class editorUserS : MonoBehaviour {
 			{
 				hex_script          = clicked_game_object.GetComponent<editorHexS>();
 				
-				editorUserS.tms.BrushHex(overwrite_mode, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
+				editorUserS.tms.BrushHex(true, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
 										editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);	 
 //				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
 //											editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);
