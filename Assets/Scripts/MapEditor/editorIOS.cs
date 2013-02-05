@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections; 
 using System.Collections.Generic;
 using System;
-using System.IO;
+using System.IO; 
 
 public class editorIOS : MonoBehaviour {
 	
@@ -11,6 +11,8 @@ public class editorIOS : MonoBehaviour {
 	public int 			version; 
 	public int          level_editor_format_version = 2;
 	 
+	
+	private	string[] stringSeparators = new string[] {" = "};  
 	
 	// Use this for initialization
 	void Start () 
@@ -73,17 +75,17 @@ public class editorIOS : MonoBehaviour {
 		z_dim = z_max - z_min + 1; //+1 to account for 0 space
 
         // write a line of text to the file
-        tw.WriteLine("LEVEL\n{");
+        tw.WriteLine("LEVEL{");
 		
-        tw.WriteLine("\tEDITOR VER. = " + level_editor_format_version );
-        tw.WriteLine("\tName        = " + level_name );
-        tw.WriteLine("\tVersion     = " + version ); 
-        tw.WriteLine("\tX_dim       = " + x_dim ); 
-        tw.WriteLine("\tZ_dim       = " + z_dim );  
-        tw.WriteLine("\tTot_Hex_num = " + count ); 
-        tw.WriteLine("\tGameHex_num = " + (count - border_count)); 
-        tw.WriteLine("\tBourder_num = " + border_count);  
-        tw.WriteLine("\tHEXES\n\t{");
+        tw.WriteLine("\tEDITOR VER   = " + level_editor_format_version );
+        tw.WriteLine("\tLevel Name   = " + level_name );
+        tw.WriteLine("\tLevel Ver    = " + version ); 
+        tw.WriteLine("\tX_dim        = " + x_dim ); 
+        tw.WriteLine("\tZ_dim        = " + z_dim );  
+        tw.WriteLine("\tTotal_Hexes  = " + count ); 
+        tw.WriteLine("\tGame_Hexes   = " + (count - border_count)); 
+        tw.WriteLine("\tBorder_Hexes = " + border_count);  
+        tw.WriteLine("\tHEXES\t{");
 		
 		foreach(KeyValuePair<int, Dictionary<int, editorHexManagerS.HexData>> entry in editorHexManagerS.hex_db)
 		{
@@ -167,11 +169,121 @@ public class editorIOS : MonoBehaviour {
 	}
 	
 	
-	public void Load()
+	public bool Load()
 	{
 		// 1 - delete EVERYTHING that exists in map
 		// 2 - start drawing hexes from file
 		// 3 - draw and set props of entiteis from file
+		//  CoordsGameTo3D(x, z) returns a vector3 hell ya
+
+	//INITIALIZE FILE TO READ\
+		StreamReader reader;
+		FileInfo filer = new FileInfo(Application.dataPath + "/Level_Files/" + level_name + ".pcl");
+		if(filer != null && filer.Exists)
+		{
+		   reader = filer.OpenText();  // returns StreamReader
+		} 
+		else
+		{
+			print ("FILE DOES NOT EXIST!");
+			return false;
+		}
+		  
+		
+	//DELETE EXISTING DATA FROM EDITOR
+		//remove existing hexes
+		foreach(KeyValuePair<int, Dictionary<int, editorHexManagerS.HexData>> entry in editorHexManagerS.hex_db)
+		{ 
+		    foreach(KeyValuePair<int, editorHexManagerS.HexData> entry_2 in entry.Value)
+			{
+				Destroy(entry_2.Value.occupier);
+			}
+		}
+		editorHexManagerS.hex_db = new Dictionary<int, Dictionary<int, editorHexManagerS.HexData>>();
+		
+		//remove existing entities 
+		foreach(KeyValuePair<int, Dictionary<int, editorEntityManagerS.EntityData>> entry_1 in editorEntityManagerS.entity_db)
+		{
+		    foreach(KeyValuePair<int, editorEntityManagerS.EntityData> entry_2 in entry_1.Value)
+			{
+				Destroy(entry_2.Value.occupier);
+			}
+		}
+		editorEntityManagerS.entity_db = new Dictionary<int, Dictionary<int, editorEntityManagerS.EntityData>>();
+			
+		
+	
+	//BEGIN PARSING DATA
+		//PARSE HEADER INFO
+		if(!getStringR(reader).Equals("LEVEL{"))
+		{
+			print("l1 ILL FORMATED!");
+			return false;
+		} 
+		if(getIntR(reader) != level_editor_format_version) //EDITOR VER
+		{
+			print ("EDITOR VERSION MISMATCH!");
+			return false;
+		}
+		level_name 		= getStringR(reader); //NAME
+		version    		= getIntR(reader);    //VERSION
+		
+		int x_dim, z_dim, total_count, game_count, border_count;
+		x_dim 			= getIntR(reader);  		//X_dim
+		z_dim 			= getIntR(reader);		//Z_dim
+		total_count 	= getIntR(reader);  		//total count
+		game_count 		= getIntR(reader);		//game count
+		border_count 	= getIntR(reader);  		//border count
+		
+		
+		//BEGIN PARSING HEXES
+		if(!getStringR(reader).Equals("/tHEXES{"))
+		{
+			print("HEXES ILL FORMATED");
+			return false;
+		}
+		
+//		while
+		 
+		return true;
+	}
+	
+	public string getStringR(StreamReader reader)
+	{   
+    	string[] items = reader.ReadLine().Split(stringSeparators, StringSplitOptions.None);
+		return items[1];
+	}
+	
+	public int getIntR(StreamReader reader)
+	{  
+    	string[] items = reader.ReadLine().Split(stringSeparators, StringSplitOptions.None);
+		return int.Parse(items[1]);
+	}
+	
+	public bool getBoolR(StreamReader reader)
+	{  
+    	string[] items = reader.ReadLine().Split(stringSeparators, StringSplitOptions.None);
+		return bool.Parse(items[1]);
+	}
+	
+	public bool getCBR(StreamReader reader) //close bracket Reader
+	{  
+    	return reader.ReadLine().Contains("}"); 
+	}
+	
+	public bool getOBR(StreamReader reader) //close bracket Reader
+	{  
+    	return reader.ReadLine().Contains("{"); 
+	}
+	
+	public bool getHexR(StreamReader reader) //close bracket Reader
+	{  
+    	return reader.ReadLine().Equals("/t/tHEX{"); 
+	}
+	
+	public bool getEntR(StreamReader reader) //close bracket Reader
+	{  
+    	return reader.ReadLine().Equals("/t/tENTITY{"); 
 	}
 	
 }

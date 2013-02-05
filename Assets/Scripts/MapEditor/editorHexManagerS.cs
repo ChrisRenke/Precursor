@@ -58,37 +58,6 @@ public class editorHexManagerS : MonoBehaviour {
 	{
 		audio.Play();
 	}
-//	
-//	public void CloneHex(GameObject hex_type, editorHexManagerS.Tiles data_type, float x_dist, float z_dist, int x_coord_in, int z_coord_in)
-//	{ 
-//		print ("enter CloneHex");
-//		print ("x: " + x_coord_in + " z: " + z_coord_in);
-//		
-//		if(!occupied(x_coord_in, z_coord_in))
-//		{
-//			print ("attempting to occupy a hex now...");
-//			occupy(new_hex_script.name, new_hex, data_type, new Vector3(x_dist, 0, z_dist), new_hex_script.x_coord, new_hex_script.z_coord);
-//		} 
-//	}
-//	
-//	public void BuildHex(GameObject go, editorHexManagerS.Tiles data_type,  Vector3 pos, int x_coord_in, int z_coord_in)
-//	{
-//		print ("enter BuildHex");
-//		print ("x: " + x_coord_in + " z: " + z_coord_in);
-//		
-//		
-//			print ("attempting to replace a hex now...");
-//			GameObject new_hex = (GameObject) Instantiate(go, pos, Quaternion.identity);
-//			editorHexS new_hex_script = new_hex.GetComponent<editorHexS>();
-//			
-//			new_hex_script.x_coord = x_coord_in;
-//			new_hex_script.z_coord = z_coord_in;
-//			new_hex_script.name = "hex("+new_hex_script.x_coord +"," + new_hex_script.z_coord+")";
-//			
-//			replace(new_hex_script.name, new_hex, data_type, new_hex_script.x_coord, new_hex_script.z_coord);
-//		
-//		
-//	}
 	
 	
 	public bool occupied(int x, int z)
