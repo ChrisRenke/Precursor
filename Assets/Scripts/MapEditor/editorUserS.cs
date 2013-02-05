@@ -16,6 +16,7 @@ public class editorUserS : MonoBehaviour {
 	
 	public static editorHexManagerS 			tms;
 	public static editorEntityManagerS 			ems;
+	
 	public static GameObject 					selected_hex;
 	public static bool       					selection_menu_displayed;
 	public static bool 							overwrite_mode = false;

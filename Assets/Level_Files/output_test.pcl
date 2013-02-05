@@ -1,0 +1,290 @@
+LEVEL{
+	EDITOR VER   = 2
+	Level Name   = output_test
+	Level Ver    = 3
+	X_dim        = 7
+	Z_dim        = 8
+	Total_Hexes  = 44
+	Game_Hexes   = 24
+	Border_Hexes = 20
+	HEXES{
+		HEX{ 
+			X    = 0
+			Z    = 0
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = -1
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 0
+			Z    = 1
+			Type = Hills
+		}
+		HEX{ 
+			X    = 0
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 3
+			Type = Forest
+		}
+		HEX{ 
+			X    = 0
+			Z    = 4
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = -2
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 0
+			Z    = 5
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 1
+			Z    = 0
+			Type = Desert
+		}
+		HEX{ 
+			X    = 1
+			Z    = -1
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 1
+			Z    = 1
+			Type = Desert
+		}
+		HEX{ 
+			X    = 1
+			Z    = 2
+			Type = Forest
+		}
+		HEX{ 
+			X    = 1
+			Z    = 3
+			Type = Grass
+		}
+		HEX{ 
+			X    = 1
+			Z    = -2
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 1
+			Z    = 4
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -1
+			Z    = 0
+			Type = Marsh
+		}
+		HEX{ 
+			X    = -1
+			Z    = 1
+			Type = Mountain
+		}
+		HEX{ 
+			X    = -1
+			Z    = 2
+			Type = Hills
+		}
+		HEX{ 
+			X    = -1
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 4
+			Type = Grass
+		}
+		HEX{ 
+			X    = -1
+			Z    = -1
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -1
+			Z    = 5
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -2
+			Z    = 2
+			Type = Marsh
+		}
+		HEX{ 
+			X    = -2
+			Z    = 3
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = 1
+			Type = Marsh
+		}
+		HEX{ 
+			X    = -2
+			Z    = 4
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = 0
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -2
+			Z    = 5
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 2
+			Z    = 0
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 2
+			Z    = -1
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 2
+			Z    = 1
+			Type = Grass
+		}
+		HEX{ 
+			X    = 2
+			Z    = 2
+			Type = Grass
+		}
+		HEX{ 
+			X    = 2
+			Z    = -2
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 2
+			Z    = 3
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 3
+			Z    = 0
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 3
+			Z    = -1
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 3
+			Z    = -2
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 3
+			Z    = 1
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 3
+			Z    = 2
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -3
+			Z    = 1
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -3
+			Z    = 2
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -3
+			Z    = 3
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -3
+			Z    = 4
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -3
+			Z    = 5
+			Type = EditorTileA
+		}
+	}
+	ENTITIES{
+		ENTITY{ 
+			X          = -1
+			Z          = 0
+			Type       = Junkyard
+			Node Lvl   = 2
+		}
+		ENTITY{ 
+			X          = -2
+			Z          = 1
+			Type       = Junkyard
+			Node Lvl   = 2
+		}
+		ENTITY{ 
+			X          = -2
+			Z          = 4
+			Type       = Enemy
+			Omnsc Base = True
+			Omnsc Mech = False
+		}
+		ENTITY{ 
+			X          = 0
+			Z          = -1
+			Type       = Outpost
+			Node Lvl   = 1
+		}
+		ENTITY{ 
+			X          = 0
+			Z          = 4
+			Type       = Factory
+			Node Lvl   = 0
+		}
+		ENTITY{ 
+			X          = 0
+			Z          = 1
+			Type       = Base
+			HP Perc    = 33
+		}
+		ENTITY{ 
+			X          = 1
+			Z          = 3
+			Type       = Factory
+			Node Lvl   = 0
+		}
+		ENTITY{ 
+			X          = 2
+			Z          = -1
+			Type       = Enemy
+			Omnsc Base = True
+			Omnsc Mech = True
+		}
+		ENTITY{ 
+			X          = 2
+			Z          = 1
+			Type       = Player
+			HP Perc    = 60
+		}
+	}
+}

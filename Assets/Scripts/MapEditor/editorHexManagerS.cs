@@ -230,7 +230,12 @@ public class editorHexManagerS : MonoBehaviour {
 		float z_trans =  1.81415F  + center_pos.z;
 		return AddHex(overwrite, border_mode, clicked_hex_type, brush_size, new Vector3(x_trans, 0, z_trans), draw_hex_type, x, z + 1);
 	}
-		
+			
+	
+	public GameObject LoadHex(Hex draw_hex_type, int x, int z)
+	{  
+			return AddHex(true, false, Hex.EditorTileA, 1, editorUserS.CoordsGameTo3D(x,z), draw_hex_type, x, z);
+	}	
 	
 	/*
 	 * Attempts to add a hex at the indicated X,Z location.

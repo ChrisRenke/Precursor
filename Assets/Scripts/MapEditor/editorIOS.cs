@@ -85,7 +85,7 @@ public class editorIOS : MonoBehaviour {
         tw.WriteLine("\tTotal_Hexes  = " + count ); 
         tw.WriteLine("\tGame_Hexes   = " + (count - border_count)); 
         tw.WriteLine("\tBorder_Hexes = " + border_count);  
-        tw.WriteLine("\tHEXES\t{");
+        tw.WriteLine("\tHEXES{");
 		
 		foreach(KeyValuePair<int, Dictionary<int, editorHexManagerS.HexData>> entry in editorHexManagerS.hex_db)
 		{
@@ -105,7 +105,7 @@ public class editorIOS : MonoBehaviour {
         tw.WriteLine("\t}");
 		
 		
-        tw.WriteLine("\tENTITIES\n\t{");
+        tw.WriteLine("\tENTITIES{");
 		
 		foreach(KeyValuePair<int, Dictionary<int, editorEntityManagerS.EntityData>> entry_1 in editorEntityManagerS.entity_db)
 		{
@@ -215,7 +215,7 @@ public class editorIOS : MonoBehaviour {
 	
 	//BEGIN PARSING DATA
 		//PARSE HEADER INFO
-		if(!getStringR(reader).Equals("LEVEL{"))
+		if(!reader.ReadLine().Equals("LEVEL{"))
 		{
 			print("l1 ILL FORMATED!");
 			return false;
@@ -237,13 +237,69 @@ public class editorIOS : MonoBehaviour {
 		
 		
 		//BEGIN PARSING HEXES
-		if(!getStringR(reader).Equals("/tHEXES{"))
+		if(!reader.ReadLine().Contains("HEXES{"))
 		{
 			print("HEXES ILL FORMATED");
 			return false;
 		}
-		
-//		while
+		while(getHexR(reader)) //next line is a HEX{
+		{
+			int x = getIntR(reader);
+			int z = getIntR(reader);
+            editorHexManagerS.Hex hex_type = (editorHexManagerS.Hex) Enum.Parse(typeof(editorHexManagerS.Hex), getStringR(reader));
+			editorUserS.tms.LoadHex(hex_type, x, z);
+			if(!getCBR(reader))
+			{
+				print("MALFORMED HEX!");
+				return false;
+			}
+		}
+		 
+//		print (reader.ReadLine());
+		//BEGIN PARSING ENTITES
+		if(!reader.ReadLine().Contains("ENTITIES{"))
+		{
+			print("ENTITIES ILL FORMATED");
+			return false;
+		}
+		while(getEntR(reader)) //next line is a HEX{
+		{
+			int x = getIntR(reader);
+			int z = getIntR(reader);
+            editorEntityManagerS.Entity ent_type = (editorEntityManagerS.Entity) Enum.Parse(typeof(editorEntityManagerS.Entity), getStringR(reader));
+			
+			editorUserS.ems.base_starting_health_percentage = 100;
+			editorUserS.ems.mech_starting_health_percentage = 100;
+			editorUserS.ems.enemy_knows_base_loc 			= false;
+			editorUserS.ems.enemy_knows_mech_loc 			= false;
+			editorUserS.ems.node_starting_level				= 2;
+			
+			switch(ent_type)
+			{
+				case editorEntityManagerS.Entity.Base:
+					int base_hp_percentage = getIntR(reader);
+					break;
+				case editorEntityManagerS.Entity.Player:
+					int mech_hp_percentage = getIntR(reader);
+					break;
+				case editorEntityManagerS.Entity.Enemy:
+					bool enemy_base_know = getBoolR(reader);
+					bool enemy_mech_know = getBoolR(reader);
+					break;
+				case editorEntityManagerS.Entity.Factory:
+				case editorEntityManagerS.Entity.Junkyard:
+				case editorEntityManagerS.Entity.Outpost:
+					int node_lvl = getIntR(reader);
+					break;
+			}
+			 
+			editorUserS.ems.LoadEntity(ent_type, x, z);
+			if(!getCBR(reader))
+			{
+				print("MALFORMED HEX!");
+				return false;
+			}
+		}
 		 
 		return true;
 	}
@@ -278,12 +334,12 @@ public class editorIOS : MonoBehaviour {
 	
 	public bool getHexR(StreamReader reader) //close bracket Reader
 	{  
-    	return reader.ReadLine().Equals("/t/tHEX{"); 
+    	return reader.ReadLine().Contains("HEX{"); 
 	}
 	
 	public bool getEntR(StreamReader reader) //close bracket Reader
 	{  
-    	return reader.ReadLine().Equals("/t/tENTITY{"); 
+    	return reader.ReadLine().Contains("ENTITY{"); 
 	}
 	
 }
