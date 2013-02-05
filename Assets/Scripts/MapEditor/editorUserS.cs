@@ -154,6 +154,23 @@ public class editorUserS : MonoBehaviour {
 				brush_size++;
 		} 
 		
+		if(Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Colon))
+		{
+			if(spray_prob > 0)
+				spray_prob-= 5;
+			
+			if(spray_prob < 1)
+				spray_prob = 1;
+		} 
+		if(Input.GetKeyDown(KeyCode.V) || Input.GetKeyDown(KeyCode.DoubleQuote)) 
+		{
+			if(spray_prob < 100)
+				spray_prob +=5;
+			
+			if(spray_prob > 100)
+				spray_prob = 100;
+		} 
+		
 		if(Input.GetKey(KeyCode.W))
 		{
 			Vector3 deltaPos = transform.forward * Time.deltaTime * 20;

@@ -1,0 +1,7300 @@
+LEVEL{
+	EDITOR VER   = 2
+	Level Name   = output_test_edit
+	Level Ver    = 3
+	X_dim        = 47
+	Z_dim        = 46
+	Total_Hexes  = 1446
+	Game_Hexes   = 1300
+	Border_Hexes = 146
+	HEXES{
+		HEX{ 
+			X    = 0
+			Z    = 0
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = -1
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = 1
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = 2
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 0
+			Z    = 3
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 0
+			Z    = 4
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = -2
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = 5
+			Type = Desert
+		}
+		HEX{ 
+			X    = 0
+			Z    = 6
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = 7
+			Type = Desert
+		}
+		HEX{ 
+			X    = 0
+			Z    = 8
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = -3
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = -4
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 9
+			Type = Desert
+		}
+		HEX{ 
+			X    = 0
+			Z    = 10
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = 11
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = 12
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = 13
+			Type = Forest
+		}
+		HEX{ 
+			X    = 0
+			Z    = 14
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = 15
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = 16
+			Type = Forest
+		}
+		HEX{ 
+			X    = 0
+			Z    = 17
+			Type = Forest
+		}
+		HEX{ 
+			X    = 0
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -11
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 0
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 0
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 0
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 0
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 0
+			Z    = 28
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 0
+			Z    = 29
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 0
+			Z    = 30
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 1
+			Z    = 0
+			Type = Desert
+		}
+		HEX{ 
+			X    = 1
+			Z    = -1
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 1
+			Z    = 1
+			Type = Desert
+		}
+		HEX{ 
+			X    = 1
+			Z    = 2
+			Type = Grass
+		}
+		HEX{ 
+			X    = 1
+			Z    = 3
+			Type = Desert
+		}
+		HEX{ 
+			X    = 1
+			Z    = -2
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 1
+			Z    = 4
+			Type = Hills
+		}
+		HEX{ 
+			X    = 1
+			Z    = 5
+			Type = Desert
+		}
+		HEX{ 
+			X    = 1
+			Z    = 6
+			Type = Hills
+		}
+		HEX{ 
+			X    = 1
+			Z    = 7
+			Type = Grass
+		}
+		HEX{ 
+			X    = 1
+			Z    = -3
+			Type = Grass
+		}
+		HEX{ 
+			X    = 1
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 8
+			Type = Grass
+		}
+		HEX{ 
+			X    = 1
+			Z    = 9
+			Type = Grass
+		}
+		HEX{ 
+			X    = 1
+			Z    = 10
+			Type = Forest
+		}
+		HEX{ 
+			X    = 1
+			Z    = 11
+			Type = Forest
+		}
+		HEX{ 
+			X    = 1
+			Z    = 12
+			Type = Grass
+		}
+		HEX{ 
+			X    = 1
+			Z    = 13
+			Type = Forest
+		}
+		HEX{ 
+			X    = 1
+			Z    = 14
+			Type = Grass
+		}
+		HEX{ 
+			X    = 1
+			Z    = 15
+			Type = Forest
+		}
+		HEX{ 
+			X    = 1
+			Z    = 16
+			Type = Forest
+		}
+		HEX{ 
+			X    = 1
+			Z    = 17
+			Type = Grass
+		}
+		HEX{ 
+			X    = 1
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -11
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 1
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 1
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 1
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 1
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 1
+			Z    = 28
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 1
+			Z    = 29
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 1
+			Z    = 30
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -1
+			Z    = 0
+			Type = Grass
+		}
+		HEX{ 
+			X    = -1
+			Z    = 1
+			Type = Grass
+		}
+		HEX{ 
+			X    = -1
+			Z    = 2
+			Type = Grass
+		}
+		HEX{ 
+			X    = -1
+			Z    = 3
+			Type = Grass
+		}
+		HEX{ 
+			X    = -1
+			Z    = 4
+			Type = Desert
+		}
+		HEX{ 
+			X    = -1
+			Z    = -1
+			Type = Grass
+		}
+		HEX{ 
+			X    = -1
+			Z    = 5
+			Type = Grass
+		}
+		HEX{ 
+			X    = -1
+			Z    = 6
+			Type = Desert
+		}
+		HEX{ 
+			X    = -1
+			Z    = 7
+			Type = Grass
+		}
+		HEX{ 
+			X    = -1
+			Z    = 8
+			Type = Desert
+		}
+		HEX{ 
+			X    = -1
+			Z    = 9
+			Type = Grass
+		}
+		HEX{ 
+			X    = -1
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 10
+			Type = Grass
+		}
+		HEX{ 
+			X    = -1
+			Z    = 11
+			Type = Grass
+		}
+		HEX{ 
+			X    = -1
+			Z    = 12
+			Type = Grass
+		}
+		HEX{ 
+			X    = -1
+			Z    = 13
+			Type = Forest
+		}
+		HEX{ 
+			X    = -1
+			Z    = 14
+			Type = Forest
+		}
+		HEX{ 
+			X    = -1
+			Z    = 15
+			Type = Forest
+		}
+		HEX{ 
+			X    = -1
+			Z    = 16
+			Type = Forest
+		}
+		HEX{ 
+			X    = -1
+			Z    = 17
+			Type = Forest
+		}
+		HEX{ 
+			X    = -1
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -11
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -1
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -1
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -1
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -1
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -1
+			Z    = 28
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -1
+			Z    = 29
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -1
+			Z    = 30
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -2
+			Z    = 2
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = 3
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = 1
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = 4
+			Type = Desert
+		}
+		HEX{ 
+			X    = -2
+			Z    = 0
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = 5
+			Type = Desert
+		}
+		HEX{ 
+			X    = -2
+			Z    = 6
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = 7
+			Type = Marsh
+		}
+		HEX{ 
+			X    = -2
+			Z    = 8
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = 9
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -2
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 11
+			Type = Desert
+		}
+		HEX{ 
+			X    = -2
+			Z    = 10
+			Type = Forest
+		}
+		HEX{ 
+			X    = -2
+			Z    = 12
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = 13
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = 14
+			Type = Desert
+		}
+		HEX{ 
+			X    = -2
+			Z    = 15
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = 16
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = 17
+			Type = Forest
+		}
+		HEX{ 
+			X    = -2
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -11
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -2
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -2
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -2
+			Z    = 26
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -2
+			Z    = 27
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -2
+			Z    = 28
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -2
+			Z    = 29
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -2
+			Z    = 30
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 2
+			Z    = 0
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 2
+			Z    = -1
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 2
+			Z    = 1
+			Type = Grass
+		}
+		HEX{ 
+			X    = 2
+			Z    = 2
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 2
+			Z    = -2
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 2
+			Z    = 3
+			Type = Hills
+		}
+		HEX{ 
+			X    = 2
+			Z    = 4
+			Type = Grass
+		}
+		HEX{ 
+			X    = 2
+			Z    = 5
+			Type = Forest
+		}
+		HEX{ 
+			X    = 2
+			Z    = 6
+			Type = Forest
+		}
+		HEX{ 
+			X    = 2
+			Z    = -3
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 2
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 7
+			Type = Desert
+		}
+		HEX{ 
+			X    = 2
+			Z    = 8
+			Type = Grass
+		}
+		HEX{ 
+			X    = 2
+			Z    = 9
+			Type = Grass
+		}
+		HEX{ 
+			X    = 2
+			Z    = 10
+			Type = Forest
+		}
+		HEX{ 
+			X    = 2
+			Z    = 11
+			Type = Grass
+		}
+		HEX{ 
+			X    = 2
+			Z    = 12
+			Type = Grass
+		}
+		HEX{ 
+			X    = 2
+			Z    = 13
+			Type = Forest
+		}
+		HEX{ 
+			X    = 2
+			Z    = 14
+			Type = Desert
+		}
+		HEX{ 
+			X    = 2
+			Z    = 15
+			Type = Desert
+		}
+		HEX{ 
+			X    = 2
+			Z    = 16
+			Type = Forest
+		}
+		HEX{ 
+			X    = 2
+			Z    = 17
+			Type = Forest
+		}
+		HEX{ 
+			X    = 2
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -11
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 2
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 2
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 2
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 2
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 2
+			Z    = 28
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 2
+			Z    = 29
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 2
+			Z    = 30
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 3
+			Z    = 0
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 3
+			Z    = -1
+			Type = Grass
+		}
+		HEX{ 
+			X    = 3
+			Z    = -2
+			Type = Desert
+		}
+		HEX{ 
+			X    = 3
+			Z    = 1
+			Type = Grass
+		}
+		HEX{ 
+			X    = 3
+			Z    = 2
+			Type = Hills
+		}
+		HEX{ 
+			X    = 3
+			Z    = 4
+			Type = Forest
+		}
+		HEX{ 
+			X    = 3
+			Z    = 3
+			Type = Desert
+		}
+		HEX{ 
+			X    = 3
+			Z    = 5
+			Type = Desert
+		}
+		HEX{ 
+			X    = 3
+			Z    = -3
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 3
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 6
+			Type = Grass
+		}
+		HEX{ 
+			X    = 3
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 7
+			Type = Forest
+		}
+		HEX{ 
+			X    = 3
+			Z    = 8
+			Type = Grass
+		}
+		HEX{ 
+			X    = 3
+			Z    = 9
+			Type = Forest
+		}
+		HEX{ 
+			X    = 3
+			Z    = 10
+			Type = Grass
+		}
+		HEX{ 
+			X    = 3
+			Z    = 11
+			Type = Grass
+		}
+		HEX{ 
+			X    = 3
+			Z    = 12
+			Type = Desert
+		}
+		HEX{ 
+			X    = 3
+			Z    = 13
+			Type = Grass
+		}
+		HEX{ 
+			X    = 3
+			Z    = 14
+			Type = Desert
+		}
+		HEX{ 
+			X    = 3
+			Z    = 15
+			Type = Forest
+		}
+		HEX{ 
+			X    = 3
+			Z    = 16
+			Type = Forest
+		}
+		HEX{ 
+			X    = 3
+			Z    = 17
+			Type = Forest
+		}
+		HEX{ 
+			X    = 3
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -12
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 3
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 3
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 3
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 3
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 3
+			Z    = 28
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 3
+			Z    = 29
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 3
+			Z    = 30
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -3
+			Z    = 1
+			Type = Grass
+		}
+		HEX{ 
+			X    = -3
+			Z    = 2
+			Type = Grass
+		}
+		HEX{ 
+			X    = -3
+			Z    = 3
+			Type = Grass
+		}
+		HEX{ 
+			X    = -3
+			Z    = 4
+			Type = Grass
+		}
+		HEX{ 
+			X    = -3
+			Z    = 5
+			Type = Desert
+		}
+		HEX{ 
+			X    = -3
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 8
+			Type = Marsh
+		}
+		HEX{ 
+			X    = -3
+			Z    = 9
+			Type = Marsh
+		}
+		HEX{ 
+			X    = -3
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 0
+			Type = Grass
+		}
+		HEX{ 
+			X    = -3
+			Z    = -3
+			Type = Grass
+		}
+		HEX{ 
+			X    = -3
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 10
+			Type = Grass
+		}
+		HEX{ 
+			X    = -3
+			Z    = 11
+			Type = Desert
+		}
+		HEX{ 
+			X    = -3
+			Z    = 12
+			Type = Desert
+		}
+		HEX{ 
+			X    = -3
+			Z    = 13
+			Type = Forest
+		}
+		HEX{ 
+			X    = -3
+			Z    = 14
+			Type = Forest
+		}
+		HEX{ 
+			X    = -3
+			Z    = 15
+			Type = Forest
+		}
+		HEX{ 
+			X    = -3
+			Z    = 16
+			Type = Grass
+		}
+		HEX{ 
+			X    = -3
+			Z    = 17
+			Type = Forest
+		}
+		HEX{ 
+			X    = -3
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -10
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -3
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -3
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -3
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -3
+			Z    = 27
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -4
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 4
+			Type = Grass
+		}
+		HEX{ 
+			X    = -4
+			Z    = 7
+			Type = Grass
+		}
+		HEX{ 
+			X    = -4
+			Z    = 3
+			Type = Grass
+		}
+		HEX{ 
+			X    = -4
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 2
+			Type = Grass
+		}
+		HEX{ 
+			X    = -4
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 13
+			Type = Grass
+		}
+		HEX{ 
+			X    = -4
+			Z    = 14
+			Type = Grass
+		}
+		HEX{ 
+			X    = -4
+			Z    = 15
+			Type = Grass
+		}
+		HEX{ 
+			X    = -4
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -9
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -4
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -4
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -4
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -4
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -4
+			Z    = 28
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -5
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 6
+			Type = Grass
+		}
+		HEX{ 
+			X    = -5
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 8
+			Type = Grass
+		}
+		HEX{ 
+			X    = -5
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 11
+			Type = Grass
+		}
+		HEX{ 
+			X    = -5
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -8
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -5
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -5
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -5
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -5
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -5
+			Z    = 28
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -5
+			Z    = 29
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 4
+			Z    = 4
+			Type = Grass
+		}
+		HEX{ 
+			X    = 4
+			Z    = 3
+			Type = Grass
+		}
+		HEX{ 
+			X    = 4
+			Z    = 2
+			Type = Desert
+		}
+		HEX{ 
+			X    = 4
+			Z    = 1
+			Type = Desert
+		}
+		HEX{ 
+			X    = 4
+			Z    = 0
+			Type = Hills
+		}
+		HEX{ 
+			X    = 4
+			Z    = -1
+			Type = Grass
+		}
+		HEX{ 
+			X    = 4
+			Z    = -2
+			Type = Desert
+		}
+		HEX{ 
+			X    = 4
+			Z    = -3
+			Type = Hills
+		}
+		HEX{ 
+			X    = 4
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 5
+			Type = Desert
+		}
+		HEX{ 
+			X    = 4
+			Z    = 6
+			Type = Grass
+		}
+		HEX{ 
+			X    = 4
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 7
+			Type = Desert
+		}
+		HEX{ 
+			X    = 4
+			Z    = 8
+			Type = Grass
+		}
+		HEX{ 
+			X    = 4
+			Z    = 9
+			Type = Grass
+		}
+		HEX{ 
+			X    = 4
+			Z    = 10
+			Type = Forest
+		}
+		HEX{ 
+			X    = 4
+			Z    = 11
+			Type = Grass
+		}
+		HEX{ 
+			X    = 4
+			Z    = 12
+			Type = Grass
+		}
+		HEX{ 
+			X    = 4
+			Z    = 13
+			Type = Forest
+		}
+		HEX{ 
+			X    = 4
+			Z    = 14
+			Type = Forest
+		}
+		HEX{ 
+			X    = 4
+			Z    = 15
+			Type = Forest
+		}
+		HEX{ 
+			X    = 4
+			Z    = 16
+			Type = Forest
+		}
+		HEX{ 
+			X    = 4
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -13
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 4
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 4
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 4
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 4
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 4
+			Z    = 28
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 4
+			Z    = 29
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 4
+			Z    = 30
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -6
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 9
+			Type = Grass
+		}
+		HEX{ 
+			X    = -6
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 0
+			Type = Grass
+		}
+		HEX{ 
+			X    = -6
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -7
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -6
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -6
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -6
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -6
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -6
+			Z    = 28
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -6
+			Z    = 29
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -6
+			Z    = 30
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 5
+			Z    = -2
+			Type = Desert
+		}
+		HEX{ 
+			X    = 5
+			Z    = -3
+			Type = Hills
+		}
+		HEX{ 
+			X    = 5
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -1
+			Type = Grass
+		}
+		HEX{ 
+			X    = 5
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 0
+			Type = Grass
+		}
+		HEX{ 
+			X    = 5
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 1
+			Type = Grass
+		}
+		HEX{ 
+			X    = 5
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 3
+			Type = Grass
+		}
+		HEX{ 
+			X    = 5
+			Z    = 4
+			Type = Grass
+		}
+		HEX{ 
+			X    = 5
+			Z    = 5
+			Type = Desert
+		}
+		HEX{ 
+			X    = 5
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 6
+			Type = Desert
+		}
+		HEX{ 
+			X    = 5
+			Z    = 7
+			Type = Desert
+		}
+		HEX{ 
+			X    = 5
+			Z    = 8
+			Type = Forest
+		}
+		HEX{ 
+			X    = 5
+			Z    = 9
+			Type = Desert
+		}
+		HEX{ 
+			X    = 5
+			Z    = 11
+			Type = Grass
+		}
+		HEX{ 
+			X    = 5
+			Z    = 10
+			Type = Desert
+		}
+		HEX{ 
+			X    = 5
+			Z    = 12
+			Type = Forest
+		}
+		HEX{ 
+			X    = 5
+			Z    = 13
+			Type = Hills
+		}
+		HEX{ 
+			X    = 5
+			Z    = 14
+			Type = Forest
+		}
+		HEX{ 
+			X    = 5
+			Z    = 15
+			Type = Forest
+		}
+		HEX{ 
+			X    = 5
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -14
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 5
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 23
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 5
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 5
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 5
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 5
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 5
+			Z    = 28
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 5
+			Z    = 29
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 6
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -1
+			Type = Grass
+		}
+		HEX{ 
+			X    = 6
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 1
+			Type = Desert
+		}
+		HEX{ 
+			X    = 6
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 2
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 6
+			Z    = 3
+			Type = Grass
+		}
+		HEX{ 
+			X    = 6
+			Z    = 4
+			Type = Grass
+		}
+		HEX{ 
+			X    = 6
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 6
+			Type = Desert
+		}
+		HEX{ 
+			X    = 6
+			Z    = 5
+			Type = Grass
+		}
+		HEX{ 
+			X    = 6
+			Z    = 7
+			Type = Grass
+		}
+		HEX{ 
+			X    = 6
+			Z    = 8
+			Type = Forest
+		}
+		HEX{ 
+			X    = 6
+			Z    = 11
+			Type = Desert
+		}
+		HEX{ 
+			X    = 6
+			Z    = 10
+			Type = Forest
+		}
+		HEX{ 
+			X    = 6
+			Z    = 9
+			Type = Desert
+		}
+		HEX{ 
+			X    = 6
+			Z    = 12
+			Type = Forest
+		}
+		HEX{ 
+			X    = 6
+			Z    = 13
+			Type = Forest
+		}
+		HEX{ 
+			X    = 6
+			Z    = 14
+			Type = Forest
+		}
+		HEX{ 
+			X    = 6
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -15
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 6
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 22
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 6
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 6
+			Z    = 23
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 6
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 6
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 6
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 6
+			Z    = 28
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 7
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -1
+			Type = Desert
+		}
+		HEX{ 
+			X    = 7
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 6
+			Type = Desert
+		}
+		HEX{ 
+			X    = 7
+			Z    = 7
+			Type = Forest
+		}
+		HEX{ 
+			X    = 7
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 11
+			Type = Forest
+		}
+		HEX{ 
+			X    = 7
+			Z    = 10
+			Type = Forest
+		}
+		HEX{ 
+			X    = 7
+			Z    = 9
+			Type = Grass
+		}
+		HEX{ 
+			X    = 7
+			Z    = 8
+			Type = Desert
+		}
+		HEX{ 
+			X    = 7
+			Z    = 12
+			Type = Forest
+		}
+		HEX{ 
+			X    = 7
+			Z    = 13
+			Type = Forest
+		}
+		HEX{ 
+			X    = 7
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -15
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 7
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 21
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 7
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 7
+			Z    = 23
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 7
+			Z    = 22
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 7
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 7
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 7
+			Z    = 27
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -7
+			Z    = 1
+			Type = Grass
+		}
+		HEX{ 
+			X    = -7
+			Z    = 2
+			Type = Grass
+		}
+		HEX{ 
+			X    = -7
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 5
+			Type = Grass
+		}
+		HEX{ 
+			X    = -7
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -6
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -7
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -7
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -7
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -7
+			Z    = 28
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -7
+			Z    = 29
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -7
+			Z    = 30
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -8
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = -5
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -8
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -8
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -8
+			Z    = 28
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -8
+			Z    = 29
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -8
+			Z    = 30
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 8
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 6
+			Type = Forest
+		}
+		HEX{ 
+			X    = 8
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 11
+			Type = Forest
+		}
+		HEX{ 
+			X    = 8
+			Z    = 10
+			Type = Hills
+		}
+		HEX{ 
+			X    = 8
+			Z    = 9
+			Type = Forest
+		}
+		HEX{ 
+			X    = 8
+			Z    = 8
+			Type = Hills
+		}
+		HEX{ 
+			X    = 8
+			Z    = 7
+			Type = Grass
+		}
+		HEX{ 
+			X    = 8
+			Z    = 12
+			Type = Forest
+		}
+		HEX{ 
+			X    = 8
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -15
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 8
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 20
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 8
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 8
+			Z    = 23
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 8
+			Z    = 22
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 8
+			Z    = 21
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 8
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 8
+			Z    = 26
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 9
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 6
+			Type = Forest
+		}
+		HEX{ 
+			X    = 9
+			Z    = 11
+			Type = Forest
+		}
+		HEX{ 
+			X    = 9
+			Z    = 10
+			Type = Forest
+		}
+		HEX{ 
+			X    = 9
+			Z    = 9
+			Type = Forest
+		}
+		HEX{ 
+			X    = 9
+			Z    = 8
+			Type = Forest
+		}
+		HEX{ 
+			X    = 9
+			Z    = 7
+			Type = Forest
+		}
+		HEX{ 
+			X    = 9
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -15
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 9
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 20
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 9
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 9
+			Z    = 23
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 9
+			Z    = 22
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 9
+			Z    = 21
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 9
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 9
+			Z    = 26
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 10
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 6
+			Type = Hills
+		}
+		HEX{ 
+			X    = 10
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -15
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 10
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 20
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 10
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 10
+			Z    = 23
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 10
+			Z    = 22
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 10
+			Z    = 21
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 10
+			Z    = 25
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 10
+			Z    = 26
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 11
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -15
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 11
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 19
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 11
+			Z    = 20
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 11
+			Z    = 21
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 11
+			Z    = 22
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 11
+			Z    = 23
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 11
+			Z    = 24
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 11
+			Z    = 25
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 12
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -13
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 12
+			Z    = -14
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 12
+			Z    = -15
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 12
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 18
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 12
+			Z    = 20
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 12
+			Z    = 19
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 12
+			Z    = 21
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 12
+			Z    = 22
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 12
+			Z    = 23
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 12
+			Z    = 24
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 13
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -13
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 13
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 17
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 13
+			Z    = 20
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 13
+			Z    = 19
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 13
+			Z    = 18
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 13
+			Z    = 21
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 13
+			Z    = 22
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 13
+			Z    = 23
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 14
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -13
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 14
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 16
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 14
+			Z    = 20
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 14
+			Z    = 19
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 14
+			Z    = 18
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 14
+			Z    = 17
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 14
+			Z    = 21
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 14
+			Z    = 22
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 15
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -13
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 15
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 15
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 15
+			Z    = 20
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 15
+			Z    = 19
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 15
+			Z    = 18
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 15
+			Z    = 17
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 15
+			Z    = 16
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 15
+			Z    = 21
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 16
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -13
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 16
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 14
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 16
+			Z    = 13
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 16
+			Z    = 12
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 16
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 20
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 16
+			Z    = 19
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 16
+			Z    = 18
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 16
+			Z    = 17
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 16
+			Z    = 16
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 16
+			Z    = 15
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 17
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -12
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 17
+			Z    = -13
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 17
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 11
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 17
+			Z    = 12
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 17
+			Z    = 13
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 17
+			Z    = 14
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 17
+			Z    = 15
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 17
+			Z    = 16
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 17
+			Z    = 17
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 18
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 10
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 18
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -12
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 18
+			Z    = 12
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 18
+			Z    = 11
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 18
+			Z    = 13
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 18
+			Z    = 14
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 18
+			Z    = 15
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 18
+			Z    = 16
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -9
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = -4
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -9
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -9
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -9
+			Z    = 28
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -9
+			Z    = 29
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -9
+			Z    = 30
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -10
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = -3
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -10
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -10
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -10
+			Z    = 28
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -10
+			Z    = 29
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -10
+			Z    = 30
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -11
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = -2
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -11
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = -11
+			Z    = 26
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -11
+			Z    = 27
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -11
+			Z    = 28
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -11
+			Z    = 29
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -11
+			Z    = 30
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -12
+			Z    = 14
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -12
+			Z    = 15
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -12
+			Z    = 16
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -12
+			Z    = 17
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -12
+			Z    = 18
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -12
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = -1
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -12
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = -12
+			Z    = 26
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -12
+			Z    = 27
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -12
+			Z    = 28
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -12
+			Z    = 29
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -12
+			Z    = 30
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -13
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 13
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -13
+			Z    = 14
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -13
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 0
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -13
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = -13
+			Z    = 19
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -13
+			Z    = 26
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -14
+			Z    = 1
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -14
+			Z    = 2
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -14
+			Z    = 3
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -14
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -14
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -14
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -14
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -14
+			Z    = 20
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -14
+			Z    = 21
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -14
+			Z    = 22
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -14
+			Z    = 23
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -14
+			Z    = 24
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -14
+			Z    = 25
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -14
+			Z    = 26
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -14
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -14
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -14
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -14
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -14
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -14
+			Z    = 13
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 19
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 9
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 19
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -12
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 19
+			Z    = 12
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 19
+			Z    = 11
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 19
+			Z    = 10
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 19
+			Z    = 13
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 19
+			Z    = 14
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 19
+			Z    = 15
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 20
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 8
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 20
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -12
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 20
+			Z    = 12
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 20
+			Z    = 11
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 20
+			Z    = 10
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 20
+			Z    = 9
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 20
+			Z    = 13
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 20
+			Z    = 14
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 21
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 7
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 21
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -12
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 21
+			Z    = 12
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 21
+			Z    = 11
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 21
+			Z    = 10
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 21
+			Z    = 9
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 21
+			Z    = 8
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 21
+			Z    = 13
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 22
+			Z    = 6
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 22
+			Z    = 5
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 22
+			Z    = 4
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 22
+			Z    = 3
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 22
+			Z    = 2
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 22
+			Z    = 1
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 22
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -7
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 22
+			Z    = -8
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 22
+			Z    = -9
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 22
+			Z    = -10
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 22
+			Z    = -11
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 22
+			Z    = -12
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 22
+			Z    = 12
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 22
+			Z    = 11
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 22
+			Z    = 10
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 22
+			Z    = 9
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 22
+			Z    = 8
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 22
+			Z    = 7
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 23
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 0
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 23
+			Z    = -7
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 23
+			Z    = 4
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 23
+			Z    = 3
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 23
+			Z    = 5
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 23
+			Z    = 2
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 23
+			Z    = 6
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 23
+			Z    = 1
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 23
+			Z    = 7
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 23
+			Z    = 8
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 23
+			Z    = 9
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 24
+			Z    = -1
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 24
+			Z    = -2
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 24
+			Z    = -3
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 24
+			Z    = -4
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 24
+			Z    = -5
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 24
+			Z    = -6
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 24
+			Z    = -7
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 24
+			Z    = 4
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 24
+			Z    = 3
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 24
+			Z    = 2
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 24
+			Z    = 5
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 24
+			Z    = 1
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 24
+			Z    = 6
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 24
+			Z    = 0
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 24
+			Z    = 7
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 24
+			Z    = 8
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -15
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -15
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -15
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -15
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -15
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -15
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -15
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -15
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -15
+			Z    = 4
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -15
+			Z    = 13
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -16
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -16
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -16
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -16
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -16
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -16
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -16
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -16
+			Z    = 5
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -16
+			Z    = 13
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -17
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -17
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -17
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -17
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -17
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -17
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -17
+			Z    = 6
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -17
+			Z    = 13
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -18
+			Z    = 7
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -18
+			Z    = 8
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -18
+			Z    = 9
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -18
+			Z    = 10
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -18
+			Z    = 11
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -18
+			Z    = 12
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = -18
+			Z    = 13
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 25
+			Z    = 4
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 25
+			Z    = 3
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 25
+			Z    = 2
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 25
+			Z    = 1
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 25
+			Z    = 5
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 25
+			Z    = 0
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 25
+			Z    = 6
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 25
+			Z    = -1
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 25
+			Z    = 7
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 25
+			Z    = -2
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 26
+			Z    = 4
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 26
+			Z    = 3
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 26
+			Z    = 2
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 26
+			Z    = 1
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 26
+			Z    = 0
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 26
+			Z    = 5
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 26
+			Z    = -1
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 26
+			Z    = 6
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 26
+			Z    = -2
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 27
+			Z    = 4
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 27
+			Z    = 3
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 27
+			Z    = 2
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 27
+			Z    = 1
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 27
+			Z    = 0
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 27
+			Z    = -1
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 27
+			Z    = 5
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 27
+			Z    = -2
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 28
+			Z    = 4
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 28
+			Z    = 3
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 28
+			Z    = 2
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 28
+			Z    = 1
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 28
+			Z    = 0
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 28
+			Z    = -1
+			Type = EditorTileA
+		}
+		HEX{ 
+			X    = 28
+			Z    = -2
+			Type = EditorTileA
+		}
+	}
+	ENTITIES{
+		ENTITY{ 
+			X          = -1
+			Z          = 0
+			Type       = Junkyard
+			Node Lvl   = 2
+		}
+		ENTITY{ 
+			X          = -2
+			Z          = 1
+			Type       = Junkyard
+			Node Lvl   = 2
+		}
+		ENTITY{ 
+			X          = -2
+			Z          = 4
+			Type       = Enemy
+			Omnsc Base = True
+			Omnsc Mech = False
+		}
+		ENTITY{ 
+			X          = 0
+			Z          = -1
+			Type       = Outpost
+			Node Lvl   = 1
+		}
+		ENTITY{ 
+			X          = 0
+			Z          = 4
+			Type       = Factory
+			Node Lvl   = 0
+		}
+		ENTITY{ 
+			X          = 0
+			Z          = 1
+			Type       = Base
+			HP Perc    = 33
+		}
+		ENTITY{ 
+			X          = 1
+			Z          = 3
+			Type       = Factory
+			Node Lvl   = 0
+		}
+		ENTITY{ 
+			X          = 2
+			Z          = -1
+			Type       = Enemy
+			Omnsc Base = True
+			Omnsc Mech = True
+		}
+		ENTITY{ 
+			X          = 2
+			Z          = 1
+			Type       = Player
+			HP Perc    = 60
+		}
+	}
+}
