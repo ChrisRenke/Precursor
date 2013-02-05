@@ -41,6 +41,12 @@ public class editorHexManagerS : MonoBehaviour {
 		hex_dict.Add(Hex.EditorTileA, border_hex);
 		
 		BrushHex(true, Hex.EditorTileA, 1, new Vector3(0, 0, 0), initial_hex.GetComponent<editorHexS>().hex_type, 0, 0); 
+		
+//		BrushHex(true, Hex.EditorTileA, 1, editorUserS.CoordsGameTo3D(2, 2), initial_hex.GetComponent<editorHexS>().hex_type, 2,2); 
+//		BrushHex(true, Hex.EditorTileA, 1, editorUserS.CoordsGameTo3D(-1, 2), initial_hex.GetComponent<editorHexS>().hex_type, -1, 2); 
+//		BrushHex(true, Hex.EditorTileA, 1, editorUserS.CoordsGameTo3D(3, -1), initial_hex.GetComponent<editorHexS>().hex_type, 3, -1); 
+		
+		
 	}
 	
 	// Update is called once per frame
