@@ -22,6 +22,8 @@ public class editorHexManagerS : MonoBehaviour {
 	public GameObject  	hills_hex;
 	public GameObject  	water_hex;  
 	
+	public int		random_percentage_threshold = 30;
+	
 	public static Dictionary<Hex, GameObject>  hex_dict    = new Dictionary<Hex, GameObject>();
 	
 	public static Hex   clicked_hex_type;
@@ -95,16 +97,16 @@ public class editorHexManagerS : MonoBehaviour {
 	}
 	
 	
-	public void BrushHex(bool overwrite, Hex clicked_hex_type, int brush_size, Vector3 pos, Hex draw_hex_type, int x, int z)
+	public GameObject BrushHex(bool overwrite, Hex clicked_hex_type, int brush_size, Vector3 pos, Hex draw_hex_type, int x, int z)
 	{
 		GameObject current_hex; 
 		bool border_mode = false;
-		
+		GameObject origin_hex;
 		debug("BrushHex called");
 		
 		//draw center hex, the one clicked on
 		current_hex = AddHex(overwrite, clicked_hex_type, brush_size, pos, draw_hex_type, x, z);
-		
+		origin_hex = current_hex;
 		//enter loop for surrounding hexes
 		for(int ring = 1; ring < brush_size + 1; ring++)
 		{
@@ -172,8 +174,10 @@ public class editorHexManagerS : MonoBehaviour {
 				current_hex = AddHexNE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 		}
+		return origin_hex;
 	}
 		
+	
 	
 	public int xcrd(GameObject hex)
 	{
@@ -515,5 +519,97 @@ public class editorHexManagerS : MonoBehaviour {
 			return occupier;
 		}
 		
-	}	
+	}
+	
+	private int sprayNum()
+	{
+		return Random.Range(0, 100);
+	}
+	
+	public void SprayHex(bool overwrite, Hex clicked_hex_type, int brush_size, Vector3 pos, Hex draw_hex_type, int x, int z)
+	{
+		GameObject current_hex; 
+		bool border_mode = false;
+		
+		debug("BrushHex called");
+		
+		//draw center hex, the one clicked on
+		
+		if(sprayNum() < (random_percentage_threshold))
+			current_hex = AddHex(overwrite, clicked_hex_type, brush_size, pos, draw_hex_type, x, z);
+		else
+			current_hex = hex_db[x][z].occupier;
+		
+		//enter loop for surrounding hexes
+		for(int ring = 1; ring < brush_size; ring++)
+		{ 
+			//draw the first "northeast" edge hex
+			debug("    drawing a northeast edge before initial from");
+			
+				x += 1;
+				z += 0;
+				if(sprayNum() < (random_percentage_threshold )) 
+					current_hex = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
+				
+			//draw the "northeast" portion
+			for(int edge_hexes_drawn = 1; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{ 
+				x += 1;
+				z -= 1;
+				debug("    drawing a northeast edge.");
+				if(sprayNum() < (random_percentage_threshold)) 
+					current_hex = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
+			}
+			
+			//draw the "southeast" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				x += 0;
+				z -= 1;
+				debug("    drawing a southeast edge.");
+				if(sprayNum() < (random_percentage_threshold)) 
+					current_hex = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
+			}
+			
+			//draw the "south" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				x -= 1;
+				z += 0;
+				debug("    drawing a south edge.");
+				if(sprayNum() < (random_percentage_threshold)) 
+					current_hex  = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
+			}
+			
+			//draw the "southwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				x -= 1;
+				z += 1;
+				debug("    drawing a southwest edge.");
+				if(sprayNum() < (random_percentage_threshold)) 
+					current_hex  = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
+			}
+			
+			//draw the "northwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				x -= 0;
+				z += 1;
+				debug("    drawing a northwest edge.");
+				if(sprayNum() < (random_percentage_threshold)) 
+					current_hex  = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
+			}
+			
+			//draw the "north" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				x += 1;
+				z += 0;
+				debug("    drawing a north edge.");
+				if(sprayNum() < (random_percentage_threshold)) 
+					current_hex  = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
+			}
+		}
+	}
 }

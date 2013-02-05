@@ -26,6 +26,7 @@ public class editorUserS : MonoBehaviour {
 	public Texture  							dropper_icon;
 	public Texture  							brush_icon;
 	public Texture								eraser_icon;
+	public Texture								spray_icon;
 	
 	private GameObject 							terrain_menu;
 	
@@ -239,6 +240,22 @@ public class editorUserS : MonoBehaviour {
 				
 				editorUserS.tms.BrushHex(true, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
 										editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);	 
+//				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
+//											editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);
+			}
+		}
+		else
+		//LeftCommand + left click
+		if(Input.GetKey(KeyCode.LeftCommand) && Input.GetMouseButtonDown(0))
+		{	
+			clicked_game_object = RaycastMouse(HexTag);
+			 
+			if(clicked_game_object != null)
+			{
+				hex_script          = clicked_game_object.GetComponent<editorHexS>();
+				
+				editorUserS.tms.SprayHex(overwrite_mode, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
+										last_created_hex_type, hex_script.x_coord, hex_script.z_coord);	 
 //				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
 //											editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);
 			}
@@ -513,6 +530,12 @@ public class editorUserS : MonoBehaviour {
 		{
 			Screen.showCursor = false;
 	    	GUI.Label(new Rect(Input.mousePosition.x, Screen.height - Input.mousePosition.y - brush_icon.height, brush_icon.width, brush_icon.height),brush_icon);
+		}
+		else
+		if(Input.GetKey(KeyCode.LeftCommand))
+		{
+			Screen.showCursor = false;
+	    	GUI.Label(new Rect(Input.mousePosition.x, Screen.height - Input.mousePosition.y - spray_icon.height + 20, spray_icon.width, spray_icon.height),spray_icon);
 		}
 		else
 		{
