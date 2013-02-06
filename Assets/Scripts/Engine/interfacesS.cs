@@ -4,6 +4,7 @@ using System.Collections;
 //General Interfaces for Entities
 //*******************************
 
+
 //For entites that move
 public interface IMove {
 	
