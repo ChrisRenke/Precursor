@@ -6,13 +6,11 @@ using System.Collections.Generic;
 public class editorHexManagerS : MonoBehaviour {
 	
 	public static Dictionary<int, Dictionary<int, editorHexManagerS.HexData>> hex_db = new Dictionary<int, Dictionary<int, editorHexManagerS.HexData>>();
-	
-	public GameObject  	initial_hex;
-	public GameObject  	border_hex;
-	public bool 		debug_prints = true;
-		
-	public enum 		Hex    {Grass, Desert, Forest, Farmland, Marsh, Snow, Mountain, Hills, Water, Perimeter};
 	 
+	public bool 		debug_prints = true;
+		 
+	public static GUIStyle tooltip;
+	
 	public GameObject  	grass_hex;
 	public GameObject  	desert_hex;
 	public GameObject  	forest_hex;
@@ -21,7 +19,8 @@ public class editorHexManagerS : MonoBehaviour {
 	public GameObject  	mountain_hex;
 	public GameObject  	hills_hex;
 	public GameObject  	water_hex;  
-	
+	public GameObject  	border_hex;
+	 
 	public int		random_percentage_threshold = 30;
 	
 	public static Dictionary<Hex, GameObject>  hex_dict    = new Dictionary<Hex, GameObject>();
@@ -30,7 +29,6 @@ public class editorHexManagerS : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		
 		
 		hex_dict.Add(Hex.Grass, grass_hex);
 		hex_dict.Add(Hex.Desert, desert_hex);
@@ -42,7 +40,9 @@ public class editorHexManagerS : MonoBehaviour {
 		hex_dict.Add(Hex.Water, water_hex);
 		hex_dict.Add(Hex.Perimeter, border_hex);
 		
-		BrushHex(true, Hex.Perimeter, 1, new Vector3(0, 0, 0), initial_hex.GetComponent<editorHexS>().hex_type, 0, 0); 
+		
+		tooltip = GameObject.FindGameObjectWithTag("player_manager").GetComponent<editorUserS>().getTooltip();
+		BrushHex(true, Hex.Perimeter, 1, new Vector3(0, 0, 0), Hex.Grass, 0, 0); 
 		
 //		BrushHex(true, Hex.Perimeter, 1, editorUserS.CoordsGameTo3D(2, 2), initial_hex.GetComponent<editorHexS>().hex_type, 2,2); 
 //		BrushHex(true, Hex.Perimeter, 1, editorUserS.CoordsGameTo3D(-1, 2), initial_hex.GetComponent<editorHexS>().hex_type, -1, 2); 
@@ -55,6 +55,8 @@ public class editorHexManagerS : MonoBehaviour {
 	void Update () {
 	
 	}
+	
+//	public Dictionary<Hex, GameObject> getHex
 	
 	public void playSelectTile()
 	{
@@ -76,13 +78,14 @@ public class editorHexManagerS : MonoBehaviour {
 	
 	private GameObject InstantiateHex(Vector3 pos, Hex hex_type, int x, int z)
 	{ 
-		GameObject new_hex = (GameObject) Instantiate(hex_dict[hex_type], pos, Quaternion.identity);
-		editorHexS new_hex_script = new_hex.GetComponent<editorHexS>();
+		GameObject new_hex = (GameObject) Instantiate(hex_dict[hex_type], pos, Quaternion.identity); 
+		editorHexS new_hex_script = (editorHexS) new_hex.AddComponent("editorHexS");
 		 
 		new_hex_script.x_coord = x;
 		new_hex_script.z_coord = z;
+		new_hex_script.hex_type = hex_type; 
+		
 		new_hex_script.name = "hex("+new_hex_script.x_coord +"," + new_hex_script.z_coord+")";
-		new_hex_script.hex_type = hex_type;
 		
 		return new_hex;
 	}
@@ -497,13 +500,13 @@ public class editorHexManagerS : MonoBehaviour {
 		public string tile_name;
 		public int x_coord;
 		public int z_coord;
-		public editorHexManagerS.Hex hex_type;
+		public Hex hex_type;
 		public string[] contents;
 		public GameObject occupier;
 		
 		public HexData(string _tile_name,
 						GameObject _occupier,
-						editorHexManagerS.Hex    _hex_type,
+						Hex    _hex_type,
 						int    _x_coord,
 						int    _z_coord)
 		{

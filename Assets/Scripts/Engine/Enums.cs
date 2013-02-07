@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 
-public enum Part { Cog, Piston, Strut, Plate }
-public enum Hex  {Grass, Desert, Forest, Farmland, Marsh, Snow, Mountain, Hills, Water, Settlement, Factory, Outpost, Junkyard, Perimeter};
-
-//public enum Entity {Player, Enemy, Base, ResourceNode};
+public enum Part	{ Cog, Piston, Strut, Plate }
+public enum Hex  	{Grass, Desert, Forest, Farmland, Marsh, Snow, Mountain, Hills, Water, Perimeter};
+public enum EntityE {Player, Base, Enemy, Junkyard, Outpost, Factory};

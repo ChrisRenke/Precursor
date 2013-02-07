@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class playerMechS : Combatable, IMove {
+public class entityMechS : Combatable, IMove {
 	
 	
 	private HexData[] traversable_hexes; //Hold traversable hexes

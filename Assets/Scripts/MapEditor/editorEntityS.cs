@@ -6,25 +6,25 @@ public class editorEntityS : MonoBehaviour {
 	public int x_coord;
 	public int z_coord; 
 	
-	public editorEntityManagerS.Entity entity_type;
-	public GUIStyle tooltipStyle;
+	public EntityE 		entity_type;
+	public GUIStyle 	tooltipStyle;
 	
-	public int 		   tile_num;
-	public  int        menu_item_num; 
-	public  bool       menu_item = false;
+	public int 		   	tile_num;
+	public  int        	menu_item_num; 
+	public  bool       	menu_item = false;
 	
 	//player stuff
-	public int     	   mech_starting_health_percentage = 100;
+	public int     	   	mech_starting_health_percentage = 100;
 	
 	//base stuff
-	public int     	   base_starting_health_percentage = 100;
+	public int     	   	base_starting_health_percentage = 100;
 	
 	//node stuff
-	public int     	   node_starting_level = 2;  //0 empty, 1 sparse, 2 full
+	public int     	   	node_starting_level = 2;  //0 empty, 1 sparse, 2 full
 		
 	//enemy stuff
-	public bool 	   enemy_knows_mech_loc = false;
-	public bool 	   enemy_knows_base_loc = false;
+	public bool 	   	enemy_knows_mech_loc = false;
+	public bool 	   	enemy_knows_base_loc = false;
 	
 	void OnGUI()
 	{

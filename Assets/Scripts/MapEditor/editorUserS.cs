@@ -13,7 +13,7 @@ public class editorUserS : MonoBehaviour {
 	public string								HexTag;
 	public string								EntTag;
 	
-	
+	public GUIStyle								tooltip;
 	public static editorHexManagerS 			tms;
 	public static editorEntityManagerS 			ems;
 	
@@ -38,8 +38,8 @@ public class editorUserS : MonoBehaviour {
 	public GameObject 							entMenuPrefab;
 	public GameObject 							hexMenuPrefab;
 	 
-	public static editorHexManagerS.Hex         last_created_hex_type; 
-	public static editorEntityManagerS.Entity   last_created_entity_type;
+	public static Hex         					last_created_hex_type; 
+	public static EntityE  						last_created_entity_type;
 	
 	public int 									min_brush_size;
 	public int 									max_brush_size;
@@ -50,7 +50,10 @@ public class editorUserS : MonoBehaviour {
 	public float 								hSensitivity = 1.0F;
 	public float 								zoomSensitivity = 1.0F;
 	
-	
+	public GUIStyle getTooltip()
+	{
+		return tooltip;
+	}
 	
 	// Use this for initialization
 	void Start () {
@@ -235,7 +238,7 @@ public class editorUserS : MonoBehaviour {
 				hex_script          = clicked_game_object.GetComponent<editorHexS>();
 				
 				editorUserS.tms.BrushHex(overwrite_mode, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
-										editorHexManagerS.Hex.Perimeter, hex_script.x_coord, hex_script.z_coord);	 
+										Hex.Perimeter, hex_script.x_coord, hex_script.z_coord);	 
 				
 //				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
 //											editorHexManagerS.Hex.Perimeter, hex_script.x_coord, hex_script.z_coord);
@@ -262,7 +265,7 @@ public class editorUserS : MonoBehaviour {
 			if(clicked_game_object != null)
 			{
 				hex_script          				= clicked_game_object.GetComponent<editorHexS>();
-				if(hex_script.hex_type != editorHexManagerS.Hex.Perimeter)
+				if(hex_script.hex_type != Hex.Perimeter)
 					editorUserS.last_created_hex_type 	= hex_script.hex_type; 
 			}
 		}
@@ -277,7 +280,7 @@ public class editorUserS : MonoBehaviour {
 				hex_script          = clicked_game_object.GetComponent<editorHexS>();
 				
 				editorUserS.tms.BrushHex(true, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
-										editorHexManagerS.Hex.Perimeter, hex_script.x_coord, hex_script.z_coord);	 
+										Hex.Perimeter, hex_script.x_coord, hex_script.z_coord);	 
 //				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
 //											editorHexManagerS.Hex.Perimeter, hex_script.x_coord, hex_script.z_coord);
 			}

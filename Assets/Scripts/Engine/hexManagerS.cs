@@ -15,19 +15,44 @@ public class hexManagerS : MonoBehaviour {
       southwest \___/  southeast
 				south
 		*/
- 
-	public static string 	  	level_name;
-	public static int   		level_editor_format_version;
+ 	
+	public string 	  			level_name;
+	public int   				level_editor_format_version;
 	
 	private static HexData[,] 	hexes; 
 	private static int 			x_max, z_max = 0; //size of hex array, used for out of bounds checking
 	
+	
+	public GameObject  	grass_hex;
+	public GameObject  	desert_hex;
+	public GameObject  	forest_hex;
+	public GameObject  	farmland_hex;
+	public GameObject  	marsh_hex; 
+	public GameObject  	mountain_hex;
+	public GameObject  	hills_hex;
+	public GameObject  	water_hex;  
+	public GameObject  	border_hex;  
+	
+	
+	public int		random_percentage_threshold = 30;
+	
+	private static Dictionary<Hex, GameObject>  hex_dict    = new Dictionary<Hex, GameObject>();
 	
 	//used for parsing level files
 	private	string[] stringSeparators = new string[] {" = "};  
 	
 
 	void Start(){
+		
+		hex_dict.Add(Hex.Grass, grass_hex);
+		hex_dict.Add(Hex.Desert, desert_hex);
+		hex_dict.Add(Hex.Forest, forest_hex);
+		hex_dict.Add(Hex.Farmland, farmland_hex);
+		hex_dict.Add(Hex.Marsh, marsh_hex); 
+		hex_dict.Add(Hex.Mountain, mountain_hex);
+		hex_dict.Add(Hex.Hills, hills_hex);
+		hex_dict.Add(Hex.Water, water_hex);
+		hex_dict.Add(Hex.Perimeter, border_hex);
 
 		if(!Load())
 			throw new MissingComponentException("Level file malformed! : (");
@@ -71,6 +96,12 @@ public class hexManagerS : MonoBehaviour {
 		x_max = getIntR(reader);
 		z_max = getIntR(reader);
 		
+		int load_x_min = getIntR(reader);
+		int load_x_max = getIntR(reader);
+		
+		int load_z_min = getIntR(reader);
+		int load_z_max = getIntR(reader);
+		
 		hexes = new HexData[x_max, z_max];
 		
 		--x_max;
@@ -89,10 +120,18 @@ public class hexManagerS : MonoBehaviour {
 		}
 		while(getHexR(reader)) //next line is a HEX{
 		{
-			int x = getIntR(reader);
-			int z = getIntR(reader);
+			int x = getIntR(reader) - load_x_min;
+			int z = getIntR(reader) - load_z_min;
+			
+			print ("making hex: " + x + ", " + z);
             Hex hex_type = (Hex) Enum.Parse(typeof(Hex), getStringR(reader));
 			hexes[x, z] = new HexData(x, z, hex_type);
+			
+			
+			GameObject new_hex = (GameObject) Instantiate(hex_dict[hex_type], CoordsGameTo3D(x,z), Quaternion.identity);
+			engineHexS new_hex_script = (engineHexS) new_hex.AddComponent("engineHexS"); 
+			 
+			new_hex_script.buildHexData(x, z, hex_type);
 			
 			if(!getCBR(reader))
 			{
@@ -103,49 +142,54 @@ public class hexManagerS : MonoBehaviour {
 		 
 //		print (reader.ReadLine());
 		//BEGIN PARSING ENTITES
-//		if(!reader.ReadLine().Contains("ENTITIES{"))
-//		{
-//			print("ENTITIES ILL FORMATED");
-//			return false;
-//		}
-//		while(getEntR(reader)) //next line is a HEX{
-//		{
-//			int x = getIntR(reader);
-//			int z = getIntR(reader);
-//            editorEntityManagerS.Entity ent_type = (editorEntityManagerS.Entity) Enum.Parse(typeof(editorEntityManagerS.Entity), getStringR(reader));
-//			
-//			editorUserS.ems.base_starting_health_percentage = 100;
-//			editorUserS.ems.mech_starting_health_percentage = 100;
-//			editorUserS.ems.enemy_knows_base_loc 			= false;
-//			editorUserS.ems.enemy_knows_mech_loc 			= false;
-//			editorUserS.ems.node_starting_level				= 2;
-//			
-//			switch(ent_type)
-//			{
-//				case editorEntityManagerS.Entity.Base:
-//					editorUserS.ems.base_starting_health_percentage = getIntR(reader);
-//					break;
-//				case editorEntityManagerS.Entity.Player:
-//					editorUserS.ems.mech_starting_health_percentage = getIntR(reader);
-//					break;
-//				case editorEntityManagerS.Entity.Enemy:
-//					editorUserS.ems.enemy_knows_base_loc = getBoolR(reader);
-//					editorUserS.ems.enemy_knows_mech_loc = getBoolR(reader);
-//					break;
-//				case editorEntityManagerS.Entity.Factory:
-//				case editorEntityManagerS.Entity.Junkyard:
-//				case editorEntityManagerS.Entity.Outpost:
-//					editorUserS.ems.node_starting_level	 = getIntR(reader);
-//					break;
-//			}
-//			 
-//			editorUserS.ems.LoadEntity(ent_type, x, z);
-//			if(!getCBR(reader))
-//			{
-//				print("MALFORMED HEX!");
-//				return false;
-//			}
-//		}
+		if(!reader.ReadLine().Contains("ENTITIES{"))
+		{
+			print("ENTITIES ILL FORMATED");
+			return false;
+		}
+		while(getEntR(reader)) //next line is a HEX{
+		{
+			int x = getIntR(reader) - load_x_min;
+			int z = getIntR(reader) - load_z_min;
+            EntityE ent_type = (EntityE) Enum.Parse(typeof(EntityE), getStringR(reader));
+			
+			int base_starting_health_percentage = 100;
+			int mech_starting_health_percentage = 100;
+			bool enemy_knows_base_loc 			= false;
+			bool enemy_knows_mech_loc 			= false;
+			int node_starting_level				= 2;
+			
+			if(ent_type == EntityE.Player)
+			{ 
+				print ("MOVING CAMERA ONTO PLAYER!");
+				GameObject maincam = GameObject.FindGameObjectWithTag("MainCamera");
+				maincam.transform.position = new Vector3(CoordsGameTo3D(x,z).x, 20, CoordsGameTo3D(x,z).z);
+			}
+			switch(ent_type)
+			{
+				case EntityE.Base:
+					 base_starting_health_percentage = getIntR(reader);
+					break;
+				case EntityE.Player:
+					 mech_starting_health_percentage = getIntR(reader);
+					break;
+				case EntityE.Enemy:
+					 enemy_knows_base_loc = getBoolR(reader);
+					 enemy_knows_mech_loc = getBoolR(reader);
+					break;
+				case EntityE.Factory:
+				case EntityE.Junkyard:
+				case EntityE.Outpost:
+					 node_starting_level	 = getIntR(reader);
+					break;
+			}
+			  
+			if(!getCBR(reader))
+			{
+				print("MALFORMED HEX!");
+				return false;
+			}
+		}
 		 
 		return true;
 	}
@@ -193,7 +237,7 @@ public class hexManagerS : MonoBehaviour {
 		
 		
 		//if we're out of bounds or if we're trying to get adjacency from a perimeter hex, return false
-		if(x < 0 || x > x_max || z < 0 || z > z_max || getHex(x, z).hex_type == Hex.Settlement)
+		if(x < 0 || x > x_max || z < 0 || z > z_max || getHex(x, z).hex_type == Hex.Perimeter)
 		{
 			throw new KeyNotFoundException("Accessing out of bounds!"); 
 		}
@@ -218,7 +262,7 @@ public class hexManagerS : MonoBehaviour {
 	//Get hex at given position in the map
 	public static HexData getHex(int x, int z){
 		
-		if(x < 0 || x > x_max || z < 0 || z > z_max || getHex(x, z).hex_type == Hex.Settlement)
+		if(x < 0 || x > x_max || z < 0 || z > z_max || getHex(x, z).hex_type == Hex.Perimeter)
 		{
 			throw new KeyNotFoundException("Accessing out of bounds!"); 
 		}
@@ -227,6 +271,22 @@ public class hexManagerS : MonoBehaviour {
 			return hexes[x, z];
 		}
 	} 
+	
+	//converts engine coordinates into 3D space cordinates
+	public static Vector3 CoordsGameTo3D(int x, int z)
+	{  
+		return new Vector3(x * 2.30024F + z * -0.841947F, 0, z * 1.81415F + x * 1.3280592F);
+	}
+	
+	private GameObject InstantiateHex(int x, int z)
+	{ 
+		GameObject new_hex = (GameObject) Instantiate(hex_dict[hexes[x, z].hex_type], CoordsGameTo3D(x, z), Quaternion.identity);
+		editorHexS new_hex_script = new_hex.GetComponent<editorHexS>();
+		 
+		
+		return new_hex;
+	}
+	 
 }
 
 

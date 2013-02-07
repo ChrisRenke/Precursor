@@ -8,8 +8,7 @@ using System.IO;
 public class editorEntityManagerS : MonoBehaviour {
 	
 	public static Dictionary<int, Dictionary<int, EntityData>> entity_db = new Dictionary<int, Dictionary<int, EntityData>>();  
-	
-	public enum 		Entity    {Player, Base, Enemy, Junkyard, Outpost, Factory};
+	 
 	  
 	public GameObject  	player_entity;
 	public GameObject  	enemy_entity;
@@ -18,7 +17,7 @@ public class editorEntityManagerS : MonoBehaviour {
 	public GameObject  	factory_entity; 
 	public GameObject  	base_entity; 
 	
-	public static Dictionary<Entity, GameObject> entity_dict = new Dictionary<Entity, GameObject>();
+	public static Dictionary<EntityE, GameObject> entity_dict = new Dictionary<EntityE, GameObject>();
 	
 	
 	
@@ -46,12 +45,12 @@ public class editorEntityManagerS : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () { 
-		entity_dict.Add(Entity.Player, player_entity);
-		entity_dict.Add(Entity.Enemy, enemy_entity);
-		entity_dict.Add(Entity.Outpost, outpost_entity);
-		entity_dict.Add(Entity.Junkyard, junkyard_entity); 
-		entity_dict.Add(Entity.Factory, factory_entity); 
-		entity_dict.Add(Entity.Base, base_entity); 
+		entity_dict.Add(EntityE.Player, player_entity);
+		entity_dict.Add(EntityE.Enemy, enemy_entity);
+		entity_dict.Add(EntityE.Outpost, outpost_entity);
+		entity_dict.Add(EntityE.Junkyard, junkyard_entity); 
+		entity_dict.Add(EntityE.Factory, factory_entity); 
+		entity_dict.Add(EntityE.Base, base_entity); 
 		enemy_knows_mech_loc_str = enemy_knows_mech_loc_str_f;
 		enemy_knows_base_loc_str = enemy_knows_base_loc_str_f;
 	}
@@ -78,7 +77,7 @@ public class editorEntityManagerS : MonoBehaviour {
 		return false;
 	}
 	
-  	private GameObject InstantiateEntity(Vector3 pos, Entity ent_type, int x, int z)
+  	private GameObject InstantiateEntity(Vector3 pos, EntityE ent_type, int x, int z)
 	{ 
 		GameObject new_ent  = (GameObject) Instantiate(entity_dict[ent_type], pos, Quaternion.identity);
 		editorEntityS ent_s = new_ent.GetComponent<editorEntityS>(); 
@@ -106,28 +105,28 @@ public class editorEntityManagerS : MonoBehaviour {
 	
 	public void setEntityProperties(editorEntityS ent_s)
 	{
-		if(ent_s.entity_type == Entity.Base)
+		if(ent_s.entity_type == EntityE.Base)
 		{
 			ent_s.base_starting_health_percentage = base_starting_health_percentage;
 		}
-		else if(ent_s.entity_type == Entity.Player)
+		else if(ent_s.entity_type == EntityE.Player)
 		{
 			ent_s.mech_starting_health_percentage = mech_starting_health_percentage;
 		}
-		else if(ent_s.entity_type == Entity.Factory ||
-				ent_s.entity_type == Entity.Junkyard ||
-				ent_s.entity_type == Entity.Outpost)
+		else if(ent_s.entity_type == EntityE.Factory ||
+				ent_s.entity_type == EntityE.Junkyard ||
+				ent_s.entity_type == EntityE.Outpost)
 		{
 			ent_s.node_starting_level = node_starting_level;
 		}
-		else if(ent_s.entity_type == Entity.Enemy)
+		else if(ent_s.entity_type == EntityE.Enemy)
 		{
 			ent_s.enemy_knows_base_loc = enemy_knows_base_loc;
 			ent_s.enemy_knows_mech_loc = enemy_knows_mech_loc;
 		} 
 	}
 	
-	public void LoadEntity(Entity ent_type, int x, int z)
+	public void LoadEntity(EntityE ent_type, int x, int z)
 	{
 		Vector3 converted = editorUserS.CoordsGameTo3D(x, z);
 		Vector3 adjusted  = new Vector3(converted.x, converted.y + 1F, converted.z + .5F);
@@ -136,7 +135,7 @@ public class editorEntityManagerS : MonoBehaviour {
 	}
 	
 	
-	public GameObject AddEntity(Vector3 pos, Entity ent_type, int x, int z)
+	public GameObject AddEntity(Vector3 pos, EntityE ent_type, int x, int z)
 	{
 	
 		GameObject new_ent;
@@ -202,12 +201,12 @@ public class editorEntityManagerS : MonoBehaviour {
 		public int x_coord;
 		public int z_coord;
 		public string name;
-		public editorEntityManagerS.Entity entity_type;   
+		public EntityE entity_type;   
 		public GameObject occupier;
 		
 		public EntityData(string _name, 
 						GameObject _occupier,
-						editorEntityManagerS.Entity   _entity_type,
+						EntityE   _entity_type,
 						int    _x_coord,
 						int    _z_coord)
 		{
@@ -218,7 +217,7 @@ public class editorEntityManagerS : MonoBehaviour {
 			entity_type = _entity_type;
 		} 
 		
-		public editorEntityManagerS.Entity getEntityType()
+		public EntityE getEntityType()
 		{
 			return entity_type;
 		}
@@ -235,23 +234,23 @@ public class editorEntityManagerS : MonoBehaviour {
 		if(editorUserS.entity_mode)
 		{
 			//draw Base config options
-			if(editorUserS.last_created_entity_type == Entity.Base)
+			if(editorUserS.last_created_entity_type == EntityE.Base)
 			{
 				base_starting_health_percentage = (int)GUI.HorizontalSlider(new Rect( 30, 70, 210, 30), base_starting_health_percentage, (float) 0, (float) 100);	
 				GUI.Label(new Rect(250, 65, 150, 30),  base_starting_health_percentage + "% starting hp" );
 			}
 			else
 			//draw Player config options
-			if(editorUserS.last_created_entity_type == Entity.Player)
+			if(editorUserS.last_created_entity_type == EntityE.Player)
 			{ 
 				mech_starting_health_percentage = (int)GUI.HorizontalSlider(new Rect( 30, 70, 210, 30), mech_starting_health_percentage, (float) 0, (float) 100);	
 				GUI.Label(new Rect(250, 65, 150, 30),  mech_starting_health_percentage + "% starting hp");
 			}
 			else
 			//draw node config options
-			if(editorUserS.last_created_entity_type == Entity.Factory ||
-				editorUserS.last_created_entity_type == Entity.Junkyard ||
-				editorUserS.last_created_entity_type == Entity.Outpost)
+			if(editorUserS.last_created_entity_type == EntityE.Factory ||
+				editorUserS.last_created_entity_type == EntityE.Junkyard ||
+				editorUserS.last_created_entity_type == EntityE.Outpost)
 			{
 				node_starting_level = (int)GUI.HorizontalSlider(new Rect( 30, 70, 210, 30), node_starting_level, (float) 0, (float) 2);	
 				if(node_starting_level == 0)
@@ -264,7 +263,7 @@ public class editorEntityManagerS : MonoBehaviour {
 			}
 			else
 			//draw enemy config options
-			if(editorUserS.last_created_entity_type == Entity.Enemy)
+			if(editorUserS.last_created_entity_type == EntityE.Enemy)
 			{
 				if(GUI.Button(new Rect( 30, 70, 210, 30), enemy_knows_base_loc_str))
 				{

@@ -9,7 +9,7 @@ public class editorIOS : MonoBehaviour {
 	
 	public string       level_name = "untitled level";  
 	public int 			version; 
-	public int          level_editor_format_version = 2;
+	public int          level_editor_format_version = 3;
 	 
 	
 	private	string[] stringSeparators = new string[] {" = "};  
@@ -67,7 +67,7 @@ public class editorIOS : MonoBehaviour {
 				
 				count++;
 				
-				if(entry_2.Value.hex_type == editorHexManagerS.Hex.Perimeter)
+				if(entry_2.Value.hex_type == Hex.Perimeter)
 					border_count++;
 			}
 		}
@@ -82,6 +82,10 @@ public class editorIOS : MonoBehaviour {
         tw.WriteLine("\tLevel Ver    = " + version ); 
         tw.WriteLine("\tX_dim        = " + x_dim ); 
         tw.WriteLine("\tZ_dim        = " + z_dim );  
+        tw.WriteLine("\tX_min        = " + x_min );  
+        tw.WriteLine("\tX_max        = " + x_max );  
+        tw.WriteLine("\tZ_min        = " + z_min );  
+        tw.WriteLine("\tZ_max        = " + z_max );  
         tw.WriteLine("\tTotal_Hexes  = " + count ); 
         tw.WriteLine("\tGame_Hexes   = " + (count - border_count)); 
         tw.WriteLine("\tBorder_Hexes = " + border_count);  
@@ -119,21 +123,21 @@ public class editorIOS : MonoBehaviour {
         		tw.WriteLine("\t\t\tType       = " + entry_2.Value.entity_type);
 				
 				editorEntityS ent_s = entry_2.Value.occupier.GetComponent<editorEntityS>();
-				if(ent_s.entity_type == editorEntityManagerS.Entity.Base)
+				if(ent_s.entity_type == EntityE.Base)
 				{					//  Z          = "
         			tw.WriteLine("\t\t\tHP Perc    = " + ent_s.base_starting_health_percentage); 
 				}
-				else if(ent_s.entity_type == editorEntityManagerS.Entity.Player)
+				else if(ent_s.entity_type == EntityE.Player)
 				{
         			tw.WriteLine("\t\t\tHP Perc    = " + ent_s.mech_starting_health_percentage); 
 				}
-				else if(ent_s.entity_type == editorEntityManagerS.Entity.Factory ||
-						ent_s.entity_type == editorEntityManagerS.Entity.Junkyard ||
-						ent_s.entity_type == editorEntityManagerS.Entity.Outpost)
+				else if(ent_s.entity_type == EntityE.Factory ||
+						ent_s.entity_type == EntityE.Junkyard ||
+						ent_s.entity_type == EntityE.Outpost)
 				{ 
         			tw.WriteLine("\t\t\tNode Lvl   = " + ent_s.node_starting_level); 
 				}
-				else if(ent_s.entity_type == editorEntityManagerS.Entity.Enemy)
+				else if(ent_s.entity_type == EntityE.Enemy)
 				{
         			tw.WriteLine("\t\t\tOmnsc Base = " + ent_s.enemy_knows_base_loc); 
         			tw.WriteLine("\t\t\tOmnsc Mech = " + ent_s.enemy_knows_mech_loc);  
@@ -231,6 +235,12 @@ public class editorIOS : MonoBehaviour {
 		int x_dim, z_dim, total_count, game_count, border_count;
 		x_dim 			= getIntR(reader);  		//X_dim
 		z_dim 			= getIntR(reader);		//Z_dim
+		
+		getIntR(reader);
+		getIntR(reader);
+		getIntR(reader);
+		getIntR(reader);
+		
 		total_count 	= getIntR(reader);  		//total count
 		game_count 		= getIntR(reader);		//game count
 		border_count 	= getIntR(reader);  		//border count
@@ -246,7 +256,7 @@ public class editorIOS : MonoBehaviour {
 		{
 			int x = getIntR(reader);
 			int z = getIntR(reader);
-            editorHexManagerS.Hex hex_type = (editorHexManagerS.Hex) Enum.Parse(typeof(editorHexManagerS.Hex), getStringR(reader));
+            Hex hex_type = (Hex) Enum.Parse(typeof(Hex), getStringR(reader));
 			editorUserS.tms.LoadHex(hex_type, x, z);
 			if(!getCBR(reader))
 			{
@@ -266,7 +276,7 @@ public class editorIOS : MonoBehaviour {
 		{
 			int x = getIntR(reader);
 			int z = getIntR(reader);
-            editorEntityManagerS.Entity ent_type = (editorEntityManagerS.Entity) Enum.Parse(typeof(editorEntityManagerS.Entity), getStringR(reader));
+            EntityE ent_type = (EntityE) Enum.Parse(typeof(EntityE), getStringR(reader));
 			
 			editorUserS.ems.base_starting_health_percentage = 100;
 			editorUserS.ems.mech_starting_health_percentage = 100;
@@ -276,19 +286,19 @@ public class editorIOS : MonoBehaviour {
 			
 			switch(ent_type)
 			{
-				case editorEntityManagerS.Entity.Base:
+				case EntityE.Base:
 					editorUserS.ems.base_starting_health_percentage = getIntR(reader);
 					break;
-				case editorEntityManagerS.Entity.Player:
+				case EntityE.Player:
 					editorUserS.ems.mech_starting_health_percentage = getIntR(reader);
 					break;
-				case editorEntityManagerS.Entity.Enemy:
+				case EntityE.Enemy:
 					editorUserS.ems.enemy_knows_base_loc = getBoolR(reader);
 					editorUserS.ems.enemy_knows_mech_loc = getBoolR(reader);
 					break;
-				case editorEntityManagerS.Entity.Factory:
-				case editorEntityManagerS.Entity.Junkyard:
-				case editorEntityManagerS.Entity.Outpost:
+				case EntityE.Factory:
+				case EntityE.Junkyard:
+				case EntityE.Outpost:
 					editorUserS.ems.node_starting_level	 = getIntR(reader);
 					break;
 			}
