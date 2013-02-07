@@ -1,26 +1,13 @@
-using UnityEngine;
-
-using System.Collections;
-
+using UnityEngine; 
+using System.Collections; 
 using System.Collections.Generic;
 
 
 public class hexManagerS : MonoBehaviour {
 
-	public enum Tiles {Grass, Desert, Forest, Farmland, Marsh, Snow, Mountain, Hills, Water, Settlement, Factory, Outpost, Junkyard, EditorTileA, EditorTileB};
-
-	public enum Entities {Player, Enemy, Base, ResourceNode};
- 
-	public static HexData[,] hexes; //ADDED: changed from int to HexData array *** 
-
-	public TextAsset     level_file;
 	
-	//EXAMPLE
-	//checkTile
-	//if(hex.type == HexManager.Tiles.Mountain || hex.type = HexManager.Tiles.Water)
-	//return false;
-	//checkTile(Tiles.Desert);
-
+ 
+	public static HexData[,] hexes; 
 	
 
 	void Start(){
@@ -30,22 +17,12 @@ public class hexManagerS : MonoBehaviour {
 	}
 
 	private void Load(){
-		//TODO: Need to create Algorithm for board initialization based on level_file
-		//		hexes	= new HexData[200,200];
+		//TODO: Port Load code from editorIOS
 		
 		//ADDED: I'm creating a dummy 2D array for testing purposes ***
-		hexes = new HexData[,] {{new HexData(-3, 1, Tiles.Water, false), new HexData(3, 1, Tiles.Mountain, false), new HexData(2, 1, Tiles.Settlement, true), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false)},
-								{new HexData(-3, 1, Tiles.Water, false), new HexData(3, 1, Tiles.Mountain, false), new HexData(2, 1, Tiles.Settlement, true), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false)},
-								{new HexData(-3, 1, Tiles.Water, false), new HexData(3, 1, Tiles.Mountain, false), new HexData(2, 1, Tiles.Settlement, true), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false)},
-								{new HexData(-3, 1, Tiles.Water, false), new HexData(3, 1, Tiles.Mountain, false), new HexData(2, 1, Tiles.Settlement, true), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false)},
-								{new HexData(-3, 1, Tiles.Water, false), new HexData(3, 1, Tiles.Mountain, false), new HexData(2, 1, Tiles.Settlement, true), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false)},
-								{new HexData(-3, 1, Tiles.Water, false), new HexData(3, 1, Tiles.Mountain, false), new HexData(2, 1, Tiles.Settlement, true), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false)},
-								{new HexData(-3, 1, Tiles.Water, false), new HexData(3, 1, Tiles.Mountain, false), new HexData(2, 1, Tiles.Settlement, true), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false), new HexData(-3, 1, Tiles.Water, false)}};
-	}
-
-	//Update is called once per frame
-	void Update () {
-
+		hexes = new HexData[,] {{new HexData(0, 2, Hex.Grass), new HexData(1, 2, Tiles.Mountain), new HexData(2, 2, Hex.Grass, true)},
+								{new HexData(0, 1, Hex.Grass), new HexData(1, 1, Tiles.Grass),    new HexData(2, 1, Hex.Grass, true)},
+								{new HexData(0, 0, Hex.Grass), new HexData(1, 0, Tiles.Mountain), new HexData(2, 0, Hex.Grass, true)}};
 	}
 	
 	//ADDED: New/updated functions below ***
@@ -60,11 +37,11 @@ public class hexManagerS : MonoBehaviour {
 		
 		
 		/*
-		  north 
-      northwest   ___   northeast
+		  		north 
+      northwest  ___   northeast
                 /    \
       southwest \___/  southeast
-		south
+				south
 		*/
 		
 		//Get North
@@ -123,52 +100,23 @@ public class hexManagerS : MonoBehaviour {
  
 	public class HexData{
 
-		public int	x; //x-axis position
+		public int	x; 
+		public int	z;  
 
-		public int	z; //z-axis position
-
-		public Tiles hex_type; //enviroment type of this hex
+		public Hex hex_type; //enviroment type of this hex
 		
-		//ADDED: Hex tag variables for locating which row/column a hex is in the matrix ***
-		//		these can be tagged when initializing the hex data into the matrix (made a separate contruct function) and changed with a inner function like changeHexTags(); ***
-		//		The intialization of these tages all depends on the algorithm used to populate the hexes array. Constructor function(s) can be changed later once algorithm set ***
-		public int tag_row; //row hex occupies in hexes array ***
-		
-		public int tag_column; //column hex occupies in hexes array
-		
-		public bool occupied; //keeps track of whether entity occupies this hex, may be deleted when game object var working 
-		
-		public GameObject occupant; //entity that occupies this hex
-		
-
-		public HexData(int _x, int _z, Tiles _type, bool has_entity){
+		public HexData(int _x, int _z, Tiles _type){
 			x = _x;
 			z = _z; 
 			hex_type = _type;
-			occupied = has_entity;
-			tag_row = -1;
-			tag_column = -1;
-			
-			occupant = null;
-
 		}
 		
-		//ADDED: Separate constructor with Hex tags/Game Occupant initialized initialized ***
-		public HexData(int _x, int _z, Tiles _type, bool has_entity, int row, int column, GameObject new_occupant){
-			x = _x;
-			z = _z; 
-			hex_type = _type;
-			occupied = has_entity;
-			tag_row = row;
-			tag_column = column;
-			occupant = new_occupant;
-		}
 		
-		//ADDED: Optional method for changing hex tags if first constructor used, can be discarded if not used***
-		public void changeHexTags(int row, int column){
-			tag_row = row;
-			tag_column = column;
-		}
+//		//ADDED: Optional method for changing hex tags if first constructor used, can be discarded if not used***
+//		public void changeHexTags(int row, int column){
+//			tag_row = row;
+//			tag_column = column;
+//		}
 
 	} 
 

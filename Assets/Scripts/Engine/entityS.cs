@@ -7,18 +7,33 @@ public class Entity : MonoBehaviour {
 	public int y;
 }
 
-public class Node : Entity {
-	
-	
-}
-
-public class Damageable : Entity{
+public abstract class  Combatable : Entity{
 	
 	public int current_hitpoints;
 	public int max_hitpoints;
 	public int armor;
 	
-	public float getHPPercent()
+	
+	/**
+	 *	Deal damage to the target
+	 *  @param   the Combatable entity to damage
+	 *  @return  damage delt
+	 */
+	public abstract int attackTarget(Combatable target);
+	
+	/**
+	 *	Deal damage to whatever occupies the hex at cooridnates x, z
+	 *  @param   x - x coord
+	 *  @param   z - z coord
+	 *  @return  damage delt
+	 */
+	public abstract int attackHex(int x, int z);
+	
+	/**
+	 *	Get the percentage of hitpoints remaining
+	 *  @return  remaining ratio of hitpoints current to total
+	 */
+	public float getHitpointsPercent()
 	{
 		return (float) current_hitpoints / max_hitpoints;
 	}
@@ -35,7 +50,6 @@ public class Damageable : Entity{
 		return current_hitpoints;
 	}
 	
-	
 	/**
 	 *	Entity recieves damage, method accounts for armor, 
 	 *  this entity will always recieve at least one damage from this method
@@ -45,7 +59,6 @@ public class Damageable : Entity{
 	{
 		return acceptDamage(damage, false);
 	}
-	
 	
 	/**
 	 *	Entity heals hitpoints, cannot exceed max HP 

@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class playerMechS : MonoBehaviour, IMove {
-	public Transform player_location; //hold player location
+public class playerMechS : Combatable, IMove {
 	
 	private int size = 16; //size of traversable_hexes
 	private hexManagerS.HexData[] traversable_hexes; //Hold traversable hexes
@@ -10,7 +9,6 @@ public class playerMechS : MonoBehaviour, IMove {
 	//array of hex data that will contain the hexes the player can move to***
 	//If base.enemy then array is treated as a path with index 0 being first hex on path to base
 	//path
-	int test = 0;
 	
 	//Use this for initialization
 	void Start () {

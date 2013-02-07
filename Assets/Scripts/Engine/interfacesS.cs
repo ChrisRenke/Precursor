@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 //General Interfaces for Entities
 //*******************************
@@ -7,44 +8,45 @@ using System.Collections;
 
 //For entites that move
 public interface IMove {
+	 
+	//Get traversable hexes around entity
+	hexManagerS.HexData[] getAdjacentHexes();
 	
 	//Get traversable hexes around entity
-	hexManagerS.HexData[] getTraversableHexes();
+	hexManagerS.HexData[] getAdjacentTraversableHexes();
 	
 	//Get untraversable hexes around entity
-	hexManagerS.HexData[] getUntraversableHexes();
+	hexManagerS.HexData[] getAdjacentUntraversableHexes();
 	
-	//Check whether a hex is traversable
-	bool isTraversable(hexManagerS.HexData hex);
+	//Check whether a hex can be traversed
+	bool canTraverse(hexManagerS.HexData hex);
 	
-	//Move entity and update hex manager
+	//Move entity to a give hex
 	void makeMove(hexManagerS.HexData hex);
 	
 }
 
-//For entities who can heal damage
-public interface IHeal {
-	
-	void healDamage(int health_regained);
-		
-}
-
-//For entities that damage dealt and recieve damage in battle 
-public interface IAttack {
-	
-	void dealDamage(Transform opponent_position, int damage, int splash_range); //maybe change it to opponents hex instead of transform
-	void recieveDamage(int damage_recieved);
-	hexManagerS.HexData[] getAttackableHexes();
-}
 
 //For damage dealt and recieved in battle 
 public interface ICollect {
 	
-	void collectResources(int item, Transform resource_position); //may change it to resource hex instead of transform
-	hexManagerS.HexData[] getCollectableHexes();
-	bool canCollectResources();
-	int getResourceCount();
-	void consumeResource(); //used for removing items during healing and upgrades?
+	/**
+	 * add a part to the players invetory
+	 * @return  success of operation, false if player has no room left for parts
+	 */
+	bool 				collectPart(Part collected_part);   
+	
+	/**
+	 * get a count of each type of part the player has
+	 * @return  success of operation, false if part does not exist and can't be consumed
+	 */
+	Dictionary<Part, int>	getResourceCount();
+	
+	/**
+	 * remove a part from player inventory
+	 * @return  success of operation, false if part does not exist and can't be consumed
+	 */
+	bool consumePart(Part part_consumed); //used for removing items during healing and upgrades?
 }
 
 
