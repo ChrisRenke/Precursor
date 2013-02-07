@@ -16,7 +16,7 @@ public class hexManagerS : MonoBehaviour {
  
 	private static HexData[,] hexes; 
 	
-	private static int row, col = 0; //size of hex array, used for out of bounds checking
+	private static int x_max, z_max = 0; //size of hex array, used for out of bounds checking
 	
 
 	void Start(){
@@ -36,60 +36,48 @@ public class hexManagerS : MonoBehaviour {
 								{new HexData(2, 0, Hex.Perimeter), new HexData(2, 1, Hex.Grass), new HexData(2, 2, Hex.Mountain), new HexData(2, 3, Hex.Snow), new HexData(2, 4, Hex.Grass), new HexData(2, 5, Hex.Grass), new HexData(2, 6, Hex.Perimeter)},
 								{new HexData(1, 0, Hex.Perimeter), new HexData(1, 1, Hex.Grass), new HexData(1, 2, Hex.Grass), new HexData(1, 3, Hex.Water), new HexData(1, 4, Hex.Grass), new HexData(1, 5, Hex.Water), new HexData(1, 6, Hex.Perimeter)},
 								{new HexData(0, 0, Hex.Perimeter), new HexData(0, 1, Hex.Perimeter), new HexData(0, 2, Hex.Perimeter), new HexData(0, 3, Hex.Perimeter), new HexData(0, 4, Hex.Perimeter), new HexData(0, 5, Hex.Perimeter), new HexData(0, 6, Hex.Perimeter)}};
-		row = hexes.GetLength(0);
-		col = hexes.GetLength(1);
+		x_max = hexes.GetLength(0) - 1;
+		z_max = hexes.GetLength(1) - 1;
 	}
 	
 
 	//Return adjacent hexes for the given entity position
 	public static HexData[] getAdjacentHexes(int x, int z){
 		
-		//Set values to some invalid hex
-		HexData n   = new HexData(0,0,Hex.EditorTileB);
-		HexData n_e = new HexData(0,0,Hex.EditorTileB);
-		HexData s_e = new HexData(0,0,Hex.EditorTileB);
-		HexData s   = new HexData(0,0,Hex.EditorTileB);
-		HexData s_w = new HexData(0,0,Hex.EditorTileB);
-		HexData n_w = new HexData(0,0,Hex.EditorTileB);
 		
-		if(z+1 < col && z+1 >= 0){
-			//Get North
-			n = hexes[x, z +1];
-			if(x-1 < row && x-1 >= 0){
-				//Get Northwest
-				n_w = hexes[x-1, z+1];
-			}
+		//if we're out of bounds or if we're trying to get adjacency from a perimeter hex, return false
+		if(x < 0 || x > x_max || z < 0 || z > z_max || getHex(x, z).hex_type == Hex.Settlement)
+		{
+			throw new KeyNotFoundException("Accessing out of bounds!");
+			return null;
 		}
 		
-		if(x-1 < row && x-1 >= 0){
-			//Get Southwest
-			s_w = hexes[x-1, z];
-		}
+		//ALWAYS BUILD THIS ARRAY "CLOCKWISE" STARTING AT NORTH
+		HexData[] output = new HexData[6]();
+
+		//Get North						//Get Northeast
+		output[0] = hexes[x, z +1];		output[1] = hexes[x+1, z];
+
+		//Get Southeast                 //Get South
+		output[2] = hexes[x+1, z-1];	output[3] = hexes[x, z-1]; 
+
+		//Get Southwest					//Get Northwest
+		output[4] = hexes[x-1, z];		output[5] = hexes[x-1, z+1];
 		
-		if(z-1 < col && z-1 >= 0){
-			//Get South
-			s = hexes[x, z-1];
-			if(x+1 < row && x+1 >= 0){
-				//Get Southeast
-				s_e = hexes[x+1, z-1];
-			}
-		}
-		
-		if(x+1 < row && x+1 >= 0){
-			//Get Northeast
-			n_e = hexes[x+1, z];
-		}		
-		
-		return new HexData[] {n, n_e, s_e,
-								s, s_w,n_w};
+		return output;
 	}
 	
 	//Get hex at given position in the map
 	public static HexData getHex(int r, int c){
-		if(r < row && r >= 0 && c < col && c >= 0){
-			return hexes[r, c];
-		}else{ //return dummy hex
-			return new HexData(0,0,Hex.EditorTileB);
+		
+		if(x < 0 || x > x_max || z < 0 || z > z_max || getHex(x, z).hex_type == Hex.Settlement)
+		{
+			throw new KeyNotFoundException("Accessing out of bounds!");
+			return null;
+		}
+		else
+		{ 
+			return new hexes[x, z];
 		}
 	}
 	 

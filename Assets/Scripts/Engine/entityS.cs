@@ -4,8 +4,10 @@ using System.Collections;
 public class Entity : MonoBehaviour {
 	
 	public int x;
-	public int y;
+	public int z;
+
 }
+
 
 public abstract class  Combatable : Entity{
 	
