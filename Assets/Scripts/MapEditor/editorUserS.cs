@@ -235,10 +235,10 @@ public class editorUserS : MonoBehaviour {
 				hex_script          = clicked_game_object.GetComponent<editorHexS>();
 				
 				editorUserS.tms.BrushHex(overwrite_mode, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
-										editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);	 
+										editorHexManagerS.Hex.Perimeter, hex_script.x_coord, hex_script.z_coord);	 
 				
 //				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
-//											editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);
+//											editorHexManagerS.Hex.Perimeter, hex_script.x_coord, hex_script.z_coord);
 			}
 		}
 		else
@@ -262,7 +262,7 @@ public class editorUserS : MonoBehaviour {
 			if(clicked_game_object != null)
 			{
 				hex_script          				= clicked_game_object.GetComponent<editorHexS>();
-				if(hex_script.hex_type != editorHexManagerS.Hex.EditorTileA)
+				if(hex_script.hex_type != editorHexManagerS.Hex.Perimeter)
 					editorUserS.last_created_hex_type 	= hex_script.hex_type; 
 			}
 		}
@@ -277,9 +277,9 @@ public class editorUserS : MonoBehaviour {
 				hex_script          = clicked_game_object.GetComponent<editorHexS>();
 				
 				editorUserS.tms.BrushHex(true, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
-										editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);	 
+										editorHexManagerS.Hex.Perimeter, hex_script.x_coord, hex_script.z_coord);	 
 //				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
-//											editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);
+//											editorHexManagerS.Hex.Perimeter, hex_script.x_coord, hex_script.z_coord);
 			}
 		}
 		else
@@ -295,7 +295,7 @@ public class editorUserS : MonoBehaviour {
 				editorUserS.tms.SprayHex(overwrite_mode, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
 										last_created_hex_type, hex_script.x_coord, hex_script.z_coord);	 
 //				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
-//											editorHexManagerS.Hex.EditorTileA, hex_script.x_coord, hex_script.z_coord);
+//											editorHexManagerS.Hex.Perimeter, hex_script.x_coord, hex_script.z_coord);
 			}
 		}
 		else
@@ -367,7 +367,7 @@ public class editorUserS : MonoBehaviour {
 //			{
 //				entity_s          = clicked_game_object.GetComponent<editorEntityS>();
 //				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
-//											editorHexManagerS.Hex.EditorTileA, entity_s.x_coord, entity_s.z_coord);
+//											editorHexManagerS.Hex.Perimeter, entity_s.x_coord, entity_s.z_coord);
 //			}
 //		}
 //		else
@@ -508,7 +508,7 @@ public class editorUserS : MonoBehaviour {
 //            	print("Hit something with proper tag = " + TAG);
 //				return hit.transform.gameObject;
 ////				editorHexS hex_tile = hit.transform.gameObject.GetComponent<editorHexS>();
-////				if(!hex_tile.menu_item && hex_tile.tile_type != tileManagerS.Tiles.EditorTileA)
+////				if(!hex_tile.menu_item && hex_tile.tile_type != tileManagerS.Tiles.Perimeter)
 ////				{
 ////					audio.Play();
 ////					hex_tile.CloneRing(1);

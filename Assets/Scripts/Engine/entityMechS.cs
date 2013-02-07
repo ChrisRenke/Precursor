@@ -3,17 +3,27 @@ using System.Collections;
 
 public class playerMechS : Combatable, IMove {
 	
-	private int size = 16; //size of traversable_hexes
-	private hexManagerS.HexData[] traversable_hexes; //Hold traversable hexes
-	private hexManagerS.HexData[] untraversable_hexes; //Hold untraversable hexes
+	
+	private HexData[] traversable_hexes; //Hold traversable hexes
+	private HexData[] untraversable_hexes; //Hold untraversable hexes
 	//array of hex data that will contain the hexes the player can move to***
 	//If base.enemy then array is treated as a path with index 0 being first hex on path to base
 	//path
 	
 	//Use this for initialization
 	void Start () {
-		traversable_hexes = new hexManagerS.HexData[size];
-		untraversable_hexes = new hexManagerS.HexData[size];
+		traversable_hexes = new HexData[6];
+		untraversable_hexes = new HexData[6];
+	}
+	
+	public override int attackHex(int x, int z)
+	{
+		return 1;
+	}
+	
+	public override int attackTarget(Combatable z)
+	{
+		return 1;
 	}
 	
 	//Update is called once per frame
@@ -41,13 +51,13 @@ public class playerMechS : Combatable, IMove {
 		
 		/*TESTS MOVE
 		if(test == 0){
-			makeMove(new hexManagerS.HexData(-3, 1, hexManagerS.Tiles.Water, false));
+			makeMove(new HexData(-3, 1, Hex.Water, false));
 			test = 1;
 		}else if (test == 1){
-			makeMove(new hexManagerS.HexData(-2, 1, hexManagerS.Tiles.Water, false));
+			makeMove(new HexData(-2, 1, Hex.Water, false));
 			test = 2;
 		}else{
-			makeMove(new hexManagerS.HexData(-1, 1, hexManagerS.Tiles.Water, false));	
+			makeMove(new HexData(-1, 1, Hex.Water, false));	
 			test = 0;
 		}
 		*/
@@ -55,16 +65,16 @@ public class playerMechS : Combatable, IMove {
 
 
 	#region IMove implementation
-	public hexManagerS.HexData[] getTraversableHexes ()
+	public HexData[] getTraversableHexes ()
 	{
 		int index = 0;
 		
 		//Get adjacent tiles around player mech
-		hexManagerS.HexData[] adjacent_hexes = hexManagerS.getAdjacent(player_location.position);
+		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
 		
 		//See which of the adjacent hexes are traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++){
-			if(isTraversable(adjacent_hexes[i]) && index < size){
+			if(isTraversable(adjacent_hexes[i]) && index < 6){
 				//add hex to traversable array
 				traversable_hexes[index] = adjacent_hexes[i]; 
 				index++;
@@ -74,16 +84,16 @@ public class playerMechS : Combatable, IMove {
 		return traversable_hexes;
 	}
 
-	public hexManagerS.HexData[] getUntraversableHexes ()
+	public HexData[] getUntraversableHexes ()
 	{
 		int index = 0;
 		
 		//Get adjacent tiles around player mech
-		hexManagerS.HexData[] adjacent_hexes = hexManagerS.getAdjacent(player_location.position);
+		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
 		
 		//See which of the adjacent hexes are untraversable
 		for(int i = 0; i < adjacent_hexes.Length; i++){
-			if(!isTraversable(adjacent_hexes[i]) && index < size){
+			if(!isTraversable(adjacent_hexes[i]) && index < 6){
 				//add hex to untraversable array
 				untraversable_hexes[index] = adjacent_hexes[i]; 
 				index++;
@@ -93,20 +103,20 @@ public class playerMechS : Combatable, IMove {
 		return untraversable_hexes;
 	}
 
-	public bool isTraversable (hexManagerS.HexData hex)
+	public bool isTraversable (HexData hex)
 	{
 		//TODO: 1. Expand on hex options once fully known
-		//		2. Will need to add the upgrade options into the traversable descision
-		if(hex.occupied){
-			return false;
-		}else if(hex.hex_type == hexManagerS.Tiles.Water || hex.hex_type == hexManagerS.Tiles.Mountain || hex.hex_type == hexManagerS.Tiles.EditorTileB || hex.hex_type == hexManagerS.Tiles.EditorTileA){
+		//		2. Will need to add the upgrade options into the traversable descision 
+		
+		//TODO get stuff from entity manager to see if occupied
+		if(hex.hex_type == Hex.Water || hex.hex_type == Hex.Mountain || hex.hex_type == Hex.Perimeter){
 			return false;
 		}else{
 			return true;
 		}
 	}
 
-	public void makeMove (hexManagerS.HexData desination)
+	public void makeMove (HexData desination)
 	{  
 		//TODO: 1. I think the z_axis needs to be updated, and so will change later
 		//		2. I'm not sure how the hex manager will work, so may or may not need to commit to it
@@ -126,4 +136,33 @@ public class playerMechS : Combatable, IMove {
 //		hexManagerS.updateMap(hex, hex); //dummy value
 	}
 	#endregion
+	
+		 
+	//Get traversable hexes around entity
+	public HexData[] getAdjacentHexes()
+	{
+		return null;
+	}
+	
+	
+	//Get traversable hexes around entity
+	public HexData[] getAdjacentTraversableHexes()
+	{
+		return null;
+	}
+	
+	
+	//Get untraversable hexes around entity
+	public HexData[] getAdjacentUntraversableHexes()
+	{
+		return null;
+	}
+	
+	//Check whether a hex can be traversed
+	public bool canTraverse(HexData hex)
+	{
+		return true;
+	}
+	 
+	
 }

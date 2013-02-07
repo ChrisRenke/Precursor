@@ -10,19 +10,19 @@ using System.Collections.Generic;
 public interface IMove {
 	 
 	//Get traversable hexes around entity
-	hexManagerS.HexData[] getAdjacentHexes();
+	HexData[] getAdjacentHexes();
 	
 	//Get traversable hexes around entity
-	hexManagerS.HexData[] getAdjacentTraversableHexes();
+	HexData[] getAdjacentTraversableHexes();
 	
 	//Get untraversable hexes around entity
-	hexManagerS.HexData[] getAdjacentUntraversableHexes();
+	HexData[] getAdjacentUntraversableHexes();
 	
 	//Check whether a hex can be traversed
-	bool canTraverse(hexManagerS.HexData hex);
+	bool canTraverse(HexData hex);
 	
 	//Move entity to a give hex
-	void makeMove(hexManagerS.HexData hex);
+	void makeMove(HexData hex);
 	
 }
 

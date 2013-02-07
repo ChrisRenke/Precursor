@@ -11,7 +11,7 @@ public class editorHexManagerS : MonoBehaviour {
 	public GameObject  	border_hex;
 	public bool 		debug_prints = true;
 		
-	public enum 		Hex    {Grass, Desert, Forest, Farmland, Marsh, Snow, Mountain, Hills, Water, EditorTileA};
+	public enum 		Hex    {Grass, Desert, Forest, Farmland, Marsh, Snow, Mountain, Hills, Water, Perimeter};
 	 
 	public GameObject  	grass_hex;
 	public GameObject  	desert_hex;
@@ -40,13 +40,13 @@ public class editorHexManagerS : MonoBehaviour {
 		hex_dict.Add(Hex.Mountain, mountain_hex);
 		hex_dict.Add(Hex.Hills, hills_hex);
 		hex_dict.Add(Hex.Water, water_hex);
-		hex_dict.Add(Hex.EditorTileA, border_hex);
+		hex_dict.Add(Hex.Perimeter, border_hex);
 		
-		BrushHex(true, Hex.EditorTileA, 1, new Vector3(0, 0, 0), initial_hex.GetComponent<editorHexS>().hex_type, 0, 0); 
+		BrushHex(true, Hex.Perimeter, 1, new Vector3(0, 0, 0), initial_hex.GetComponent<editorHexS>().hex_type, 0, 0); 
 		
-//		BrushHex(true, Hex.EditorTileA, 1, editorUserS.CoordsGameTo3D(2, 2), initial_hex.GetComponent<editorHexS>().hex_type, 2,2); 
-//		BrushHex(true, Hex.EditorTileA, 1, editorUserS.CoordsGameTo3D(-1, 2), initial_hex.GetComponent<editorHexS>().hex_type, -1, 2); 
-//		BrushHex(true, Hex.EditorTileA, 1, editorUserS.CoordsGameTo3D(3, -1), initial_hex.GetComponent<editorHexS>().hex_type, 3, -1); 
+//		BrushHex(true, Hex.Perimeter, 1, editorUserS.CoordsGameTo3D(2, 2), initial_hex.GetComponent<editorHexS>().hex_type, 2,2); 
+//		BrushHex(true, Hex.Perimeter, 1, editorUserS.CoordsGameTo3D(-1, 2), initial_hex.GetComponent<editorHexS>().hex_type, -1, 2); 
+//		BrushHex(true, Hex.Perimeter, 1, editorUserS.CoordsGameTo3D(3, -1), initial_hex.GetComponent<editorHexS>().hex_type, 3, -1); 
 		
 		
 	}
@@ -122,7 +122,7 @@ public class editorHexManagerS : MonoBehaviour {
 				border_mode = true;
 				
 				//set it to draw BorderTileAs as outerring
-				draw_hex_type = Hex.EditorTileA;
+				draw_hex_type = Hex.Perimeter;
 				
 				//turn off override so that it doesn't destroy existing tiles to place the BorderTileAs
 				overwrite = false;
@@ -238,7 +238,7 @@ public class editorHexManagerS : MonoBehaviour {
 	
 	public GameObject LoadHex(Hex draw_hex_type, int x, int z)
 	{  
-			return AddHex(true, false, Hex.EditorTileA, 1, editorUserS.CoordsGameTo3D(x,z), draw_hex_type, x, z);
+			return AddHex(true, false, Hex.Perimeter, 1, editorUserS.CoordsGameTo3D(x,z), draw_hex_type, x, z);
 	}	
 	
 	/*
@@ -264,8 +264,8 @@ public class editorHexManagerS : MonoBehaviour {
 		if( //if we're putting a hex where there already is one
 			(hex_db.ContainsKey(x) && hex_db[x].ContainsKey(z))  
 			&& //and
-			//either an EditorTileA OR its the type we clicked on OR overwrite is on
-		  	(hex_db[x][z].hex_type == Hex.EditorTileA || hex_db[x][z].hex_type == clicked_hex_type || overwrite) 
+			//either an Perimeter OR its the type we clicked on OR overwrite is on
+		  	(hex_db[x][z].hex_type == Hex.Perimeter || hex_db[x][z].hex_type == clicked_hex_type || overwrite) 
 			&& //and
 			//the existing hex isn't the same as the type we're wanting to make
 			(hex_db[x][z].hex_type != draw_hex_type)
@@ -323,7 +323,7 @@ public class editorHexManagerS : MonoBehaviour {
 //		
 //		
 //		
-//		if(data_type != Hex.EditorTileA)
+//		if(data_type != Hex.Perimeter)
 //		{
 //			editorUserS.last_created_hex_type = data_type; 
 //		}
@@ -344,9 +344,9 @@ public class editorHexManagerS : MonoBehaviour {
 //					&&
 //				 hex_db[x][z].getDataType() != data_type) 
 //					|| 
-//				(hex_db[x][z].getDataType() == Hex.EditorTileA 
+//				(hex_db[x][z].getDataType() == Hex.Perimeter 
 //					&& 
-//				data_type != Hex.EditorTileA))  //hex_db[x][z].getDataType() == Hex.EditorTileA && data_type != Hex.EditorTileA
+//				data_type != Hex.Perimeter))  //hex_db[x][z].getDataType() == Hex.Perimeter && data_type != Hex.Perimeter
 //				{
 //					//if there is already an entry there and we want to overwrite, overwrite it
 //					print ("if _ if _ if _ replacing : " + x + ", " + z + "with a " + data_type);
@@ -360,9 +360,9 @@ public class editorHexManagerS : MonoBehaviour {
 //						Destroy(hex_db[x][z].getOccupier());
 //						hex_db[x][z]= new HexData(created_hex_script.name, created_hex, data_type, x, z);
 //						
-//						if(data_type != Hex.EditorTileA && depth == 0)
+//						if(data_type != Hex.Perimeter && depth == 0)
 //						{
-//							SurroundHex(created_hex_script.transform.position, Hex.EditorTileA, 0, x, z);
+//							SurroundHex(created_hex_script.transform.position, Hex.Perimeter, 0, x, z);
 //						}
 //						else
 //						if(depth > 0)
@@ -382,9 +382,9 @@ public class editorHexManagerS : MonoBehaviour {
 //				{
 //					//there is something there and we dont have overwrite permission, so do nothing 
 //					print ("if _ if _ else _ Something already there, surroundin'. "); 
-//					if(data_type != Hex.EditorTileA && depth == 0)
+//					if(data_type != Hex.Perimeter && depth == 0)
 //					{
-//						SurroundHex(pos, Hex.EditorTileA, 0, x, z);
+//						SurroundHex(pos, Hex.Perimeter, 0, x, z);
 //					}
 //					else
 //					if(depth > 0)
@@ -406,9 +406,9 @@ public class editorHexManagerS : MonoBehaviour {
 //				
 //				hex_db[x].Add(z, new HexData(created_hex_script.name, created_hex, data_type, x, z)); 
 //				
-//				if(data_type != Hex.EditorTileA && depth == 0)
+//				if(data_type != Hex.Perimeter && depth == 0)
 //				{
-//					SurroundHex(created_hex_script.transform.position, Hex.EditorTileA, 0, x, z);
+//					SurroundHex(created_hex_script.transform.position, Hex.Perimeter, 0, x, z);
 //				}
 //				else
 //				if(depth > 0)
@@ -430,10 +430,10 @@ public class editorHexManagerS : MonoBehaviour {
 //			hex_db.Add(x, new Dictionary<int, HexData>());
 //			hex_db[x].Add(z, new HexData(created_hex_script.name, created_hex, data_type,x, z)); 
 //			
-//			if(data_type != Hex.EditorTileA && depth == 0)
+//			if(data_type != Hex.Perimeter && depth == 0)
 //			{
 //				print ("drawing border...");
-//				SurroundHex(created_hex_script.transform.position,  Hex.EditorTileA, 0, x, z);
+//				SurroundHex(created_hex_script.transform.position,  Hex.Perimeter, 0, x, z);
 //			}
 //			else
 //			if(depth > 0)
@@ -450,7 +450,7 @@ public class editorHexManagerS : MonoBehaviour {
 //	{
 //		bool overwrite_enabled;
 //		
-//		if(hex_type != editorHexManagerS.Hex.EditorTileA && editorUserS.overwrite_mode)
+//		if(hex_type != editorHexManagerS.Hex.Perimeter && editorUserS.overwrite_mode)
 //		{
 //			overwrite_enabled = true;
 //		}

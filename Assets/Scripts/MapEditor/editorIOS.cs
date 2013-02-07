@@ -67,7 +67,7 @@ public class editorIOS : MonoBehaviour {
 				
 				count++;
 				
-				if(entry_2.Value.hex_type == editorHexManagerS.Hex.EditorTileA)
+				if(entry_2.Value.hex_type == editorHexManagerS.Hex.Perimeter)
 					border_count++;
 			}
 		}

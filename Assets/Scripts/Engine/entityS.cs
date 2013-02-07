@@ -11,6 +11,7 @@ public class Entity : MonoBehaviour {
 
 public abstract class  Combatable : Entity{
 	
+	
 	public int current_hitpoints;
 	public int max_hitpoints;
 	public int armor;

@@ -10,9 +10,8 @@ public class editorHexS : MonoBehaviour {
 	public GUIStyle tooltipStyle;
 	
 	public int 		   tile_num; 
-	public  int        menu_item_num; 
-	public  bool       menu_item = false;
- 
+	public int         menu_item_num; 
+	public bool        menu_item = false;
 	private bool 	   sampling_mode = false;
 		
 	void OnGUI()
