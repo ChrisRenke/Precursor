@@ -29,13 +29,13 @@ public class hexManagerS : MonoBehaviour {
 		//TODO: Port Load code from editorIOS
 		
 		//Dummy 2D array for testing ***
-		hexes = new HexData[,] {{new HexData(6, 0, Hex.Water), new HexData(6, 1, Hex.Mountain), new HexData(6, 2, Hex.Desert), new HexData(6, 3, Hex.Grass), new HexData(6, 4, Hex.Forest), new HexData(6, 5, Hex.Settlement), new HexData(6,6 , Hex.Hills)},
-								{new HexData(5, 0, Hex.Water), new HexData(5, 1, Hex.Mountain), new HexData(5, 2, Hex.Grass), new HexData(5, 3, Hex.Farmland), new HexData(5, 4, Hex.Grass), new HexData(5, 5, Hex.Grass), new HexData(5, 6, Hex.Grass)},
-								{new HexData(4, 0, Hex.Water), new HexData(4, 1, Hex.Grass), new HexData(4, 2, Hex.Water), new HexData(4, 3, Hex.Forest), new HexData(4, 4, Hex.Grass), new HexData(4, 5, Hex.Forest), new HexData(4, 6, Hex.Forest)},
-								{new HexData(3, 0, Hex.Water), new HexData(3, 1, Hex.Grass), new HexData(3, 2, Hex.Forest), new HexData(3, 3, Hex.Grass), new HexData(3, 4, Hex.Junkyard), new HexData(3, 5, Hex.Grass), new HexData(3, 6, Hex.Mountain)},
-								{new HexData(2, 0, Hex.Water), new HexData(2, 1, Hex.Grass), new HexData(2, 2, Hex.Mountain), new HexData(2, 3, Hex.Snow), new HexData(2, 4, Hex.Grass), new HexData(2, 5, Hex.Grass), new HexData(2, 6, Hex.Mountain)},
-								{new HexData(1, 0, Hex.Water), new HexData(1, 1, Hex.Grass), new HexData(1, 2, Hex.Grass), new HexData(1, 3, Hex.Water), new HexData(1, 4, Hex.Grass), new HexData(1, 5, Hex.Water), new HexData(1, 6, Hex.Mountain)},
-								{new HexData(0, 0, Hex.Grass), new HexData(0, 1, Hex.Grass), new HexData(0, 2, Hex.Water), new HexData(0, 3, Hex.Grass), new HexData(0, 4, Hex.Forest), new HexData(0, 5, Hex.Water), new HexData(0, 6, Hex.Mountain)}};
+		hexes = new HexData[,] {{new HexData(6, 0, Hex.Perimeter), new HexData(6, 1, Hex.Perimeter), new HexData(6, 2, Hex.Perimeter), new HexData(6, 3, Hex.Perimeter), new HexData(6, 4, Hex.Perimeter), new HexData(6, 5, Hex.Perimeter), new HexData(6,6 , Hex.Perimeter)},
+								{new HexData(5, 0, Hex.Perimeter), new HexData(5, 1, Hex.Mountain), new HexData(5, 2, Hex.Grass), new HexData(5, 3, Hex.Farmland), new HexData(5, 4, Hex.Grass), new HexData(5, 5, Hex.Grass), new HexData(5, 6, Hex.Perimeter)},
+								{new HexData(4, 0, Hex.Perimeter), new HexData(4, 1, Hex.Grass), new HexData(4, 2, Hex.Water), new HexData(4, 3, Hex.Forest), new HexData(4, 4, Hex.Grass), new HexData(4, 5, Hex.Forest), new HexData(4, 6, Hex.Perimeter)},
+								{new HexData(3, 0, Hex.Perimeter), new HexData(3, 1, Hex.Grass), new HexData(3, 2, Hex.Forest), new HexData(3, 3, Hex.Grass), new HexData(3, 4, Hex.Junkyard), new HexData(3, 5, Hex.Grass), new HexData(3, 6, Hex.Perimeter)},
+								{new HexData(2, 0, Hex.Perimeter), new HexData(2, 1, Hex.Grass), new HexData(2, 2, Hex.Mountain), new HexData(2, 3, Hex.Snow), new HexData(2, 4, Hex.Grass), new HexData(2, 5, Hex.Grass), new HexData(2, 6, Hex.Perimeter)},
+								{new HexData(1, 0, Hex.Perimeter), new HexData(1, 1, Hex.Grass), new HexData(1, 2, Hex.Grass), new HexData(1, 3, Hex.Water), new HexData(1, 4, Hex.Grass), new HexData(1, 5, Hex.Water), new HexData(1, 6, Hex.Perimeter)},
+								{new HexData(0, 0, Hex.Perimeter), new HexData(0, 1, Hex.Perimeter), new HexData(0, 2, Hex.Perimeter), new HexData(0, 3, Hex.Perimeter), new HexData(0, 4, Hex.Perimeter), new HexData(0, 5, Hex.Perimeter), new HexData(0, 6, Hex.Perimeter)}};
 		row = hexes.GetLength(0);
 		col = hexes.GetLength(1);
 	}
