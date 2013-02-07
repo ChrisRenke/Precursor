@@ -220,65 +220,7 @@ public class enginePlayerS : MonoBehaviour {
 //		print ("nothing");
 //		return null; 
 //	}
-	
-	void OnGUI()
-	{
-
-		
-//		draw_mode_label =  overwrite_mode ? "Overwrite" : "Fill";
-//		over_mode_label =  entity_mode ?  "Entity"    : "Terrain"; 
-//		current_brush   =  entity_mode ?  last_created_entity_type.ToString()    : last_created_hex_type.ToString(); 
-//		
-//		if(GUI.Button(new Rect( 30, 30, 100, 30), draw_mode_label))
-//		{
-//			overwrite_mode = !overwrite_mode;
-//		} 
-//	
-//		if(GUI.Button(new Rect( 140, 30, 100, 30), over_mode_label))
-//		{
-//			entity_mode  = !entity_mode;
-//		} 
-//		
-//		if(!entity_mode)
-//		{
-//			brush_size = (int)GUI.HorizontalSlider(new Rect(30, 70,  210, 30), brush_size, (float) min_brush_size, (float) max_brush_size);	
-//			GUI.Label(new Rect(250, 65, 70, 30),  "Size: " + brush_size);
-//			
-//			spray_prob = (int)GUI.HorizontalSlider(new Rect(30, 110,  210, 30), spray_prob, (float) 1, (float) 100);	
-//			GUI.Label(new Rect(250, 105, 110, 30),  "Spray: " + spray_prob + "%");
-//		}
-//		
-//		GUI.Label(new Rect(250, 35, 70, 30),  "" + current_brush);
-//		
-//		if(Input.GetKey(KeyCode.LeftAlt))
-//		{
-//			Screen.showCursor = false;
-//	    	GUI.Label(new Rect(Input.mousePosition.x, Screen.height - Input.mousePosition.y - dropper_icon.height, dropper_icon.width, dropper_icon.height),dropper_icon);
-//		}
-//		else
-//		if(Input.GetKey(KeyCode.LeftControl) || (Input.GetKey(KeyCode.LeftControl)  && Input.GetKey(KeyCode.LeftShift) ))
-//		{
-//			Screen.showCursor = false;
-//	    	GUI.Label(new Rect(Input.mousePosition.x, Screen.height - Input.mousePosition.y - eraser_icon.height, eraser_icon.width, eraser_icon.height), eraser_icon);
-//		}
-//		else
-//		if(Input.GetKey(KeyCode.LeftShift))
-//		{
-//			Screen.showCursor = false;
-//	    	GUI.Label(new Rect(Input.mousePosition.x, Screen.height - Input.mousePosition.y - brush_icon.height, brush_icon.width, brush_icon.height),brush_icon);
-//		}
-//		else
-//		if(Input.GetKey(KeyCode.LeftCommand))
-//		{
-//			Screen.showCursor = false;
-//	    	GUI.Label(new Rect(Input.mousePosition.x, Screen.height - Input.mousePosition.y - spray_icon.height + 20, spray_icon.width, spray_icon.height),spray_icon);
-//		}
-//		else
-//		{
-//			Screen.showCursor = false;
-//	    	GUI.Label(new Rect(Input.mousePosition.x, Screen.height - Input.mousePosition.y - brush_icon.height, brush_icon.width, brush_icon.height),brush_icon);
-//		}
-	}
+	 
 	
 	
 }

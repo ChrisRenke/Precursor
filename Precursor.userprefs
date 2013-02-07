@@ -2,18 +2,12 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Engine/enginePlayerS.cs">
     <Files>
-      <File FileName="Assets/Scripts/Engine/hexManagerS.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Engine/engineHexS.cs" Line="10" Column="26" />
-      <File FileName="Assets/Scripts/MapEditor/editorUserS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/hexManagerS.cs" Line="166" Column="45" />
       <File FileName="Assets/Scripts/Engine/entityS.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Engine/Enums.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MapEditor/editorHexManagerS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MapEditor/editorIOS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MapEditor/editorHexS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MapEditor/editorMenuHexS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MapEditor/editorEntityManagerS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MapEditor/editorEntityS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/enginePlayerS.cs" Line="73" Column="4" />
+      <File FileName="Assets/Scripts/Engine/enginePlayerS.cs" Line="53" Column="12" />
+      <File FileName="Assets/Scripts/MapEditor/editorUserS.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
