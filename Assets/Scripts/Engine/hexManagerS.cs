@@ -16,6 +16,8 @@ public class hexManagerS : MonoBehaviour {
  
 	private static HexData[,] hexes; 
 	
+	private static int row, col = 0; //size of hex array, used for out of bounds checking
+	
 
 	void Start(){
 
@@ -26,48 +28,69 @@ public class hexManagerS : MonoBehaviour {
 	private void Load(){
 		//TODO: Port Load code from editorIOS
 		
-		//bottom left corner will be 0,0, at least thats the plan anyways
-		
-		//ADDED: I'm creating a dummy 2D array for testing purposes ***
-		hexes = new HexData[,] {{new HexData(0, 2, Hex.Grass), new HexData(1, 2, Tiles.Mountain), new HexData(2, 2, Hex.Grass, true)},
-								{new HexData(0, 1, Hex.Grass), new HexData(1, 1, Tiles.Grass),    new HexData(2, 1, Hex.Grass, true)},
-								{new HexData(0, 0, Hex.Grass), new HexData(1, 0, Tiles.Mountain), new HexData(2, 0, Hex.Grass, true)}};
+		//Dummy 2D array for testing ***
+		hexes = new HexData[,] {{new HexData(6, 0, Tiles.Water), new HexData(6, 1, Tiles.Mountain), new HexData(6, 2, Tiles.Desert), new HexData(6, 3, Tiles.Grass), new HexData(6, 4, Tiles.Forest), new HexData(6, 5, Tiles.Settlement), new HexData(6,6 , Tiles.Hills)},
+								{new HexData(5, 0, Tiles.Water), new HexData(5, 1, Tiles.Mountain), new HexData(5, 2, Tiles.Grass), new HexData(5, 3, Tiles.Farmland), new HexData(5, 4, Tiles.Grass), new HexData(5, 5, Tiles.Grass), new HexData(5, 6, Tiles.Grass)},
+								{new HexData(4, 0, Tiles.Water), new HexData(4, 1, Tiles.Grass), new HexData(4, 2, Tiles.Water), new HexData(4, 3, Tiles.Forest), new HexData(4, 4, Tiles.Grass), new HexData(4, 5, Tiles.Forest), new HexData(4, 6, Tiles.Forest)},
+								{new HexData(3, 0, Tiles.Water), new HexData(3, 1, Tiles.Grass), new HexData(3, 2, Tiles.Forest), new HexData(3, 3, Tiles.Grass), new HexData(3, 4, Tiles.Junkyard), new HexData(3, 5, Tiles.Grass), new HexData(3, 6, Tiles.Mountain)},
+								{new HexData(2, 0, Tiles.Water), new HexData(2, 1, Tiles.Grass), new HexData(2, 2, Tiles.Mountain), new HexData(2, 3, Tiles.Snow), new HexData(2, 4, Tiles.Grass), new HexData(2, 5, Tiles.Grass), new HexData(2, 6, Tiles.Mountain)},
+								{new HexData(1, 0, Tiles.Water), new HexData(1, 1, Tiles.Grass), new HexData(1, 2, Tiles.Grass), new HexData(1, 3, Tiles.Water), new HexData(1, 4, Tiles.Grass), new HexData(1, 5, Tiles.Water), new HexData(1, 6, Tiles.Mountain)},
+								{new HexData(0, 0, Tiles.Grass), new HexData(0, 1, Tiles.Grass), new HexData(0, 2, Tiles.Water), new HexData(0, 3, Tiles.Grass), new HexData(0, 4, Tiles.Forest), new HexData(0, 5, Tiles.Water), new HexData(0, 6, Tiles.Mountain)}};
+		row = hexes.GetLength(0);
+		col = hexes.GetLength(1);
 	}
 	
-	//ADDED: New/updated functions below ***
-	
+
 	//Return adjacent hexes for the given entity position
 	public static HexData[] getAdjacentHexes(int x, int z){
-		//TODO CHECK BOUNDS!
 		
-		//ALWAYS BUILD THIS ARRAY "CLOCKWISE" STARTING AT NORTH
-		HexData[] output = new HexData[6]();
+		//Set values to some invalid hex
+		HexData n = new HexData(0,0,Tiles.EditorTileB);
+		HexData n_e = new HexData(0,0,Tiles.EditorTileB);
+		HexData s_e = new HexData(0,0,Tiles.EditorTileB);
+		HexData s = new HexData(0,0,Tiles.EditorTileB);
+		HexData s_w = new HexData(0,0,Tiles.EditorTileB);
+		HexData n_w = new HexData(0,0,Tiles.EditorTileB);
 		
-		//Get North						//Get Northeast
-		output[0] = hexes[x, z +1];		output[1] = hexes[x+1, z];
+		if(z+1 < col && z+1 >= 0){
+			//Get North
+			n = hexes[x, z +1];
+			if(x-1 < row && x-1 >= 0){
+				//Get Northwest
+				n_w = hexes[x-1, z+1];
+			}
+		}
 		
-		//Get Southeast                 //Get South
-		output[2] = hexes[x+1, z-1];	output[3] = hexes[x, z-1]; 
+		if(x-1 < row && x-1 >= 0){
+			//Get Southwest
+			s_w = hexes[x-1, z];
+		}
 		
-		//Get Southwest					//Get Northwest
-		output[4] = hexes[x-1, z];		output[5] = hexes[x-1, z+1];
+		if(z-1 < col && z-1 >= 0){
+			//Get South
+			s = hexes[x, z-1];
+			if(x+1 < row && x+1 >= 0){
+				//Get Southeast
+				s_e = hexes[x+1, z-1];
+			}
+		}
 		
-		return output;
+		if(x+1 < row && x+1 >= 0){
+			//Get Northeast
+			n_e = hexes[x+1, z];
+		}		
+		
+		return new HexData[] {n, n_e, s_e,
+								s, s_w,n_w};
 	}
-//	
-//	//Update hexManager map based on entity move
-//	public static void updateMap(int tag_row, int tag_col, GameObject entity ,hexManagerScript.HexData hex){
-//		//Change occupant of new hex and invalidate occupant of old hex
-//		hexes[hex.tag_row, hex.tag_column].occupant = entity;
-//		hexes[hex.tag_row, hex.tag_column].occupied = true;
-//		hexes[tag_row, tag_col].occupant = null;
-//		hexes[tag_row, tag_col].occupied = false;
-//	}
 	
 	//Get hex at given position in the map
-	public static HexData getHex(int x, int z){
-		//TODO CHECK BOUNDS D: 
-		return hexes[row, col];
+	public static HexData getHex(int r, int c){
+		if(r < row && r >= 0 && c < col && c >= 0){
+			return hexes[r, c];
+		}else{ //return dummy hex
+			return new HexData(0,0,Tiles.EditorTileB);
+		}
 	}
 	 
 }
@@ -80,7 +103,7 @@ public class HexData{
 	public readonly int 	z;  	  //level z coord  (N / S)
 	public readonly Hex 	hex_type; //enviroment type of this hex
 	
-	public HexData(int _x, int _z, Tiles _type){
+	public HexData(int _x, int _z, Hex _type){
 		x = _x;
 		z = _z; 
 		hex_type = _type;
