@@ -29,13 +29,13 @@ public class hexManagerS : MonoBehaviour {
 		//TODO: Port Load code from editorIOS
 		
 		//Dummy 2D array for testing ***
-		hexes = new HexData[,] {{new HexData(6, 0, Tiles.Water), new HexData(6, 1, Tiles.Mountain), new HexData(6, 2, Tiles.Desert), new HexData(6, 3, Tiles.Grass), new HexData(6, 4, Tiles.Forest), new HexData(6, 5, Tiles.Settlement), new HexData(6,6 , Tiles.Hills)},
-								{new HexData(5, 0, Tiles.Water), new HexData(5, 1, Tiles.Mountain), new HexData(5, 2, Tiles.Grass), new HexData(5, 3, Tiles.Farmland), new HexData(5, 4, Tiles.Grass), new HexData(5, 5, Tiles.Grass), new HexData(5, 6, Tiles.Grass)},
-								{new HexData(4, 0, Tiles.Water), new HexData(4, 1, Tiles.Grass), new HexData(4, 2, Tiles.Water), new HexData(4, 3, Tiles.Forest), new HexData(4, 4, Tiles.Grass), new HexData(4, 5, Tiles.Forest), new HexData(4, 6, Tiles.Forest)},
-								{new HexData(3, 0, Tiles.Water), new HexData(3, 1, Tiles.Grass), new HexData(3, 2, Tiles.Forest), new HexData(3, 3, Tiles.Grass), new HexData(3, 4, Tiles.Junkyard), new HexData(3, 5, Tiles.Grass), new HexData(3, 6, Tiles.Mountain)},
-								{new HexData(2, 0, Tiles.Water), new HexData(2, 1, Tiles.Grass), new HexData(2, 2, Tiles.Mountain), new HexData(2, 3, Tiles.Snow), new HexData(2, 4, Tiles.Grass), new HexData(2, 5, Tiles.Grass), new HexData(2, 6, Tiles.Mountain)},
-								{new HexData(1, 0, Tiles.Water), new HexData(1, 1, Tiles.Grass), new HexData(1, 2, Tiles.Grass), new HexData(1, 3, Tiles.Water), new HexData(1, 4, Tiles.Grass), new HexData(1, 5, Tiles.Water), new HexData(1, 6, Tiles.Mountain)},
-								{new HexData(0, 0, Tiles.Grass), new HexData(0, 1, Tiles.Grass), new HexData(0, 2, Tiles.Water), new HexData(0, 3, Tiles.Grass), new HexData(0, 4, Tiles.Forest), new HexData(0, 5, Tiles.Water), new HexData(0, 6, Tiles.Mountain)}};
+		hexes = new HexData[,] {{new HexData(6, 0, Hex.Water), new HexData(6, 1, Hex.Mountain), new HexData(6, 2, Hex.Desert), new HexData(6, 3, Hex.Grass), new HexData(6, 4, Hex.Forest), new HexData(6, 5, Hex.Settlement), new HexData(6,6 , Hex.Hills)},
+								{new HexData(5, 0, Hex.Water), new HexData(5, 1, Hex.Mountain), new HexData(5, 2, Hex.Grass), new HexData(5, 3, Hex.Farmland), new HexData(5, 4, Hex.Grass), new HexData(5, 5, Hex.Grass), new HexData(5, 6, Hex.Grass)},
+								{new HexData(4, 0, Hex.Water), new HexData(4, 1, Hex.Grass), new HexData(4, 2, Hex.Water), new HexData(4, 3, Hex.Forest), new HexData(4, 4, Hex.Grass), new HexData(4, 5, Hex.Forest), new HexData(4, 6, Hex.Forest)},
+								{new HexData(3, 0, Hex.Water), new HexData(3, 1, Hex.Grass), new HexData(3, 2, Hex.Forest), new HexData(3, 3, Hex.Grass), new HexData(3, 4, Hex.Junkyard), new HexData(3, 5, Hex.Grass), new HexData(3, 6, Hex.Mountain)},
+								{new HexData(2, 0, Hex.Water), new HexData(2, 1, Hex.Grass), new HexData(2, 2, Hex.Mountain), new HexData(2, 3, Hex.Snow), new HexData(2, 4, Hex.Grass), new HexData(2, 5, Hex.Grass), new HexData(2, 6, Hex.Mountain)},
+								{new HexData(1, 0, Hex.Water), new HexData(1, 1, Hex.Grass), new HexData(1, 2, Hex.Grass), new HexData(1, 3, Hex.Water), new HexData(1, 4, Hex.Grass), new HexData(1, 5, Hex.Water), new HexData(1, 6, Hex.Mountain)},
+								{new HexData(0, 0, Hex.Grass), new HexData(0, 1, Hex.Grass), new HexData(0, 2, Hex.Water), new HexData(0, 3, Hex.Grass), new HexData(0, 4, Hex.Forest), new HexData(0, 5, Hex.Water), new HexData(0, 6, Hex.Mountain)}};
 		row = hexes.GetLength(0);
 		col = hexes.GetLength(1);
 	}
@@ -45,12 +45,12 @@ public class hexManagerS : MonoBehaviour {
 	public static HexData[] getAdjacentHexes(int x, int z){
 		
 		//Set values to some invalid hex
-		HexData n = new HexData(0,0,Tiles.EditorTileB);
-		HexData n_e = new HexData(0,0,Tiles.EditorTileB);
-		HexData s_e = new HexData(0,0,Tiles.EditorTileB);
-		HexData s = new HexData(0,0,Tiles.EditorTileB);
-		HexData s_w = new HexData(0,0,Tiles.EditorTileB);
-		HexData n_w = new HexData(0,0,Tiles.EditorTileB);
+		HexData n   = new HexData(0,0,Hex.EditorTileB);
+		HexData n_e = new HexData(0,0,Hex.EditorTileB);
+		HexData s_e = new HexData(0,0,Hex.EditorTileB);
+		HexData s   = new HexData(0,0,Hex.EditorTileB);
+		HexData s_w = new HexData(0,0,Hex.EditorTileB);
+		HexData n_w = new HexData(0,0,Hex.EditorTileB);
 		
 		if(z+1 < col && z+1 >= 0){
 			//Get North
@@ -89,7 +89,7 @@ public class hexManagerS : MonoBehaviour {
 		if(r < row && r >= 0 && c < col && c >= 0){
 			return hexes[r, c];
 		}else{ //return dummy hex
-			return new HexData(0,0,Tiles.EditorTileB);
+			return new HexData(0,0,Hex.EditorTileB);
 		}
 	}
 	 
