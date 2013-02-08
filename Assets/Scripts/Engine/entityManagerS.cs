@@ -24,17 +24,17 @@ public class entityManagerS : MonoBehaviour {
 	}
 	
 	//check to see if given entity resides on hex 
-	public static bool isEntityPos(HexData hex, Entities entity){
+	public static bool isEntityPos(HexData hex, EntityE entity){
 				
-		if(entity == Entities.Player){
+		if(entity == EntityE.Player){
 			if(hex.x == player_pos.x && hex.z == player_pos.z){
 				return true; //player mech resides on this hex
 			}else{
 				return false;
 			}
-		}else if(entity == Entities.Enemy){ //get enemy hexes
+		}else if(entity == EntityE.Enemy){ //get enemy hexes
 			return check(hex, enemy_pos); 
-		}else if(entity == Entities.Base){ //get settlement hexes
+		}else if(entity == EntityE.Base){ //get settlement hexes
 			return check(hex, settlement_pos); 
 		}else{
 			return check(hex, resource_pos); //get resource hexes

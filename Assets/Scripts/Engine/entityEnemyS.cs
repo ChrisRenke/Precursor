@@ -5,6 +5,7 @@ public class entityEnemyS : Combatable, IMove {
 	
 	private HexData[] traversable_hexes; //Hold traversable hexes
 	private HexData[] untraversable_hexes; //Hold untraversable hexes
+	private HexData[] path_hexes; //Hold untraversable hexes
 
 	// Use this for initialization
 	void Start () {
@@ -50,4 +51,5 @@ public class entityEnemyS : Combatable, IMove {
 		throw new System.NotImplementedException ();
 	}
 	#endregion
+	
 }

@@ -145,7 +145,7 @@ public class entityMechS : Combatable, IMove {
 	
 	public bool occupied (HexData hex)
 	{
-		return entityManagerS.isEntityPos(hex, Entities.Enemy) || entityManagerS.isEntityPos(hex, Entities.Base) || entityManagerS.isEntityPos(hex, Entities.ResourceNode);
+		return entityManagerS.isEntityPos(hex, EntityE.Enemy) || entityManagerS.isEntityPos(hex, EntityE.Base) || entityManagerS.isEntityPos(hex, EntityE.Factory);
 	}
 
 	public void makeMove (HexData hex)
