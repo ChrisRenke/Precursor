@@ -280,9 +280,7 @@ public class editorUserS : MonoBehaviour {
 				hex_script          = clicked_game_object.GetComponent<editorHexS>();
 				
 				editorUserS.tms.BrushHex(true, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
-										Hex.Perimeter, hex_script.x_coord, hex_script.z_coord);	 
-//				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
-//											editorHexManagerS.Hex.Perimeter, hex_script.x_coord, hex_script.z_coord);
+										Hex.Perimeter, hex_script.x_coord, hex_script.z_coord);	  
 			}
 		}
 		else
@@ -296,9 +294,7 @@ public class editorUserS : MonoBehaviour {
 				hex_script          = clicked_game_object.GetComponent<editorHexS>();
 				
 				editorUserS.tms.SprayHex(overwrite_mode, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
-										last_created_hex_type, hex_script.x_coord, hex_script.z_coord);	 
-//				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
-//											editorHexManagerS.Hex.Perimeter, hex_script.x_coord, hex_script.z_coord);
+										last_created_hex_type, hex_script.x_coord, hex_script.z_coord);	  
 			}
 		}
 		else
@@ -313,10 +309,7 @@ public class editorUserS : MonoBehaviour {
 				print (hex_script.x_coord  + " ," +  hex_script.z_coord);
 				print (editorUserS.brush_size  + " |" +  clicked_game_object.transform.position);
 				bool bs = editorUserS.tms == null;
-				print ("stuff! " + bs.ToString());
-//				editorUserS.tms.CreateHex(true, brush_size,  clicked_game_object.transform.position,  
-//											editorUserS.last_created_hex_type, hex_script.x_coord, hex_script.z_coord);		
-				
+				print ("stuff! " + bs.ToString()); 
 				editorUserS.tms.BrushHex(overwrite_mode, hex_script.hex_type, brush_size, clicked_game_object.transform.position,  
 										last_created_hex_type, hex_script.x_coord, hex_script.z_coord);	 
 			}
@@ -362,30 +355,6 @@ public class editorUserS : MonoBehaviour {
 		GameObject 	    clicked_game_object;
 		editorEntityS 	entity_s;
 		
-//		//ctrl + shift + left click
-//		if(Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButton(0))
-//		{
-//			clicked_game_object = RaycastMouse(EntTag); 
-//			if(clicked_game_object != null)
-//			{
-//				entity_s          = clicked_game_object.GetComponent<editorEntityS>();
-//				editorUserS.tms.CreateHex(true, 1,  clicked_game_object.transform.position,  
-//											editorHexManagerS.Hex.Perimeter, entity_s.x_coord, entity_s.z_coord);
-//			}
-//		}
-//		else
-//		//shift + left click
-//		if(Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButton(0))
-//		{
-//			clicked_game_object = RaycastMouse(EntTag);
-//			if(clicked_game_object != null)
-//			{
-//				entity_s          = clicked_game_object.GetComponent<editorEntityS>();
-//				editorUserS.tms.CreateHex(true, editorUserS.brush_size,  clicked_game_object.transform.position,  
-//											editorUserS.last_created_hex_type, entity_s.x_coord, entity_s.z_coord);		
-//			}
-//		}
-//		else
 		//alt + left click
 		if(Input.GetKey(KeyCode.LeftAlt) && Input.GetMouseButtonDown(0))
 		{
@@ -421,10 +390,6 @@ public class editorUserS : MonoBehaviour {
 				editorUserS.ems.AddEntity(
 					new Vector3(clicked_game_object.transform.position.x, clicked_game_object.transform.position.y + 1F , clicked_game_object.transform.position.z + .5F), 
 					last_created_entity_type, hex_script.x_coord, hex_script.z_coord);	
-//				clicked_game_object = RaycastMouse(HexTag);
-//				entity_s          = clicked_game_object.GetComponent<editorEntityS>();
-//				editorUserS.tms.CreateHex(true, editorUserS.brush_size,  clicked_game_object.transform.position,  
-//											editorUserS.last_created_hex_type, entity_s.x_coord, entity_s.z_coord);		
 			}
 		}
 		else
@@ -524,15 +489,6 @@ public class editorUserS : MonoBehaviour {
 	
 	void OnGUI()
 	{
-//        toggleTxt = GUI.Toggle(new Rect(10, 10, 100, 30), toggleTxt, "A Toggle text");
-		
-//		overwrite_mode = GUI.Toggle(new Rect(30, 30, 200, 30), overwrite_mode, "Overwrite Mode");	 
-//		entity_mode = GUI.Toggle(new Rect(30, Screen.height - 30, 200, 30), entity_mode, "Entiy Editing");
-			
-//	    var mousePos : Vector3 = Input.mousePosition;
-//	    var pos : Rect = Rect(mousePos.x,Screen.height - mousePos.y,cursorImage.width,cursorImage.height);
-//		 
-		
 		draw_mode_label =  overwrite_mode ? "Overwrite" : "Fill";
 		over_mode_label =  entity_mode ?  "Entity"    : "Terrain"; 
 		current_brush   =  entity_mode ?  last_created_entity_type.ToString()    : last_created_hex_type.ToString(); 
@@ -590,11 +546,4 @@ public class editorUserS : MonoBehaviour {
 	
 	
 }
-
-//
-//					string nm = hit.transform.name;
-//					GameObject hex = GameObject.Find(nm);
-//					editorHexS hex_tile = hex.GetComponent<editorHexS>();
-//					hex_tile.CloneNorth();
-
 //-0.841947, 0, 1.81415
