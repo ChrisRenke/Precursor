@@ -6,7 +6,9 @@ class PriorityQueue<P,V>
 {
 	//code from http://goo.gl/ugzP6
 	private SortedDictionary<P, Queue<V>> list = new SortedDictionary<P, Queue<V>>();
-    public void Enqueue(P priority, V value)
+    
+	//add element to queue
+	public void Enqueue(P priority, V value)
     {
         Queue<V> q;
         if (!list.TryGetValue(priority, out q))
@@ -16,6 +18,8 @@ class PriorityQueue<P,V>
         }
         q.Enqueue(value);
     }
+	
+	//remove element from queue
     public V Dequeue()
     {
         // will throw if there isn’t any first element!
@@ -25,7 +29,8 @@ class PriorityQueue<P,V>
             list.Remove(pair.Key);
         return v;
     }
-    public bool IsEmpty
+    
+	public bool IsEmpty
     {
         get { return !list.Any(); }
     }

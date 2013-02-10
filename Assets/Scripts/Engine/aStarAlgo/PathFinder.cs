@@ -13,10 +13,14 @@ public static class PathFinder
     	Func<HexData, double> estimate)
 		
     	where HexData : IHasNeighbours<HexData>
+		
 		{
+			//set of already checked HexData
    	 		var closed = new HashSet<HexData>();
+			//queued HexData in open set
    			var queue = new PriorityQueue<double, Path<HexData>>();
     		queue.Enqueue(0, new Path<HexData>(start));
+		
    			while (!queue.IsEmpty)
     		{
         		var path = queue.Dequeue();
@@ -24,13 +28,16 @@ public static class PathFinder
             		continue;
         		if (path.LastStep.Equals(destination))
            			return path;
-        			closed.Add(path.LastStep);
-        	foreach(HexData n in path.LastStep.Neighbours)
-        	{
-            	double d = distance(path.LastStep, n);
-            	var newPath = path.AddStep(n, d);
-            	queue.Enqueue(newPath.TotalCost + estimate(n), newPath);
-        	}
+			
+        		closed.Add(path.LastStep);
+        	
+				foreach(HexData n in path.LastStep.Neighbours)
+        		{
+            		double d = distance(path.LastStep, n);
+					//new step added without modifying current path
+            		var newPath = path.AddStep(n, d);
+            		queue.Enqueue(newPath.TotalCost + estimate(n), newPath);
+        		}
     	}
     	return null;
 	}

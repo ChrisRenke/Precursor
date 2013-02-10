@@ -99,7 +99,7 @@ public class entityEnemyS : Combatable, IMove {
 	public HexData[] getTraversablePath ()
 	{
 		//Send hex of base and hex of enemy to aStar
-		LinkedList<HexData> path_temp = aStar.search(hexManagerS.getHex(x, z), hexManagerS.getHex(base_s.x, base_s.z));
+		Path<HexData> path_temp = aStar.search(hexManagerS.getHex(x, z), hexManagerS.getHex(base_s.x, base_s.z));
 		throw new System.NotImplementedException ();
 	}
 
