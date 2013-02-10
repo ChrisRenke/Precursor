@@ -5,7 +5,8 @@ public class entityBaseS : Combatable {
 	
 	// Use this for initialization
 	void Start () {
-	
+		x = 5;
+		z = 5;
 	}
 	
 	// Update is called once per frame
