@@ -54,77 +54,79 @@ public class hexManagerS : MonoBehaviour {
 		hex_dict.Add(Hex.Water, water_hex);
 		hex_dict.Add(Hex.Perimeter, border_hex);
 
-		if(!Load())
+		if(!Load("awesome"))
 			throw new MissingComponentException("Level file malformed! : (");
 
 	}
 	
 	
-	private bool Load(){	
+	private bool Load(String level_key_name){	
 		
-		
+		String level_data = PlayerPrefs.GetString(level_key_name);
+		string[] level_lines = level_data.Split(new char[] {'\n'});
+		int index = 0;
 		
 	//INITIALIZE FILE TO READ\
-		StreamReader reader;
-		FileInfo filer = new FileInfo(Application.dataPath + "/Level_Files/" + level_name + ".pcl");
-		if(filer != null && filer.Exists)
-		{
-		   reader = filer.OpenText();  // returns StreamReader
-		} 
-		else
-		{
-			print ("FILE DOES NOT EXIST!");
-			return false;
-		}
+//		StreamReader reader;
+//		FileInfo filer = new FileInfo(Application.dataPath + "/Level_Files/" + level_name + ".pcl");
+//		if(filer != null && filer.Exists)
+//		{
+//		   reader = filer.OpenText();  // returns StreamReader
+//		} 
+//		else
+//		{
+//			print ("FILE DOES NOT EXIST!");
+//			return false;
+//		}
 		  	
 	//BEGIN PARSING DATA
 		//PARSE HEADER INFO
-		if(!reader.ReadLine().Equals("LEVEL{"))
+		if(!level_lines[index++].Equals("LEVEL{"))
 		{
 			print("l1 ILL FORMATED!");
 			return false;
 		} 
-		if(getIntR(reader) != level_editor_format_version) //EDITOR VER
+		if(getIntR(level_lines[index++]) != level_editor_format_version) //EDITOR VER
 		{
 			print ("EDITOR VERSION MISMATCH!");
 			return false;
 		}
-		level_name 		= getStringR(reader); //NAME
-		int version    		= getIntR(reader);    //VERSION
+		level_name 		= getStringR(level_lines[index++]); //NAME
+		int version    		= getIntR(level_lines[index++]);    //VERSION
 		
 		int total_count, game_count, border_count;
-		x_max = getIntR(reader);
-		z_max = getIntR(reader);
+		x_max = getIntR(level_lines[index++]);
+		z_max = getIntR(level_lines[index++]);
 		
-		int load_x_min = getIntR(reader);
-		int load_x_max = getIntR(reader);
+		int load_x_min = getIntR(level_lines[index++]);
+		int load_x_max = getIntR(level_lines[index++]);
 		
-		int load_z_min = getIntR(reader);
-		int load_z_max = getIntR(reader);
+		int load_z_min = getIntR(level_lines[index++]);
+		int load_z_max = getIntR(level_lines[index++]);
 		
 		hexes = new HexData[x_max, z_max];
 		
 		--x_max;
 		--z_max;
 		
-		total_count 	= getIntR(reader);  		//total count
-		game_count 		= getIntR(reader);		//game count
-		border_count 	= getIntR(reader);  		//border count
+		total_count 	= getIntR(level_lines[index++]);  		//total count
+		game_count 		= getIntR(level_lines[index++]);		//game count
+		border_count 	= getIntR(level_lines[index++]);  		//border count
 		
 		
 		//BEGIN PARSING HEXES
-		if(!reader.ReadLine().Contains("HEXES{"))
+		if(!level_lines[index++].Contains("HEXES{"))
 		{
 			print("HEXES ILL FORMATED");
 			return false;
 		}
-		while(getHexR(reader)) //next line is a HEX{
+		while(getHexR(level_lines[index++])) //next line is a HEX{
 		{
-			int x = getIntR(reader) - load_x_min;
-			int z = getIntR(reader) - load_z_min;
+			int x = getIntR(level_lines[index++]) - load_x_min;
+			int z = getIntR(level_lines[index++]) - load_z_min;
 			
 			print ("making hex: " + x + ", " + z);
-            Hex hex_type = (Hex) Enum.Parse(typeof(Hex), getStringR(reader));
+            Hex hex_type = (Hex) Enum.Parse(typeof(Hex), getStringR(level_lines[index++]));
 			hexes[x, z] = new HexData(x, z, hex_type);
 			
 			
@@ -133,7 +135,7 @@ public class hexManagerS : MonoBehaviour {
 			 
 			new_hex_script.buildHexData(x, z, hex_type);
 			
-			if(!getCBR(reader))
+			if(!getCBR(level_lines[index++]))
 			{
 				print("MALFORMED HEX!");
 				return false;
@@ -142,16 +144,16 @@ public class hexManagerS : MonoBehaviour {
 		 
 //		print (reader.ReadLine());
 		//BEGIN PARSING ENTITES
-		if(!reader.ReadLine().Contains("ENTITIES{"))
+		if(!level_lines[index++].Contains("ENTITIES{"))
 		{
 			print("ENTITIES ILL FORMATED");
 			return false;
 		}
-		while(getEntR(reader)) //next line is a HEX{
+		while(getEntR(level_lines[index++])) //next line is a HEX{
 		{
-			int x = getIntR(reader) - load_x_min;
-			int z = getIntR(reader) - load_z_min;
-            EntityE ent_type = (EntityE) Enum.Parse(typeof(EntityE), getStringR(reader));
+			int x = getIntR(level_lines[index++]) - load_x_min;
+			int z = getIntR(level_lines[index++]) - load_z_min;
+            EntityE ent_type = (EntityE) Enum.Parse(typeof(EntityE), getStringR(level_lines[index++]));
 			
 			int base_starting_health_percentage = 100;
 			int mech_starting_health_percentage = 100;
@@ -168,23 +170,23 @@ public class hexManagerS : MonoBehaviour {
 			switch(ent_type)
 			{
 				case EntityE.Base:
-					 base_starting_health_percentage = getIntR(reader);
+					 base_starting_health_percentage = getIntR(level_lines[index++]);
 					break;
 				case EntityE.Player:
-					 mech_starting_health_percentage = getIntR(reader);
+					 mech_starting_health_percentage = getIntR(level_lines[index++]);
 					break;
 				case EntityE.Enemy:
-					 enemy_knows_base_loc = getBoolR(reader);
-					 enemy_knows_mech_loc = getBoolR(reader);
+					 enemy_knows_base_loc = getBoolR(level_lines[index++]);
+					 enemy_knows_mech_loc = getBoolR(level_lines[index++]);
 					break;
 				case EntityE.Factory:
 				case EntityE.Junkyard:
 				case EntityE.Outpost:
-					 node_starting_level	 = getIntR(reader);
+					 node_starting_level	 = getIntR(level_lines[index++]);
 					break;
 			}
 			  
-			if(!getCBR(reader))
+			if(!getCBR(level_lines[index++]))
 			{
 				print("MALFORMED HEX!");
 				return false;
@@ -194,42 +196,42 @@ public class hexManagerS : MonoBehaviour {
 		return true;
 	}
 	
-	public string getStringR(StreamReader reader)
-	{   
-    	string[] items = reader.ReadLine().Split(stringSeparators, StringSplitOptions.None);
+	public string getStringR(String line)
+	{  
+    	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
 		return items[1];
 	}
-	
-	public int getIntR(StreamReader reader)
+	 
+	public int getIntR(String line)
 	{  
-    	string[] items = reader.ReadLine().Split(stringSeparators, StringSplitOptions.None);
+    	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
 		return int.Parse(items[1]);
 	}
 	
-	public bool getBoolR(StreamReader reader)
+	public bool getBoolR(String line)
 	{  
-    	string[] items = reader.ReadLine().Split(stringSeparators, StringSplitOptions.None);
+    	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
 		return bool.Parse(items[1]);
 	}
 	
-	public bool getCBR(StreamReader reader) //close bracket Reader
+	public bool getCBR(String line) //close bracket Reader
 	{  
-    	return reader.ReadLine().Contains("}"); 
+    	return line.Contains("}"); 
 	}
 	
-	public bool getOBR(StreamReader reader) //close bracket Reader
+	public bool getOBR(String reader) //close bracket Reader
 	{  
-    	return reader.ReadLine().Contains("{"); 
+    	return reader.Contains("{"); 
 	}
 	
-	public bool getHexR(StreamReader reader) //close bracket Reader
+	public bool getHexR(String reader) //close bracket Reader
 	{  
-    	return reader.ReadLine().Contains("HEX{"); 
+    	return reader.Contains("HEX{"); 
 	}
 	
-	public bool getEntR(StreamReader reader) //close bracket Reader
+	public bool getEntR(String reader) //close bracket Reader
 	{  
-    	return reader.ReadLine().Contains("ENTITY{"); 
+    	return reader.Contains("ENTITY{"); 
 	} 
 
 	//Return adjacent hexes for the given entity position

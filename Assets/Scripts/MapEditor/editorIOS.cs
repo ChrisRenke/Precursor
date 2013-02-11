@@ -2,22 +2,23 @@ using UnityEngine;
 using System.Collections; 
 using System.Collections.Generic;
 using System;
-using System.IO; 
+using System.Text; 
 
 public class editorIOS : MonoBehaviour {
 	
 	
-	public string       level_name = "untitled level";  
-	public int 			version; 
-	public int          level_editor_format_version = 3;
-	 
+	public static string       level_name = "untitled level";  
+	public static int 			version; 
+	public static int          level_editor_format_version = 3;
+	public static string 		LAST_EDITED  = "LASTEDITED";
+	private static String      key_list_key = "LEVELKEYS";
 	
-	private	string[] stringSeparators = new string[] {" = "};  
+	private	static string[] stringSeparators = new string[] {" = "};  
 	
 	// Use this for initialization
 	void Start () 
 	{ 
-	
+		level_name = PlayerPrefs.GetString(LAST_EDITED, "untitled level");
 	}
 	
 	// Update is called once per frame
@@ -48,7 +49,11 @@ public class editorIOS : MonoBehaviour {
 		int x_dim, z_dim;
 		print ("SAVE!");
         // create a writer and open the file
-        TextWriter tw = new StreamWriter("Assets/Level_Files/" + level_name + ".pcl");
+//        TextWriter tw = new StreamWriter("Assets/Level_Files/" + level_name + ".pcl");
+		
+		StringBuilder sb = new StringBuilder();
+		
+		
 		
 		int x_max = -99999, x_min = 99999, z_max = -99999, z_min = 99999, count = 0, border_count = 0;
 		foreach(KeyValuePair<int, Dictionary<int, editorHexManagerS.HexData>> entry in editorHexManagerS.hex_db)
@@ -75,105 +80,94 @@ public class editorIOS : MonoBehaviour {
 		z_dim = z_max - z_min + 1; //+1 to account for 0 space
 
         // write a line of text to the file
-        tw.WriteLine("LEVEL{");
+        sb.AppendLine("LEVEL{");
 		
-        tw.WriteLine("\tEDITOR VER   = " + level_editor_format_version );
-        tw.WriteLine("\tLevel Name   = " + level_name );
-        tw.WriteLine("\tLevel Ver    = " + version ); 
-        tw.WriteLine("\tX_dim        = " + x_dim ); 
-        tw.WriteLine("\tZ_dim        = " + z_dim );  
-        tw.WriteLine("\tX_min        = " + x_min );  
-        tw.WriteLine("\tX_max        = " + x_max );  
-        tw.WriteLine("\tZ_min        = " + z_min );  
-        tw.WriteLine("\tZ_max        = " + z_max );  
-        tw.WriteLine("\tTotal_Hexes  = " + count ); 
-        tw.WriteLine("\tGame_Hexes   = " + (count - border_count)); 
-        tw.WriteLine("\tBorder_Hexes = " + border_count);  
-        tw.WriteLine("\tHEXES{");
+        sb.AppendLine("\tEDITOR VER   = " + level_editor_format_version );
+        sb.AppendLine("\tLevel Name   = " + level_name );
+        sb.AppendLine("\tLevel Ver    = " + version ); 
+        sb.AppendLine("\tX_dim        = " + x_dim ); 
+        sb.AppendLine("\tZ_dim        = " + z_dim );  
+        sb.AppendLine("\tX_min        = " + x_min );  
+        sb.AppendLine("\tX_max        = " + x_max );  
+        sb.AppendLine("\tZ_min        = " + z_min );  
+        sb.AppendLine("\tZ_max        = " + z_max );  
+        sb.AppendLine("\tTotal_Hexes  = " + count ); 
+        sb.AppendLine("\tGame_Hexes   = " + (count - border_count)); 
+        sb.AppendLine("\tBorder_Hexes = " + border_count);  
+        sb.AppendLine("\tHEXES{");
 		
 		foreach(KeyValuePair<int, Dictionary<int, editorHexManagerS.HexData>> entry in editorHexManagerS.hex_db)
 		{
 		    foreach(KeyValuePair<int, editorHexManagerS.HexData> entry_2 in entry.Value)
 			{
 				
-        		tw.WriteLine("\t\tHEX{ " );
-//        		tw.WriteLine("\t\t\tName = " + entry_2.Value.tile_name);
-        		tw.WriteLine("\t\t\tX    = " + entry_2.Value.x_coord);
-        		tw.WriteLine("\t\t\tZ    = " + entry_2.Value.z_coord);
-        		tw.WriteLine("\t\t\tType = " + entry_2.Value.hex_type);
-        		tw.WriteLine("\t\t}");
+        		sb.AppendLine("\t\tHEX{ " );
+//        		sb.AppendLine("\t\t\tName = " + entry_2.Value.tile_name);
+        		sb.AppendLine("\t\t\tX    = " + entry_2.Value.x_coord);
+        		sb.AppendLine("\t\t\tZ    = " + entry_2.Value.z_coord);
+        		sb.AppendLine("\t\t\tType = " + entry_2.Value.hex_type);
+        		sb.AppendLine("\t\t}");
 			}
 			// do something with entry.Value or entry.Key
 		}
 		
-        tw.WriteLine("\t}");
+        sb.AppendLine("\t}");
 		
 		
-        tw.WriteLine("\tENTITIES{");
+        sb.AppendLine("\tENTITIES{");
 		
 		foreach(KeyValuePair<int, Dictionary<int, editorEntityManagerS.EntityData>> entry_1 in editorEntityManagerS.entity_db)
 		{
 		    foreach(KeyValuePair<int, editorEntityManagerS.EntityData> entry_2 in entry_1.Value)
 			{
 				
-        		tw.WriteLine("\t\tENTITY{ " );
-//        		tw.WriteLine("\t\t\tName       = " + entry_2.Value.name);
-        		tw.WriteLine("\t\t\tX          = " + entry_2.Value.x_coord);
-        		tw.WriteLine("\t\t\tZ          = " + entry_2.Value.z_coord);
-        		tw.WriteLine("\t\t\tType       = " + entry_2.Value.entity_type);
+        		sb.AppendLine("\t\tENTITY{ " );
+//        		sb.AppendLine("\t\t\tName       = " + entry_2.Value.name);
+        		sb.AppendLine("\t\t\tX          = " + entry_2.Value.x_coord);
+        		sb.AppendLine("\t\t\tZ          = " + entry_2.Value.z_coord);
+        		sb.AppendLine("\t\t\tType       = " + entry_2.Value.entity_type);
 				
 				editorEntityS ent_s = entry_2.Value.occupier.GetComponent<editorEntityS>();
 				if(ent_s.entity_type == EntityE.Base)
 				{					//  Z          = "
-        			tw.WriteLine("\t\t\tHP Perc    = " + ent_s.base_starting_health_percentage); 
+        			sb.AppendLine("\t\t\tHP Perc    = " + ent_s.base_starting_health_percentage); 
 				}
 				else if(ent_s.entity_type == EntityE.Player)
 				{
-        			tw.WriteLine("\t\t\tHP Perc    = " + ent_s.mech_starting_health_percentage); 
+        			sb.AppendLine("\t\t\tHP Perc    = " + ent_s.mech_starting_health_percentage); 
 				}
 				else if(ent_s.entity_type == EntityE.Factory ||
 						ent_s.entity_type == EntityE.Junkyard ||
 						ent_s.entity_type == EntityE.Outpost)
 				{ 
-        			tw.WriteLine("\t\t\tNode Lvl   = " + ent_s.node_starting_level); 
+        			sb.AppendLine("\t\t\tNode Lvl   = " + ent_s.node_starting_level); 
 				}
 				else if(ent_s.entity_type == EntityE.Enemy)
 				{
-        			tw.WriteLine("\t\t\tOmnsc Base = " + ent_s.enemy_knows_base_loc); 
-        			tw.WriteLine("\t\t\tOmnsc Mech = " + ent_s.enemy_knows_mech_loc);  
+        			sb.AppendLine("\t\t\tOmnsc Base = " + ent_s.enemy_knows_base_loc); 
+        			sb.AppendLine("\t\t\tOmnsc Mech = " + ent_s.enemy_knows_mech_loc);  
 				} 
-        		tw.WriteLine("\t\t}");
+        		sb.AppendLine("\t\t}");
 			}
 			// do something with entry.Value or entry.Key
 		}
 		
-        tw.WriteLine("\t}");
+        sb.AppendLine("\t}");		
+        sb.AppendLine("}");
 		
+		//store level data to prefs
+		PlayerPrefs.SetString (level_name, sb.ToString());
 		
-        tw.WriteLine("}");
+		//store level name as a level key
+		PlayerPrefs.SetString (key_list_key, PlayerPrefs.GetString(key_list_key, "") + level_name + "\n");
 		
+		//store last edited level key
+		PlayerPrefs.SetString (LAST_EDITED, level_name);
 		
-		
-		// Store keys in a List
-//		List<int> list_x = new List<int>(hex_dict.Keys);
-//		// Loop through list
-//		foreach (int x in list_x)
-//		{
-//			
-//			List<int> list_z = new List<int>(hex_dict[x].Keys);
-//			foreach (int z in list_z)
-//			{
-//			}
-//		}
-
-		
-
-        // close the stream
-        tw.Close();
 	}
 	
 	
-	public bool Load()
+	public static bool Load()
 	{
 		// 1 - delete EVERYTHING that exists in map
 		// 2 - start drawing hexes from file
@@ -181,18 +175,25 @@ public class editorIOS : MonoBehaviour {
 		//  CoordsGameTo3D(x, z) returns a vector3 hell ya
 
 	//INITIALIZE FILE TO READ\
-		StreamReader reader;
-		FileInfo filer = new FileInfo(Application.dataPath + "/Level_Files/" + level_name + ".pcl");
-		if(filer != null && filer.Exists)
-		{
-		   reader = filer.OpenText();  // returns StreamReader
-		} 
-		else
-		{
-			print ("FILE DOES NOT EXIST!");
-			return false;
-		}
+//		StreamReader reader;
+//		FileInfo filer = new FileInfo(Application.dataPath + "/Level_Files/" + level_name + ".pcl");
+//		if(filer != null && filer.Exists)
+//		{
+//		   reader = filer.OpenText();  // returns StreamReader
+//		} 
+//		else
+//		{
+//			print ("FILE DOES NOT EXIST!");
+//			return false;
+//		}
 		  
+		String level_data = PlayerPrefs.GetString(level_name, "DIDNTLOAD");
+		string[] level_lines = level_data.Split(new char[] {'\n'});
+		int index = 0;
+		
+		if(level_data.Equals("DIDNTLOAD"))
+			return false;
+		
 		
 	//DELETE EXISTING DATA FROM EDITOR
 		//remove existing hexes
@@ -219,46 +220,46 @@ public class editorIOS : MonoBehaviour {
 	
 	//BEGIN PARSING DATA
 		//PARSE HEADER INFO
-		if(!reader.ReadLine().Equals("LEVEL{"))
+		if(!level_lines[index++].Equals("LEVEL{"))
 		{
 			print("l1 ILL FORMATED!");
 			return false;
 		} 
-		if(getIntR(reader) != level_editor_format_version) //EDITOR VER
+		if(getIntR(level_lines[index++]) != level_editor_format_version) //EDITOR VER
 		{
 			print ("EDITOR VERSION MISMATCH!");
 			return false;
 		}
-		level_name 		= getStringR(reader); //NAME
-		version    		= getIntR(reader);    //VERSION
+		level_name 		= getStringR(level_lines[index++]); //NAME
+		version    		= getIntR(level_lines[index++]);    //VERSION
 		
 		int x_dim, z_dim, total_count, game_count, border_count;
-		x_dim 			= getIntR(reader);  		//X_dim
-		z_dim 			= getIntR(reader);		//Z_dim
+		x_dim 			= getIntR(level_lines[index++]);  		//X_dim
+		z_dim 			= getIntR(level_lines[index++]);		//Z_dim
 		
-		getIntR(reader);
-		getIntR(reader);
-		getIntR(reader);
-		getIntR(reader);
+		getIntR(level_lines[index++]);
+		getIntR(level_lines[index++]);
+		getIntR(level_lines[index++]);
+		getIntR(level_lines[index++]);
 		
-		total_count 	= getIntR(reader);  		//total count
-		game_count 		= getIntR(reader);		//game count
-		border_count 	= getIntR(reader);  		//border count
+		total_count 	= getIntR(level_lines[index++]);  		//total count
+		game_count 		= getIntR(level_lines[index++]);		//game count
+		border_count 	= getIntR(level_lines[index++]);  		//border count
 		
 		
 		//BEGIN PARSING HEXES
-		if(!reader.ReadLine().Contains("HEXES{"))
+		if(!level_lines[index++].Contains("HEXES{"))
 		{
 			print("HEXES ILL FORMATED");
 			return false;
 		}
-		while(getHexR(reader)) //next line is a HEX{
+		while(getHexR(level_lines[index++])) //next line is a HEX{
 		{
-			int x = getIntR(reader);
-			int z = getIntR(reader);
-            Hex hex_type = (Hex) Enum.Parse(typeof(Hex), getStringR(reader));
+			int x = getIntR(level_lines[index++]);
+			int z = getIntR(level_lines[index++]);
+            Hex hex_type = (Hex) Enum.Parse(typeof(Hex), getStringR(level_lines[index++]));
 			editorUserS.tms.LoadHex(hex_type, x, z);
-			if(!getCBR(reader))
+			if(!getCBR(level_lines[index++]))
 			{
 				print("MALFORMED HEX!");
 				return false;
@@ -267,16 +268,16 @@ public class editorIOS : MonoBehaviour {
 		 
 //		print (reader.ReadLine());
 		//BEGIN PARSING ENTITES
-		if(!reader.ReadLine().Contains("ENTITIES{"))
+		if(!level_lines[index++].Contains("ENTITIES{"))
 		{
 			print("ENTITIES ILL FORMATED");
 			return false;
 		}
-		while(getEntR(reader)) //next line is a HEX{
+		while(getEntR(level_lines[index++])) //next line is a HEX{
 		{
-			int x = getIntR(reader);
-			int z = getIntR(reader);
-            EntityE ent_type = (EntityE) Enum.Parse(typeof(EntityE), getStringR(reader));
+			int x = getIntR(level_lines[index++]);
+			int z = getIntR(level_lines[index++]);
+            EntityE ent_type = (EntityE) Enum.Parse(typeof(EntityE), getStringR(level_lines[index++]));
 			
 			editorUserS.ems.base_starting_health_percentage = 100;
 			editorUserS.ems.mech_starting_health_percentage = 100;
@@ -287,69 +288,71 @@ public class editorIOS : MonoBehaviour {
 			switch(ent_type)
 			{
 				case EntityE.Base:
-					editorUserS.ems.base_starting_health_percentage = getIntR(reader);
+					editorUserS.ems.base_starting_health_percentage = getIntR(level_lines[index++]);
 					break;
 				case EntityE.Player:
-					editorUserS.ems.mech_starting_health_percentage = getIntR(reader);
+					editorUserS.ems.mech_starting_health_percentage = getIntR(level_lines[index++]);
 					break;
 				case EntityE.Enemy:
-					editorUserS.ems.enemy_knows_base_loc = getBoolR(reader);
-					editorUserS.ems.enemy_knows_mech_loc = getBoolR(reader);
+					editorUserS.ems.enemy_knows_base_loc = getBoolR(level_lines[index++]);
+					editorUserS.ems.enemy_knows_mech_loc = getBoolR(level_lines[index++]);
 					break;
 				case EntityE.Factory:
 				case EntityE.Junkyard:
 				case EntityE.Outpost:
-					editorUserS.ems.node_starting_level	 = getIntR(reader);
+					editorUserS.ems.node_starting_level	 = getIntR(level_lines[index++]);
 					break;
 			}
 			 
 			editorUserS.ems.LoadEntity(ent_type, x, z);
-			if(!getCBR(reader))
+			if(!getCBR(level_lines[index++]))
 			{
 				print("MALFORMED HEX!");
 				return false;
 			}
 		}
 		 
+		//store last edited level key
+		PlayerPrefs.SetString (LAST_EDITED, level_name);
 		return true;
 	}
 	
-	public string getStringR(StreamReader reader)
-	{   
-    	string[] items = reader.ReadLine().Split(stringSeparators, StringSplitOptions.None);
+	public static string getStringR(String line)
+	{  
+    	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
 		return items[1];
 	}
-	
-	public int getIntR(StreamReader reader)
+	 
+	public static int getIntR(String line)
 	{  
-    	string[] items = reader.ReadLine().Split(stringSeparators, StringSplitOptions.None);
+    	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
 		return int.Parse(items[1]);
 	}
 	
-	public bool getBoolR(StreamReader reader)
+	public static bool getBoolR(String line)
 	{  
-    	string[] items = reader.ReadLine().Split(stringSeparators, StringSplitOptions.None);
+    	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
 		return bool.Parse(items[1]);
 	}
 	
-	public bool getCBR(StreamReader reader) //close bracket Reader
+	public static bool getCBR(String line) //close bracket Reader
 	{  
-    	return reader.ReadLine().Contains("}"); 
+    	return line.Contains("}"); 
 	}
 	
-	public bool getOBR(StreamReader reader) //close bracket Reader
+	public static  bool getOBR(String reader) //close bracket Reader
 	{  
-    	return reader.ReadLine().Contains("{"); 
+    	return reader.Contains("{"); 
 	}
 	
-	public bool getHexR(StreamReader reader) //close bracket Reader
+	public static bool getHexR(String reader) //close bracket Reader
 	{  
-    	return reader.ReadLine().Contains("HEX{"); 
+    	return reader.Contains("HEX{"); 
 	}
 	
-	public bool getEntR(StreamReader reader) //close bracket Reader
+	public static bool getEntR(String reader) //close bracket Reader
 	{  
-    	return reader.ReadLine().Contains("ENTITY{"); 
-	}
+    	return reader.Contains("ENTITY{"); 
+	} 
 	
 }

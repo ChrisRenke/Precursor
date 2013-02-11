@@ -44,6 +44,8 @@ public class editorHexManagerS : MonoBehaviour {
 		tooltip = GameObject.FindGameObjectWithTag("player_manager").GetComponent<editorUserS>().getTooltip();
 		BrushHex(true, Hex.Perimeter, 1, new Vector3(0, 0, 0), Hex.Grass, 0, 0); 
 		
+		editorIOS.Load();
+		
 //		BrushHex(true, Hex.Perimeter, 1, editorUserS.CoordsGameTo3D(2, 2), initial_hex.GetComponent<editorHexS>().hex_type, 2,2); 
 //		BrushHex(true, Hex.Perimeter, 1, editorUserS.CoordsGameTo3D(-1, 2), initial_hex.GetComponent<editorHexS>().hex_type, -1, 2); 
 //		BrushHex(true, Hex.Perimeter, 1, editorUserS.CoordsGameTo3D(3, -1), initial_hex.GetComponent<editorHexS>().hex_type, 3, -1); 
