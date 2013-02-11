@@ -2,12 +2,12 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class entityEnemyS : Combatable, IMove {
+public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	private int size = 6; //size of traversable_hexes
 	private HexData[] traversable_hexes; //Hold traversable hexes
 	private HexData[] untraversable_hexes; //Hold untraversable hexes
-	private HexData[] path_hexes; //Hold traversable hex path  
+	private List<HexData> path_to_base; //Hold traversable hex path  
 	//Script for mech and base
 	entityBaseS base_s;
 	entityMechS mech_s;
@@ -26,13 +26,13 @@ public class entityEnemyS : Combatable, IMove {
 
 	
 	#region IMove implementation
-	public HexData[] getAdjacentTraversableHexes ()
+	public HexData[] getAdjacentTraversableHexes (int x_pos, int z_pos)
 	{
 		int index = 0;
 		HexData[] result_hexes = new HexData[size]; //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
+		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x_pos, z_pos);
 		
 		//See which of the adjacent hexes are traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++){
@@ -46,13 +46,13 @@ public class entityEnemyS : Combatable, IMove {
 		return result_hexes;
 	}
 
-	public HexData[] getAdjacentUntraversableHexes ()
+	public HexData[] getAdjacentUntraversableHexes (int x_pos, int z_pos)
 	{
 		int index = 0;
 		HexData[] result_hexes = new HexData[size]; //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
+		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x_pos, z_pos);
 		
 		//See which of the adjacent hexes are untraversable
 		for(int i = 0; i < adjacent_hexes.Length; i++){
@@ -96,11 +96,22 @@ public class entityEnemyS : Combatable, IMove {
 	#endregion
 	
 	//Get path to base
-	public HexData[] getTraversablePath ()
+	public List<HexData> getTraversablePath ()
 	{
-		//Send hex of base and hex of enemy to aStar
-		Path<HexData> path_temp = aStar.search(hexManagerS.getHex(x, z), hexManagerS.getHex(base_s.x, base_s.z));
-		throw new System.NotImplementedException ();
+		//Send hex of base and hex of enemy to aStar 
+		var path = aStar.FindPath(start, destination, calcDistance, calcEstimate, getAdjacentTraversableHexes);
+		return extractPath(path);
+	}
+	
+	//Extract hexes from path and put hexes into a List 
+	private List<HexData> extractPath (IEnumerable<HexData> path){
+		List<HexData> list = new List<HexData>();
+		
+		foreach (HexData hex in path)
+        {
+			list.Add(hex);
+		}
+		return list;
 	}
 
 	#region implemented abstract members of Combatable
@@ -115,4 +126,23 @@ public class entityEnemyS : Combatable, IMove {
 	}
 	#endregion
 	
+	
+	#region IPathFind implementation
+	public double calcDistance (HexData hex_start, HexData hex_end)
+	{
+		//TODO: this is dummy code, can be adjusted later
+        return 1;
+	}
+
+	public double calcEstimate (HexData hex_start, HexData hex_end)
+	{
+		//TODO: this is dummy code, can be adjusted later
+		
+        HexData destTile = destTileTB.hex;
+        float deltaX = Mathf.Abs(destTile.x - hex.x);
+        float deltaZ = Mathf.Abs(destTile.z - hex.z);
+        
+        return Mathf.Max(deltaX, deltaZ);
+	}
+	#endregion
 }
