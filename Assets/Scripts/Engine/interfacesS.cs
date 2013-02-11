@@ -10,10 +10,10 @@ using System.Collections.Generic;
 public interface IMove {
 	
 	//Get traversable hexes around entity
-	HexData[] getAdjacentTraversableHexes();
+	HexData[] getAdjacentTraversableHexes(HexData hex);
 	
 	//Get untraversable hexes around entity
-	HexData[] getAdjacentUntraversableHexes();
+	HexData[] getAdjacentUntraversableHexes(HexData hex);
 	
 	//Check whether a hex can be traversed
 	bool canTraverse(HexData hex);
@@ -58,3 +58,14 @@ public interface ICollect {
 
 //General Interfaces Other
 //*******************************
+
+
+//methods needed for A*
+public interface IPathFind{
+	//Return distance between two adjacent nodes
+	double calcDistance(HexData hex_start, HexData hex_end);
+	
+
+    //Return estimated distance between any node and destination node
+    double calcEstimate(HexData hex_start, HexData hex_end);
+}

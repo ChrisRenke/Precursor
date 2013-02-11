@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Entity : MonoBehaviour {
 	
-	public int x;
-	public int z;
+	public static int x;
+	public static int z;
 
 }
 

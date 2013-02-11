@@ -11,7 +11,7 @@ public class entityMechS : Combatable, IMove {
 	bool players_turn = true;
 	int test = 0;
 	private GameObject 	hex_choice;
-	public Transform player_location; //hold player location
+	public Transform player_location; //hold player location, for testing
 	
 	
 	
@@ -31,7 +31,7 @@ public class entityMechS : Combatable, IMove {
 		
 		if(players_turn){
 			//getTraversible hexes
-			traversable_hexes = getAdjacentTraversableHexes();
+			traversable_hexes = getAdjacentTraversableHexes(hexManagerS.getHex(x,z));
 			
 			//TODO: some mechanism for highlighting valid hexes?
 			
@@ -58,7 +58,7 @@ public class entityMechS : Combatable, IMove {
 		
 		//TESTS ***
 		/*//TESTS TRAVERSABLE
-		traversable_hexes = getAdjacentTraversableHexes();
+		traversable_hexes = getAdjacentTraversableHexes(hexManagerS.getHex(x,z));
 		for(int i = 0; i < traversable_hexes.Length; i++){
 			if(traversable_hexes[i] != null){
 				print(traversable_hexes[i].hex_type);
@@ -67,7 +67,7 @@ public class entityMechS : Combatable, IMove {
 		*/
 		
 		/*//TEST UNTRAVERSABLE
-		untraversable_hexes = getAdjacentUntraversableHexes();
+		untraversable_hexes = getAdjacentUntraversableHexes(hexManagerS.getHex(x,z));
 		for(int i = 0; i < untraversable_hexes.Length; i++){
 			if(untraversable_hexes[i] != null){
 				print(untraversable_hexes[i].hex_type);
@@ -90,13 +90,13 @@ public class entityMechS : Combatable, IMove {
 	}
 
 	#region IMove implementation
-	public HexData[] getAdjacentTraversableHexes ()
+	public HexData[] getAdjacentTraversableHexes (HexData hex)
 	{
 		int index = 0;
 		HexData[] result_hexes = new HexData[size]; //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
+		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(hex.x, hex.z);
 		
 		//See which of the adjacent hexes are traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++){
@@ -110,13 +110,13 @@ public class entityMechS : Combatable, IMove {
 		return result_hexes;
 	}
 
-	public HexData[] getAdjacentUntraversableHexes ()
+	public HexData[] getAdjacentUntraversableHexes (HexData hex)
 	{
 		int index = 0;
 		HexData[] result_hexes = new HexData[size]; //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
+		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(hex.x, hex.z);
 		
 		//See which of the adjacent hexes are untraversable
 		for(int i = 0; i < adjacent_hexes.Length; i++){
