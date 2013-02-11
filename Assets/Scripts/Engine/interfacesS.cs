@@ -8,9 +8,6 @@ using System.Collections.Generic;
 
 //For entites that move
 public interface IMove {
-	 
-	//Get traversable hexes around entity
-	HexData[] getAdjacentHexes();
 	
 	//Get traversable hexes around entity
 	HexData[] getAdjacentTraversableHexes();
@@ -23,6 +20,15 @@ public interface IMove {
 	
 	//Move entity to a give hex
 	void makeMove(HexData hex);
+	
+	//
+	/*int getCost(method cost){
+		if blank... ConnectionTester, Status is two
+			mountian = 2222
+				forest mrsh....333
+				water...9999
+				
+	}*/
 	
 }
 
