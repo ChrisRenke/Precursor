@@ -1,20 +1,44 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class entityManagerS : MonoBehaviour {
 	
+	/*
+	 //OUTLINE FROM WIKI
+	bool[] getUntraversableHexes(HexData[] adjacent_hexes) //loop canTraverHex and store into boolarray, return that array
+
+	bool canTraverseHex(HexData in_hex) //***added
+
+	Entity entityAt(int x, int z) {
+
+	}
+
+	Entity entityAt(HexData hex_in) { return Entity(hex_in.x, hex_in.z); }
+
+	baseScriptS getBase(); //**added
+
+	mechScriptS getMech(); //**added
+
+	List getEnemies(); //**added
+
+	bool makeEntity(EntityE type, int x, int y) //and more to determine stuff about enemy starting state
+	*/
+
+	
 	//Using dummy values for testing
-	public static HexData player_pos = new HexData(4, 1, Hex.Grass);
-	
-	public static HexData[] settlement_pos = new HexData[]{new HexData(5, 5, Hex.Grass)};
-	
-	public static HexData[] enemy_pos = new HexData[]{new HexData(1, 2, Hex.Grass)};
-	
-	public static HexData[] resource_pos = new HexData[]{new HexData(2, 5, Hex.Grass)};
+	private entityBaseS base_s;
+	private entityMechS mech_s;
+	private List<HexData> enemy_pos = new List<HexData>();
+	private List<HexData> resource_pos = new List<HexData>();//factory/junkyard/outpost, could be multiple arrays
 	
 	// Use this for initialization
 	void Start () {
 		//TODO: initialize Entity positions here
+		base_s = gameObject.GetComponent<entityBaseS>();
+	    mech_s = gameObject.GetComponent<entityMechS>();
+		enemy_pos.Add(new HexData(1, 2, Hex.Grass));
+		resource_pos.Add(new HexData(2, 5, Hex.Grass));
 		
 	}
 	
@@ -23,36 +47,59 @@ public class entityManagerS : MonoBehaviour {
 	
 	}
 	
-	//check to see if given entity resides on hex 
+	public entityBaseS getBase(){
+		return base_s;
+	}
+	
+	public entityMechS getMech(){
+		return mech_s;
+	}
+	
+	public List<HexData> getEnemies(){
+		return enemy_pos;
+	}
+	
+	//check to see if a given entity type resides on hex 
 	public static bool isEntityPos(HexData hex, EntityE entity){
 				
 		if(entity == EntityE.Player){
-			if(hex.x == player_pos.x && hex.z == player_pos.z){
-				return true; //player mech resides on this hex
+			if(hex.x == mech_s.x && hex.z == mech_s.z){
+				return true; 
+			}else{
+				return false;
+			}
+		}else if(entity == EntityE.Base){
+			if(hex.x == base_s.x && hex.z == base_s.z){
+				return true; 
 			}else{
 				return false;
 			}
 		}else if(entity == EntityE.Enemy){ //get enemy hexes
-			return check(hex, enemy_pos); 
-		}else if(entity == EntityE.Base){ //get settlement hexes
-			return check(hex, settlement_pos); 
+			return checkLists(hex, enemy_pos); 
 		}else{
-			return check(hex, resource_pos); //get resource hexes
+			return checkLists(hex, resource_pos); //get resource hexes
 		}	
 	}
 	
-	private static bool check(HexData hex, HexData[] hexes){
+	//Check to see if any entity resides on given hex
+	public static bool canTraverseHex(HexData hex){
+		if(hex.x == mech_s.x && hex.z == mech_s.z){ //check mech pos
+			return false;
+		}else if(hex.x == base_s.x && hex.z == base_s.z){ //check base pos
+			return false;
+		}else{ //check enemy pos and resource pos lists
+			return checkLists(hex, enemy_pos) && checkLists(hex, resource_pos);
+		}
+	}
+	
+	private static bool checkLists(HexData hex, List<HexData> hexes){
 		//Check chosen entity array to see if entities resides on given hex
-		for(int i = 0; i < hexes.Length; i++){
+		for(int i = 0; i < hexes.Count; i++){
 			if(hex.x == hexes[i].x && hex.z == hexes[i].z){
 				return true;
 			}
 		}
-		
 		return false;	
 	}
 	
-	public static void updatePos(){
-		//TODO
-	}
 }
