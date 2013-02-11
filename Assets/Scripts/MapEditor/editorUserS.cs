@@ -285,7 +285,7 @@ public class editorUserS : MonoBehaviour {
 		}
 		else
 		//LeftCommand + left click
-		if(Input.GetKey(KeyCode.LeftCommand) && Input.GetMouseButtonDown(0))
+		if((Input.GetKey(KeyCode.LeftCommand)|| Input.GetKey(KeyCode.BackQuote)) && Input.GetMouseButtonDown(0)) 
 		{	
 			clicked_game_object = RaycastMouse(HexTag);
 			 
@@ -532,7 +532,7 @@ public class editorUserS : MonoBehaviour {
 	    	GUI.Label(new Rect(Input.mousePosition.x, Screen.height - Input.mousePosition.y - brush_icon.height, brush_icon.width, brush_icon.height),brush_icon);
 		}
 		else
-		if(Input.GetKey(KeyCode.LeftCommand))
+		if(Input.GetKey(KeyCode.LeftCommand) || Input.GetKey(KeyCode.BackQuote))
 		{
 			Screen.showCursor = false;
 	    	GUI.Label(new Rect(Input.mousePosition.x, Screen.height - Input.mousePosition.y - spray_icon.height + 20, spray_icon.width, spray_icon.height),spray_icon);
