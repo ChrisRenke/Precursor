@@ -10,10 +10,10 @@ using System.Collections.Generic;
 public interface IMove {
 	
 	//Get traversable hexes around entity
-	HexData[] getAdjacentTraversableHexes(int x, int z);
+	HexData[] getAdjacentTraversableHexes(HexData hex);
 	
 	//Get untraversable hexes around entity
-	HexData[] getAdjacentUntraversableHexes(int x, int z);
+	HexData[] getAdjacentUntraversableHexes(HexData hex);
 	
 	//Check whether a hex can be traversed
 	bool canTraverse(HexData hex);

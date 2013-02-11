@@ -21,7 +21,7 @@ public class Path<HexData>: IEnumerable<HexData>
 	
     public Path<HexData> AddStep(HexData step, double stepCost)
     {
-        return new Path<HexData>(step, this, TotalCost + stepCost);
+        return new Path<HexData> (step, this, TotalCost + stepCost);
     }
 	
     public IEnumerator<HexData> GetEnumerator()

@@ -1,29 +1,26 @@
-using UnityEngine;
-using System.IO; 
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 public static class aStar {
-	
+
 	//Find path from start node to destination node
 	//Distance function returns distance between two adjacent nodes
     //Estimate function returns distance between any node and destination node
 	//Neighbors function returns adjacent traversible hexes for given hex input (Very hefty method)
-    public static Path<HexData> FindPath<HexData>(
-    	HexData start,
-    	HexData destination,
-    	Func<HexData, HexData, double> distance,
-    	Func<HexData, HexData, double> estimate,
-		Func<int, int, HexData[]> Neighbours)
+    public static Path<HexData> FindPath<HexData>(HexData start,
+		HexData destination,
+		Func<HexData, HexData, double> distance,
+		Func<HexData, HexData, double> estimate,
+		Func<HexData, HexData[]> neighbours)
 		{
 			//set of already checked HexData
    	 		var closed = new HashSet<HexData>();
 			//queued HexData in open set
    			var queue = new PriorityQueue<double, Path<HexData>>();
 			//start by adding enemy's hex to queue
-    		queue.Enqueue(0, new Path<HexData>(start));
+    		queue.Enqueue(0, new Path<HexData> (start));
 		
    			while (!queue.IsEmpty)
     		{
@@ -40,7 +37,7 @@ public static class aStar {
         		closed.Add(path.LastStep);
         	
 				//Go through neighbors (adjacent hexes) of current element
-				foreach(HexData n in Neighbours(path.LastStep.x, path.LastStep.z))
+				foreach(HexData n in neighbours(path.LastStep))
         		{
 					//compute distance between current element and it's neighbor
             		double d = distance(path.LastStep, n);

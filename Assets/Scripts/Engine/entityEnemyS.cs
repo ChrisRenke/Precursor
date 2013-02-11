@@ -26,13 +26,13 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 
 	
 	#region IMove implementation
-	public HexData[] getAdjacentTraversableHexes (int x_pos, int z_pos)
+	public HexData[] getAdjacentTraversableHexes (HexData hex)
 	{
 		int index = 0;
 		HexData[] result_hexes = new HexData[size]; //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x_pos, z_pos);
+		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(hex.x, hex.z);
 		
 		//See which of the adjacent hexes are traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++){
@@ -46,13 +46,13 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		return result_hexes;
 	}
 
-	public HexData[] getAdjacentUntraversableHexes (int x_pos, int z_pos)
+	public HexData[] getAdjacentUntraversableHexes (HexData hex)
 	{
 		int index = 0;
 		HexData[] result_hexes = new HexData[size]; //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x_pos, z_pos);
+		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(hex.x, hex.z);
 		
 		//See which of the adjacent hexes are untraversable
 		for(int i = 0; i < adjacent_hexes.Length; i++){
@@ -141,8 +141,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
         HexData destTile = destTileTB.hex;
         float deltaX = Mathf.Abs(destTile.x - hex.x);
         float deltaZ = Mathf.Abs(destTile.z - hex.z);
-        
-        return Mathf.Max(deltaX, deltaZ);
+        //Mathf.Max(deltaX, deltaZ);
+        return 1;
 	}
 	#endregion
 }
