@@ -1,6 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Engine/hexManagerS.cs">
+=======
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MapEditor/editorHexManagerS.cs">
+>>>>>>> c862dfb843e673b9d04f1bc52a5c1c03d5bb3c5b
     <Files>
       <File FileName="Assets/Scripts/Engine/entityManagerS.cs" Line="51" Column="30" />
       <File FileName="Assets/Scripts/Engine/Enums.cs" Line="24" Column="1" />
@@ -31,6 +36,17 @@
         <State expanded="True" selected="True" />
       </Pad>
     </Pads>
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Engine\aStar.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Engine\hexManagerS.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Engine\entityEnemyS.cs" Line="32" Column="39" />
+      <File FileName="Assets\Scripts\Engine\entityMechS.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Engine\aStar.cs" Line="15" Column="29" />
+      <File FileName="Assets\Scripts\Engine\PriorityQueue.cs" Line="5" Column="25" />
+      <File FileName="Assets\Scripts\Engine\Path.cs" Line="1" Column="19" />
+    </Files>
+>>>>>>> 3d85224a53d0353ee8863f281403fc8e2369142f
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
