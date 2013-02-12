@@ -19,10 +19,5 @@ public class entityBaseS : Combatable {
 	{
 		throw new System.NotImplementedException ();
 	}
-
-	public override int attackHex (int x, int z)
-	{
-		throw new System.NotImplementedException ();
-	}
 	#endregion
 }

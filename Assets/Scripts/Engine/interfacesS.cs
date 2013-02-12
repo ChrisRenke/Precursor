@@ -10,28 +10,21 @@ using System.Collections.Generic;
 public interface IMove {
 	
 	//Get traversable hexes around entity
-	HexData[] getAdjacentTraversableHexes();
+	List<HexData> getAdjacentTraversableHexes();
 	
 	//Get untraversable hexes around entity
-	HexData[] getAdjacentUntraversableHexes();
+	List<HexData> getAdjacentUntraversableHexes();
 	
 	//Check whether a hex can be traversed
 	bool canTraverse(HexData hex);
 	
 	//Move entity to a give hex
-	void makeMove(HexData hex);
+	bool makeMove(HexData hex);
 	
-	//
-	/*int getCost(method cost){
-		if blank... ConnectionTester, Status is two
-			mountian = 2222
-				forest mrsh....333
-				water...9999
-				
-	}*/
-	
-}
+	//get AP cost to move to location
+	int getTraverseAPCost(Hex hex_type);
 
+}
 
 //For damage dealt and recieved in battle 
 public interface ICollect {
@@ -55,6 +48,4 @@ public interface ICollect {
 	bool consumePart(Part part_consumed); //used for removing items during healing and upgrades?
 }
 
-
-//General Interfaces Other
-//*******************************
+ 

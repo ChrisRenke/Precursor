@@ -1,177 +1,164 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class entityMechS : Combatable, IMove {
+public class entityMechS : Combatable, IMove { 
 	
-	private int size = 16; //size of traversable_hexes
-	private HexData[] traversable_hexes; //Hold traversable hexes
-	private HexData[] untraversable_hexes; //Hold untraversable hexes
-		
-	//Test vars ***
-	bool players_turn = true;
-	int test = 0;
-	private GameObject 	hex_choice;
-	public Transform player_location; //hold player location
+	public bool upgrade_traverse_water = false;
+	public bool upgrade_traverse_mountain = false;
+	public bool upgrade_traverse_cost = false;
 	
+	public int  traverse_upgrade_cost  = -1;
+	public int  traverse_standard_cost =  2;
+	public int  traverse_slow_cost     =  4;
+	public int  traverse_mountain_cost =  5;
+	public int  traverse_water_cost    =  5;
+	
+	public bool upgrade_weapon_range  = false;
+	public bool upgrade_weapon_damage = false;
+	public bool upgrade_weapon_cost   = false;
+	
+	public bool upgrade_armor_1 = false;
+	public bool upgrade_armor_2 = false;
+	public bool upgrade_armor_3 = false;
+		  
+	public int weapon_base_damage = 3;
+	public int weapon_base_range  = 1;
+	public int weapon_base_cost   = 4; 
+	
+	public int weapon_upgrade_range  = 3;
+	public int weapon_upgrade_cost   = 3;
+	public int weapon_upgrade_damage = 5;
+	
+	public int armor_upgrade_1 = 2;
+	public int armor_upgrade_2 = 3;
+	public int armor_upgrade_3 = 4;
 	
 	
 	//Use this for initialization
-	void Start () {
-		traversable_hexes = new HexData[size];
-		untraversable_hexes = new HexData[size];
-		x = 5;
-		z = 5;
+	void Start () { 
+		
 	}
 	
 	//Update is called once per frame
 	void Update () {
 		
-		//ADDED: ROUGH OUTLINE for Update method below ***
-		//		Uncomment the block comment to test
-		
-		if(players_turn){
-			//getTraversible hexes
-			traversable_hexes = getAdjacentTraversableHexes();
-			
-			//TODO: some mechanism for highlighting valid hexes?
-			
-			//Check to see if player clicked a hex (left click)
-			if(Input.GetMouseButtonDown(0)){
-					//TODO: check to see if player clicked on a traversible hex from the traversable_hexes array
-					//		if traversible hex clicked then call makeMove, otherwise do nothing (or print why invalid hex)
-					
-					//TEST: For testing purposes: the player moves randomly for each mouse click at the moment
-					if(test == 0){
-						makeMove(new HexData(-3, 1, Hex.Grass));
-						test = 1;
-					}else if (test == 1){
-						makeMove(new HexData(-2, 1, Hex.Grass));
-						test = 2;
-					}else{
-						makeMove(new HexData(-1, 1, Hex.Grass));	
-						test = 0;
-					}
-				
-			}
-		}
-		
-		
-		//TESTS ***
-		/*//TESTS TRAVERSABLE
-		traversable_hexes = getAdjacentTraversableHexes();
-		for(int i = 0; i < traversable_hexes.Length; i++){
-			if(traversable_hexes[i] != null){
-				print(traversable_hexes[i].hex_type);
-			}
-		}
-		*/
-		
-		/*//TEST UNTRAVERSABLE
-		untraversable_hexes = getAdjacentUntraversableHexes();
-		for(int i = 0; i < untraversable_hexes.Length; i++){
-			if(untraversable_hexes[i] != null){
-				print(untraversable_hexes[i].hex_type);
-			}
-		}
-		*/
-		
-		/*//TESTS MOVE
-		if(test == 0){
-			makeMove(new HexData(-3, 1, Hex.Water));
-			test = 1;
-		}else if (test == 1){
-			makeMove(new HexData(-2, 1, Hex.Water));
-			test = 2;
-		}else{
-			makeMove(new HexData(-1, 1, Hex.Water));	
-			test = 0;
-		}
-		*/
 	}
 
-	#region IMove implementation
-	public HexData[] getAdjacentTraversableHexes ()
-	{
-		int index = 0;
-		HexData[] result_hexes = new HexData[size]; //hold resulting hexes
+	public List<HexData> getAdjacentTraversableHexes ()
+	{ 
+		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
 		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
 		
 		//See which of the adjacent hexes are traversable
-		for(int i = 0; i < adjacent_hexes.Length; i++){
-			if(canTraverse(adjacent_hexes[i]) && index < size){
-				//add hex to traversable array
-				result_hexes[index] = adjacent_hexes[i]; 
-				index++;
-			}
-		}
-		
+		for(int i = 0; i < adjacent_hexes.Length; i++)
+			if(canTraverse(adjacent_hexes[i]))
+				result_hexes.Add(adjacent_hexes[i]);
+			
 		return result_hexes;
 	}
 
-	public HexData[] getAdjacentUntraversableHexes ()
+	public List<HexData> getAdjacentUntraversableHexes()
 	{
-		int index = 0;
-		HexData[] result_hexes = new HexData[size]; //hold resulting hexes
+		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
 		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
 		
-		//See which of the adjacent hexes are untraversable
-		for(int i = 0; i < adjacent_hexes.Length; i++){
-			if(!canTraverse(adjacent_hexes[i]) && index < size){
-				//add hex to untraversable array
-				result_hexes[index] = adjacent_hexes[i]; 
-				index++;
-			}
-		}
+		//See which of the adjacent hexes are NOT traversable
+		for(int i = 0; i < adjacent_hexes.Length; i++)
+			if(!canTraverse(adjacent_hexes[i]))
+				result_hexes.Add(adjacent_hexes[i]); 
 		
 		return result_hexes;
 	}
-
-	public bool canTraverse (HexData hex)
-	{
-		//TODO: 1. Expand on hex options once fully known
-		//		2. Will need to add the upgrade options into the traversable descision
-			if(occupied(hex)){
-				return false;
-			}else if(hex.hex_type == Hex.Water || hex.hex_type == Hex.Mountain || hex.hex_type == Hex.Perimeter){
-				return false;
-			}else{
-				return true;
-			}
-	}
 	
-	public bool occupied (HexData hex)
+	
+	public bool canTraverse (HexData hex){
+		return canTraverse(hex.x, hex.z);
+	}	
+	public bool canTraverse (int hex_x, int hex_z)
 	{
-		return entityManagerS.isEntityPos(hex, EntityE.Enemy) || entityManagerS.isEntityPos(hex, EntityE.Base) || entityManagerS.isEntityPos(hex, EntityE.Factory);
-	}
+		HexData hex = hexManagerS.getHex(hex_x, hex_z);
+		
+		//if its a perimeter tile
+		if(hex.hex_type != Hex.Perimeter)
+			return false;
+		
+		//if it has a player, base, or enemy on it
+		if(!entityManagerS.canTraverseHex(hex_x, hex_z))
+			return false;
+			
+		//account for upgrades here
+		if(hex.hex_type == Hex.Water && !upgrade_traverse_water)
+				return false;
+		
+		if(hex.hex_type == Hex.Mountain && !upgrade_traverse_mountain)
+				return false;
+			
+		return true;
+	} 
 
-	public void makeMove (HexData hex)
+	public bool makeMove (HexData hex)
 	{
-		//move player to new hex position
-		Vector3 temp = new Vector3(hex.x,player_location.position.y,hex.z);
-		player_location.position = temp;
+		if(!canTraverse(hex))
+			throw new MissingComponentException("Can't move to this spot, invalid location!");
+		
+		
+		//TODO add visual engine.move hooks
 		
 		//update players hex tags
 		x = hex.x;
 		z = hex.z;
+		return true;
+	}
+	
+	public int getAttackAPCost()
+	{
+		return upgrade_weapon_cost ? weapon_upgrade_cost : weapon_base_cost;
+	}
+	
+	public int getTraverseAPCost(Hex hex_type)
+	{
 		
-		//TODO: Some code dealing with the level editor will probably go here ***
+		switch(hex_type)
+		{
+		case Hex.Desert:
+		case Hex.Farmland:
+		case Hex.Grass:
+			return traverse_standard_cost + (upgrade_traverse_cost ? traverse_upgrade_cost : 0);
+		
+		case Hex.Marsh:
+		case Hex.Hills:
+		case Hex.Forest:
+			return traverse_slow_cost + (upgrade_traverse_cost ? traverse_upgrade_cost : 0);
+			
+		case Hex.Mountain:
+			return traverse_mountain_cost + (upgrade_traverse_cost ? traverse_upgrade_cost : 0);
+		
+		case Hex.Water:
+			return traverse_water_cost + (upgrade_traverse_cost ? traverse_upgrade_cost : 0);
+			
+		case Hex.Perimeter: 
+		default:
+			return 999999;
+		}  
 	}
-	#endregion
-
-	#region implemented abstract members of Combatable
-	public override int attackTarget (Combatable target)
-	{
-		throw new System.NotImplementedException ();
+	
+	/**
+	 *	Deal damage to the target
+	 *  @param   the Combatable entity to damage
+	 *  @return  damage delt
+	 */
+	public override int attackTarget(Combatable target){
+//		int range  = upgrade_weapon_range ? weapon_upgrade_range : weapon_base_range;
+		int damage = upgrade_weapon_damage ? weapon_upgrade_damage : weapon_base_damage;
+		int cost   = upgrade_weapon_cost ? weapon_upgrade_cost : weapon_base_cost;
+		
+		current_ap -= cost;
+		return target.acceptDamage(damage);
 	}
-
-	public override int attackHex (int x, int z)
-	{
-		throw new System.NotImplementedException ();
-	}
-	#endregion
 }
 

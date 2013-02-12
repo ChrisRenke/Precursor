@@ -1,11 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class entityEnemyS : Combatable, IMove {
 	
-	private HexData[] traversable_hexes; //Hold traversable hexes
-	private HexData[] untraversable_hexes; //Hold untraversable hexes
-	private HexData[] path_hexes; //Hold untraversable hexes
+	private List<HexData> traversable_hexes; //Hold traversable hexes
+	private List<HexData> untraversable_hexes; //Hold untraversable hexes
+	private List<HexData> path_hexes; //Hold untraversable hexes
 
 	// Use this for initialization
 	void Start () {
@@ -16,15 +17,14 @@ public class entityEnemyS : Combatable, IMove {
 	void Update () {
 	
 	}
-
+ 
 	
-	#region IMove implementation
-	public HexData[] getAdjacentTraversableHexes ()
+	public List<HexData> getAdjacentTraversableHexes ()
 	{
 		throw new System.NotImplementedException ();
 	}
 
-	public HexData[] getAdjacentUntraversableHexes ()
+	public List<HexData> getAdjacentUntraversableHexes ()
 	{
 		throw new System.NotImplementedException ();
 	}
@@ -34,22 +34,20 @@ public class entityEnemyS : Combatable, IMove {
 		throw new System.NotImplementedException ();
 	}
 
-	public void makeMove (HexData hex)
+	public bool makeMove (HexData hex)
+	{
+		throw new System.NotImplementedException ();
+	} 
+	
+	public int getTraverseAPCost(Hex hex_type)
 	{
 		throw new System.NotImplementedException ();
 	}
-	#endregion
-
-	#region implemented abstract members of Combatable
+ 
 	public override int attackTarget (Combatable target)
 	{
 		throw new System.NotImplementedException ();
 	}
-
-	public override int attackHex (int x, int z)
-	{
-		throw new System.NotImplementedException ();
-	}
-	#endregion
+ 
 	
 }
