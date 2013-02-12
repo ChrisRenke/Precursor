@@ -290,7 +290,7 @@ public class hexManagerS : MonoBehaviour {
 }
 
 
- 
+/* 
 public class HexData{ 
 	
 	public readonly int 	x;   	  //level x coord (NE / SW)
@@ -303,4 +303,4 @@ public class HexData{
 		hex_type = _type;
 	}
 } 
-
+ */

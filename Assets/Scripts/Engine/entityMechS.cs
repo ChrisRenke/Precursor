@@ -134,7 +134,7 @@ public class entityMechS : Combatable, IMove {
 	{
 		//TODO: 1. Expand on hex options once fully known
 		//		2. Will need to add the upgrade options into the traversable descision
-			if(occupied(hex)){
+			if(entityManagerS.canTraverseHex(hex)){
 				return false;
 			}else if(hex.hex_type == Hex.Water || hex.hex_type == Hex.Mountain || hex.hex_type == Hex.Perimeter){
 				return false;
@@ -143,10 +143,6 @@ public class entityMechS : Combatable, IMove {
 			}
 	}
 	
-	public bool occupied (HexData hex)
-	{
-		return entityManagerS.isEntityPos(hex, EntityE.Enemy) || entityManagerS.isEntityPos(hex, EntityE.Base) || entityManagerS.isEntityPos(hex, EntityE.Factory);
-	}
 
 	public void makeMove (HexData hex)
 	{

@@ -27,15 +27,16 @@ public class entityManagerS : MonoBehaviour {
 
 	
 	//Using dummy values for testing
-	private entityBaseS base_s;
-	private entityMechS mech_s;
-	private List<HexData> enemy_pos = new List<HexData>();
-	private List<HexData> resource_pos = new List<HexData>();//factory/junkyard/outpost, could be multiple arrays
+	private static entityBaseS base_s;
+	private static entityMechS mech_s;
+	private static List<HexData> enemy_pos = new List<HexData>();
+	private static List<HexData> resource_pos = new List<HexData>();//factory/junkyard/outpost, could be multiple arrays
 	
 	// Use this for initialization
 	void Start () {
 		//TODO: initialize Entity positions here
 		base_s = gameObject.GetComponent<entityBaseS>();
+		//base_s = gameObject
 	    mech_s = gameObject.GetComponent<entityMechS>();
 		enemy_pos.Add(new HexData(1, 2, Hex.Grass));
 		resource_pos.Add(new HexData(2, 5, Hex.Grass));
@@ -60,7 +61,7 @@ public class entityManagerS : MonoBehaviour {
 	}
 	
 	//check to see if a given entity type resides on hex 
-	public static bool isEntityPos(HexData hex, EntityE entity){
+	public bool isEntityPos(HexData hex, EntityE entity){
 				
 		if(entity == EntityE.Player){
 			if(hex.x == mech_s.x && hex.z == mech_s.z){
@@ -92,7 +93,7 @@ public class entityManagerS : MonoBehaviour {
 		}
 	}
 	
-	private static bool checkLists(HexData hex, List<HexData> hexes){
+	public static bool checkLists(HexData hex, List<HexData> hexes){
 		//Check chosen entity array to see if entities resides on given hex
 		for(int i = 0; i < hexes.Count; i++){
 			if(hex.x == hexes[i].x && hex.z == hexes[i].z){

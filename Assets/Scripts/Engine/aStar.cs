@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public static class aStar {
+public class aStar {
 
 	//Find path from start node to destination node
 	//Distance function returns distance between two adjacent nodes
     //Estimate function returns distance between any node and destination node
 	//Neighbors function returns adjacent traversible hexes for given hex input (Very hefty method)
-    public static Path<HexData> FindPath<HexData>(HexData start,
+    public static Path<HexData> FindPath(HexData start,
 		HexData destination,
 		Func<HexData, HexData, double> distance,
 		Func<HexData, HexData, double> estimate,
