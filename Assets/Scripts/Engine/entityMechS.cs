@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class entityMechS : Combatable, IMove { 
-	
+	 
 	public bool upgrade_traverse_water = false;
 	public bool upgrade_traverse_mountain = false;
-	public bool upgrade_traverse_cost = false;
-	
+	public bool upgrade_traverse_cost = false; 
 	public int  traverse_upgrade_cost  = -1;
 	public int  traverse_standard_cost =  2;
 	public int  traverse_slow_cost     =  4;
@@ -42,7 +41,7 @@ public class entityMechS : Combatable, IMove {
 	
 	//Update is called once per frame
 	void Update () {
-		
+		 
 	}
 
 	public List<HexData> getAdjacentTraversableHexes ()
@@ -50,7 +49,7 @@ public class entityMechS : Combatable, IMove {
 		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
+		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(hex.x, hex.z);
 		
 		//See which of the adjacent hexes are traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++)
@@ -59,13 +58,13 @@ public class entityMechS : Combatable, IMove {
 			
 		return result_hexes;
 	}
-
-	public List<HexData> getAdjacentUntraversableHexes()
+ 
+	public List<HexData> getAdjacentUntraversableHexes() 
 	{
 		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
+		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(hex.x, hex.z);
 		
 		//See which of the adjacent hexes are NOT traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++)

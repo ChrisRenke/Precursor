@@ -143,6 +143,7 @@ public class engineIOS : MonoBehaviour {
 			{
 				case EntityE.Base:
 					 base_starting_health_percentage = getIntR(level_lines[index++]);
+					entityManagerS.
 					break;
 				case EntityE.Player:
 					 mech_starting_health_percentage = getIntR(level_lines[index++]);
