@@ -50,6 +50,11 @@ public class enginePlayerS : MonoBehaviour {
 	public float 								hSensitivity = 1.0F;
 	public float 								zoomSensitivity = 1.0F;
 	
+	public static float  						camera_min_x_pos = 9999999999;
+	public static float  						camera_max_x_pos = -999999999;
+	public static float  						camera_min_z_pos = 9999999999;
+	public static float  						camera_max_z_pos = -999999999;
+	
 	public GUIStyle getTooltip()
 	{
 		return tooltip;
@@ -172,11 +177,65 @@ public class enginePlayerS : MonoBehaviour {
 		
 		if(Input.GetMouseButton(2))
 		{
-			float h = Input.GetAxis("Mouse X");
-			maincam.transform.Translate(Vector3.right * h * -1 * hSensitivity);
 			
+			Vector3 screenBottomLeft = maincam.camera.ScreenToWorldPoint(new Vector3(0,0,0));
+			Vector3 screenTopRight = maincam.camera.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,0));
+			
+			Vector3 screenCenter = (screenBottomLeft + screenTopRight ) / 2;
+			
+			float h = Input.GetAxis("Mouse X");
+			Vector3 trans_x = Vector3.right * h * -1 * hSensitivity; 
 			float v  = Input.GetAxis("Mouse Y");
-			maincam.transform.Translate(Vector3.up * v * -1 * vSensitivity);
+			Vector3 trans_y = Vector3.up * v * -1 * vSensitivity; 
+			
+			
+			print (screenBottomLeft.x + "   |   "+ maincam.transform.position.x +"   |   "+ camera_max_x_pos);
+			if(trans_x.x + screenTopRight.x > camera_max_x_pos)
+				maincam.transform.position.Set(camera_max_x_pos, screenCenter.y, screenCenter.z);
+			else if(trans_x.x + screenBottomLeft.x < camera_min_x_pos)
+				maincam.transform.position.Set(camera_min_x_pos, screenCenter.y, screenCenter.z);
+			else
+				maincam.transform.Translate(trans_x);
+			 
+//			
+//			if(trans_y.y + screenTopRight.y > camera_max_z_pos)
+//				maincam.transform.position.Set(screenCenter.x, screenCenter.y, camera_max_z_pos);
+////			else if(trans_y.y + screenBottomLeft.y < camera_min_z_pos)
+////				maincam.transform.position.Set(screenCenter.x, screenCenter.y, camera_min_z_pos);
+//			else
+//				maincam.transform.Translate(trans_y);
+//				
+				
+			if(trans_y.y + screenTopRight.z > camera_max_z_pos)
+				maincam.transform.position.Set(screenCenter.x, screenCenter.y, camera_max_z_pos);
+			else
+			if(trans_y.y + screenBottomLeft.z < camera_min_z_pos)
+				maincam.transform.position.Set(screenCenter.x, screenCenter.y, camera_min_z_pos);
+			else
+				maincam.transform.Translate(trans_y);
+			  
+			
+//			
+//			float h = Input.GetAxis("Mouse X");
+//			
+//			Vector3 trans = Vector3.right * h * -1 * hSensitivity; 
+//			if(trans.x + maincam.transform.position.x > camera_max_x_pos)
+//				maincam.transform.position.Set(camera_max_x_pos, maincam.transform.position.y, maincam.transform.position.z);
+//			else if(trans.x + maincam.transform.position.x < camera_min_x_pos)
+//				maincam.transform.position.Set(camera_min_x_pos, maincam.transform.position.y, maincam.transform.position.z);
+//			else
+//				maincam.transform.Translate(trans);
+//			
+//			float v  = Input.GetAxis("Mouse Y");
+//			Vector3 trans_z = Vector3.up * v * -1 * vSensitivity; 
+//			print (trans_z.y + maincam.transform.position.z +"   |   "+ maincam.transform.position.z +"   |   "+ camera_max_z_pos);
+//			if(trans_z.y + maincam.transform.position.z > camera_max_z_pos)
+//				maincam.transform.position.Set(maincam.transform.position.x, maincam.transform.position.y, camera_max_z_pos);
+//			else
+//			if(trans_z.y + maincam.transform.position.z < camera_min_z_pos)
+//				maincam.transform.position.Set(maincam.transform.position.x, maincam.transform.position.y, camera_min_z_pos);
+//			else
+//				maincam.transform.Translate(trans_z);
 			  
 		}
     }

@@ -16,21 +16,21 @@ public class hexManagerS : MonoBehaviour {
 				south
 		*/
  	
-	
+	public static string        level_name;
 	public static HexData[,] 	hexes; 
 	public static int 			x_max, z_max = 0; //size of hex array, used for out of bounds checking
 	public static Dictionary<Hex, GameObject>  hex_dict    = new Dictionary<Hex, GameObject>();
 	
 	
-	public static GameObject  	grass_hex;
-	public static GameObject  	desert_hex;
-	public static GameObject  	forest_hex;
-	public static GameObject  	farmland_hex;
-	public static GameObject  	marsh_hex; 
-	public static GameObject  	mountain_hex;
-	public static GameObject  	hills_hex;
-	public static GameObject  	water_hex;  
-	public static GameObject  	border_hex;  
+	public   GameObject  	grass_hex;
+	public   GameObject  	desert_hex;
+	public   GameObject  	forest_hex;
+	public   GameObject  	farmland_hex;
+	public   GameObject  	marsh_hex; 
+	public   GameObject  	mountain_hex;
+	public   GameObject  	hills_hex;
+	public   GameObject  	water_hex;  
+	public   GameObject  	border_hex;  
 	
 	 
 	
@@ -47,8 +47,9 @@ public class hexManagerS : MonoBehaviour {
 		hex_dict.Add(Hex.Hills, hills_hex);
 		hex_dict.Add(Hex.Water, water_hex);
 		hex_dict.Add(Hex.Perimeter, border_hex);
-
-		if(!engineIOS.LoadFromFile("awesome"))
+		
+//		if(!engineIOS.LoadFromTextAsset())
+		if(!GameObject.FindGameObjectWithTag("io_manager").GetComponent<engineIOS>().LoadFromTextAsset())
 			throw new MissingComponentException("Level file malformed! : (");
 
 	}

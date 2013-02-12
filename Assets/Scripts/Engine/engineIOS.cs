@@ -5,16 +5,25 @@ using System;
 using System.IO; 
 
 public class engineIOS : MonoBehaviour {
-	
-	public static string 	  			level_name;
-	public static int   				level_editor_format_version;
+	 
+	public static int   				level_editor_format_version = 3;
+	public TextAsset                    level_string_asset;
 	
 	//used for parsing level files
 	private	static  string[] stringSeparators = new string[] {" = "};  
 	
-	public static bool Load(string level_key_name){	
+	public bool LoadFromTextAsset()
+	{
+		return LoadFromString(level_string_asset.ToString());
+	}
+	
+	public static bool LoadFromPref(string level_key_name)
+	{
+		return LoadFromString(PlayerPrefs.GetString(level_key_name));
+	}
+	
+	public static bool LoadFromString(string level_data){	
 		
-		string level_data = PlayerPrefs.GetString(level_key_name);
 		string[] level_lines = level_data.Split(new char[] {'\n'});
 		int index = 0;
 		
@@ -43,7 +52,7 @@ public class engineIOS : MonoBehaviour {
 			print ("EDITOR VERSION MISMATCH!");
 			return false;
 		}
-		level_name 		= getStringR(level_lines[index++]); //NAME
+		hexManagerS.level_name   = getStringR(level_lines[index++]); //NAME
 		int version    		= getIntR(level_lines[index++]);    //VERSION
 		
 		int total_count, game_count, border_count;
@@ -67,7 +76,7 @@ public class engineIOS : MonoBehaviour {
 		
 		
 		//BEGIN PARSING hexManagerS.hexes
-		if(!level_lines[index++].Contains("hexManagerS.hexes{"))
+		if(!level_lines[index++].Contains("HEXES{"))
 		{
 			print("hexManagerS.hexes ILL FORMATED");
 			return false;
@@ -81,8 +90,19 @@ public class engineIOS : MonoBehaviour {
             Hex hex_type = (Hex) Enum.Parse(typeof(Hex), getStringR(level_lines[index++]));
 			hexManagerS.hexes[x, z] = new HexData(x, z, hex_type);
 			
+			Vector3 pos = hexManagerS.CoordsGameTo3D(x,z);
+			if(pos.x < enginePlayerS.camera_min_x_pos)
+				enginePlayerS.camera_min_x_pos = pos.x;
+			if(pos.x > enginePlayerS.camera_max_x_pos)
+				enginePlayerS.camera_max_x_pos = pos.x;
 			
-			GameObject new_hex = (GameObject) Instantiate(hexManagerS.hex_dict[hex_type], hexManagerS.CoordsGameTo3D(x,z), Quaternion.identity);
+			if(pos.z > enginePlayerS.camera_max_z_pos)
+				enginePlayerS.camera_max_z_pos = pos.z;
+			
+			if(pos.z < enginePlayerS.camera_min_z_pos)
+				enginePlayerS.camera_min_z_pos = pos.z;
+			
+			GameObject new_hex = (GameObject) Instantiate(hexManagerS.hex_dict[hex_type], pos, Quaternion.identity);
 			engineHexS new_hex_script = (engineHexS) new_hex.AddComponent("engineHexS"); 
 			 
 			new_hex_script.buildHexData(x, z, hex_type);
@@ -185,5 +205,6 @@ public class engineIOS : MonoBehaviour {
 	{  
     	return reader.Contains("ENTITY{"); 
 	} 
+
 
 }
