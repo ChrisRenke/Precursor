@@ -54,6 +54,7 @@ public class enginePlayerS : MonoBehaviour {
 	public static float  						camera_max_x_pos = -999999999;
 	public static float  						camera_min_z_pos = 9999999999;
 	public static float  						camera_max_z_pos = -999999999;
+	private static GameObject maincam;
 	
 	public GUIStyle getTooltip()
 	{
@@ -62,10 +63,23 @@ public class enginePlayerS : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () { 
+		
+		maincam = GameObject.FindGameObjectWithTag("MainCamera");
 	}
 	
 	// Update is called once per frame
 	void Update() {
+		
+		bool zoom_adjusted = false;
+		
+		Vector3 screenBottomLeft = maincam.camera.ScreenToWorldPoint(new Vector3(0,0,0));
+		Vector3 screenTopRight = maincam.camera.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,0));
+		
+		Vector3 screenCenter = (screenBottomLeft + screenTopRight ) / 2;
+		
+		
+		
+		
 		 
 		if(( (Input.mousePosition.x > 30 &&  Input.mousePosition.x < 240 ) 
 					&&
@@ -83,47 +97,49 @@ public class enginePlayerS : MonoBehaviour {
 			//mouse elsewhere in screen
 		}
 		
-		GameObject maincam = GameObject.FindGameObjectWithTag("MainCamera");
 		float w = Input.GetAxis("Mouse ScrollWheel");
 		float zoom_adjust = w * zoomSensitivity;
 		
 		
-		if(Input.GetKeyDown(KeyCode.Q))
-		{
-			overwrite_mode = !overwrite_mode;
-		} 
-		if(Input.GetKeyDown(KeyCode.E))
-		{
-			entity_mode = !entity_mode;
-		} 
-		if(Input.GetKeyDown(KeyCode.LeftBracket) || Input.GetKeyDown(KeyCode.Z))
-		{
-			if(brush_size > min_brush_size)
-				brush_size--;
-		} 
-		if(Input.GetKeyDown(KeyCode.RightBracket) || Input.GetKeyDown(KeyCode.X)) 
-		{
-			if(brush_size < max_brush_size)
-				brush_size++;
-		} 
 		
-		if(Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Semicolon))
-		{
-			if(spray_prob > 0)
-				spray_prob-= 5;
-			
-			if(spray_prob < 1)
-				spray_prob = 1;
-		} 
-		if(Input.GetKeyDown(KeyCode.V) || Input.GetKeyDown(KeyCode.Quote)) 
-		{
-			if(spray_prob < 100)
-				spray_prob +=5;
-			
-			if(spray_prob > 100)
-				spray_prob = 100;
-		} 
 		
+		//zoom out
+		if(Input.GetKey(KeyCode.Minus))
+		{ 
+			zoom_adjust += .5F * zoomSensitivity;
+			zoom_adjusted = true;
+		}
+		
+		//zoom in
+		if(Input.GetKey(KeyCode.Equals))
+		{
+			zoom_adjust -= .5F * zoomSensitivity;	
+			zoom_adjusted = true;
+		}
+		if(zoom_adjust != 0)
+		{
+			if(minZoom > maincam.camera.orthographicSize - zoom_adjust)
+			{
+				if(maxZoom < maincam.camera.orthographicSize - zoom_adjust)
+				{
+					maincam.camera.orthographicSize -= zoom_adjust;
+					zoom_adjusted = true;
+					
+				}
+				else
+				{
+					maincam.camera.orthographicSize = maxZoom;
+					zoom_adjusted = true;
+				}
+			}
+			else
+			{	
+				maincam.camera.orthographicSize = minZoom;
+				zoom_adjusted = true;
+			}
+		}
+		
+			
 		if(Input.GetKey(KeyCode.W))
 		{
 			Vector3 deltaPos = transform.forward * Time.deltaTime * 20;
@@ -146,65 +162,25 @@ public class enginePlayerS : MonoBehaviour {
 		} 
 		
 		
-		
-		//zoom out
-		if(Input.GetKey(KeyCode.Minus))
-		{ 
-			zoom_adjust += .5F * zoomSensitivity;
-		}
-		
-		//zoom in
-		if(Input.GetKey(KeyCode.Equals))
-		{
-			zoom_adjust -= .5F * zoomSensitivity;	
-		}
-		
-		if(minZoom > maincam.camera.orthographicSize - zoom_adjust)
-		{
-			if(maxZoom < maincam.camera.orthographicSize - zoom_adjust)
-			{
-				maincam.camera.orthographicSize -= zoom_adjust;
-			}
-			else
-			{
-				maincam.camera.orthographicSize = maxZoom;
-			}
-		}
-		else
-		{	
-			maincam.camera.orthographicSize = minZoom;
-		}
-		
 		if(Input.GetMouseButton(2))
 		{
 			
-			Vector3 screenBottomLeft = maincam.camera.ScreenToWorldPoint(new Vector3(0,0,0));
-			Vector3 screenTopRight = maincam.camera.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,0));
 			
-			Vector3 screenCenter = (screenBottomLeft + screenTopRight ) / 2;
-			
+
 			float h = Input.GetAxis("Mouse X");
 			Vector3 trans_x = Vector3.right * h * -1 * hSensitivity; 
 			float v  = Input.GetAxis("Mouse Y");
 			Vector3 trans_y = Vector3.up * v * -1 * vSensitivity; 
 			
 			
-			print (screenBottomLeft.x + "   |   "+ maincam.transform.position.x +"   |   "+ camera_max_x_pos);
+//			print (screenBottomLeft.x + "   |   "+ maincam.transform.position.x +"   |   "+ camera_max_x_pos);
 			if(trans_x.x + screenTopRight.x > camera_max_x_pos)
 				maincam.transform.position.Set(camera_max_x_pos, screenCenter.y, screenCenter.z);
 			else if(trans_x.x + screenBottomLeft.x < camera_min_x_pos)
 				maincam.transform.position.Set(camera_min_x_pos, screenCenter.y, screenCenter.z);
 			else
 				maincam.transform.Translate(trans_x);
-			 
-//			
-//			if(trans_y.y + screenTopRight.y > camera_max_z_pos)
-//				maincam.transform.position.Set(screenCenter.x, screenCenter.y, camera_max_z_pos);
-////			else if(trans_y.y + screenBottomLeft.y < camera_min_z_pos)
-////				maincam.transform.position.Set(screenCenter.x, screenCenter.y, camera_min_z_pos);
-//			else
-//				maincam.transform.Translate(trans_y);
-//				
+			  
 				
 			if(trans_y.y + screenTopRight.z > camera_max_z_pos)
 				maincam.transform.position.Set(screenCenter.x, screenCenter.y, camera_max_z_pos);
@@ -214,29 +190,37 @@ public class enginePlayerS : MonoBehaviour {
 			else
 				maincam.transform.Translate(trans_y);
 			  
+		}
+		
+		
+		if(zoom_adjusted)
+		{ 
+			Vector3 adjustedScreenBottomLeft = maincam.camera.ScreenToWorldPoint(new Vector3(0,0,0));
+			Vector3 adjustedScreenTopRight = maincam.camera.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,0));
 			
-//			
-//			float h = Input.GetAxis("Mouse X");
-//			
-//			Vector3 trans = Vector3.right * h * -1 * hSensitivity; 
-//			if(trans.x + maincam.transform.position.x > camera_max_x_pos)
-//				maincam.transform.position.Set(camera_max_x_pos, maincam.transform.position.y, maincam.transform.position.z);
-//			else if(trans.x + maincam.transform.position.x < camera_min_x_pos)
-//				maincam.transform.position.Set(camera_min_x_pos, maincam.transform.position.y, maincam.transform.position.z);
-//			else
-//				maincam.transform.Translate(trans);
-//			
-//			float v  = Input.GetAxis("Mouse Y");
-//			Vector3 trans_z = Vector3.up * v * -1 * vSensitivity; 
-//			print (trans_z.y + maincam.transform.position.z +"   |   "+ maincam.transform.position.z +"   |   "+ camera_max_z_pos);
-//			if(trans_z.y + maincam.transform.position.z > camera_max_z_pos)
-//				maincam.transform.position.Set(maincam.transform.position.x, maincam.transform.position.y, camera_max_z_pos);
-//			else
-//			if(trans_z.y + maincam.transform.position.z < camera_min_z_pos)
-//				maincam.transform.position.Set(maincam.transform.position.x, maincam.transform.position.y, camera_min_z_pos);
-//			else
-//				maincam.transform.Translate(trans_z);
-			  
+			Vector3 adjustedScreenCenter = (adjustedScreenBottomLeft + adjustedScreenTopRight ) / 2;
+			
+			if(adjustedScreenTopRight.z > camera_max_z_pos)
+			{
+				print ("too far up"); 
+				maincam.transform.position = new Vector3(maincam.transform.position.x, maincam.transform.position.y, maincam.transform.position.z -  (adjustedScreenTopRight.z - screenTopRight.z));
+			}
+			if(adjustedScreenBottomLeft.z < camera_min_z_pos)
+			{
+				print ("too far down");
+				maincam.transform.position = new Vector3(maincam.transform.position.x, maincam.transform.position.y, maincam.transform.position.z +  (adjustedScreenTopRight.z - screenTopRight.z));
+			}
+			
+			if(adjustedScreenTopRight.x > camera_max_x_pos)
+			{
+				print ("too far right");
+				maincam.transform.position = new Vector3(maincam.transform.position.x - (adjustedScreenTopRight.x - screenTopRight.x), maincam.transform.position.y, maincam.transform.position.z);
+			}
+			if(adjustedScreenBottomLeft.x < camera_min_x_pos)
+			{
+				print ("too far left");
+				maincam.transform.position = new Vector3(maincam.transform.position.x + (adjustedScreenTopRight.x - screenTopRight.x), maincam.transform.position.y, maincam.transform.position.z);
+			}
 		}
     }
 	
