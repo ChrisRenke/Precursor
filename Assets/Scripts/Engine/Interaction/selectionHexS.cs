@@ -17,6 +17,12 @@ public class selectionHexS : MonoBehaviour {
     private Vector2 offset;
 	
 	public SelectLevel select_level = SelectLevel.Easy;
+	public Facing      direction_from_center;
+	
+	public int movement_cost;
+	public Hex hex_type;
+	private bool draw_mode = false;
+	
 	
 	//Update
 	void Update () { 
@@ -43,6 +49,11 @@ public class selectionHexS : MonoBehaviour {
 	 
 	    renderer.material.SetTextureOffset ("_MainTex", offset);
 	    renderer.material.SetTextureScale  ("_MainTex", size);
+	}
+	
+	void OnMouseEnter()
+	{
+//		entityMechS.
 	}
 	
 	void OnMouseOver()
@@ -84,14 +95,29 @@ public class selectionHexS : MonoBehaviour {
 					break;
 			}
 		}
+		draw_mode = true;
 	}
 	
+		
+	void OnGUI()
+	{
+		if(draw_mode)
+		{
+			Vector3 spot_on_screen = Camera.main.WorldToScreenPoint (transform.position);
+			GUI.Label(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15, 200,30),
+				hex_type.ToString() + "\n" + "-" + movement_cost + " AP", 
+				enginePlayerS.hover_text);
+		}
+		 
+	}
 	void OnMouseExit()
 	{
 		if(select_level == SelectLevel.Disabled)
 			frame_index = 7;		
 		else
 			frame_index = 0;
+		
+		draw_mode = false;
 	}
 	
 	

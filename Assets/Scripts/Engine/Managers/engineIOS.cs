@@ -157,6 +157,8 @@ public class engineIOS : MonoBehaviour {
 					int mech_starting_health_percentage = getIntR(level_lines[index++]);
 					if(!entityManagerS.instantiatePlayer(x, z, mech_starting_health_percentage))
 						throw new System.Exception("There is already one player mech, cannot have two! D: Go edit the level file you're loading to only have one!");
+				
+					enginePlayerS.setMech();
 					break;
 				
 				case EntityE.Enemy:

@@ -74,12 +74,18 @@ public class hexManagerS : MonoBehaviour {
 
 		//Get North						//Get Northeast
 		output[0] = hexes[x, z +1];		output[1] = hexes[x+1, z];
+		output[0].direction_from_central_hex = Facing.North;
+		output[1].direction_from_central_hex = Facing.NorthEast;
 
 		//Get Southeast                 //Get South
 		output[2] = hexes[x+1, z-1];	output[3] = hexes[x, z-1]; 
+		output[2].direction_from_central_hex = Facing.SouthEast;
+		output[3].direction_from_central_hex = Facing.South;
 
 		//Get Southwest					//Get Northwest
 		output[4] = hexes[x-1, z];		output[5] = hexes[x-1, z+1];
+		output[4].direction_from_central_hex = Facing.SouthWest;
+		output[5].direction_from_central_hex = Facing.NorthWest;
 		
 		return output;
 	}

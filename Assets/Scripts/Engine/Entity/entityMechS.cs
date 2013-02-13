@@ -33,14 +33,31 @@ public class entityMechS : Combatable, IMove {
 	public int armor_upgrade_2 = 3;
 	public int armor_upgrade_3 = 4;
 	
+	public int starting_hp_max = 30;
+	
+	public int starting_ap = 18;
+	public int starting_ap_max = 18;
+	
 	public static bool instantiated_selection_meshes_already = false;
 	public static List<GameObject> selection_hexes;
+	
+	public static Dictionary<Part, int> part_count;
 	
 	
 	
 	void Awake()
 	{
 		selection_hexes = new List<GameObject>();
+		part_count = new Dictionary<Part, int>();
+		part_count.Add(Part.Cog, 0);
+		part_count.Add(Part.Plate, 0);
+		part_count.Add(Part.Piston, 0);
+		part_count.Add(Part.Strut, 0);
+		
+		max_hp     = starting_hp_max;
+		
+		current_ap = starting_ap;
+		max_ap = starting_ap_max;
 	}
 	
 	//Use this for initialization
@@ -61,16 +78,25 @@ public class entityMechS : Combatable, IMove {
 					
 					Debug.Log("making a mesh for selection");
 					selection_hexes.Add(InstantiateSelectionHex(ath.x, ath.z));
+					selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
+					hex_select.direction_from_center = ath.direction_from_central_hex;
+					
 					if(ath.hex_type == Hex.Forest || ath.hex_type == Hex.Hills || ath.hex_type == Hex.Marsh)
 					{
-						selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
 						hex_select.select_level = SelectLevel.Medium;
 					}
 					else if(ath.hex_type == Hex.Mountain || ath.hex_type == Hex.Water)
 					{
-						selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
-						hex_select.select_level = SelectLevel.Hard;
+						hex_select.select_level = SelectLevel.Hard; 
 					}
+					else
+					{
+						hex_select.select_level = SelectLevel.Easy; 
+					}
+					
+					hex_select.hex_type     = ath.hex_type;
+					hex_select.movement_cost = getTraverseAPCost(ath.hex_type);
+					
 				}
 				instantiated_selection_meshes_already = true;
 				Debug.Log("END INSTANTIATING SELECTION MESHES");
@@ -205,4 +231,3 @@ public class entityMechS : Combatable, IMove {
 	}
 			
 }
-

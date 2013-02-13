@@ -7,7 +7,12 @@ public class enginePlayerS : MonoBehaviour {
 	public int 									minZoom 	= 25;
 	
 	public GUIStyle								tooltip;
+	public static GUIStyle						hover_text;
 	
+	
+	
+	public GUIStyle								gui_norm_text; 
+	public GUIStyle								gui_bold_text;
 	
 	public float								vSensitivity = 1.0F; 
 	public float 								hSensitivity = 1.0F;
@@ -19,23 +24,29 @@ public class enginePlayerS : MonoBehaviour {
 	public static float  						camera_max_z_pos = -999999999;
 	
 	private static GameObject maincam;
+	private static entityMechS mech;
+			
+	public Texture part_piston;
+	public Texture part_plate;
+	public Texture part_strut;
+	public Texture part_gear;
 	
-	public GUIStyle getTooltip()
-	{
-		return tooltip;
-	}
+	 
 	
 	// Use this for initialization
 	void Awake () {  
 		
 		maincam = GameObject.FindGameObjectWithTag("MainCamera");
+		hover_text = tooltip;
+	}
+	
+	public static void setMech()
+	{
+		mech    = GameObject.FindGameObjectWithTag("player_mech").GetComponent<entityMechS>();
 	}
 	
 	// Update is called once per frame
 	void Update() {
-		
-		bool zoom_adjusted = false;
-		
 		Vector3 screenBottomLeft = maincam.camera.ScreenToWorldPoint(new Vector3(0,0,0));
 		Vector3 screenTopRight = maincam.camera.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,0));
 		
@@ -70,15 +81,13 @@ public class enginePlayerS : MonoBehaviour {
 		//zoom out
 		if(Input.GetKey(KeyCode.Equals))
 		{ 
-			zoom_adjust += .5F * zoomSensitivity;
-			zoom_adjusted = true;
+			zoom_adjust += .5F * zoomSensitivity; 
 		}
 		
 		//zoom in
 		if(Input.GetKey(KeyCode.Minus))
 		{
-			zoom_adjust -= .5F * zoomSensitivity;	
-			zoom_adjusted = true;
+			zoom_adjust -= .5F * zoomSensitivity;	 
 		}
 		if(zoom_adjust != 0)
 		{
@@ -86,20 +95,17 @@ public class enginePlayerS : MonoBehaviour {
 			{
 				if(maxZoom < maincam.camera.orthographicSize - zoom_adjust)
 				{
-					maincam.camera.orthographicSize -= zoom_adjust;
-					zoom_adjusted = true;
+					maincam.camera.orthographicSize -= zoom_adjust; 
 					
 				}
 				else
 				{
-					maincam.camera.orthographicSize = maxZoom;
-					zoom_adjusted = true;
+					maincam.camera.orthographicSize = maxZoom; 
 				}
 			}
 			else
 			{	
-				maincam.camera.orthographicSize = minZoom;
-				zoom_adjusted = true;
+				maincam.camera.orthographicSize = minZoom; 
 			}
 		}
 		 
@@ -166,7 +172,6 @@ public class enginePlayerS : MonoBehaviour {
 			Vector3 adjustedScreenBottomLeft = maincam.camera.ScreenToWorldPoint(new Vector3(0,0,0));
 			Vector3 adjustedScreenTopRight = maincam.camera.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,0));
 			
-			Vector3 adjustedScreenCenter = (adjustedScreenBottomLeft + adjustedScreenTopRight ) / 2;
 			
 			if(adjustedScreenTopRight.z > camera_max_z_pos)
 			{
@@ -232,6 +237,33 @@ public class enginePlayerS : MonoBehaviour {
 //		return null; 
 //	}
 	 
+	public int gui_element_size = 80;
+	public int gui_text_element_size =  20;
+	public int gui_spacing      = 10;
+	void OnGUI()
+	{
+   		
+        GUI.DrawTexture(new Rect(gui_spacing * 1 + 0 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_gear, ScaleMode.ScaleToFit, true);
+        GUI.DrawTexture(new Rect(gui_spacing * 2 + 1 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_piston, ScaleMode.ScaleToFit, true);
+        GUI.DrawTexture(new Rect(gui_spacing * 3 + 2 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_plate, ScaleMode.ScaleToFit, true);
+        GUI.DrawTexture(new Rect(gui_spacing * 4 + 3 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_strut, ScaleMode.ScaleToFit, true);
+		
+        GUI.Label(new Rect(gui_spacing * 1 + 0 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Cog].ToString(),    gui_norm_text);
+        GUI.Label(new Rect(gui_spacing * 2 + 1 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Piston].ToString(), gui_norm_text);
+        GUI.Label(new Rect(gui_spacing * 3 + 2 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Plate].ToString(),  gui_norm_text);
+        GUI.Label(new Rect(gui_spacing * 4 + 3 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Strut].ToString(),  gui_norm_text);
+    
+		
+		
+		
+		GUI.Label(new Rect(Screen.width - (1 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), "AP",  gui_norm_text);
+        GUI.Label(new Rect(Screen.width - (2 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), "HP",  gui_norm_text);
+		
+		GUI.Label(new Rect(Screen.width - (1 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_element_size), mech.getCurrentAP() + "/" + mech.getMaxAP(),  gui_norm_text);
+        GUI.Label(new Rect(Screen.width - (2 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_element_size), mech.getCurrentHP() + "/" + mech.getMaxHP(),  gui_norm_text);
+    
+	
+	}
 	
 	
 }

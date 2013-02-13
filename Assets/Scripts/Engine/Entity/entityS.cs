@@ -18,6 +18,29 @@ public abstract class  Combatable : Entity{
 	public int current_ap;
 	public int max_ap;
 	
+	public int getCurrentHP(){
+		return current_hp;
+	}
+	
+	public int getCurrentAP(){
+		return current_ap;
+	}
+	
+	public int getMaxHP(){
+		return max_hp;
+	}
+	
+	public int getMaxAP(){
+		return max_ap;
+	} 
+	
+	
+	public Facing getFacingDirection(){
+		return facing_direction;
+	}
+	public void setFacingDirection(Facing in_direction){
+		facing_direction = in_direction;
+	}
 	
 	/**
 	 *	Deal damage to the target
@@ -86,7 +109,7 @@ public abstract class  Combatable : Entity{
 	
 	public int setCurrentHPviaPercentage(float hp_percentage)
 	{
-		current_hp = (int) (max_hp * hp_percentage);
+		current_hp = (int) (max_hp * (hp_percentage / 100F));
 		return current_hp;
 	}
 	

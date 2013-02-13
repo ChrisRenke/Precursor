@@ -16,10 +16,12 @@ public struct HexData{
 	public readonly int 	x;   	  //level x coord (NE / SW)
 	public readonly int 	z;  	  //level z coord  (N / S)
 	public readonly Hex 	hex_type; //enviroment type of this hex
+	public Facing   direction_from_central_hex;
 	
 	public HexData(int _x, int _z, Hex _type){
 		x = _x;
 		z = _z; 
 		hex_type = _type;
+		direction_from_central_hex = Facing.South; //this is a temp value, should be replaced manually usually
 	}
 } 
