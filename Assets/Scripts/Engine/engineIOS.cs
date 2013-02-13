@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.IO; 
+//
+//[RequireComponent(typeof(MeshFilter))]
+//[RequireComponent(typeof(MeshRenderer))]
 
 public class engineIOS : MonoBehaviour {
 	 
@@ -179,6 +182,19 @@ public class engineIOS : MonoBehaviour {
 				return false;
 			}
 		}
+//		
+//		Component[] meshFilters = GetComponentsInChildren<MeshFilter>();
+//        CombineInstance[] combine = new CombineInstance[meshFilters.length];
+//        int i = 0;
+//        while (i < meshFilters.length) {
+//            combine[i].mesh = meshFilters[i].sharedMesh;
+//            combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+//            meshFilters[i].gameObject.active = false;
+//            i++;
+//        }
+//        transform.GetComponent<MeshFilter>().mesh = new Mesh();
+//        transform.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
+//        transform.gameObject.active = true;
 		 
 		return true;
 	}
