@@ -3,48 +3,11 @@ using System.Collections;
 
 public class enginePlayerS : MonoBehaviour {
 	
-	public static string 						TAG     	= "hex_tile";
 	public int 									maxZoom 	= 2;
 	public int 									minZoom 	= 25;
-	public GameObject 							border_tile;
-	
-	public string								HexManagerTag;
-	public string								EntityManagerTag;
-	public string								HexTag;
-	public string								EntTag;
 	
 	public GUIStyle								tooltip;
-	public static editorHexManagerS 			tms;
-	public static editorEntityManagerS 			ems;
 	
-	public static GameObject 					selected_hex;
-	public static bool       					selection_menu_displayed;
-	public static bool 							overwrite_mode = false;
-	public static int							brush_size = 1;
-	public static int 							tile_counter = 0;
-	
-	public Texture  							dropper_icon;
-	public Texture  							brush_icon;
-	public Texture								eraser_icon;
-	public Texture								spray_icon;
-	
-	private GameObject 							terrain_menu;
-	
-	public static bool 							entity_mode     = false;
-	public string 								draw_mode_label = "Draw Hexes";
-	public string 								over_mode_label = "Fill Empty";
-	public string 								current_brush   = "";
-	
-	public GameObject 							entMenuPrefab;
-	public GameObject 							hexMenuPrefab;
-	 
-	public static Hex         					last_created_hex_type; 
-	public static EntityE  						last_created_entity_type;
-	
-	public int 									min_brush_size;
-	public int 									max_brush_size;
-	
-	public static int 							spray_prob = 70;
 	
 	public float								vSensitivity = 1.0F; 
 	public float 								hSensitivity = 1.0F;
@@ -54,6 +17,7 @@ public class enginePlayerS : MonoBehaviour {
 	public static float  						camera_max_x_pos = -999999999;
 	public static float  						camera_min_z_pos = 9999999999;
 	public static float  						camera_max_z_pos = -999999999;
+	
 	private static GameObject maincam;
 	
 	public GUIStyle getTooltip()

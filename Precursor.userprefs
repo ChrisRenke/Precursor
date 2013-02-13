@@ -1,19 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Materials/mat terrain textures/draft_terrain_sprite.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Engine/Entity/entityMechS.cs">
     <Files>
-      <File FileName="Assets/Scripts/Engine/entityManagerS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Enums.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/interfacesS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/hexManagerS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/enginePlayerS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/engineIOS.cs" Line="21" Column="3" />
-      <File FileName="Assets/Scripts/Engine/entityBaseS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/entityEnemyS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/entityS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/entityMechS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Enums.cs" Line="10" Column="49" />
       <File FileName="Assets/Level_Files/awesome.txt" Line="1" Column="1" />
-      <File FileName="Assets/Materials/mat terrain textures/draft_terrain_sprite.txt" Line="41" Column="22" />
+      <File FileName="Assets/Materials/mat terrain textures/draft_terrain_sprite.txt" Line="1" Column="1" />
+      <File FileName="Assets/Materials/mat terrain textures/AnimatedTextureExtendedUV.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/engineHexS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Entity/entityMechS.cs" Line="193" Column="156" />
+      <File FileName="Assets/Scripts/MapEditor/editorHexManagerS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Interaction/enginePlayerS.cs" Line="19" Column="59" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -22,19 +18,15 @@
             <Node name="Assets" expanded="True">
               <Node name="Level_Files" expanded="True" />
               <Node name="Materials" expanded="True">
-                <Node name="mat terrain textures" expanded="True">
-                  <Node name="draft_terrain_sprite.txt" selected="True" />
-                </Node>
-              </Node>
-              <Node name="Orthello" expanded="True">
-                <Node name="Standard Assets" expanded="True">
-                  <Node name="OT" expanded="True">
-                    <Node name="_Base" expanded="True" />
-                  </Node>
-                </Node>
+                <Node name="mat terrain textures" expanded="True" />
               </Node>
               <Node name="Scripts" expanded="True">
-                <Node name="Engine" expanded="True" />
+                <Node name="Engine" expanded="True">
+                  <Node name="Entity" expanded="True">
+                    <Node name="entityMechS.cs" selected="True" />
+                  </Node>
+                  <Node name="Interaction" expanded="True" />
+                </Node>
                 <Node name="MapEditor" expanded="True" />
               </Node>
             </Node>

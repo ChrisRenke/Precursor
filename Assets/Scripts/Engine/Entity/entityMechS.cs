@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class entityMechS : Combatable, IMove { 
 	 
 	public bool upgrade_traverse_water = false;
-	public bool upgrade_traverse_mountain = false;
+	public bool upgrade_traverse_mountain = true;
 	public bool upgrade_traverse_cost = false; 
 	public int  traverse_upgrade_cost  = -1;
 	public int  traverse_standard_cost =  2;
@@ -33,6 +33,15 @@ public class entityMechS : Combatable, IMove {
 	public int armor_upgrade_2 = 3;
 	public int armor_upgrade_3 = 4;
 	
+	public static bool instantiated_selection_meshes_already = false;
+	public static List<GameObject> selection_hexes;
+	
+	
+	
+	void Awake()
+	{
+		selection_hexes = new List<GameObject>();
+	}
 	
 	//Use this for initialization
 	void Start () { 
@@ -41,7 +50,32 @@ public class entityMechS : Combatable, IMove {
 	
 	//Update is called once per frame
 	void Update () {
-		 
+		if(gameManagerS.current_turn == Turn.Player)
+		{
+			
+			if(!instantiated_selection_meshes_already)
+			{
+				Debug.Log("BEGIN INSTANTIATING SELECTION MESHES");
+				foreach(HexData ath in getAdjacentTraversableHexes())
+				{
+					
+					Debug.Log("making a mesh for selection");
+					selection_hexes.Add(InstantiateSelectionHex(ath.x, ath.z));
+					if(ath.hex_type == Hex.Forest || ath.hex_type == Hex.Hills || ath.hex_type == Hex.Marsh)
+					{
+						selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
+						hex_select.select_level = SelectLevel.Medium;
+					}
+					else if(ath.hex_type == Hex.Mountain || ath.hex_type == Hex.Water)
+					{
+						selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
+						hex_select.select_level = SelectLevel.Hard;
+					}
+				}
+				instantiated_selection_meshes_already = true;
+				Debug.Log("END INSTANTIATING SELECTION MESHES");
+			}
+		}
 	}
 
 	public List<HexData> getAdjacentTraversableHexes ()
@@ -50,12 +84,15 @@ public class entityMechS : Combatable, IMove {
 		
 		//Get adjacent tiles around player mech
 		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
+		Debug.Log(adjacent_hexes.Length + " found adjacent");
 		
 		//See which of the adjacent hexes are traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++)
 			if(canTraverse(adjacent_hexes[i]))
 				result_hexes.Add(adjacent_hexes[i]);
 			
+		
+		Debug.Log(result_hexes.Count + " found adjacent goods");
 		return result_hexes;
 	}
  
@@ -83,7 +120,7 @@ public class entityMechS : Combatable, IMove {
 		HexData hex = hexManagerS.getHex(hex_x, hex_z);
 		
 		//if its a perimeter tile
-		if(hex.hex_type != Hex.Perimeter)
+		if(hex.hex_type == Hex.Perimeter)
 			return false;
 		
 		//if it has a player, base, or enemy on it
@@ -159,5 +196,13 @@ public class entityMechS : Combatable, IMove {
 		current_ap -= cost;
 		return target.acceptDamage(damage);
 	}
+	
+		
+	private GameObject InstantiateSelectionHex(int x, int z)
+	{ 
+		GameObject new_hex = (GameObject) Instantiate(gameManagerS.selection_hex, hexManagerS.CoordsGameTo3D(x, z) + new Vector3(0, 4, 0), Quaternion.identity); 
+		return new_hex;
+	}
+			
 }
 

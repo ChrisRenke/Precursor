@@ -7,6 +7,8 @@ public enum EntityE      { Player, Base, Enemy, Junkyard, Outpost, Factory };
 public enum PlayerStates { Idle, Walking, Scavenging, Attacking, Upgrading };
 public enum Facing       { North, NorthEast, SouthEast, South, SouthWest, NorthWest };
 public enum NodeLevel    { Full, Sparse, Empty };
+public enum Turn         { Player, Enemy, Base};
+public enum SelectLevel  { Disabled, Easy, Medium, Hard }
 
 
 public struct HexData{ 

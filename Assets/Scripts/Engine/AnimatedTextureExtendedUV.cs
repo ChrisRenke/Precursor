@@ -27,6 +27,7 @@ public class AnimatedTextureExtendedUV : MonoBehaviour
 	 
 	    // Calculate index
 	    int index  = (int)(Time.time * fps);
+		
 	    // Repeat when exhausting all cells
 	    index = index % totalCells;
 	 
