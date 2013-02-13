@@ -62,7 +62,7 @@ public class enginePlayerS : MonoBehaviour {
 	}
 	
 	// Use this for initialization
-	void Start () {  
+	void Awake () {  
 		
 		maincam = GameObject.FindGameObjectWithTag("MainCamera");
 	}

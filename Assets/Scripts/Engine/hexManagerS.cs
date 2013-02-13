@@ -36,7 +36,7 @@ public class hexManagerS : MonoBehaviour {
 	
 	
 
-	void Start(){
+	void Awake(){
 		
 		hex_dict.Add(Hex.Grass, grass_hex);
 		hex_dict.Add(Hex.Desert, desert_hex);
@@ -49,9 +49,13 @@ public class hexManagerS : MonoBehaviour {
 		hex_dict.Add(Hex.Perimeter, border_hex);
 		
 //		if(!engineIOS.LoadFromTextAsset())
-		if(!GameObject.FindGameObjectWithTag("io_manager").GetComponent<engineIOS>().LoadFromTextAsset())
-			throw new MissingComponentException("Level file malformed! : (");
-
+//		entityManagerS ems = GameObject.FindGameObjectWithTag("entity_manager").GetComponent<entityManagerS>();
+		engineIOS ios      = GameObject.FindGameObjectWithTag("io_manager").GetComponent<engineIOS>();
+		if(!ios.LoadFromTextAsset())
+		{
+			throw new System.Exception("Level file malformed! : (");
+			Debug.Break();
+		}
 	}
 	
 	

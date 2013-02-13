@@ -6,11 +6,18 @@ using System.IO;
 
 public class engineIOS : MonoBehaviour {
 	 
-	public static int   				level_editor_format_version = 3;
+	public static int   				level_editor_format_version = 4;
 	public TextAsset                    level_string_asset;
 	
 	//used for parsing level files
 	private	static  string[] stringSeparators = new string[] {" = "};  
+	
+//	private static entityManagerS ems;
+	
+	void Awake()
+	{
+//		ems = GameObject.FindWithTag("entity_manager").GetComponent<entityManagerS>();
+	}
 	
 	public bool LoadFromTextAsset()
 	{
@@ -126,13 +133,7 @@ public class engineIOS : MonoBehaviour {
 			int x = getIntR(level_lines[index++]) - load_x_min;
 			int z = getIntR(level_lines[index++]) - load_z_min;
             EntityE ent_type = (EntityE) Enum.Parse(typeof(EntityE), getStringR(level_lines[index++]));
-			
-			int base_starting_health_percentage = 100;
-			int mech_starting_health_percentage = 100;
-			bool enemy_knows_base_loc 			= false;
-			bool enemy_knows_mech_loc 			= false;
-			int node_starting_level				= 2;
-			
+			print (ent_type);
 			if(ent_type == EntityE.Player)
 			{ 
 				print ("MOVING CAMERA ONTO PLAYER!");
@@ -142,20 +143,33 @@ public class engineIOS : MonoBehaviour {
 			switch(ent_type)
 			{
 				case EntityE.Base:
-					 base_starting_health_percentage = getIntR(level_lines[index++]);
-					entityManagerS.
+				print("base case");
+					int base_starting_health_percentage = getIntR(level_lines[index++]);
+					if(!entityManagerS.instantiateBase(x, z, base_starting_health_percentage))
+						throw new System.Exception("There is already one base, cannot have two! D: Go edit the level file you're loading to only have one!");
 					break;
+				
 				case EntityE.Player:
-					 mech_starting_health_percentage = getIntR(level_lines[index++]);
+				print("player case");
+					int mech_starting_health_percentage = getIntR(level_lines[index++]);
+					if(!entityManagerS.instantiatePlayer(x, z, mech_starting_health_percentage))
+						throw new System.Exception("There is already one player mech, cannot have two! D: Go edit the level file you're loading to only have one!");
 					break;
+				
 				case EntityE.Enemy:
-					 enemy_knows_base_loc = getBoolR(level_lines[index++]);
-					 enemy_knows_mech_loc = getBoolR(level_lines[index++]);
+				print("enemy case");
+					bool enemy_knows_base_loc = getBoolR(level_lines[index++]);
+					bool enemy_knows_mech_loc = getBoolR(level_lines[index++]);
+					if(!entityManagerS.instantiateEnemy(x, z, enemy_knows_base_loc, enemy_knows_mech_loc))
+						throw new System.Exception("Issue adding enemy!");
 					break;
+				
 				case EntityE.Factory:
 				case EntityE.Junkyard:
 				case EntityE.Outpost:
-					 node_starting_level	 = getIntR(level_lines[index++]);
+					print("node case");
+					NodeLevel node_starting_level = getNodeLevelR(level_lines[index++]);
+					entityManagerS.instantiateResourceNode(x, z, ent_type, node_starting_level);
 					break;
 			}
 			  
@@ -206,6 +220,11 @@ public class engineIOS : MonoBehaviour {
 	{  
     	return reader.Contains("ENTITY{"); 
 	} 
-
+	
+	private static NodeLevel getNodeLevelR(String reader) //close bracket Reader
+	{  
+          return (NodeLevel) Enum.Parse(typeof(NodeLevel), getStringR(reader));
+	} 
+	
 
 }

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 //For entites that move
 public interface IMove {
 	
-	//Get traversable hexes around entity
+	//Get traversable hexes around entity 
 	List<HexData> getAdjacentTraversableHexes();
 	
 	//Get untraversable hexes around entity
@@ -47,5 +47,5 @@ public interface ICollect {
 	 */
 	bool consumePart(Part part_consumed); //used for removing items during healing and upgrades?
 }
-
+ 
  

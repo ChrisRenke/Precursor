@@ -1,7 +1,7 @@
 LEVEL{
-	EDITOR VER   = 3
+	EDITOR VER   = 4
 	Level Name   = awesome
-	Level Ver    = 3
+	Level Ver    = 4
 	X_dim        = 33
 	Z_dim        = 42
 	X_min        = -13
@@ -4901,19 +4901,6 @@ LEVEL{
 			HP Perc    = 100
 		}
 		ENTITY{ 
-			X          = 1
-			Z          = 12
-			Type       = Enemy
-			Omnsc Base = False
-			Omnsc Mech = False
-		}
-		ENTITY{ 
-			X          = 9
-			Z          = -3
-			Type       = Factory
-			Node Lvl   = 2
-		}
-		ENTITY{ 
 			X          = 0
 			Z          = 2
 			Type       = Base
@@ -4923,92 +4910,19 @@ LEVEL{
 			X          = 0
 			Z          = -4
 			Type       = Outpost
-			Node Lvl   = 2
-		}
-		ENTITY{ 
-			X          = 0
-			Z          = 11
-			Type       = Factory
-			Node Lvl   = 2
+			Node Lvl   = Full
 		}
 		ENTITY{ 
 			X          = 4
 			Z          = 7
 			Type       = Factory
-			Node Lvl   = 2
-		}
-		ENTITY{ 
-			X          = 4
-			Z          = -7
-			Type       = Enemy
-			Omnsc Base = False
-			Omnsc Mech = False
-		}
-		ENTITY{ 
-			X          = 3
-			Z          = 11
-			Type       = Junkyard
-			Node Lvl   = 2
-		}
-		ENTITY{ 
-			X          = -3
-			Z          = 4
-			Type       = Junkyard
-			Node Lvl   = 2
-		}
-		ENTITY{ 
-			X          = -3
-			Z          = -2
-			Type       = Enemy
-			Omnsc Base = False
-			Omnsc Mech = False
-		}
-		ENTITY{ 
-			X          = -3
-			Z          = 9
-			Type       = Enemy
-			Omnsc Base = False
-			Omnsc Mech = False
-		}
-		ENTITY{ 
-			X          = -3
-			Z          = 14
-			Type       = Junkyard
-			Node Lvl   = 2
+			Node Lvl   = Full
 		}
 		ENTITY{ 
 			X          = -3
 			Z          = 13
 			Type       = Junkyard
-			Node Lvl   = 2
-		}
-		ENTITY{ 
-			X          = 5
-			Z          = -3
-			Type       = Enemy
-			Omnsc Base = False
-			Omnsc Mech = False
-		}
-		ENTITY{ 
-			X          = 5
-			Z          = 8
-			Type       = Enemy
-			Omnsc Base = False
-			Omnsc Mech = False
-		}
-		ENTITY{ 
-			X          = 6
-			Z          = 4
-			Type       = Enemy
-			Omnsc Base = False
-			Omnsc Mech = False
-		}
-		ENTITY{ 
-			X          = 8
-			Z          = -7
-			Type       = Enemy
-			Omnsc Base = False
-			Omnsc Mech = False
+			Node Lvl   = Sparse
 		}
 		ENTITY{ 
 			X          = 8

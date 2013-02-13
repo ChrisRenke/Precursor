@@ -49,7 +49,7 @@ public class entityMechS : Combatable, IMove {
 		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(hex.x, hex.z);
+		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
 		
 		//See which of the adjacent hexes are traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++)
@@ -64,7 +64,7 @@ public class entityMechS : Combatable, IMove {
 		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(hex.x, hex.z);
+		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
 		
 		//See which of the adjacent hexes are NOT traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++)

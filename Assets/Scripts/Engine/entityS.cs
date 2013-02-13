@@ -12,8 +12,8 @@ public class Entity : MonoBehaviour {
 public abstract class  Combatable : Entity{
 	
 	public Facing facing_direction;
-	public int current_hitpoints;
-	public int max_hitpoints;
+	public int current_hp;
+	public int max_hp;
 	public int base_armor = 0;
 	public int current_ap;
 	public int max_ap;
@@ -43,30 +43,30 @@ public abstract class  Combatable : Entity{
 	}
 	
 	/**
-	 *	Get the percentage of hitpoints remaining
-	 *  @return  remaining ratio of hitpoints current to total
+	 *	Get the percentage of hp remaining
+	 *  @return  remaining ratio of hp current to total
 	 */
-	public float getHitpointsPercent()
+	public float gethpPercent()
 	{
-		return (float) current_hitpoints / max_hitpoints;
+		return (float) current_hp / max_hp;
 	}
 	
 	/**
 	 *	Entity recieves damage, ignoring  armor, 
 	 *  this entity will always recieve at least one damage from this method
-	 *  @return  remaining hitpoints, floor of 0 returned
+	 *  @return  remaining hp, floor of 0 returned
 	 */
 	public int acceptDamage(int damage, bool ignore_armor)
 	{
 		int adjusted_damage = ignore_armor ? damage : damage - base_armor;
-		current_hitpoints -= adjusted_damage > 0 ? adjusted_damage : 1;
-		return current_hitpoints;
+		current_hp -= adjusted_damage > 0 ? adjusted_damage : 1;
+		return current_hp;
 	}
 	
 	/**
 	 *	Entity recieves damage, method accounts for armor, 
 	 *  this entity will always recieve at least one damage from this method
-	 *  @return  remaining hitpoints, floor of 0 returned
+	 *  @return  remaining hp, floor of 0 returned
 	 */
 	public int acceptDamage(int damage)
 	{
@@ -74,13 +74,21 @@ public abstract class  Combatable : Entity{
 	}
 	
 	/**
-	 *	Entity heals hitpoints, cannot exceed max HP 
-	 *  @return  remaining hitpoints, floor of 0 returned
+	 *	Entity heals hp, cannot exceed max HP 
+	 *  @return  remaining hp, floor of 0 returned
 	 */
-	public int healHitpoints(int amount_to_heal)
+	public int healhp(int amount_to_heal)
 	{
-		current_hitpoints += amount_to_heal;
-		current_hitpoints = current_hitpoints > max_hitpoints ? max_hitpoints : current_hitpoints;
-		return current_hitpoints;
+		current_hp += amount_to_heal;
+		current_hp = current_hp > max_hp ? max_hp : current_hp;
+		return current_hp;
 	}
+	
+	public int setCurrentHPviaPercentage(float hp_percentage)
+	{
+		current_hp = (int) (max_hp * hp_percentage);
+		return current_hp;
+	}
+	
+	
 }
