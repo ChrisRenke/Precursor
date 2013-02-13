@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class entityMechS : Combatable, IMove { 
 	 
 	public bool upgrade_traverse_water = false;
-	public bool upgrade_traverse_mountain = true;
+	public bool upgrade_traverse_mountain = false;
 	public bool upgrade_traverse_cost = false; 
 	public int  traverse_upgrade_cost  = -1;
 	public int  traverse_standard_cost =  2;
@@ -65,6 +65,18 @@ public class entityMechS : Combatable, IMove {
 		
 	}
 	
+	public bool destroySelectionHexes(){
+		foreach(GameObject go in selection_hexes)
+		{
+			Destroy(go);
+		}
+		return true;
+	}
+	
+	public void allowSelectionHexesDraw(){
+		instantiated_selection_meshes_already = false;
+	}
+	
 	//Update is called once per frame
 	void Update () {
 		if(gameManagerS.current_turn == Turn.Player)
@@ -80,6 +92,9 @@ public class entityMechS : Combatable, IMove {
 					selection_hexes.Add(InstantiateSelectionHex(ath.x, ath.z));
 					selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
 					hex_select.direction_from_center = ath.direction_from_central_hex;
+					
+					hex_select.x = ath.x;
+					hex_select.z = ath.z;
 					
 					if(ath.hex_type == Hex.Forest || ath.hex_type == Hex.Hills || ath.hex_type == Hex.Marsh)
 					{
@@ -101,6 +116,20 @@ public class entityMechS : Combatable, IMove {
 				instantiated_selection_meshes_already = true;
 				Debug.Log("END INSTANTIATING SELECTION MESHES");
 			}
+		}
+		
+		if(lerp_move)
+		{	
+			transform.position = Vector3.Lerp(transform.position, ending_pos,  moveTime);
+     		moveTime += Time.deltaTime/dist;
+			
+			if( Vector3.Distance(transform.position, ending_pos) <= .05)
+			{
+				allowSelectionHexesDraw();
+				lerp_move = false;
+				transform.position = ending_pos;
+			}
+				
 		}
 	}
 
@@ -229,5 +258,24 @@ public class entityMechS : Combatable, IMove {
 		GameObject new_hex = (GameObject) Instantiate(gameManagerS.selection_hex, hexManagerS.CoordsGameTo3D(x, z) + new Vector3(0, 4, 0), Quaternion.identity); 
 		return new_hex;
 	}
-			
+		
+	
+	public void moveInWorld(int _destination_x, int _destination_z, float _time_to_complete)
+	{
+		lerp_move = true;
+		starting_pos =  entityManagerS.CoordsGameTo3DEntiy(x, z);
+		ending_pos = entityManagerS.CoordsGameTo3DEntiy(_destination_x, _destination_z);
+		time_to_complete = _time_to_complete;
+		moveTime = 0.0f;
+		dist = Vector3.Distance(transform.position, ending_pos) * 2;
+	}
+	
+	float dist; 
+	Vector3 starting_pos, ending_pos;
+	bool lerp_move = false; 
+	float time_to_complete = 2F;
+	float moveTime = 0.0f;
+ 
+	
+	
 }

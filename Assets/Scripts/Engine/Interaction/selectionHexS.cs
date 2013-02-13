@@ -1,7 +1,7 @@
 	using UnityEngine;
 using System.Collections;
 
-public class selectionHexS : MonoBehaviour {
+public class selectionHexS : Entity {
 		//vars for the whole sheet
 	public int colCount    = 4;
 	public int rowCount    = 2;
@@ -23,6 +23,12 @@ public class selectionHexS : MonoBehaviour {
 	public Hex hex_type;
 	private bool draw_mode = false;
 	
+	private entityMechS mech;
+	
+	void Awake()
+	{	
+		mech    = GameObject.FindGameObjectWithTag("player_mech").GetComponent<entityMechS>();
+	}
 	
 	//Update
 	void Update () { 
@@ -53,11 +59,13 @@ public class selectionHexS : MonoBehaviour {
 	
 	void OnMouseEnter()
 	{
-//		entityMechS.
+		mech.setFacingDirection(direction_from_center);
+//		entityMechS.a
 	}
 	
 	void OnMouseOver()
 	{
+		
 		if(Input.GetMouseButton(0))
 		{
 			switch(select_level)
@@ -95,7 +103,17 @@ public class selectionHexS : MonoBehaviour {
 					break;
 			}
 		}
+		
 		draw_mode = true;
+	}
+	
+	void OnMouseUpAsButton()
+	{
+		mech.setLocation(x, z);	
+		mech.destroySelectionHexes();
+		mech.moveInWorld(x, z, 6F);
+//		mech.MoveThisObject(entityManagerS.CoordsGameTo3DEntiy(x, z), 3F);
+//		mech.allowSelectionHexesDraw();
 	}
 	
 		

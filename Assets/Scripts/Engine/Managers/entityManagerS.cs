@@ -1,4 +1,4 @@
-using UnityEngine;
+	using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -34,6 +34,7 @@ public class entityManagerS : MonoBehaviour {
 		entity_dict.Add(EntityE.Factory, factory_entiy);
 		entity_dict.Add(EntityE.Outpost, outpost_entity);
 		entity_dict.Add(EntityE.Junkyard, junkyard_entity);
+		
 	}
 	
 	
@@ -204,12 +205,11 @@ public class entityManagerS : MonoBehaviour {
 		}
 	}
 	
-	
 	//converts engine coordinates into 3D space cordinates
 	public static Vector3 CoordsGameTo3DEntiy(int x, int z)
 	{  
 		return new Vector3(x * 2.30024F + z * -0.841947F, 5, z * 1.81415F + x * 1.3280592F + .5F);
 	}
 	
-	
+
 }

@@ -5,6 +5,11 @@ public class Entity : MonoBehaviour {
 	
 	public int x;
 	public int z;
+	
+	public void setLocation(int _x, int _z){
+		x = _x;
+		z = _z;
+	}
 
 }
 
@@ -12,6 +17,7 @@ public class Entity : MonoBehaviour {
 public abstract class  Combatable : Entity{
 	
 	public Facing facing_direction;
+	
 	public int current_hp;
 	public int max_hp;
 	public int base_armor = 0;
@@ -113,5 +119,6 @@ public abstract class  Combatable : Entity{
 		return current_hp;
 	}
 	
+
 	
 }
