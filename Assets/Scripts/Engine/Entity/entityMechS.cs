@@ -41,14 +41,22 @@ public class entityMechS : Combatable, IMove {
 	
 	public int starting_hp_max = 30;
 	
-	public int starting_ap = 180;
-	public int starting_ap_max = 180;
+	public int starting_ap = 18;
+	public int starting_ap_max = 18;
 	
 	public static bool instantiated_selection_meshes_already = false;
 	public static List<GameObject> selection_hexes;
 	
 	public static Dictionary<Part, int> part_count;
 	
+	public static int getPartCount(Part part_query)
+	{
+		return part_count[part_query];	
+	}
+	public static void adjustPartCount(Part part_query, int delta)
+	{
+		part_count[part_query] += delta;	
+	}
 	
 	void Awake()
 	{

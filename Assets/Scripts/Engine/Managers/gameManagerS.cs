@@ -24,5 +24,29 @@ public class gameManagerS : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+		//if the player still has actions
+		if(entityManagerS.getMech().current_ap > 0)
+		{ 
+			current_turn  = Turn.Player;
+		}
+		else
+		{ 
+			current_turn  = Turn.Enemy;
+		}
+	}
+	
+	void OnGUI()
+	{
+	    GUI.Label(new Rect(Screen.width - 30 - 180, 30, 180, 30), current_turn == Turn.Player ? "Player Turn" : "Enemy Turn",  enginePlayerS.gui_norm_text_static);
+    
+		if(GUI.Button(new Rect(Screen.width - 30 - 180, 70, 180, 30), "Force Player Turn"))
+		{
+			current_turn = Turn.Player;
+			entityManagerS.getMech().current_ap =  entityManagerS.getMech().max_ap;
+			
+					entityManagerS.getMech().destroySelectionHexes();
+					entityManagerS.getMech().allowSelectionHexesDraw();
+		}
+	
 	}
 }

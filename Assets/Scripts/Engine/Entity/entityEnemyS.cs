@@ -25,12 +25,15 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		
 		if(gameManagerS.current_turn == Turn.Enemy)
 		{
+			print ("enemy turn now");
 			//get base position
 			entityBaseS base_s = entityManagerS.getBase();
 			
 			//scan through list of enemies
 			foreach(entityEnemyS enemy in entityManagerS.getEnemies())
 			{
+				
+				print ("working with an enemy");
 				//find path from enemy to base
 				path_to_base = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), hexManagerS.getHex(base.x,base.z));
 			

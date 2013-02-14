@@ -14,6 +14,8 @@ public class enginePlayerS : MonoBehaviour {
 	
 	public GUIStyle								gui_norm_text; 
 	public GUIStyle								gui_bold_text;
+	public static GUIStyle								gui_norm_text_static; 
+	public static GUIStyle								gui_bold_text_static;
 	
 	public float								vSensitivity = 1.0F; 
 	public float 								hSensitivity = 1.0F;
@@ -45,6 +47,8 @@ public class enginePlayerS : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {  
 		maincam 		= GameObject.FindGameObjectWithTag("MainCamera");
+		gui_bold_text_static = gui_bold_text;
+		gui_norm_text_static = gui_norm_text;
 		hover_text 		= selection_hover;
 		action_images = new Dictionary<Action, Texture>();
 		action_images.Add(Action.Repair, icon_repair);
@@ -266,39 +270,60 @@ public class enginePlayerS : MonoBehaviour {
         GUI.Label(new Rect(gui_spacing * 3 + 2 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Plate].ToString(),  gui_norm_text);
         GUI.Label(new Rect(gui_spacing * 4 + 3 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Strut].ToString(),  gui_norm_text);
     
-		if(GUI.Button(new Rect(gui_spacing, gui_spacing, 180, 40), "Upgrade Aquatic Fins"))
-		{
-			if(!mech.upgrade_traverse_water) 
+		if(GUI.Button(new Rect(gui_spacing, gui_spacing, 180, 40), "Aquatic Fins 5gr | 2plt"))
+		{ 
+			if(
+				(entityMechS.getPartCount(Part.Plate) >= 2) && 
+				(entityMechS.getPartCount(Part.Gear) >= 5))
 			{
+					entityMechS.adjustPartCount(Part.Plate, -2);
+					entityMechS.adjustPartCount(Part.Gear, -5);
 				mech.upgrade_traverse_water = true;
-				mech.destroySelectionHexes();
-				mech.allowSelectionHexesDraw();
-			}
+					mech.destroySelectionHexes();
+					mech.allowSelectionHexesDraw();
+				} 
+			else
+					print ("no good!");
 		}
 		
-		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing , gui_spacing, 180, 40), "Upgrade Climbing Hooks"))
-		{
-			if(!mech.upgrade_traverse_mountain) 
-			{
-				mech.upgrade_traverse_mountain = true;
-				mech.destroySelectionHexes();
-				mech.allowSelectionHexesDraw();
-			}
+		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing , gui_spacing, 180, 40), "Climbing Hooks 5gr | 2pst"))
+		{ 
+			
+				if(
+					(entityMechS.getPartCount(Part.Piston) >= 2) && 
+					(entityMechS.getPartCount(Part.Gear) >= 5))
+				{
+					entityMechS.adjustPartCount(Part.Piston, -2);
+					entityMechS.adjustPartCount(Part.Gear, -5);
+					mech.upgrade_traverse_mountain = true;
+					mech.destroySelectionHexes();
+					mech.allowSelectionHexesDraw();
+				} 
+			else
+					print ("no good!");
 		}
 		
-		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing + 180 + gui_spacing, gui_spacing, 180, 40), "Upgrade Leg Speed"))
-		{
-			if(!mech.upgrade_traverse_cost) 
-			{
-				mech.upgrade_traverse_cost = true;
-				mech.destroySelectionHexes();
-				mech.allowSelectionHexesDraw();
-			}
+		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing + 180 + gui_spacing, gui_spacing, 180, 40), "Leg Speed 3pst | 3str"))
+		{  
+				if(
+					(entityMechS.getPartCount(Part.Piston) >= 3) && 
+					(entityMechS.getPartCount(Part.Strut) >= 3))
+				{
+					entityMechS.adjustPartCount(Part.Piston, -3);
+					entityMechS.adjustPartCount(Part.Strut, -3);
+					mech.upgrade_traverse_cost = true;
+					mech.destroySelectionHexes();
+					mech.allowSelectionHexesDraw();
+				} 
+			else
+					print ("no good!");
 		}
 		
 		if(GUI.Button(new Rect(gui_spacing, gui_spacing + 40  + gui_spacing , 180, 40), "End Turn"))
 		{
 			mech.current_ap = 0;
+			mech.destroySelectionHexes();
+			mech.allowSelectionHexesDraw();
 		}
 		
 		
