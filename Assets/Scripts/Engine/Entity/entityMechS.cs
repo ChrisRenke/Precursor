@@ -4,34 +4,33 @@ using System.Collections.Generic;
 
 public class entityMechS : Combatable, IMove { 
 	 
-	public bool upgrade_traverse_water = false;
-	public bool upgrade_traverse_mountain = false;
-	public bool upgrade_traverse_cost = false; 
-	public int  traverse_upgrade_cost  = -1;
-	public int  traverse_standard_cost =  2;
-	public int  traverse_slow_cost     =  4;
-	public int  traverse_mountain_cost =  5;
-	public int  traverse_water_cost    =  5;
-	
-	public bool upgrade_weapon_range  = false;
-	public bool upgrade_weapon_damage = false;
-	public bool upgrade_weapon_cost   = false;
-	
-	public bool upgrade_armor_1 = false;
-	public bool upgrade_armor_2 = false;
-	public bool upgrade_armor_3 = false;
+	public bool upgrade_traverse_water		= false;
+	public bool upgrade_traverse_mountain 	= false;
+	public bool upgrade_traverse_cost 		= false; 
+	public int  traverse_upgrade_cost  		= -1;
+	public int  traverse_standard_cost 		=  2;
+	public int  traverse_slow_cost     		=  4;
+	public int  traverse_mountain_cost	 	=  5;
+	public int  traverse_water_cost    		=  5;
 		  
 	public int weapon_base_damage = 3;
 	public int weapon_base_range  = 1;
 	public int weapon_base_cost   = 4; 
-	
+	public bool upgrade_weapon_range  = false;
+	public bool upgrade_weapon_damage = false;
+	public bool upgrade_weapon_cost   = false;
 	public int weapon_upgrade_range  = 3;
 	public int weapon_upgrade_cost   = 3;
 	public int weapon_upgrade_damage = 5;
 	
+	public bool upgrade_armor_1 = false;
+	public bool upgrade_armor_2 = false;
+	public bool upgrade_armor_3 = false;
 	public int armor_upgrade_1 = 2;
 	public int armor_upgrade_2 = 3;
 	public int armor_upgrade_3 = 4;
+	
+	
 	
 	public int starting_hp_max = 30;
 	

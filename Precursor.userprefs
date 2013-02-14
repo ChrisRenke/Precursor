@@ -1,13 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Engine/Entity/entityMechS.cs">
-    <Files>
-      <File FileName="Assets/Scripts/Engine/Enums.cs" Line="11" Column="36" />
-      <File FileName="Assets/Scripts/Engine/Entity/entityMechS.cs" Line="36" Column="33" />
-      <File FileName="Assets/Scripts/Engine/Interaction/enginePlayerS.cs" Line="263" Column="164" />
-      <File FileName="Assets/Scripts/Engine/Entity/entityS.cs" Line="104" Column="53" />
-      <File FileName="Assets/Scripts/Engine/Managers/engineIOS.cs" Line="161" Column="30" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
@@ -19,11 +12,11 @@
               </Node>
               <Node name="Scripts" expanded="True">
                 <Node name="Engine" expanded="True">
-                  <Node name="Entity" expanded="True">
-                    <Node name="entityMechS.cs" selected="True" />
-                  </Node>
+                  <Node name="Entity" expanded="True" />
                   <Node name="Interaction" expanded="True" />
-                  <Node name="Managers" expanded="True" />
+                  <Node name="Managers" expanded="True">
+                    <Node name="entityManagerS.cs" selected="True" />
+                  </Node>
                 </Node>
                 <Node name="MapEditor" expanded="True" />
               </Node>
