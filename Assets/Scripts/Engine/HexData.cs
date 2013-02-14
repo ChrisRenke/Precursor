@@ -12,4 +12,10 @@ public class HexData{
 		z = _z; 
 		hex_type = _type;
 	}
+	
+	public HexData(HexData hex){
+		x = hex.x;
+		z = hex.z; 
+		hex_type = hex.hex_type;
+	}
 } 

@@ -1,11 +1,13 @@
 using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class entityMechS : Combatable, IMove {
 	
 	private int size = 16; //size of traversable_hexes
-	private HexData[] traversable_hexes; //Hold traversable hexes
-	private HexData[] untraversable_hexes; //Hold untraversable hexes
+	private List<HexData> traversable_hexes; //Hold traversable hexes
+	private List<HexData> untraversable_hexes; //Hold untraversable hexes
 		
 	//Test vars ***
 	bool players_turn = true;
@@ -17,10 +19,10 @@ public class entityMechS : Combatable, IMove {
 	
 	//Use this for initialization
 	void Start () {
-		traversable_hexes = new HexData[size];
-		untraversable_hexes = new HexData[size];
-		x = 5;
-		z = 5;
+		traversable_hexes = new List<HexData>();
+		untraversable_hexes = new List<HexData>();
+		x = 4;
+		z = 4;
 	}
 	
 	//Update is called once per frame
@@ -31,7 +33,7 @@ public class entityMechS : Combatable, IMove {
 		
 		if(players_turn){
 			//getTraversible hexes
-			traversable_hexes = getAdjacentTraversableHexes(hexManagerS.getHex(x,z));
+			//traversable_hexes = getAdjacentTraversableHexes(hexManagerS.getHex(x,z));
 			
 			//TODO: some mechanism for highlighting valid hexes?
 			
@@ -41,7 +43,7 @@ public class entityMechS : Combatable, IMove {
 					//		if traversible hex clicked then call makeMove, otherwise do nothing (or print why invalid hex)
 					
 					//TEST: For testing purposes: the player moves randomly for each mouse click at the moment
-					if(test == 0){
+					/*if(test == 0){
 						makeMove(new HexData(-3, 1, Hex.Grass));
 						test = 1;
 					}else if (test == 1){
@@ -50,7 +52,7 @@ public class entityMechS : Combatable, IMove {
 					}else{
 						makeMove(new HexData(-1, 1, Hex.Grass));	
 						test = 0;
-					}
+					}*/
 				
 			}
 		}
@@ -90,40 +92,37 @@ public class entityMechS : Combatable, IMove {
 	}
 
 	#region IMove implementation
-	public HexData[] getAdjacentTraversableHexes (HexData hex)
+	public List<HexData> getAdjacentTraversableHexes (HexData hex)
 	{
-		int index = 0;
-		HexData[] result_hexes = new HexData[size]; //hold resulting hexes
+		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
 		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(hex.x, hex.z);
 		
 		//See which of the adjacent hexes are traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++){
-			if(canTraverse(adjacent_hexes[i]) && index < size){
+			if(canTraverse(adjacent_hexes[i])){
 				//add hex to traversable array
-				result_hexes[index] = adjacent_hexes[i]; 
-				index++;
+				result_hexes.Add(adjacent_hexes[i]); 
 			}
 		}
-		
+		//print ("length" + result_hexes.Length);
+		//print ("length " + result_hexes[0].hex_type + " " + result_hexes[1].hex_type + + " " + result_hexes[2].hex_type + " " + result_hexes[3].hex_type + " " + result_hexes[4].hex_type + " " + result_hexes[5].hex_type + " " + result_hexes[6].hex_type);
 		return result_hexes;
 	}
 
-	public HexData[] getAdjacentUntraversableHexes (HexData hex)
+	public List<HexData> getAdjacentUntraversableHexes (HexData hex)
 	{
-		int index = 0;
-		HexData[] result_hexes = new HexData[size]; //hold resulting hexes
+		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
 		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(hex.x, hex.z);
 		
 		//See which of the adjacent hexes are untraversable
 		for(int i = 0; i < adjacent_hexes.Length; i++){
-			if(!canTraverse(adjacent_hexes[i]) && index < size){
+			if(!canTraverse(adjacent_hexes[i])){
 				//add hex to untraversable array
-				result_hexes[index] = adjacent_hexes[i]; 
-				index++;
+				result_hexes.Add(adjacent_hexes[i]); 
 			}
 		}
 		

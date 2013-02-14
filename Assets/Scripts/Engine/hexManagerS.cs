@@ -19,9 +19,16 @@ public class hexManagerS : MonoBehaviour {
 	public string 	  			level_name;
 	public int   				level_editor_format_version;
 	
-	private static HexData[,] 	hexes; 
-	private static int 			x_max, z_max = 0; //size of hex array, used for out of bounds checking
-	
+	private static HexData[,] 	hexes = new HexData[,] {{new HexData(0, 0, Hex.Perimeter), new HexData(0, 1, Hex.Perimeter), new HexData(0, 2, Hex.Perimeter), new HexData(0, 3, Hex.Perimeter), new HexData(0, 4, Hex.Perimeter), new HexData(0, 5, Hex.Perimeter), new HexData(0, 6, Hex.Perimeter)},
+														{new HexData(1, 0, Hex.Perimeter), new HexData(1, 1, Hex.Mountain), new HexData(1, 2, Hex.Grass), new HexData(1, 3, Hex.Farmland), new HexData(1, 4, Hex.Grass), new HexData(1, 5, Hex.Grass), new HexData(1, 6, Hex.Perimeter)},
+														{new HexData(2, 0, Hex.Perimeter), new HexData(2, 1, Hex.Grass), new HexData(2, 2, Hex.Water), new HexData(2, 3, Hex.Forest), new HexData(2, 4, Hex.Grass), new HexData(2, 5, Hex.Forest), new HexData(2, 6, Hex.Perimeter)},
+														{new HexData(3, 0, Hex.Perimeter), new HexData(3, 1, Hex.Grass), new HexData(3, 2, Hex.Forest), new HexData(3, 3, Hex.Grass), new HexData(3, 4, Hex.Hills), new HexData(3, 5, Hex.Grass), new HexData(3, 6, Hex.Perimeter)},
+														{new HexData(4, 0, Hex.Perimeter), new HexData(4, 1, Hex.Grass), new HexData(4, 2, Hex.Mountain), new HexData(4, 3, Hex.Snow), new HexData(4, 4, Hex.Grass), new HexData(4, 5, Hex.Grass), new HexData(4, 6, Hex.Perimeter)},
+														{new HexData(5, 0, Hex.Perimeter), new HexData(5, 1, Hex.Grass), new HexData(5, 2, Hex.Grass), new HexData(5, 3, Hex.Water), new HexData(5, 4, Hex.Grass), new HexData(5, 5, Hex.Water), new HexData(5, 6, Hex.Perimeter)},
+														{new HexData(6, 0, Hex.Perimeter), new HexData(6, 1, Hex.Perimeter), new HexData(6, 2, Hex.Perimeter), new HexData(6, 3, Hex.Perimeter), new HexData(6, 4, Hex.Perimeter), new HexData(6, 5, Hex.Perimeter), new HexData(6, 6, Hex.Perimeter)}};
+		
+	private static int 			x_max = 7; //size of hex array, used for out of bounds checking
+	private static int			z_max = 7;
 	
 	public GameObject  	grass_hex;
 	public GameObject  	desert_hex;
@@ -53,6 +60,8 @@ public class hexManagerS : MonoBehaviour {
 		hex_dict.Add(Hex.Hills, hills_hex);
 		hex_dict.Add(Hex.Water, water_hex);
 		hex_dict.Add(Hex.Perimeter, border_hex);
+		
+		
 
 		if(!Load())
 			throw new MissingComponentException("Level file malformed! : (");
@@ -62,7 +71,7 @@ public class hexManagerS : MonoBehaviour {
 	
 	private bool Load(){	
 		
-		
+		/*
 		
 	//INITIALIZE FILE TO READ\
 		StreamReader reader;
@@ -192,6 +201,14 @@ public class hexManagerS : MonoBehaviour {
 		}
 		 
 		return true;
+		*/
+		
+		
+		x_max = 7;
+		z_max = 7;
+
+		return true;
+		
 	}
 	
 	public string getStringR(StreamReader reader)
@@ -261,8 +278,8 @@ public class hexManagerS : MonoBehaviour {
 	
 	//Get hex at given position in the map
 	public static HexData getHex(int x, int z){
-		
-		if(x < 0 || x > x_max || z < 0 || z > z_max || getHex(x, z).hex_type == Hex.Perimeter)
+
+		if(x < 0 || x > x_max || z < 0 || z > z_max)
 		{
 			throw new KeyNotFoundException("Accessing out of bounds!"); 
 		}

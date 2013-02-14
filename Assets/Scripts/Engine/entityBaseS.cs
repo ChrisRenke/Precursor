@@ -5,7 +5,7 @@ public class entityBaseS : Combatable {
 	
 	// Use this for initialization
 	void Start () {
-		x = 5;
+		x = 1;
 		z = 5;
 	}
 	

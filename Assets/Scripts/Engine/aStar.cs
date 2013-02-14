@@ -13,7 +13,7 @@ public class aStar {
 		HexData destination,
 		Func<HexData, HexData, double> distance,
 		Func<HexData, HexData, double> estimate,
-		Func<HexData, HexData[]> neighbours)
+		Func<HexData, HexData, List<HexData>> neighbours)
 		{
 			//set of already checked HexData
    	 		var closed = new HashSet<HexData>();
@@ -31,13 +31,13 @@ public class aStar {
             		continue;
 				//check to see if this element is our destination hex
         		if (path.LastStep.Equals(destination))
-           			return path; 
+           			return path;  //return full path to destination
 			
 				//if element isn't the destination hex and isn't in closed set, add it to closed set
         		closed.Add(path.LastStep);
         	
 				//Go through neighbors (adjacent hexes) of current element
-				foreach(HexData n in neighbours(path.LastStep))
+				foreach(HexData n in neighbours(path.LastStep, destination))
         		{
 					//compute distance between current element and it's neighbor
             		double d = distance(path.LastStep, n);
