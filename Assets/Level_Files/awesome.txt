@@ -295,7 +295,7 @@ LEVEL{
 		HEX{ 
 			X    = 1
 			Z    = 13
-			Type = Water
+			Type = Grass
 		}
 		HEX{ 
 			X    = 1
@@ -470,7 +470,7 @@ LEVEL{
 		HEX{ 
 			X    = -1
 			Z    = 13
-			Type = Water
+			Type = Grass
 		}
 		HEX{ 
 			X    = -1
@@ -1020,7 +1020,7 @@ LEVEL{
 		HEX{ 
 			X    = -2
 			Z    = 13
-			Type = Water
+			Type = Hills
 		}
 		HEX{ 
 			X    = -2
@@ -4925,7 +4925,7 @@ LEVEL{
 			Z          = 13
 			Type       = Node
 			Node       = Junkyard
-			Node Lvl   = Sparse
+			Node Lvl   = Full
 		}
 		ENTITY{ 
 			X          = 8

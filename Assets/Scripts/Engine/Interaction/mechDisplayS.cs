@@ -18,6 +18,8 @@ public class mechDisplayS : MonoBehaviour {
     private Vector2 offset;
 	
 	private entityMechS owner;
+	private int col_index=0;
+	private int row_index=0;
 	
 //	private bool draw_mode = false;
 	
@@ -50,7 +52,11 @@ public class mechDisplayS : MonoBehaviour {
 	//SetSpriteAnimation
 	void SetSpriteAnimation(int colCount ,int rowCount ,int rowNumber ,int colNumber,int totalCells){
 		
-		frame_index = direction_to_index[owner.facing_direction];
+		col_index = (int) owner.facing_direction;
+		row_index = owner.upgrade_traverse_water ? 1 : 0;
+		
+		frame_index = col_index + 6 * row_index;
+		
 	    // Size of every cell
 	    float sizeX = 1.0f / colCount;
 	    float sizeY = 1.0f / rowCount;

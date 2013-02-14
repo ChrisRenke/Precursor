@@ -56,9 +56,9 @@ public class editorIOS : MonoBehaviour {
 		
 		
 		int x_max = -99999, x_min = 99999, z_max = -99999, z_min = 99999, count = 0, border_count = 0;
-		foreach(KeyValuePair<int, Dictionary<int, editorHexManagerS.HexData>> entry in editorHexManagerS.hex_db)
+		foreach(KeyValuePair<int, Dictionary<int, editorHexManagerS.editorHexData>> entry in editorHexManagerS.hex_db)
 		{ 
-		    foreach(KeyValuePair<int, editorHexManagerS.HexData> entry_2 in entry.Value)
+		    foreach(KeyValuePair<int, editorHexManagerS.editorHexData> entry_2 in entry.Value)
 			{
 				if(entry_2.Value.x_coord < x_min)
 					x_min = entry_2.Value.x_coord;
@@ -96,9 +96,9 @@ public class editorIOS : MonoBehaviour {
         sb.AppendLine("\tBorder_Hexes = " + border_count);  
         sb.AppendLine("\tHEXES{");
 		
-		foreach(KeyValuePair<int, Dictionary<int, editorHexManagerS.HexData>> entry in editorHexManagerS.hex_db)
+		foreach(KeyValuePair<int, Dictionary<int, editorHexManagerS.editorHexData>> entry in editorHexManagerS.hex_db)
 		{
-		    foreach(KeyValuePair<int, editorHexManagerS.HexData> entry_2 in entry.Value)
+		    foreach(KeyValuePair<int, editorHexManagerS.editorHexData> entry_2 in entry.Value)
 			{
 				
         		sb.AppendLine("\t\tHEX{ " );
@@ -196,14 +196,14 @@ public class editorIOS : MonoBehaviour {
 		
 	//DELETE EXISTING DATA FROM EDITOR
 		//remove existing hexes
-		foreach(KeyValuePair<int, Dictionary<int, editorHexManagerS.HexData>> entry in editorHexManagerS.hex_db)
+		foreach(KeyValuePair<int, Dictionary<int, editorHexManagerS.editorHexData>> entry in editorHexManagerS.hex_db)
 		{ 
-		    foreach(KeyValuePair<int, editorHexManagerS.HexData> entry_2 in entry.Value)
+		    foreach(KeyValuePair<int, editorHexManagerS.editorHexData> entry_2 in entry.Value)
 			{
 				Destroy(entry_2.Value.occupier);
 			}
 		}
-		editorHexManagerS.hex_db = new Dictionary<int, Dictionary<int, editorHexManagerS.HexData>>();
+		editorHexManagerS.hex_db = new Dictionary<int, Dictionary<int, editorHexManagerS.editorHexData>>();
 		
 		//remove existing entities 
 		foreach(KeyValuePair<int, Dictionary<int, editorEntityManagerS.EntityData>> entry_1 in editorEntityManagerS.entity_db)

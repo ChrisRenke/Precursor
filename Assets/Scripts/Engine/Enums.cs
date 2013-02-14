@@ -8,7 +8,7 @@ public enum PlayerStates { Idle, Walking, Scavenging, Attacking, Upgrading };
 public enum Facing       { North, NorthEast, SouthEast, South, SouthWest, NorthWest };
 public enum NodeLevel    { Empty, Sparse, Full  };
 public enum Node         { Factory, Junkyard, Outpost}
-public enum Turn         { Player, Enemy, Base};
+public enum Turn         { Player, Enemy, Base };
 public enum SelectLevel  { Disabled, Easy, Medium, Hard, Scavenge, Attack, Upgrade }
 public enum Action       { Repair, UpgradeMech, UpgradeBase, Scavenge, Attack, Traverse, End }
 

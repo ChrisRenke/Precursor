@@ -95,7 +95,7 @@ public class hexManagerS : MonoBehaviour {
 	//Get hex at given position in the map
 	public static HexData getHex(int hex_x, int hex_z){
 		
-		if(hex_x < 0 || hex_x > x_max || hex_z < 0 || hex_z > z_max) //|| hexes[hex_x, hex_z].hex_type == Hex.Perimeter 
+		if(hex_x < 0 || hex_x > x_max || hex_z < 0 || hex_z > z_max)  
 			throw new KeyNotFoundException("Accessing out of bounds!");  
 		
 		return hexes[hex_x, hex_z];

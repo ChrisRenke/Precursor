@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -201,7 +202,7 @@ public class entityMechS : Combatable, IMove {
 			//increase random part count by two, twice
 			for(int i =0; i < 2; i++)
 			{
-				int ind =  Random.Range(0, 3);
+				int ind = UnityEngine.Random.Range(0, 3);
 				part_count[(Part) ind] += num_of_each_type;
 				entityManagerS.createPartEffect(x,z,(Part) ind);
 			}
@@ -264,6 +265,7 @@ public class entityMechS : Combatable, IMove {
 	public bool canTraverse (HexData hex){
 		return canTraverse(hex.x, hex.z);
 	}	
+	
 	public bool canTraverse (int hex_x, int hex_z)
 	{
 		HexData hex = hexManagerS.getHex(hex_x, hex_z);
