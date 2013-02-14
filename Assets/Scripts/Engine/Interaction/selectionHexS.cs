@@ -19,10 +19,12 @@ public class selectionHexS : Entity {
 	public SelectLevel select_level = SelectLevel.Easy;
 	public Facing      direction_from_center;
 	
-	public int movement_cost;
-	public Hex hex_type;
+	public  int movement_cost;
+	public  Hex hex_type;
 	private bool draw_mode = false;
+	public  EntityE occupier;
 	
+	private string display_text = "";
 	private entityMechS mech;
 	
 	void Awake()
@@ -61,6 +63,18 @@ public class selectionHexS : Entity {
 	{
 		mech.setFacingDirection(direction_from_center);
 //		entityMechS.a
+	}
+	
+	public void genTextString()
+	{
+		if(occupier == EntityE.None)
+		{
+			display_text = hex_type.ToString() + "\n" + "-" + movement_cost + " AP";
+		}
+		else
+		{
+			display_text = hex_type.ToString() + "\n" + occupier.ToString() + "\n-" + movement_cost + " AP";
+		}
 	}
 	
 	void OnMouseOver()
@@ -123,7 +137,7 @@ public class selectionHexS : Entity {
 		{
 			Vector3 spot_on_screen = Camera.main.WorldToScreenPoint (transform.position);
 			GUI.Label(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15, 200,30),
-				hex_type.ToString() + "\n" + "-" + movement_cost + " AP", 
+				display_text, 
 				enginePlayerS.hover_text);
 		}
 		 

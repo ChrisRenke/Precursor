@@ -5,34 +5,33 @@ using System.Collections.Generic;
 
 public class entityMechS : Combatable, IMove { 
 	 
-	public bool upgrade_traverse_water = false;
-	public bool upgrade_traverse_mountain = false;
-	public bool upgrade_traverse_cost = false; 
-	public int  traverse_upgrade_cost  = -1;
-	public int  traverse_standard_cost =  2;
-	public int  traverse_slow_cost     =  4;
-	public int  traverse_mountain_cost =  5;
-	public int  traverse_water_cost    =  5;
-	
-	public bool upgrade_weapon_range  = false;
-	public bool upgrade_weapon_damage = false;
-	public bool upgrade_weapon_cost   = false;
-	
-	public bool upgrade_armor_1 = false;
-	public bool upgrade_armor_2 = false;
-	public bool upgrade_armor_3 = false;
+	public bool upgrade_traverse_water		= false;
+	public bool upgrade_traverse_mountain 	= false;
+	public bool upgrade_traverse_cost 		= false; 
+	public int  traverse_upgrade_cost  		= -1;
+	public int  traverse_standard_cost 		=  2;
+	public int  traverse_slow_cost     		=  4;
+	public int  traverse_mountain_cost	 	=  5;
+	public int  traverse_water_cost    		=  5;
 		  
 	public int weapon_base_damage = 3;
 	public int weapon_base_range  = 1;
 	public int weapon_base_cost   = 4; 
-	
+	public bool upgrade_weapon_range  = false;
+	public bool upgrade_weapon_damage = false;
+	public bool upgrade_weapon_cost   = false;
 	public int weapon_upgrade_range  = 3;
 	public int weapon_upgrade_cost   = 3;
 	public int weapon_upgrade_damage = 5;
 	
+	public bool upgrade_armor_1 = false;
+	public bool upgrade_armor_2 = false;
+	public bool upgrade_armor_3 = false;
 	public int armor_upgrade_1 = 2;
 	public int armor_upgrade_2 = 3;
 	public int armor_upgrade_3 = 4;
+	
+	
 	
 	public int starting_hp_max = 30;
 	
@@ -97,21 +96,23 @@ public class entityMechS : Combatable, IMove {
 					hex_select.x = ath.x;
 					hex_select.z = ath.z;
 					
-					if(ath.hex_type == Hex.Forest || ath.hex_type == Hex.Hills || ath.hex_type == Hex.Marsh)
-					{
-						hex_select.select_level = SelectLevel.Medium;
-					}
-					else if(ath.hex_type == Hex.Mountain || ath.hex_type == Hex.Water)
-					{
-						hex_select.select_level = SelectLevel.Hard; 
-					}
-					else
+					if(ath.traversal_cost <= 2)
 					{
 						hex_select.select_level = SelectLevel.Easy; 
 					}
+					else if(ath.traversal_cost <= 4)
+					{
+						hex_select.select_level = SelectLevel.Medium;
+					}
+					else
+					{
+						hex_select.select_level = SelectLevel.Hard; 
+					}
 					
-					hex_select.hex_type     = ath.hex_type;
-					hex_select.movement_cost = getTraverseAPCost(ath.hex_type);
+					hex_select.occupier      = ath.added_occupier;
+					hex_select.hex_type      = ath.hex_type;
+					hex_select.movement_cost = ath.traversal_cost;
+					hex_select.genTextString();
 					
 				}
 				instantiated_selection_meshes_already = true;
@@ -145,8 +146,10 @@ public class entityMechS : Combatable, IMove {
 		//See which of the adjacent hexes are traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++)
 			if(canTraverse(adjacent_hexes[i]))
-				result_hexes.Add(adjacent_hexes[i]);
-			
+			{
+				adjacent_hexes[i].traversal_cost = getTraverseAPCost(adjacent_hexes[i].hex_type);
+				result_hexes.Add(entityManagerS.fillEntityData(adjacent_hexes[i]));
+			}
 		
 		Debug.Log(result_hexes.Count + " found adjacent goods");
 		return result_hexes;
@@ -190,6 +193,7 @@ public class entityMechS : Combatable, IMove {
 		
 		if(hex.hex_type == Hex.Mountain && !upgrade_traverse_mountain)
 				return false;
+		
 			
 		return true;
 	} 

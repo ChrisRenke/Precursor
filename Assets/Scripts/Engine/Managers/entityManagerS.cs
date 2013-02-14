@@ -75,6 +75,26 @@ public class entityManagerS : MonoBehaviour {
 		
 		return null;
 	}
+	
+	public static HexData fillEntityData(HexData hex){
+		
+		hex.added_occupier = EntityE.None;
+		
+		if(isEntityPos(hex, EntityE.Player))
+			hex.added_occupier = EntityE.Player;
+		
+		else if(isEntityPos(hex, EntityE.Base))
+			hex.added_occupier = EntityE.Base;
+		
+		else if(isEntityPos(hex, EntityE.Enemy))
+			hex.added_occupier = EntityE.Enemy;
+		
+		else 
+			foreach(entityNodeS node in resource_node_list)
+				if(hex.x == node.x && hex.z == node.z)
+					hex.added_occupier = node.node_type;
+		return hex;
+	}
 	  
 	public static bool isEntityPos(HexData hex, EntityE entity){
 		return isEntityPos(hex.x, hex.z, entity);
