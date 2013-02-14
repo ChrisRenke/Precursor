@@ -12,11 +12,6 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	public bool knows_mech_location;
 	public bool knows_base_location;
 	
-	//Test vars *****
-	bool enemy_turn = true;
-	int test = 0;
-	public Transform enemy_location; //hold enemy location
-	
 	// Use this for initialization
 	void Start () {
 		path_to_base = new List<HexData>();
@@ -26,25 +21,29 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	// Update is called once per frame
 	void Update () {
-		//TESTING
-		if(enemy_turn){
+		//TODO: UPDATE() not tested, contains some sudo code
+		
+		if(gameManagerS.current_turn == Turn.Enemy)
+		{
+			//get base position
+			entityBaseS base_s = entityManagerS.getBase();
 			
-			if(test == 0){
-				//send in mech pos and base pos
-				path_to_base = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(1,5));
-				print ("Size" + path_to_base.Count); //if size is 0 then no path found,if size is 1 then enemy is at base
-				test = 1;
-			}
+			//scan through list of enemies
+			foreach(entityEnemyS enemy in entityManagerS.getEnemies())
+			{
+				//find path from enemy to base
+				path_to_base = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), hexManagerS.getHex(base.x,base.z));
 			
-			//Check to see if player clicked a hex (left click)
-			if(Input.GetMouseButtonDown(0)){
-				if(test < path_to_base.Count + 1){
-					//TEST: print path 
-					print ("Pos: " + path_to_base[test - 1].x + " " + path_to_base[test - 1].z + " " +path_to_base[test - 1].hex_type);
-					makeMove(path_to_base[test - 1]);
-					test++;
-				}				
+				if(path_to_base.Count == 0){
+			 		//TODO: no path found to base, have player move randomly 
+				}else if(path_to_base.Count == 1 && path_to_base[0].x == enemy.x && path_to_base[0].z == enemy.z){
+					//TODO: player is at base, so attack
+				}else{ 
+					//move mech to next position
+					makeMove(path_to_base[0]);
+				}
 			}
+				
 		}
 	
 	}
@@ -108,11 +107,6 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		if(!canTraverse(hex))
 			throw new MissingComponentException("Can't move to this spot, invalid location!");
 		
-		//TESTING
-		//move player to new hex position
-		Vector3 temp = new Vector3(hex.x,enemy_location.position.y,hex.z);
-		enemy_location.position = temp;
-		
 		//TODO add visual engine.move hooks
 		
 		//update enemy hex tags
@@ -141,9 +135,11 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			
 			list.Reverse();	//path comes in backwards
 			
+			//if list size is 2, don't remove the enemies position from list
 			if(list.Count > 2){
-				list.RemoveAt(0);//first element is the current enemies position
+				list.RemoveAt(0); //first element is the current enemies position
 			}
+			
 			list.RemoveAt(list.Count - 1); //last element is the destination hex
 		}
 		return list;
