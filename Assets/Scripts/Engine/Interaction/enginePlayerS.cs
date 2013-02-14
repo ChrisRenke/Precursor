@@ -51,11 +51,7 @@ public class enginePlayerS : MonoBehaviour {
 		Vector3 screenTopRight = maincam.camera.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,0));
 		
 		Vector3 screenCenter = (screenBottomLeft + screenTopRight ) / 2;
-		
-		
-		
-		
-		 
+		  
 		if(( (Input.mousePosition.x > 30 &&  Input.mousePosition.x < 240 ) 
 					&&
 			 (Input.mousePosition.y < Screen.height - 30 &&  Input.mousePosition.y > Screen.height - 140 ))

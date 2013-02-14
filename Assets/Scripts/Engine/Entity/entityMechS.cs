@@ -95,21 +95,23 @@ public class entityMechS : Combatable, IMove {
 					hex_select.x = ath.x;
 					hex_select.z = ath.z;
 					
-					if(ath.hex_type == Hex.Forest || ath.hex_type == Hex.Hills || ath.hex_type == Hex.Marsh)
-					{
-						hex_select.select_level = SelectLevel.Medium;
-					}
-					else if(ath.hex_type == Hex.Mountain || ath.hex_type == Hex.Water)
-					{
-						hex_select.select_level = SelectLevel.Hard; 
-					}
-					else
+					if(ath.traversal_cost <= 2)
 					{
 						hex_select.select_level = SelectLevel.Easy; 
 					}
+					else if(ath.traversal_cost <= 4)
+					{
+						hex_select.select_level = SelectLevel.Medium;
+					}
+					else
+					{
+						hex_select.select_level = SelectLevel.Hard; 
+					}
 					
-					hex_select.hex_type     = ath.hex_type;
-					hex_select.movement_cost = getTraverseAPCost(ath.hex_type);
+					hex_select.occupier      = ath.added_occupier;
+					hex_select.hex_type      = ath.hex_type;
+					hex_select.movement_cost = ath.traversal_cost;
+					hex_select.genTextString();
 					
 				}
 				instantiated_selection_meshes_already = true;
@@ -143,8 +145,10 @@ public class entityMechS : Combatable, IMove {
 		//See which of the adjacent hexes are traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++)
 			if(canTraverse(adjacent_hexes[i]))
-				result_hexes.Add(adjacent_hexes[i]);
-			
+			{
+				adjacent_hexes[i].traversal_cost = getTraverseAPCost(adjacent_hexes[i].hex_type);
+				result_hexes.Add(entityManagerS.fillEntityData(adjacent_hexes[i]));
+			}
 		
 		Debug.Log(result_hexes.Count + " found adjacent goods");
 		return result_hexes;
@@ -187,6 +191,7 @@ public class entityMechS : Combatable, IMove {
 		
 		if(hex.hex_type == Hex.Mountain && !upgrade_traverse_mountain)
 				return false;
+		
 			
 		return true;
 	} 
