@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class editorHexManagerS : MonoBehaviour {
 	
-	public static Dictionary<int, Dictionary<int, editorHexManagerS.HexData>> hex_db = new Dictionary<int, Dictionary<int, editorHexManagerS.HexData>>();
+	public static Dictionary<int, Dictionary<int, editorHexManagerS.editorHexData>> hex_db = new Dictionary<int, Dictionary<int, editorHexManagerS.editorHexData>>();
 	 
 	public bool 		debug_prints = true;
 		 
@@ -44,10 +44,9 @@ public class editorHexManagerS : MonoBehaviour {
 		tooltip = GameObject.FindGameObjectWithTag("player_manager").GetComponent<editorUserS>().getTooltip();
 		BrushHex(true, Hex.Perimeter, 1, new Vector3(0, 0, 0), Hex.Grass, 0, 0); 
 		
-//		BrushHex(true, Hex.Perimeter, 1, editorUserS.CoordsGameTo3D(2, 2), initial_hex.GetComponent<editorHexS>().hex_type, 2,2); 
-//		BrushHex(true, Hex.Perimeter, 1, editorUserS.CoordsGameTo3D(-1, 2), initial_hex.GetComponent<editorHexS>().hex_type, -1, 2); 
-//		BrushHex(true, Hex.Perimeter, 1, editorUserS.CoordsGameTo3D(3, -1), initial_hex.GetComponent<editorHexS>().hex_type, 3, -1); 
-		
+		//auto load the most recently edited map, off for now
+//		editorIOS.Load();
+		 
 		
 	}
 	
@@ -284,7 +283,7 @@ public class editorHexManagerS : MonoBehaviour {
 			//now delete what is already there
 			Destroy(hex_db[x][z].occupier);
 			
-			hex_db[x][z]= new HexData(created_hex_script.name, created_hex, draw_hex_type, x, z);
+			hex_db[x][z]= new editorHexData(created_hex_script.name, created_hex, draw_hex_type, x, z);
 			
 			debug("    created new hex at " + x + "," + z + "by altering existing");
 			return created_hex;
@@ -301,12 +300,12 @@ public class editorHexManagerS : MonoBehaviour {
 			created_hex = InstantiateHex(pos, draw_hex_type, x, z);
 			created_hex_script = created_hex.GetComponent<editorHexS>();
 			
-			HexData db_entry   = new HexData(created_hex_script.name, created_hex, draw_hex_type, x, z);
+			editorHexData db_entry   = new editorHexData(created_hex_script.name, created_hex, draw_hex_type, x, z);
 			
 			//if the x coord does NOT already exists
 			if(!hex_db.ContainsKey(x))
 			{ 
-				hex_db.Add(x, new Dictionary<int, HexData>());
+				hex_db.Add(x, new Dictionary<int, editorHexData>());
 			}
 			
 			//add the entry to the corresponding z dict 
@@ -361,7 +360,7 @@ public class editorHexManagerS : MonoBehaviour {
 //						
 //						//now delete what is already there
 //						Destroy(hex_db[x][z].getOccupier());
-//						hex_db[x][z]= new HexData(created_hex_script.name, created_hex, data_type, x, z);
+//						hex_db[x][z]= new editorHexData(created_hex_script.name, created_hex, data_type, x, z);
 //						
 //						if(data_type != Hex.Perimeter && depth == 0)
 //						{
@@ -407,7 +406,7 @@ public class editorHexManagerS : MonoBehaviour {
 //				created_hex = InstantiateHex(hex_type, pos, data_type, x, z);
 //				created_hex_script = created_hex.GetComponent<editorHexS>();
 //				
-//				hex_db[x].Add(z, new HexData(created_hex_script.name, created_hex, data_type, x, z)); 
+//				hex_db[x].Add(z, new editorHexData(created_hex_script.name, created_hex, data_type, x, z)); 
 //				
 //				if(data_type != Hex.Perimeter && depth == 0)
 //				{
@@ -430,8 +429,8 @@ public class editorHexManagerS : MonoBehaviour {
 //			created_hex = InstantiateHex(hex_type, pos, data_type, x, z);
 //			created_hex_script = created_hex.GetComponent<editorHexS>();
 //			
-//			hex_db.Add(x, new Dictionary<int, HexData>());
-//			hex_db[x].Add(z, new HexData(created_hex_script.name, created_hex, data_type,x, z)); 
+//			hex_db.Add(x, new Dictionary<int, editorHexData>());
+//			hex_db[x].Add(z, new editorHexData(created_hex_script.name, created_hex, data_type,x, z)); 
 //			
 //			if(data_type != Hex.Perimeter && depth == 0)
 //			{
@@ -495,7 +494,7 @@ public class editorHexManagerS : MonoBehaviour {
 //		
 //	}
 	
-	public class HexData {
+	public class editorHexData {
 		
 		public string tile_name;
 		public int x_coord;
@@ -504,7 +503,7 @@ public class editorHexManagerS : MonoBehaviour {
 		public string[] contents;
 		public GameObject occupier;
 		
-		public HexData(string _tile_name,
+		public editorHexData(string _tile_name,
 						GameObject _occupier,
 						Hex    _hex_type,
 						int    _x_coord,
