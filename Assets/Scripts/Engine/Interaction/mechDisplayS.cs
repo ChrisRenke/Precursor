@@ -55,7 +55,9 @@ public class mechDisplayS : MonoBehaviour {
 		col_index = (int) owner.facing_direction;
 		row_index = owner.upgrade_traverse_water ? 1 : 0;
 		
+		
 		frame_index = col_index + 6 * row_index;
+		frame_index +=  owner.upgrade_traverse_water ? 2 : 0;
 		
 	    // Size of every cell
 	    float sizeX = 1.0f / colCount;

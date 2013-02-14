@@ -112,10 +112,10 @@ public class engineIOS : MonoBehaviour {
 			if(pos.z < enginePlayerS.camera_min_z_pos)
 				enginePlayerS.camera_min_z_pos = pos.z;
 			
-			GameObject new_hex = (GameObject) Instantiate(hexManagerS.hex_dict[hex_type], pos, Quaternion.identity);
-			engineHexS new_hex_script = (engineHexS) new_hex.AddComponent("engineHexS"); 
-			 
+			GameObject new_hex = (GameObject) Instantiate(hexManagerS.hex_display, pos, Quaternion.identity);
+			engineHexS new_hex_script = (engineHexS) new_hex.GetComponent("engineHexS"); 
 			new_hex_script.buildHexData(x, z, hex_type);
+			new_hex_script.SetVisiual();
 			
 			if(!getCBR(level_lines[index++]))
 			{

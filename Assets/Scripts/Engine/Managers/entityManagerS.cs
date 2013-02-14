@@ -193,7 +193,7 @@ public class entityManagerS : MonoBehaviour {
 	//instantiate an object into the gamespace
 	private static GameObject instantiateEntityNode(int x, int z, Node node_type)
 	{
-		return (GameObject) Instantiate(node_dict[node_type], CoordsGameTo3DEntiy(x, z), Quaternion.identity);
+		return (GameObject) Instantiate(node_dict[node_type], CoordsGameTo3DEntiy(x, z) - new Vector3(0, .5F, 0), Quaternion.identity);
 	}
 	
 	

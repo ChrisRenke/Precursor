@@ -266,6 +266,40 @@ public class enginePlayerS : MonoBehaviour {
         GUI.Label(new Rect(gui_spacing * 3 + 2 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Plate].ToString(),  gui_norm_text);
         GUI.Label(new Rect(gui_spacing * 4 + 3 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Strut].ToString(),  gui_norm_text);
     
+		if(GUI.Button(new Rect(gui_spacing, gui_spacing, 180, 40), "Upgrade Aquatic Fins"))
+		{
+			if(!mech.upgrade_traverse_water) 
+			{
+				mech.upgrade_traverse_water = true;
+				mech.destroySelectionHexes();
+				mech.allowSelectionHexesDraw();
+			}
+		}
+		
+		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing , gui_spacing, 180, 40), "Upgrade Climbing Hooks"))
+		{
+			if(!mech.upgrade_traverse_mountain) 
+			{
+				mech.upgrade_traverse_mountain = true;
+				mech.destroySelectionHexes();
+				mech.allowSelectionHexesDraw();
+			}
+		}
+		
+		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing + 180 + gui_spacing, gui_spacing, 180, 40), "Upgrade Leg Speed"))
+		{
+			if(!mech.upgrade_traverse_cost) 
+			{
+				mech.upgrade_traverse_cost = true;
+				mech.destroySelectionHexes();
+				mech.allowSelectionHexesDraw();
+			}
+		}
+		
+		if(GUI.Button(new Rect(gui_spacing, gui_spacing + 40  + gui_spacing , 180, 40), "End Turn"))
+		{
+			mech.current_ap = 0;
+		}
 		
 		
 		

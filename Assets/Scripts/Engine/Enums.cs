@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public enum Part	     { Gear, Piston, Strut, Plate };
-public enum Hex  	     { Grass, Desert, Forest, Farmland, Marsh, Snow, Mountain, Hills, Water, Perimeter };
+public enum Hex  	     { Desert, Farmland, Forest, Grass, Hills, Marsh, Mountain, Water, Perimeter };
 public enum EntityE      { None, Player, Base, Enemy, Node, NotCheckedYet };
 public enum PlayerStates { Idle, Walking, Scavenging, Attacking, Upgrading };
 public enum Facing       { North, NorthEast, SouthEast, South, SouthWest, NorthWest };

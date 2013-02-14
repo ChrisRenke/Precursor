@@ -19,37 +19,18 @@ public class hexManagerS : MonoBehaviour {
 	public static string        level_name;
 	public static HexData[,] 	hexes; 
 	public static int 			x_max, z_max = 0; //size of hex array, used for out of bounds checking
-	public static Dictionary<Hex, GameObject>  hex_dict    = new Dictionary<Hex, GameObject>();
 	
+	  
+	public 		   GameObject  	hex_display_init;
 	
-	public   GameObject  	grass_hex;
-	public   GameObject  	desert_hex;
-	public   GameObject  	forest_hex;
-	public   GameObject  	farmland_hex;
-	public   GameObject  	marsh_hex; 
-	public   GameObject  	mountain_hex;
-	public   GameObject  	hills_hex;
-	public   GameObject  	water_hex;  
-	public   GameObject  	border_hex;  
-	
+	public  static GameObject  	hex_display;
 	 
-	
 	
 
 	void Awake(){
 		
-		hex_dict.Add(Hex.Grass, grass_hex);
-		hex_dict.Add(Hex.Desert, desert_hex);
-		hex_dict.Add(Hex.Forest, forest_hex);
-		hex_dict.Add(Hex.Farmland, farmland_hex);
-		hex_dict.Add(Hex.Marsh, marsh_hex); 
-		hex_dict.Add(Hex.Mountain, mountain_hex);
-		hex_dict.Add(Hex.Hills, hills_hex);
-		hex_dict.Add(Hex.Water, water_hex);
-		hex_dict.Add(Hex.Perimeter, border_hex);
-		
-//		if(!engineIOS.LoadFromTextAsset())
-//		entityManagerS ems = GameObject.FindGameObjectWithTag("entity_manager").GetComponent<entityManagerS>();
+		 hex_display = hex_display_init;
+		 
 		engineIOS ios      = GameObject.FindGameObjectWithTag("io_manager").GetComponent<engineIOS>();
 		if(!ios.LoadFromTextAsset())
 		{
@@ -110,7 +91,7 @@ public class hexManagerS : MonoBehaviour {
 	
 	private GameObject InstantiateHex(int x, int z)
 	{ 
-		GameObject new_hex = (GameObject) Instantiate(hex_dict[hexes[x, z].hex_type], CoordsGameTo3D(x, z), Quaternion.identity);
+		GameObject new_hex = (GameObject) Instantiate(hexManagerS.hex_display, CoordsGameTo3D(x, z), Quaternion.identity);
 		editorHexS new_hex_script = new_hex.GetComponent<editorHexS>();
 		 
 		return new_hex;

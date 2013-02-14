@@ -4901,6 +4901,13 @@ LEVEL{
 			HP Perc    = 100
 		}
 		ENTITY{ 
+			X          = 2
+			Z          = 4
+			Type       = Node
+			Node       = Junkyard
+			Node Lvl   = Full
+		}
+		ENTITY{ 
 			X          = 0
 			Z          = 2
 			Type       = Base
@@ -4923,6 +4930,27 @@ LEVEL{
 		ENTITY{ 
 			X          = -3
 			Z          = 13
+			Type       = Node
+			Node       = Junkyard
+			Node Lvl   = Full
+		}
+		ENTITY{ 
+			X          = 5
+			Z          = 10
+			Type       = Node
+			Node       = Outpost
+			Node Lvl   = Full
+		}
+		ENTITY{ 
+			X          = 9
+			Z          = -3
+			Type       = Node
+			Node       = Factory
+			Node Lvl   = Full
+		}
+		ENTITY{ 
+			X          = -3
+			Z          = 0
 			Type       = Node
 			Node       = Junkyard
 			Node Lvl   = Full
