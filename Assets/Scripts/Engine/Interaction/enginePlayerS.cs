@@ -1,13 +1,14 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class enginePlayerS : MonoBehaviour {
 	
 	public int 									maxZoom 	= 2;
 	public int 									minZoom 	= 25;
-	
-	public GUIStyle								tooltip;
+	 
 	public static GUIStyle						hover_text;
+	public GUIStyle								selection_hover;
 	
 	
 	
@@ -31,13 +32,29 @@ public class enginePlayerS : MonoBehaviour {
 	public Texture part_strut;
 	public Texture part_gear;
 	
+	public Texture icon_traverse;
+	public Texture icon_repair;
+	public Texture icon_scavenge;
+	public Texture icon_attack;
+	public Texture icon_upgrade;
+	public Texture icon_end;
+	
+	public static Dictionary<Action, Texture> action_images;
 	 
 	
 	// Use this for initialization
 	void Awake () {  
+		maincam 		= GameObject.FindGameObjectWithTag("MainCamera");
+		hover_text 		= selection_hover;
+		action_images = new Dictionary<Action, Texture>();
+		action_images.Add(Action.Repair, icon_repair);
+		action_images.Add(Action.Traverse, icon_traverse);
+		action_images.Add(Action.Scavenge, icon_scavenge);
+		action_images.Add(Action.Attack, icon_attack);
+		action_images.Add(Action.UpgradeBase, icon_upgrade);
+		action_images.Add(Action.UpgradeMech, icon_upgrade);
+		action_images.Add(Action.End, icon_end);
 		
-		maincam = GameObject.FindGameObjectWithTag("MainCamera");
-		hover_text = tooltip;
 	}
 	
 	public static void setMech()
@@ -244,7 +261,7 @@ public class enginePlayerS : MonoBehaviour {
         GUI.DrawTexture(new Rect(gui_spacing * 3 + 2 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_plate, ScaleMode.ScaleToFit, true);
         GUI.DrawTexture(new Rect(gui_spacing * 4 + 3 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_strut, ScaleMode.ScaleToFit, true);
 		
-        GUI.Label(new Rect(gui_spacing * 1 + 0 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Cog].ToString(),    gui_norm_text);
+        GUI.Label(new Rect(gui_spacing * 1 + 0 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Gear].ToString(),    gui_norm_text);
         GUI.Label(new Rect(gui_spacing * 2 + 1 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Piston].ToString(), gui_norm_text);
         GUI.Label(new Rect(gui_spacing * 3 + 2 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Plate].ToString(),  gui_norm_text);
         GUI.Label(new Rect(gui_spacing * 4 + 3 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Strut].ToString(),  gui_norm_text);

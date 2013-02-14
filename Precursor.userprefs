@@ -1,6 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Engine/Interaction/mechDisplayS.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Engine/Entity/entityMechS.cs" Line="135" Column="41" />
+      <File FileName="Assets/Scripts/Engine/Enums.cs" Line="4" Column="29" />
+      <File FileName="Assets/Scripts/Engine/Interaction/enginePlayerS.cs" Line="65" Column="19" />
+      <File FileName="Assets/Scripts/Engine/Entity/entityS.cs" Line="108" Column="5" />
+      <File FileName="Assets/Scripts/Engine/Managers/entityManagerS.cs" Line="120" Column="40" />
+      <File FileName="Assets/Scripts/Engine/Interaction/selectionHexS.cs" Line="139" Column="3" />
+      <File FileName="Assets/Scripts/Engine/Entity/entityNodeS.cs" Line="11" Column="29" />
+      <File FileName="Assets/Scripts/Engine/Interaction/mechDisplayS.cs" Line="53" Column="1" />
+      <File FileName="Assets/Level_Files/awesome.txt" Line="823" Column="16" />
+      <File FileName="Assets/Scripts/Engine/Managers/engineIOS.cs" Line="141" Column="6" />
+      <File FileName="Assets/Scripts/MapEditor/editorEntityManagerS.cs" Line="252" Column="59" />
+      <File FileName="Assets/Scripts/MapEditor/editorIOS.cs" Line="235" Column="1" />
+      <File FileName="Assets/Scripts/MapEditor/editorEntityS.cs" Line="23" Column="32" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
@@ -13,10 +28,10 @@
               <Node name="Scripts" expanded="True">
                 <Node name="Engine" expanded="True">
                   <Node name="Entity" expanded="True" />
-                  <Node name="Interaction" expanded="True" />
-                  <Node name="Managers" expanded="True">
-                    <Node name="entityManagerS.cs" selected="True" />
+                  <Node name="Interaction" expanded="True">
+                    <Node name="mechDisplayS.cs" selected="True" />
                   </Node>
+                  <Node name="Managers" expanded="True" />
                 </Node>
                 <Node name="MapEditor" expanded="True" />
               </Node>

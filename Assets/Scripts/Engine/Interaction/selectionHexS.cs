@@ -11,7 +11,7 @@ public class selectionHexS : Entity {
 	public int colNumber   = 0; //Zero Indexed
 	public int totalCells  = 8;
 	
-	public int frame_index = 0;
+	public int frame_index = 1;
 	
   	//Maybe this should be a private var
     private Vector2 offset;
@@ -19,12 +19,13 @@ public class selectionHexS : Entity {
 	public SelectLevel select_level = SelectLevel.Easy;
 	public Facing      direction_from_center;
 	
-	public  int movement_cost;
+	public  int action_cost;
 	public  Hex hex_type;
 	private bool draw_mode = false;
 	public  EntityE occupier;
+	public  NodeData node_data;
 	
-	private string display_text = "";
+	private string display_text = "blank";
 	private entityMechS mech;
 	
 	void Awake()
@@ -67,13 +68,20 @@ public class selectionHexS : Entity {
 	
 	public void genTextString()
 	{
-		if(occupier == EntityE.None)
+		if(select_level == SelectLevel.Scavenge)
 		{
-			display_text = hex_type.ToString() + "\n" + "-" + movement_cost + " AP";
+			display_text = node_data.node_level.ToString() + " " + node_data.node_type.ToString() + "\nScavenge Parts\n-" + action_cost + " AP";
 		}
 		else
 		{
-			display_text = hex_type.ToString() + "\n" + occupier.ToString() + "\n-" + movement_cost + " AP";
+			if(occupier == EntityE.None)
+			{
+				display_text = hex_type.ToString() + "\n" + "-" + action_cost + " AP";
+			}
+			else if((occupier == EntityE.Node))
+			{
+				display_text = hex_type.ToString() + "\n"  + node_data.node_level.ToString() + " " + node_data.node_type.ToString() + "\n-" + action_cost + " AP";
+			}
 		}
 	}
 	
@@ -85,16 +93,19 @@ public class selectionHexS : Entity {
 			switch(select_level)
 			{
 				case SelectLevel.Disabled:
-					frame_index = 7;
+					frame_index = 12;
 					break;
 				case SelectLevel.Easy:
-					frame_index = 4;
+					frame_index = 8;
 					break;
 				case SelectLevel.Medium:
-					frame_index = 5;
+					frame_index = 9;
 					break;
 				case SelectLevel.Hard:
-					frame_index = 6;
+					frame_index = 10;
+					break;
+				case SelectLevel.Scavenge:
+					frame_index = 11;
 					break;
 			}
 			Debug.Log("Hex selected");
@@ -104,16 +115,19 @@ public class selectionHexS : Entity {
 			switch(select_level)
 			{
 				case SelectLevel.Disabled:
-					frame_index = 5;
+					frame_index = 12;
 					break;
 				case SelectLevel.Easy:
-					frame_index = 1;
+					frame_index = 3;
 					break;
 				case SelectLevel.Medium:
-					frame_index = 2;
+					frame_index = 4;
 					break;
 				case SelectLevel.Hard:
-					frame_index = 3;
+					frame_index = 5;
+					break;
+				case SelectLevel.Scavenge:
+					frame_index = 6;
 					break;
 			}
 		}
@@ -123,11 +137,16 @@ public class selectionHexS : Entity {
 	
 	void OnMouseUpAsButton()
 	{
-		mech.setLocation(x, z);	
+		if(select_level == SelectLevel.Scavenge)
+		{
+			mech.scavengeParts(node_data.node_type, node_data.node_level, node_data.x, node_data.z);
+		}
+		else
+		{
+			mech.moveToHex(x, z, action_cost, occupier);
+		}
+		
 		mech.destroySelectionHexes();
-		mech.moveInWorld(x, z, 6F);
-//		mech.MoveThisObject(entityManagerS.CoordsGameTo3DEntiy(x, z), 3F);
-//		mech.allowSelectionHexesDraw();
 	}
 	
 		
@@ -136,6 +155,7 @@ public class selectionHexS : Entity {
 		if(draw_mode)
 		{
 			Vector3 spot_on_screen = Camera.main.WorldToScreenPoint (transform.position);
+//			GUI.DrawTexture(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15, 200,30), 
 			GUI.Label(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15, 200,30),
 				display_text, 
 				enginePlayerS.hover_text);
@@ -145,17 +165,15 @@ public class selectionHexS : Entity {
 	void OnMouseExit()
 	{
 		if(select_level == SelectLevel.Disabled)
-			frame_index = 7;		
-		else
-			frame_index = 0;
+			frame_index = 12;		
+		else if(select_level == SelectLevel.Attack)
+			frame_index = 0;	
+		else 
+			frame_index = 1;
 		
 		draw_mode = false;
 	}
 	
-	
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
+	 
 }
+	

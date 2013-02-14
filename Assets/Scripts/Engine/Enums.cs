@@ -1,14 +1,16 @@
 using UnityEngine;
 using System.Collections;
 
-public enum Part	     { Cog, Piston, Strut, Plate };
+public enum Part	     { Gear, Piston, Strut, Plate };
 public enum Hex  	     { Grass, Desert, Forest, Farmland, Marsh, Snow, Mountain, Hills, Water, Perimeter };
-public enum EntityE      { Player, Base, Enemy, Junkyard, Outpost, Factory, None, NotCheckedYet };
+public enum EntityE      { None, Player, Base, Enemy, Node, NotCheckedYet };
 public enum PlayerStates { Idle, Walking, Scavenging, Attacking, Upgrading };
 public enum Facing       { North, NorthEast, SouthEast, South, SouthWest, NorthWest };
-public enum NodeLevel    { Full, Sparse, Empty };
+public enum NodeLevel    { Empty, Sparse, Full  };
+public enum Node         { Factory, Junkyard, Outpost}
 public enum Turn         { Player, Enemy, Base};
-public enum SelectLevel  { Disabled, Easy, Medium, Hard }
+public enum SelectLevel  { Disabled, Easy, Medium, Hard, Scavenge, Attack, Upgrade }
+public enum Action       { Repair, UpgradeMech, UpgradeBase, Scavenge, Attack, Traverse, End }
 
 
 public struct HexData{ 
@@ -18,6 +20,8 @@ public struct HexData{
 	public readonly Hex 	hex_type; //enviroment type of this hex
 	public Facing   direction_from_central_hex;
 	public EntityE  added_occupier;
+	
+	
 	public int      traversal_cost;
 	public HexData(int _x, int _z, Hex _type){
 		x = _x;
@@ -28,3 +32,26 @@ public struct HexData{
 		traversal_cost = -1;
 	}
 } 
+
+public struct NodeData{
+	
+	public readonly int 	x;   	  //level x coord (NE / SW)
+	public readonly int 	z;  	  //level z coord  (N / S) 
+	public readonly Node     node_type;
+	public readonly NodeLevel node_level;
+	
+	public NodeData(int _x, int _z, Node _type, NodeLevel _lvl){
+		x = _x;
+		z = _z; 
+		node_type = _type;
+		node_level = _lvl;
+	}
+}
+//
+//public struct EntityData{
+//	public readonly int 	x;   	  //level x coord (NE / SW)
+//	public readonly int 	z;  	  //level z coord  (N / S)
+//	public readonly EntityE	entity_type; //entity type of this hex
+//	
+//	
+//}

@@ -169,12 +169,11 @@ public class engineIOS : MonoBehaviour {
 						throw new System.Exception("Issue adding enemy!");
 					break;
 				
-				case EntityE.Factory:
-				case EntityE.Junkyard:
-				case EntityE.Outpost:
+				case EntityE.Node: 
 					print("node case");
+					Node node_type                = getNodeR(level_lines[index++]);
 					NodeLevel node_starting_level = getNodeLevelR(level_lines[index++]);
-					entityManagerS.instantiateResourceNode(x, z, ent_type, node_starting_level);
+					entityManagerS.instantiateResourceNode(x, z, node_type, node_starting_level);
 					break;
 			}
 			  
@@ -242,6 +241,10 @@ public class engineIOS : MonoBehaviour {
 	private static NodeLevel getNodeLevelR(String reader) //close bracket Reader
 	{  
           return (NodeLevel) Enum.Parse(typeof(NodeLevel), getStringR(reader));
+	} 
+	private static Node getNodeR(String reader) //close bracket Reader
+	{  
+          return (Node) Enum.Parse(typeof(Node), getStringR(reader));
 	} 
 	
 

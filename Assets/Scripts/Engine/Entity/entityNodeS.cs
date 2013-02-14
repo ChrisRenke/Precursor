@@ -3,11 +3,13 @@ using System.Collections;
 
 public class entityNodeS : Entity {
 	
-	public EntityE   node_type;
+	public readonly EntityE   entity_type = EntityE.Node;
+	public Node   node_type;
 	public NodeLevel node_level;
 	
-	// Use this for initialization
-	void Start () {
 	
-	} 
+	public NodeData getNodeData()
+	{
+		return  new NodeData(x, z, node_type, node_level);
+	}
 }

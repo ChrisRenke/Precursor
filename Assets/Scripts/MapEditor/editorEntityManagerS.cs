@@ -18,6 +18,7 @@ public class editorEntityManagerS : MonoBehaviour {
 	public GameObject  	base_entity; 
 	
 	public static Dictionary<EntityE, GameObject> entity_dict = new Dictionary<EntityE, GameObject>();
+	public static Dictionary<Node, GameObject> node_dict	  = new Dictionary<Node, GameObject>();
 	
 	
 	
@@ -47,10 +48,12 @@ public class editorEntityManagerS : MonoBehaviour {
 	void Start () { 
 		entity_dict.Add(EntityE.Player, player_entity);
 		entity_dict.Add(EntityE.Enemy, enemy_entity);
-		entity_dict.Add(EntityE.Outpost, outpost_entity);
-		entity_dict.Add(EntityE.Junkyard, junkyard_entity); 
-		entity_dict.Add(EntityE.Factory, factory_entity); 
 		entity_dict.Add(EntityE.Base, base_entity); 
+		
+		node_dict.Add(Node.Outpost, outpost_entity);
+		node_dict.Add(Node.Junkyard, junkyard_entity); 
+		node_dict.Add(Node.Factory, factory_entity); 
+		
 		enemy_knows_mech_loc_str = enemy_knows_mech_loc_str_f;
 		enemy_knows_base_loc_str = enemy_knows_base_loc_str_f;
 	}
@@ -113,9 +116,7 @@ public class editorEntityManagerS : MonoBehaviour {
 		{
 			ent_s.mech_starting_health_percentage = mech_starting_health_percentage;
 		}
-		else if(ent_s.entity_type == EntityE.Factory ||
-				ent_s.entity_type == EntityE.Junkyard ||
-				ent_s.entity_type == EntityE.Outpost)
+		else if(ent_s.entity_type == EntityE.Node)
 		{
 			ent_s.node_starting_level = node_starting_level;
 		}
@@ -248,9 +249,7 @@ public class editorEntityManagerS : MonoBehaviour {
 			}
 			else
 			//draw node config options
-			if(editorUserS.last_created_entity_type == EntityE.Factory ||
-				editorUserS.last_created_entity_type == EntityE.Junkyard ||
-				editorUserS.last_created_entity_type == EntityE.Outpost)
+			if(editorUserS.last_created_entity_type == EntityE.Node)
 			{
 				node_starting_level = (int)GUI.HorizontalSlider(new Rect( 30, 70, 210, 30), node_starting_level, (float) 0, (float) 2);	
 				if(node_starting_level == 0)

@@ -20,6 +20,7 @@ public class editorEntityS : MonoBehaviour {
 	public int     	   	base_starting_health_percentage = 100;
 	
 	//node stuff
+	public Node         node_type;
 	public int     	   	node_starting_level = 2;  //0 empty, 1 sparse, 2 full
 		
 	//enemy stuff

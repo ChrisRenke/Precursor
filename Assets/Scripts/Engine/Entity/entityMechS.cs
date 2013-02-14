@@ -12,6 +12,12 @@ public class entityMechS : Combatable, IMove {
 	public int  traverse_slow_cost     		=  4;
 	public int  traverse_mountain_cost	 	=  5;
 	public int  traverse_water_cost    		=  5;
+	
+	public int scavenge_base_cost           =  3;
+	
+	public int repair_base_cost             =  1;
+	
+	public int upgrade_base_cost            =  1;
 		  
 	public int weapon_base_damage = 3;
 	public int weapon_base_range  = 1;
@@ -34,8 +40,8 @@ public class entityMechS : Combatable, IMove {
 	
 	public int starting_hp_max = 30;
 	
-	public int starting_ap = 18;
-	public int starting_ap_max = 18;
+	public int starting_ap = 180;
+	public int starting_ap_max = 180;
 	
 	public static bool instantiated_selection_meshes_already = false;
 	public static List<GameObject> selection_hexes;
@@ -43,12 +49,11 @@ public class entityMechS : Combatable, IMove {
 	public static Dictionary<Part, int> part_count;
 	
 	
-	
 	void Awake()
 	{
 		selection_hexes = new List<GameObject>();
 		part_count = new Dictionary<Part, int>();
-		part_count.Add(Part.Cog, 0);
+		part_count.Add(Part.Gear, 0);
 		part_count.Add(Part.Plate, 0);
 		part_count.Add(Part.Piston, 0);
 		part_count.Add(Part.Strut, 0);
@@ -109,9 +114,39 @@ public class entityMechS : Combatable, IMove {
 					}
 					
 					hex_select.occupier      = ath.added_occupier;
+					if( ath.added_occupier == EntityE.Node)
+					{
+						hex_select.node_data = entityManagerS.getNodeInfoAt(ath.x, ath.z);
+					}
 					hex_select.hex_type      = ath.hex_type;
-					hex_select.movement_cost = ath.traversal_cost;
+					hex_select.action_cost = ath.traversal_cost;
 					hex_select.genTextString();
+					
+				}
+				
+			
+				
+				//if we're on a resource node and we have enough ap to scavenge, then build a seclection hex for right here
+				if(entityManagerS.isEntityPos(x, z, EntityE.Node) && current_ap >= scavenge_base_cost)
+				{
+					NodeData nd = entityManagerS.getNodeInfoAt(x, z);
+					
+					//if the node isn't already empty
+					if(nd.node_level != NodeLevel.Empty)
+					{
+						selection_hexes.Add(InstantiateSelectionHex(x, z));
+						selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
+						
+						hex_select.x = x;
+						hex_select.z = z;
+						hex_select.direction_from_center = Facing.NorthWest;
+						hex_select.occupier      = EntityE.Node;
+						hex_select.hex_type      = hexManagerS.getHex(x, z).hex_type;
+						hex_select.action_cost   = scavenge_base_cost;
+						hex_select.select_level  = SelectLevel.Scavenge;
+						hex_select.node_data     = nd;
+						hex_select.genTextString();
+					}
 					
 				}
 				instantiated_selection_meshes_already = true;
@@ -133,6 +168,60 @@ public class entityMechS : Combatable, IMove {
 				
 		}
 	}
+	
+	public bool scavengeParts(Node node_type, NodeLevel resource_level, int x, int z)
+	{
+		
+		if(scavenge_base_cost > current_ap)
+			throw new System.Exception("Don't have enough AP to scavenge, why is this being offered????");
+		
+		if(resource_level == NodeLevel.Empty)
+			return false;
+		
+		int num_of_each_type = (int) resource_level;
+		
+		if(node_type == Node.Factory)
+		{
+			part_count[Part.Piston] += num_of_each_type;
+			entityManagerS.createPartEffect(x,z,Part.Piston);
+			part_count[Part.Gear] += num_of_each_type;
+			entityManagerS.createPartEffect(x,z,Part.Gear);
+			
+		}
+		else if(node_type == Node.Outpost)
+		{
+			part_count[Part.Strut] += num_of_each_type;
+			entityManagerS.createPartEffect(x,z,Part.Strut);
+			
+			part_count[Part.Plate] += num_of_each_type;
+			entityManagerS.createPartEffect(x,z,Part.Plate);
+		}
+		else
+		{
+			//increase random part count by two, twice
+			for(int i =0; i < 2; i++)
+			{
+				int ind =  Random.Range(0, 3);
+				part_count[(Part) ind] += num_of_each_type;
+				entityManagerS.createPartEffect(x,z,(Part) ind);
+			}
+		}
+		
+		current_ap -= scavenge_base_cost;
+		
+		allowSelectionHexesDraw();
+		
+		entityManagerS.updateNodeLevel(x, z, resource_level);
+		return true;
+	}
+	
+	
+	public void moveToHex(int x, int z, int movement_fee, EntityE _standing_on_top_of_entity)
+	{
+		current_ap -= movement_fee; 
+		setLocation(x, z);	
+		moveInWorld(x, z, 6F);
+	}
 
 	public List<HexData> getAdjacentTraversableHexes ()
 	{ 
@@ -147,7 +236,9 @@ public class entityMechS : Combatable, IMove {
 			if(canTraverse(adjacent_hexes[i]))
 			{
 				adjacent_hexes[i].traversal_cost = getTraverseAPCost(adjacent_hexes[i].hex_type);
-				result_hexes.Add(entityManagerS.fillEntityData(adjacent_hexes[i]));
+				adjacent_hexes[i] = entityManagerS.fillEntityData(adjacent_hexes[i]);
+				if(adjacent_hexes[i].traversal_cost <= current_ap)
+					result_hexes.Add(adjacent_hexes[i]);
 			}
 		
 		Debug.Log(result_hexes.Count + " found adjacent goods");

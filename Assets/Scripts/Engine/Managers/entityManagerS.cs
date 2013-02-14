@@ -17,8 +17,14 @@ public class entityManagerS : MonoBehaviour {
 	public GameObject outpost_entity;
 	public GameObject factory_entiy;
 	
+	public GameObject particle_gear;
+	public GameObject particle_plate;
+	public GameObject particle_piston;
+	public GameObject particle_strut;
 	
 	public static Dictionary<EntityE, GameObject> entity_dict = new Dictionary<EntityE, GameObject>();
+	public static Dictionary<Part, GameObject> part_dict = new Dictionary<Part, GameObject>();
+	public static Dictionary<Node, GameObject> node_dict = new Dictionary<Node, GameObject>();
 	
 	// Use this for initialization
 	void Awake () { 
@@ -31,10 +37,39 @@ public class entityManagerS : MonoBehaviour {
 		entity_dict.Add(EntityE.Base, base_entity);
 		entity_dict.Add(EntityE.Player, player_entity);
 		entity_dict.Add(EntityE.Enemy, enemy_entity);
-		entity_dict.Add(EntityE.Factory, factory_entiy);
-		entity_dict.Add(EntityE.Outpost, outpost_entity);
-		entity_dict.Add(EntityE.Junkyard, junkyard_entity);
 		
+		node_dict.Add(Node.Factory, factory_entiy);
+		node_dict.Add(Node.Outpost, outpost_entity);
+		node_dict.Add(Node.Junkyard, junkyard_entity);
+		
+		part_dict.Add(Part.Gear, particle_gear);
+		part_dict.Add(Part.Plate, particle_plate);
+		part_dict.Add(Part.Piston, particle_piston);
+		part_dict.Add(Part.Strut, particle_strut);
+		
+	}
+	
+	public static void updateNodeLevel(int x, int z, NodeLevel previous_level)
+	{
+		foreach(entityNodeS node in resource_node_list)
+			if(x == node.x && z == node.z)
+			{
+				if(previous_level == NodeLevel.Full)
+					node.node_level = NodeLevel.Sparse;
+				else
+					node.node_level = NodeLevel.Empty;
+					
+			}
+	}
+	
+	public static NodeData getNodeInfoAt(int x, int z)
+	{
+		foreach(entityNodeS node in resource_node_list)
+			if(x == node.x && z == node.z)
+			{
+				return node.getNodeData();
+			}
+		throw new System.Exception("DONT getNodeInfoAt wihtout first checkin there is a not there!!");
 	}
 	
 	
@@ -76,6 +111,11 @@ public class entityManagerS : MonoBehaviour {
 		return null;
 	}
 	
+	public static void createPartEffect(int x, int z, Part part_type)
+	{
+		Instantiate(part_dict[part_type], CoordsGameTo3DEntiy(x, z) + new Vector3(0,2F, 0), Quaternion.identity);
+	}
+	
 	public static HexData fillEntityData(HexData hex){
 		
 		hex.added_occupier = EntityE.None;
@@ -92,7 +132,9 @@ public class entityManagerS : MonoBehaviour {
 		else 
 			foreach(entityNodeS node in resource_node_list)
 				if(hex.x == node.x && hex.z == node.z)
-					hex.added_occupier = node.node_type;
+				{
+					hex.added_occupier = EntityE.Node;
+				}
 		return hex;
 	}
 	  
@@ -113,9 +155,7 @@ public class entityManagerS : MonoBehaviour {
 					return true;
 				return false;
 				 
-			case EntityE.Factory:
-			case EntityE.Junkyard:
-			case EntityE.Outpost:
+			case EntityE.Node:
 				foreach(entityNodeS node in resource_node_list)
 					if(hex_x == node.x && hex_z == node.z)
 						return true;	
@@ -148,6 +188,12 @@ public class entityManagerS : MonoBehaviour {
 	private static GameObject instantiateEntity(int x, int z, EntityE entity_type)
 	{
 		return (GameObject) Instantiate(entity_dict[entity_type], CoordsGameTo3DEntiy(x, z), Quaternion.identity);
+	}
+	
+	//instantiate an object into the gamespace
+	private static GameObject instantiateEntityNode(int x, int z, Node node_type)
+	{
+		return (GameObject) Instantiate(node_dict[node_type], CoordsGameTo3DEntiy(x, z), Quaternion.identity);
 	}
 	
 	
@@ -202,11 +248,11 @@ public class entityManagerS : MonoBehaviour {
 	}
 	
 	//create a base for the level
-	public static bool instantiateResourceNode(int x, int z, EntityE node_type, NodeLevel node_level)
+	public static bool instantiateResourceNode(int x, int z, Node node_type, NodeLevel node_level)
 	{
-		if(node_type == EntityE.Factory || node_type == EntityE.Junkyard || node_type == EntityE.Outpost)
+		if(node_type == Node.Factory || node_type == Node.Junkyard || node_type == Node.Outpost)
 		{
-			GameObject new_entity = instantiateEntity(x, z, node_type);
+			GameObject new_entity = instantiateEntityNode(x, z, node_type);
 			entityNodeS new_node = (entityNodeS) new_entity.AddComponent("entityNodeS");
 			
 			if(new_node == null)
@@ -214,7 +260,7 @@ public class entityManagerS : MonoBehaviour {
 				
 			new_node.x = x;
 			new_node.z = z;
-			new_node.node_type = node_type;
+			new_node.node_type  = node_type;
 			new_node.node_level = node_level;
 			resource_node_list.Add(new_node);
 			return true;
@@ -233,3 +279,4 @@ public class entityManagerS : MonoBehaviour {
 	
 
 }
+	

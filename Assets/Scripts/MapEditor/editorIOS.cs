@@ -136,10 +136,9 @@ public class editorIOS : MonoBehaviour {
 				{
         			sb.AppendLine("\t\t\tHP Perc    = " + ent_s.mech_starting_health_percentage); 
 				}
-				else if(ent_s.entity_type == EntityE.Factory ||
-						ent_s.entity_type == EntityE.Junkyard ||
-						ent_s.entity_type == EntityE.Outpost)
+				else if(ent_s.entity_type == EntityE.Node)
 				{ 
+        			sb.AppendLine("\t\t\tNode       = " + ent_s.node_type); 
         			sb.AppendLine("\t\t\tNode Lvl   = " + ent_s.node_starting_level); 
 				}
 				else if(ent_s.entity_type == EntityE.Enemy)
@@ -297,9 +296,7 @@ public class editorIOS : MonoBehaviour {
 					editorUserS.ems.enemy_knows_base_loc = getBoolR(level_lines[index++]);
 					editorUserS.ems.enemy_knows_mech_loc = getBoolR(level_lines[index++]);
 					break;
-				case EntityE.Factory:
-				case EntityE.Junkyard:
-				case EntityE.Outpost:
+				case EntityE.Node:
 					editorUserS.ems.node_starting_level	 = getIntR(level_lines[index++]);
 					break;
 			}

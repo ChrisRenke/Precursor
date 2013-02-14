@@ -265,7 +265,7 @@ LEVEL{
 		HEX{ 
 			X    = 1
 			Z    = 8
-			Type = Forest
+			Type = Grass
 		}
 		HEX{ 
 			X    = 1
@@ -815,12 +815,12 @@ LEVEL{
 		HEX{ 
 			X    = 3
 			Z    = 7
-			Type = Forest
+			Type = Grass
 		}
 		HEX{ 
 			X    = 3
 			Z    = 8
-			Type = Forest
+			Type = Grass
 		}
 		HEX{ 
 			X    = 3
@@ -1010,7 +1010,7 @@ LEVEL{
 		HEX{ 
 			X    = -2
 			Z    = 11
-			Type = Forest
+			Type = Grass
 		}
 		HEX{ 
 			X    = -2
@@ -4909,19 +4909,22 @@ LEVEL{
 		ENTITY{ 
 			X          = 0
 			Z          = -4
-			Type       = Outpost
+			Type       = Node
+			Node       = Outpost
 			Node Lvl   = Full
 		}
 		ENTITY{ 
 			X          = 4
 			Z          = 7
-			Type       = Factory
+			Type       = Node
+			Node       = Factory
 			Node Lvl   = Full
 		}
 		ENTITY{ 
 			X          = -3
 			Z          = 13
-			Type       = Junkyard
+			Type       = Node
+			Node       = Junkyard
 			Node Lvl   = Sparse
 		}
 		ENTITY{ 
