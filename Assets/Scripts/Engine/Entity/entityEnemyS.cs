@@ -18,16 +18,19 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	public bool is_this_enemies_turn;
 	
-	public int enemy_visibility_of_mech; //visible distance (in hexes) where mech can be seen by enemy	
+	//test var
+	public int enemy_visibility_range; //visible distance (in hexes) where opponent can be seen by enemy	
 	
 	// Use this for initialization
 	void Start () {
 		path_to_base = new List<HexData>();
 		path_to_mech = new List<HexData>();
 		path_to_opponent = new List<HexData>();
-		enemy_visibility_of_mech = 3; //this can change to whatever you want, make it 5 or 6
 		can_get_to_mech_location = false;
 	    can_get_to_base_location = false;	
+		
+		//test var
+		enemy_visibility_range = 3; 
 	}
 	
 	// Update is called once per frame
@@ -56,7 +59,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				print ("working with an enemy");
 				
 				
-				//TODO: Make a method: bool canGetToOpponent(HexData opponent)
+				//TODO: Make a method: bool canGetToOpponent(HexData enemy, HexData opponent)
 				//TODO:Determine whether you can get to opponent
 				//if enemy already "knows opponents location" then don't worry about visibility
 					//just get path to opponent: path_to_opponent = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), opponent);	
@@ -76,8 +79,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				
 				
 				//Determine whether you can get to mech and base
-				//can_get_to_mech_location = canGetToOpponent(hexManagerS.getHex(mech_s.x,mech_s.z));
-				//can_get_to_base_location = canGetToOpponent(hexManagerS.getHex(base_s.x,base_s.z));
+				//can_get_to_mech_location = canGetToOpponent(hexManagerS.getHex(enemy.x,enemy.z),hexManagerS.getHex(mech_s.x,mech_s.z));
+				//can_get_to_base_location = canGetToOpponent(hexManagerS.getHex(enemy.x,enemy.z),hexManagerS.getHex(base_s.x,base_s.z));
 				
 				
 				//TODO: Decide path to take
@@ -131,7 +134,16 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 						//else
 							//path_to_opponent = path to mech;
 				//else, enemy doesn't know where anyone is
-					//path_to_opponent = new List<HexData>();
+					//if "can_get_to_mechs_location" & "can_get_to_base_location"
+						//find mech cost = mech path cost * weight [where weight = mech path cost^2 * mech_weight]
+						//find base cost = base path cost * weight [where weight = base path cost^2 * base_weight]
+						//path_to_opponent = get path with lowest cost i.o MIN(mech cost, base cost);
+					//else if "can get to mech location"
+						//path_to_opponent = path to mech;
+					//else if "can get to base location"
+						//path_to_opponent = path to base
+					//else we can't find a path
+						//path_to_opponent = new List<HexData>();
 					
 				
 				
@@ -169,7 +181,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		}
 	}
  
-	//will use this method for single movements, alternative method used for A*, see IPathFind 
+	//Will use this method for single movements, alternative method used for A*, see IPathFind 
 	public List<HexData> getAdjacentTraversableHexes () 
 	{
 		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
@@ -238,7 +250,6 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		current_ap -= getTraverseAPCost(hex.hex_type);
 		
 		//update enemy hex tags
-		
 		moveInWorld(hex.x, hex.z, 2F);
 		x = hex.x;
 		z = hex.z;
@@ -281,15 +292,11 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	public double calcDistance (HexData hex_start, HexData hex_end)
 	{	
 		return (double) getTraverseAPCost(hex_end.hex_type);
-		
-		//TODO: will need to be adjusted later
-//        return
-			//Math.Abs(hex_start.x - hex_end.x) + Math.Abs(hex_start.z - hex_end.z);
 	}
 
 	public double calcEstimate (HexData hex_start, HexData hex_end)
 	{
-		//TODO: will need to be adjusted later
+		//TODO: may need to be adjusted later
         return Math.Abs(hex_start.x - hex_end.x) + Math.Abs(hex_start.z - hex_end.z);
 	}
 	
@@ -341,6 +348,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	public override int attackTarget (Combatable target)
 	{
+		//TODO:
 		throw new System.NotImplementedException ();
 	}
 	
