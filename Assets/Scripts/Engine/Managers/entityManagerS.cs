@@ -1,4 +1,4 @@
-	using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -235,12 +235,14 @@ public class entityManagerS : MonoBehaviour {
 	{
 		GameObject new_entity = instantiateEntity(x, z, EntityE.Enemy); 
 		entityEnemyS new_enemy_s = (entityEnemyS) new_entity.AddComponent("entityEnemyS");
+//		enemyDisplayS new_display = (enemyDisplayS) new_entity.AddComponent("enemyDisplayS");
 		
 		if(new_enemy_s == null)
 			throw new System.Exception("Enemy Entity not created properly D:");
 		
 		new_enemy_s.x = x;
 		new_enemy_s.z = z;
+		new_enemy_s.current_ap = 6;
 		new_enemy_s.knows_base_location = knows_base_location;
 		new_enemy_s.knows_mech_location = knows_mech_location;
 		enemy_list.Add(new_enemy_s);

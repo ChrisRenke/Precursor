@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class mechDisplayS : MonoBehaviour {
+public class enemyDisplayS : MonoBehaviour {
 		//vars for the whole sheet
 	public int colCount    = 4;
 	public int rowCount    = 2;
@@ -17,7 +17,7 @@ public class mechDisplayS : MonoBehaviour {
   	//Maybe this should be a private var
     private Vector2 offset;
 	
-	private entityMechS owner;
+	private entityEnemyS owner;
 	private int col_index=0;
 	private int row_index=0;
 	
@@ -37,18 +37,18 @@ public class mechDisplayS : MonoBehaviour {
 	
 	void Start()
 	{
-		owner = gameObject.GetComponent<entityMechS>();
+		owner = gameObject.GetComponent<entityEnemyS>();
 	}
  
 	//SetSpriteAnimation
 	void SetSpriteAnimation(int colCount ,int rowCount ,int rowNumber ,int colNumber,int totalCells){
 		
 		col_index = (int) owner.facing_direction;
-		row_index = owner.upgrade_traverse_water ? 1 : 0;
+		row_index = 0;
 		
+		print ("FACING DIRECTION: " + owner.facing_direction);
 		
-		frame_index = col_index + 6 * row_index;
-		frame_index +=  owner.upgrade_traverse_water ? 2 : 0;
+		frame_index =  col_index + 6 * row_index; 
 		
 	    // Size of every cell
 	    float sizeX = 1.0f / colCount;

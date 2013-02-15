@@ -319,13 +319,6 @@ public class enginePlayerS : MonoBehaviour {
 					print ("no good!");
 		}
 		
-		if(GUI.Button(new Rect(gui_spacing, gui_spacing + 40  + gui_spacing , 180, 40), "End Turn"))
-		{
-			mech.current_ap = 0;
-			mech.destroySelectionHexes();
-			mech.allowSelectionHexesDraw();
-		}
-		
 		
 		
 		GUI.Label(new Rect(Screen.width - (1 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), "AP",  gui_norm_text);

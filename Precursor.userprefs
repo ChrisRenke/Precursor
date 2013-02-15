@@ -10,11 +10,11 @@
               <Node name="Materials" expanded="True" />
               <Node name="Scripts" expanded="True">
                 <Node name="Engine" expanded="True">
-                  <Node name="Entity" expanded="True" />
-                  <Node name="Interaction" expanded="True" />
-                  <Node name="Managers" expanded="True">
-                    <Node name="hexManagerS.cs" selected="True" />
+                  <Node name="Entity" expanded="True">
+                    <Node name="entityEnemyS.cs" selected="True" />
                   </Node>
+                  <Node name="Interaction" expanded="True" />
+                  <Node name="Managers" expanded="True" />
                 </Node>
                 <Node name="MapEditor" expanded="True" />
               </Node>
