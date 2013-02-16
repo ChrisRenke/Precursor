@@ -10,10 +10,10 @@ public class aStar {
     //Estimate function returns distance between any node and destination node
 	//Neighbors function returns adjacent traversible hexes for given hex input (Very hefty method)
     public static Path<HexData> FindPath(HexData start,
-		HexData destination,
+		HexData destination, EntityE entity,
 		Func<HexData, HexData, double> distance,
 		Func<HexData, HexData, double> estimate,
-		Func<HexData, HexData, List<HexData>> neighbours)
+		Func<HexData, HexData, EntityE, List<HexData>> neighbours)
 		{
 			//set of already checked HexData
    	 		var closed = new HashSet<HexData>();
@@ -37,7 +37,7 @@ public class aStar {
         		closed.Add(path.LastStep);
         	
 				//Go through neighbors (adjacent hexes) of current element
-				foreach(HexData n in neighbours(path.LastStep, destination))
+				foreach(HexData n in neighbours(path.LastStep, destination, entity))
         		{
 					//compute distance between current element and it's neighbor
             		double d = distance(path.LastStep, n);

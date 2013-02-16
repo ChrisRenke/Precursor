@@ -184,6 +184,41 @@ public class entityManagerS : MonoBehaviour {
 		return false;
 	}
 	
+	//Same has other canTraversHex except check to see if the indicated hex can be moved onto without considering excluded entity into calculations 
+	//assumption is that if you send in "null" you will get to default case otherwise send it NODE
+	public static bool canTraverseHex(HexData hex, EntityE exclude){
+		return canTraverseHex(hex.x, hex.z, exclude);
+	}
+	public static bool canTraverseHex(int hex_x, int hex_z, EntityE exclude){
+		switch(exclude)
+		{
+			case EntityE.Player:
+				if(!isEntityPos(hex_x, hex_z, EntityE.Enemy)  &&
+				   !isEntityPos(hex_x, hex_z, EntityE.Base))
+					return true;
+				return false;
+			
+			case EntityE.Base:
+				if(!isEntityPos(hex_x, hex_z, EntityE.Enemy)  && 
+				   !isEntityPos(hex_x, hex_z, EntityE.Player))
+					return true;
+				return false;
+			
+			case EntityE.Enemy:
+				if(!isEntityPos(hex_x, hex_z, EntityE.Base)   && 
+				   !isEntityPos(hex_x, hex_z, EntityE.Player))
+					return true;
+				return false;
+			
+			default:
+				if(!isEntityPos(hex_x, hex_z, EntityE.Enemy)  &&
+				   !isEntityPos(hex_x, hex_z, EntityE.Base)   && 
+				   !isEntityPos(hex_x, hex_z, EntityE.Player))
+					return true;
+				return false;
+		}
+	}
+	
 	//instantiate an object into the gamespace
 	private static GameObject instantiateEntity(int x, int z, EntityE entity_type)
 	{

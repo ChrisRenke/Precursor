@@ -10,8 +10,14 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	private List<HexData> path_to_base; //Hold traversable hex path to base
 	private List<HexData> path_to_mech; //Hold traversable hex path to mech
 	private List<HexData> path_to_opponent; //Hold traversable hex path to chosen opponent
+	
 	private bool can_get_to_mech_location;
 	private bool can_get_to_base_location;
+	private double last_path_cost; //path cost of most recent path gotten from traversable path call
+	
+	//Put a weight on entities to decide which is more important when having to make a path choice
+	public double base_weight;
+	public double mech_weight;
 	
 	public bool knows_mech_location;
 	public bool knows_base_location;
@@ -27,7 +33,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		path_to_mech = new List<HexData>();
 		path_to_opponent = new List<HexData>();
 		can_get_to_mech_location = false;
-	    can_get_to_base_location = false;	
+	    can_get_to_base_location = false;
+		last_path_cost = 0;
 		
 		//test var
 		enemy_visibility_range = 3; 
@@ -55,21 +62,20 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			//scan through list of enemies
 			foreach(entityEnemyS enemy in entityManagerS.getEnemies())
 			{
-				
 				print ("working with an enemy");
 				
 				
-				//TODO: Make a method: bool canGetToOpponent(HexData enemy, HexData opponent)
+				//TODO: Make a method: bool canGetToOpponent(HexData enemy, HexData opponent, EntityE entity_opponent)
 				//TODO:Determine whether you can get to opponent
 				//if enemy already "knows opponents location" then don't worry about visibility
-					//just get path to opponent: path_to_opponent = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), opponent);	
+					//just get path to opponent: path_to_opponent = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), opponent, entity_opponent);	
 					//if no path found 
 						//then "can_get_to_opponents_location" = false
 					//else 
 						//can_"get_to_opponents_location" = true;
 				//else enemy doesn't "know opponents location" then check to see if opponent is visibile
-					//if opponent is visible
-						//find path to opponent: path_to_opponent = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), opponent);
+					//if opponent is visible: isInMechSiteRange(entity_opponent)
+						//find path to opponent: path_to_opponent = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), opponent, entity_opponent);
 						//if no path found 
 							//then "can_get_to_opponents_location" = false
 						//else 
@@ -78,17 +84,17 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 						//can_"get_to_opponents_location" = false
 				
 				
-				//Determine whether you can get to mech and base
-				//can_get_to_mech_location = canGetToOpponent(hexManagerS.getHex(enemy.x,enemy.z),hexManagerS.getHex(mech_s.x,mech_s.z));
-				//can_get_to_base_location = canGetToOpponent(hexManagerS.getHex(enemy.x,enemy.z),hexManagerS.getHex(base_s.x,base_s.z));
-				
+				//Determine whether you can get to mech and base and store there path costs
+				//can_get_to_mech_location = canGetToOpponent(hexManagerS.getHex(enemy.x,enemy.z),hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Player);
+				//double mech_path_cost = last_path_cost;
+				//can_get_to_base_location = canGetToOpponent(hexManagerS.getHex(enemy.x,enemy.z),hexManagerS.getHex(base_s.x,base_s.z, EntityE.Base));
+				//double base_path_cost = last_path_cost;
 				
 				//TODO: Decide path to take
 				//if enemy knows mech location and knows base location check to see which path is shorter
 					//if "can_get_to_mechs_location" & "can_get_to_base_location"
-						//find mech cost = mech path cost * weight [where weight = mech path cost^2 * mech_weight]
-						//find base cost = base path cost * weight [where weight = base path cost^2 * base_weight]
-						//path_to_opponent = get path with lowest cost i.o MIN(mech cost, base cost);
+						//find path with lower cost
+						//path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base)
 					//else if "can get to base location"
 						//path_to_opponent = path to base
 					//else if "can get to mech location"
@@ -97,9 +103,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 						//path_to_opponent = new List<HexData>();
 				//else if enemy knows base location check to see if enemy can find a shorter path
 					//if "can_get_to_mechs_location" & "can_get_to_base_location"
-						//find mech cost = mech path cost * weight [where weight = mech path cost^2 * mech_weight]
-						//find base cost = base path cost * weight [where weight = base path cost^2 * base_weight]
-						//path_to_opponent = get path with lowest cost i.o MIN(mech cost, base cost);
+						//find path with lower cost
+						//path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base)
 					//else if "can get to base location"
 						//check to see if we can find shorter path to base assuming we can't see mech, use pathFind where mech ignored in canTraverse
 						//if(path to base.Count == 0)
@@ -116,9 +121,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 							//path_to_opponent = path to base;
 				//else if enemy knows mech location check to see if enemy can find a shorter path
 					//if "can_get_to_mechs_location" & "can_get_to_base_location"
-						//find mech cost = mech path cost * weight [where weight = mech path cost^2 * mech_weight]
-						//find base cost = base path cost * weight [where weight = base path cost^2 * base_weight]
-						//path_to_opponent = get path with lowest cost i.o MIN(mech cost, base cost);
+						//find path with lower cost
+						//path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base)
 					//else if "can get to mech location"
 						//check to see if we can find shorter path to mech assuming we can't see base, use pathFind where base ignored in canTraverse
 						//if(path to mech.Count == 0)
@@ -135,9 +139,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 							//path_to_opponent = path to mech;
 				//else, enemy doesn't know where anyone is
 					//if "can_get_to_mechs_location" & "can_get_to_base_location"
-						//find mech cost = mech path cost * weight [where weight = mech path cost^2 * mech_weight]
-						//find base cost = base path cost * weight [where weight = base path cost^2 * base_weight]
-						//path_to_opponent = get path with lowest cost i.o MIN(mech cost, base cost);
+						//find path with lower cost
+						//path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base)
 					//else if "can get to mech location"
 						//path_to_opponent = path to mech;
 					//else if "can get to base location"
@@ -160,24 +163,20 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 					print ("move mech to next position");
 					makeMove(path_to_opponent[0]);
 				}			
-				
 			}
+		}
 		
-		
-			if(lerp_move)
-			{	
-				transform.position = Vector3.Lerp(transform.position, ending_pos,  moveTime);
-	     		moveTime += Time.deltaTime/dist;
-				
-				
-				if(Vector3.Distance(transform.position, ending_pos) <= .05)
-				{ 
-					lerp_move = false;
-					transform.position = ending_pos;
-				}
-					
-			}
-	
+		if(lerp_move)
+		{	
+			transform.position = Vector3.Lerp(transform.position, ending_pos,  moveTime);
+     		moveTime += Time.deltaTime/dist;
+			
+			
+			if(Vector3.Distance(transform.position, ending_pos) <= .05)
+			{ 
+				lerp_move = false;
+				transform.position = ending_pos;
+			}	
 		}
 	}
  
@@ -223,8 +222,34 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	public bool canTraverse (int hex_x, int hex_z)
 	{
 		HexData hex = hexManagerS.getHex(hex_x, hex_z);
-//		
+		
 		if(!entityManagerS.canTraverseHex(hex.x, hex.z)){
+			//print ("enemy hex");
+			return false;
+		}else 
+		if(hex.hex_type == Hex.Water || hex.hex_type == Hex.Mountain || hex.hex_type == Hex.Perimeter){
+			//print ("enviro hex");
+			return false;
+		}
+		else if(getTraverseAPCost(hex.hex_type) > current_ap)
+		{
+			return false;
+		}
+		else
+			return true;
+	} 
+	
+	//alternative can traverse methods where an entity can be excluded from search
+	public bool canTraverse (HexData hex, EntityE entity)
+	{
+		return canTraverse(hex.x, hex.z, entity);
+	}  
+	
+	public bool canTraverse (int hex_x, int hex_z, EntityE entity)
+	{
+		HexData hex = hexManagerS.getHex(hex_x, hex_z);
+		
+		if(!entityManagerS.canTraverseHex(hex.x, hex.z, entity)){
 			//print ("enemy hex");
 			return false;
 		}else 
@@ -254,14 +279,18 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		x = hex.x;
 		z = hex.z;
 		return true;
-	
 	} 
 	
 	//Get path to base
-	public List<HexData> getTraversablePath (HexData start, HexData destination)
+	public List<HexData> getTraversablePath (HexData start, HexData destination, EntityE entity)
 	{
 		//Send hex of base and hex of enemy to aStar 
-		var path = aStar.FindPath(start, destination, calcDistance, calcEstimate, getAdjacentTraversableHexes);
+		var path = aStar.FindPath(start, destination, entity, calcDistance, calcEstimate, getAdjacentTraversableHexes);
+		if(path != null){
+			//get path cost
+			last_path_cost = path.TotalCost;
+			print ("path cost:" + last_path_cost);
+		}
 		return extractPath(path);
 	}
 	
@@ -269,7 +298,6 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	private List<HexData> extractPath (IEnumerable<HexData> path)
 	{
 		List<HexData> list = new List<HexData>();
-		
 		if(path != null){
 			foreach (HexData hex in path){
 				list.Add(hex);
@@ -284,6 +312,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			
 			list.RemoveAt(list.Count - 1); //last element is the destination hex
 		}
+		
+		//TODO: GET TOTAL COST: test this in Precursor 2 folder
 		return list;
 	}
 	
@@ -300,7 +330,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
         return Math.Abs(hex_start.x - hex_end.x) + Math.Abs(hex_start.z - hex_end.z);
 	}
 	
-	public List<HexData> getAdjacentTraversableHexes (HexData hex, HexData destination)
+	public List<HexData> getAdjacentTraversableHexes (HexData hex, HexData destination, EntityE entity)
 	{
 		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
@@ -310,7 +340,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		
 		//See which of the adjacent hexes are traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++){
-			if(canTraverse(adjacent_hexes[i]) || (adjacent_hexes[i].x == destination.x && adjacent_hexes[i].z == destination.z)){
+			if(canTraverse(adjacent_hexes[i], entity) || (adjacent_hexes[i].x == destination.x && adjacent_hexes[i].z == destination.z)){
 				//add hex to traversable array
 				result_hexes.Add(adjacent_hexes[i]); 
 			}
@@ -344,6 +374,38 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			default:
 				return 999999;
 		} 
+	}
+	
+	//Return true if entity is visible to enemy based on enemies current x and z
+	public bool isInMechSiteRange(EntityE entity)
+	{
+		//TODO: possibly use a version of brush hex to get this method working
+		throw new System.NotImplementedException ();
+	}
+	
+	//Return path cost where path_cost = path cost * weight [where weight = path cost^2 * entity_weight]
+	public double pathCost(double weight, double path_cost){
+		return path_cost * Math.Pow(path_cost,2) * weight;
+	}
+	
+	//return minimun cost path: i.o MIN(mech cost, base cost);
+	public List<HexData> minCostPath(double weight1, double weight2, double path_cost1, double path_cost2, List<HexData> path1, List<HexData> path2){
+		double cost1 = pathCost(weight1, path_cost1); 
+		double cost2 = pathCost(weight2, path_cost2); 
+		
+		if(cost1 < cost2)
+			return path1;
+		else if(cost2 < cost1)
+			return path2;
+		else{
+			//if paths are equal then return path with higher weight
+			if(weight1 < weight2)
+				return path1;
+			else if(weight2 < weight1)
+				return path2;
+			else
+				return path1;
+		}
 	}
 	
 	public override int attackTarget (Combatable target)
