@@ -62,98 +62,111 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			//scan through list of enemies
 			foreach(entityEnemyS enemy in entityManagerS.getEnemies())
 			{
-				print ("working with an enemy");
-				
-				
-				//TODO: Make a method: bool canGetToOpponent(HexData enemy, HexData opponent, EntityE entity_opponent)
-				//TODO:Determine whether you can get to opponent
-				//if enemy already "knows opponents location" then don't worry about visibility
-					//just get path to opponent: path_to_opponent = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), opponent, entity_opponent);	
-					//if no path found 
-						//then "can_get_to_opponents_location" = false
-					//else 
-						//can_"get_to_opponents_location" = true;
-				//else enemy doesn't "know opponents location" then check to see if opponent is visibile
-					//if opponent is visible: isInMechSiteRange(entity_opponent)
-						//find path to opponent: path_to_opponent = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), opponent, entity_opponent);
-						//if no path found 
-							//then "can_get_to_opponents_location" = false
-						//else 
-							//can_"get_to_opponents_location" = true;
-					//else opponent isn't visible
-						//can_"get_to_opponents_location" = false
-				
+				print ("working with an enemy");				
 				
 				//Determine whether you can get to mech and base and store there path costs
-				//can_get_to_mech_location = canGetToOpponent(hexManagerS.getHex(enemy.x,enemy.z),hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Player);
-				//double mech_path_cost = last_path_cost;
-				//can_get_to_base_location = canGetToOpponent(hexManagerS.getHex(enemy.x,enemy.z),hexManagerS.getHex(base_s.x,base_s.z, EntityE.Base));
-				//double base_path_cost = last_path_cost;
+				can_get_to_mech_location = canGetToOpponent(hexManagerS.getHex(enemy.x,enemy.z),hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Player, knows_mech_location, path_to_mech);
+				double mech_path_cost = last_path_cost;
+				can_get_to_base_location = canGetToOpponent(hexManagerS.getHex(enemy.x,enemy.z),hexManagerS.getHex(base_s.x,base_s.z), EntityE.Base, knows_base_location, path_to_base);
+				double base_path_cost = last_path_cost;
 				
-				//TODO: Decide path to take
-				//if enemy knows mech location and knows base location check to see which path is shorter
-					//if "can_get_to_mechs_location" & "can_get_to_base_location"
+				//Decide path to take
+				if(knows_mech_location && knows_base_location){
+					//enemy knows mech location and knows base location check which path is shorter
+					if(can_get_to_mech_location && can_get_to_base_location){
 						//find path with lower cost
-						//path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base)
-					//else if "can get to base location"
-						//path_to_opponent = path to base
-					//else if "can get to mech location"
-						//path_to_opponent = path to mech
-					//else we can't get find a path
-						//path_to_opponent = new List<HexData>();
-				//else if enemy knows base location check to see if enemy can find a shorter path
-					//if "can_get_to_mechs_location" & "can_get_to_base_location"
+						path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base);
+					}else if(can_get_to_base_location){
+						path_to_opponent = path_to_base;
+					}else if(can_get_to_mech_location){
+						path_to_opponent = path_to_mech;
+					}else{
+						//no new path found
+						path_to_opponent = new List<HexData>();
+					}
+				}else if(knows_base_location){
+					//enemy knows base location, check to see if enemy can find least cost path
+					if(can_get_to_mech_location && can_get_to_base_location){
 						//find path with lower cost
-						//path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base)
-					//else if "can get to base location"
-						//check to see if we can find shorter path to base assuming we can't see mech, use pathFind where mech ignored in canTraverse
-						//if(path to base.Count == 0)
-							//path_to_opponent = new List<HexData>();
-						//else
-							//path_to_opponent = path to base;
-					//else if "can get to mech location"
-						//path_to_opponent = path to mech
-					//else we can't get find a path
-						//check to see if we can find shorter path to base assuming we can't see mech, use pathFind where mech ignored in canTraverse
-						//if(path to base.Count == 0)
-							//path_to_opponent = new List<HexData>();
-						//else
-							//path_to_opponent = path to base;
-				//else if enemy knows mech location check to see if enemy can find a shorter path
-					//if "can_get_to_mechs_location" & "can_get_to_base_location"
+						path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base);
+					}else if(can_get_to_base_location){
+						//check to see if we can find shorter path to base assuming we can't see mech
+						path_to_base = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player);
+						base_path_cost = last_path_cost;
+						if(path_to_base.Count == 0){
+							//no new path found
+							path_to_opponent = new List<HexData>();
+						}else{
+							path_to_opponent = path_to_base;
+						}
+					}else if(can_get_to_mech_location){
+						path_to_opponent = path_to_mech;
+					}else{
+						//no new path found
+						//check to see if we can find shorter path to base assuming we can't see mech
+						path_to_base = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player);
+						base_path_cost = last_path_cost;
+						if(path_to_base.Count == 0){
+							//no new path found
+							path_to_opponent = new List<HexData>();
+						}else{
+							path_to_opponent = path_to_base;
+						}
+					}
+				}else if(knows_mech_location){
+					//enemy knows mech location, check to see if enemy can find least cost path
+					if(can_get_to_mech_location && can_get_to_base_location){
 						//find path with lower cost
-						//path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base)
-					//else if "can get to mech location"
-						//check to see if we can find shorter path to mech assuming we can't see base, use pathFind where base ignored in canTraverse
-						//if(path to mech.Count == 0)
-							//path_to_opponent = new List<HexData>();
-						//else
-							//path_to_opponent = path to mech;
-					//else if "can get to base location"
-						//path_to_opponent = path to base
-					//else we can't find a path
-						//check to see if we can find shorter path to mech assuming we can't see base, use pathFind where base ignored in canTraverse
-						//if(path to mech.Count == 0)
-							//path_to_opponent = new List<HexData>();
-						//else
-							//path_to_opponent = path to mech;
-				//else, enemy doesn't know where anyone is
-					//if "can_get_to_mechs_location" & "can_get_to_base_location"
+						path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base);
+					}else if(can_get_to_mech_location){
+						//check to see if we can find shorter path to mech assuming we can't see base
+						path_to_mech = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Base);
+						mech_path_cost = last_path_cost;
+						if(path_to_mech.Count == 0){
+							//no path found
+							path_to_opponent = new List<HexData>();
+						}else{
+							path_to_opponent = path_to_mech;
+						}
+					}else if(can_get_to_base_location){					
+						path_to_opponent = path_to_base;	
+					}else{
+						//haven't found new path
+						//check to see if we can find shorter path to mech assuming we can't see base
+						path_to_mech = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Base);
+						mech_path_cost = last_path_cost;
+						if(path_to_mech.Count == 0)
+							path_to_opponent = new List<HexData>();
+						else{
+							path_to_opponent = path_to_mech;
+						}
+					}
+				}else{
+					//enemy doesn't know where anyone is, so see if anyone is around and find least cost path
+					if(can_get_to_mech_location && can_get_to_base_location){
 						//find path with lower cost
-						//path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base)
-					//else if "can get to mech location"
-						//path_to_opponent = path to mech;
-					//else if "can get to base location"
-						//path_to_opponent = path to base
-					//else we can't find a path
-						//path_to_opponent = new List<HexData>();
+						path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base);
+					}else if (can_get_to_mech_location){
+						path_to_opponent = path_to_mech;
+					}else if (can_get_to_base_location){
+						path_to_opponent = path_to_base;
+					}else{ 
+						//can't find a path
+						path_to_opponent = new List<HexData>();
+					}
+				}
 					
-				
-				
-				//TODO: Finalize path move
+				//Finalize path move
 				if(path_to_opponent.Count == 0){
-			 		//TODO: no path found
-					//have enemy move randomly 
+			 		//no path found so have enemy move randomly
+					path_to_opponent = getAdjacentTraversableHexes();
+					
+					if(path_to_opponent.Count > 0){
+						makeMove(path_to_opponent[UnityEngine.Random.Range(0, path_to_opponent.Count)]);
+					}else{
+						//can't make a move, do nothing
+					}
+					
 					print ("no path found,  move randomly");
 				}else if(path_to_opponent.Count == 1 && path_to_opponent[0].x == enemy.x && path_to_opponent[0].z == enemy.z){
 					//TODO: enemy found path, so attack
@@ -376,10 +389,43 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		} 
 	}
 	
-	//Return true if entity is visible to enemy based on enemies current x and z
+	//True if enemy can can get to specified opponent
+	bool canGetToOpponent(HexData enemy, HexData opponent, EntityE entity_opponent, bool knows_opponents_location, List<HexData> path_to_opp){
+		//if enemy already "knows opponents location" then don't worry about visibility
+		if(knows_opponents_location){
+			//get path to opponent
+			path_to_opp = getTraversablePath(enemy, opponent, entity_opponent);	
+			if(path_to_opp.Count == 0){
+				//no path found 
+				return false;
+			}else{
+				return true;
+			}
+		}else{
+			//if enemy doesn't "know opponents location" then check to see if opponent is visibile
+			if(isInMechSiteRange(entity_opponent)){
+				//find path to opponent
+				path_to_opp = getTraversablePath(enemy, opponent, entity_opponent);
+				if(path_to_opp.Count == 0){
+					//no path found 
+					return false;
+				}else{
+					return true;
+				}
+			}else{
+				//opponent isn't visible
+				return false;
+			}
+		}
+	}
+	
+	//Return true if entity is visible(enemy_visibility_range) to enemy based on enemies current x and z
 	public bool isInMechSiteRange(EntityE entity)
 	{
 		//TODO: possibly use a version of brush hex to get this method working
+		//tail recursive most likely
+		
+		
 		throw new System.NotImplementedException ();
 	}
 	
