@@ -73,21 +73,21 @@ public class enginePlayerS : MonoBehaviour {
 		
 		Vector3 screenCenter = (screenBottomLeft + screenTopRight ) / 2;
 		  
-		if(( (Input.mousePosition.x > 30 &&  Input.mousePosition.x < 240 ) 
-					&&
-			 (Input.mousePosition.y < Screen.height - 30 &&  Input.mousePosition.y > Screen.height - 140 ))
-			||
-			((Input.mousePosition.x > Screen.width - 240 && Input.mousePosition.x < Screen.width - 30)
-			&&
-			 (Input.mousePosition.y < Screen.height - 30 &&  Input.mousePosition.y > Screen.height - 100 ))
-			)
-		{
-			//do nothing if the mouse is over the gui element areas
-		}
-		else
-		{
-			//mouse elsewhere in screen
-		}
+//		if(( (Input.mousePosition.x > 30 &&  Input.mousePosition.x < 240 ) 
+//					&&
+//			 (Input.mousePosition.y < Screen.height - 30 &&  Input.mousePosition.y > Screen.height - 140 ))
+//			||
+//			((Input.mousePosition.x > Screen.width - 240 && Input.mousePosition.x < Screen.width - 30)
+//			&&
+//			 (Input.mousePosition.y < Screen.height - 30 &&  Input.mousePosition.y > Screen.height - 100 ))
+//			)
+//		{
+//			//do nothing if the mouse is over the gui element areas
+//		}
+//		else
+//		{
+//			//mouse elsewhere in screen
+//		}
 		
 		float w = Input.GetAxis("Mouse ScrollWheel");
 		float zoom_adjust = w * zoomSensitivity;
@@ -142,21 +142,21 @@ public class enginePlayerS : MonoBehaviour {
 			}
 			
 				
-			if(Input.GetKey(KeyCode.D))
+			if(Input.GetKey(KeyCode.D)  || Input.GetKey(KeyCode.RightArrow))
 			{
 				trans_x = Vector3.right * hSensitivity * 12F * Time.deltaTime; 
 			} 
-			if(Input.GetKey(KeyCode.A))
+			if(Input.GetKey(KeyCode.A)  || Input.GetKey(KeyCode.LeftArrow))
 			{
 				trans_x = Vector3.right * hSensitivity * -12F * Time.deltaTime; 
 			} 
 			
 			
-			if(Input.GetKey(KeyCode.W))
+			if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
 			{
 				trans_y = Vector3.up * vSensitivity * 12F * Time.deltaTime; 
 			} 
-			if(Input.GetKey(KeyCode.S))
+			if(Input.GetKey(KeyCode.S)|| Input.GetKey(KeyCode.DownArrow))
 			{
 				trans_y = Vector3.up * vSensitivity * -12F * Time.deltaTime; 
 			} 
