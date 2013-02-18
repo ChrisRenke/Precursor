@@ -141,6 +141,8 @@ public class enginePlayerS : MonoBehaviour {
 				trans_x = Vector3.right * h * -1 * hSensitivity; 
 			}
 			
+			if(Input.GetKey(KeyCode.UpArrow))
+				print ("RIGHT ARROW!");
 				
 			if(Input.GetKey(KeyCode.D)  || Input.GetKey(KeyCode.RightArrow))
 			{

@@ -158,7 +158,6 @@ public class engineIOS : MonoBehaviour {
 					if(!entityManagerS.instantiatePlayer(x, z, mech_starting_health_percentage))
 						throw new System.Exception("There is already one player mech, cannot have two! D: Go edit the level file you're loading to only have one!");
 				
-					enginePlayerS.setMech();
 					break;
 				
 				case EntityE.Enemy:
@@ -182,6 +181,9 @@ public class engineIOS : MonoBehaviour {
 				print("MALFORMED HEX!");
 				return false;
 			}
+			
+			
+					enginePlayerS.setMech();
 		}
 //		
 //		Component[] meshFilters = GetComponentsInChildren<MeshFilter>();
