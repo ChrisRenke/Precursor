@@ -71,6 +71,7 @@ public class entityMechS : Combatable, IMove {
 		
 		current_ap = starting_ap;
 		max_ap = starting_ap_max;
+		
 	}
 	
 	//Use this for initialization

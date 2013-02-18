@@ -18,8 +18,8 @@ public class hexManagerS : MonoBehaviour {
  	
 	public static string        level_name;
 	public static HexData[,] 	hexes; 
-	public static int 			x_max, z_max = 0; //size of hex array, used for out of bounds checking
-	
+	public static int 			x_max = 0; //size of hex array, used for out of bounds checking
+	public static int			z_max = 0;
 	  
 	public 		   GameObject  	hex_display_init;
 	

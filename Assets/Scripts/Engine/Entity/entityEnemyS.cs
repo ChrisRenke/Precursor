@@ -25,24 +25,21 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	public bool is_this_enemies_turn;
 	
 	//test var
-	public int enemy_visibility_range; //visible distance (in hexes) where opponent can be seen by enemy	
+	public int enemy_site_range; //visible distance (in hexes) where opponent can be seen by enemy, if 3 then checks 3 hexes out in 6 directions 	
 	
 	// Use this for initialization
 	void Start () {
 		path_to_base = new List<HexData>();
 		path_to_mech = new List<HexData>();
 		path_to_opponent = new List<HexData>();
-		can_get_to_mech_location = false;
-	    can_get_to_base_location = false;
 		last_path_cost = 0;
-		
-		//test var
-		enemy_visibility_range = 3; 
+		 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//TODO: UPDATE() not tested, contains some sudo code
+		
 		
 		if(gameManagerS.current_turn == Turn.Enemy  && !lerp_move && is_this_enemies_turn)
 		{
@@ -191,15 +188,20 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				transform.position = ending_pos;
 			}	
 		}
+		
+	}
+	
+	public List<HexData> getAdjacentTraversableHexes () {
+		return getAdjacentTraversableHexes (x, z);
 	}
  
 	//Will use this method for single movements, alternative method used for A*, see IPathFind 
-	public List<HexData> getAdjacentTraversableHexes () 
+	public List<HexData> getAdjacentTraversableHexes (int _x, int _z) 
 	{
 		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
+		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(_x, _z);
 		Debug.Log(adjacent_hexes.Length + " found adjacent");
 		
 		//See which of the adjacent hexes are traversable
@@ -265,13 +267,13 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		if(!entityManagerS.canTraverseHex(hex.x, hex.z, entity)){
 			//print ("enemy hex");
 			return false;
-		}else 
-		if(hex.hex_type == Hex.Water || hex.hex_type == Hex.Mountain || hex.hex_type == Hex.Perimeter){
+		}else if(hex.hex_type == Hex.Water || hex.hex_type == Hex.Mountain || hex.hex_type == Hex.Perimeter){
 			//print ("enviro hex");
 			return false;
 		}
 		else if(getTraverseAPCost(hex.hex_type) > current_ap)
 		{
+			//print ("ap over load: " + hex.x + " " + hex.z + " current ap:" + current_ap);
 			return false;
 		}
 		else
@@ -297,12 +299,12 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	//Get path to base
 	public List<HexData> getTraversablePath (HexData start, HexData destination, EntityE entity)
 	{
-		//Send hex of base and hex of enemy to aStar 
+		//Send hex of base and hex of enemy to aStar
 		var path = aStar.FindPath(start, destination, entity, calcDistance, calcEstimate, getAdjacentTraversableHexes);
 		if(path != null){
 			//get path cost
 			last_path_cost = path.TotalCost;
-			print ("path cost:" + last_path_cost);
+			//print ("path cost:" + last_path_cost);
 		}
 		return extractPath(path);
 	}
@@ -326,7 +328,6 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			list.RemoveAt(list.Count - 1); //last element is the destination hex
 		}
 		
-		//TODO: GET TOTAL COST: test this in Precursor 2 folder
 		return list;
 	}
 	
@@ -349,7 +350,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		
 		//Get adjacent tiles around player mech
 		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(hex.x, hex.z);
-		Debug.Log(adjacent_hexes.Length + " found adjacent");
+		//Debug.Log(adjacent_hexes.Length + " found adjacent");
 		
 		//See which of the adjacent hexes are traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++){
@@ -358,7 +359,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				result_hexes.Add(adjacent_hexes[i]); 
 			}
 		}
-		Debug.Log(result_hexes.Count + " are adjacent goods");
+		//Debug.Log(result_hexes.Count + " are adjacent goods");
 		return result_hexes;
 	}
 	#endregion
@@ -378,14 +379,14 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				return 4;
 				
 			case Hex.Mountain:
-				return 99999999;
+				return 9999;
 			
 			case Hex.Water:
-				return 99999999;
+				return 9999;
 				
 			case Hex.Perimeter: 
 			default:
-				return 999999;
+				return 9999;
 		} 
 	}
 	
@@ -396,6 +397,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			//get path to opponent
 			path_to_opp = getTraversablePath(enemy, opponent, entity_opponent);	
 			if(path_to_opp.Count == 0){
+				//print ("HIT: no path found");
 				//no path found 
 				return false;
 			}else{
@@ -403,7 +405,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			}
 		}else{
 			//if enemy doesn't "know opponents location" then check to see if opponent is visibile
-			if(isInMechSiteRange(entity_opponent)){
+			if(isInMechSiteRange(opponent)){
 				//find path to opponent
 				path_to_opp = getTraversablePath(enemy, opponent, entity_opponent);
 				if(path_to_opp.Count == 0){
@@ -420,13 +422,56 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	}
 	
 	//Return true if entity is visible(enemy_visibility_range) to enemy based on enemies current x and z
-	public bool isInMechSiteRange(EntityE entity)
+	public bool isInMechSiteRange(HexData entity)
+	{		
+		List<HexData> hex_range = getSiteRange();
+		if(hex_range != null){
+			foreach(HexData h in hex_range){
+				if(h.x == entity.x && h.z == entity.z){
+					//opponent is in site range of enemy
+					return true;
+				}
+			}
+		}
+		//opponent isn't in site range of enemy
+		return false;
+	}
+
+	//find all hexes in site range of enemy, site range set by enemy_site_range variable 
+	public List<HexData> getSiteRange(){
+		List<HexData> hexes_start = getAdjacentTraversableHexes(); //get adj hexes
+		if(hexes_start != null){
+			int last_added = hexes_start.Count; //the number of hexes add to resulting array
+			int left = enemy_site_range - 1; //number of hexes left to span
+			int index = 0; //index we are currently on in result array
+			return siteRangeHelper(left, last_added, hexes_start, index);
+		}
+		return new List<HexData>();
+	}
+	
+	
+	public List<HexData> siteRangeHelper (int left, int last_added, List<HexData> result, int index)
 	{
-		//TODO: possibly use a version of brush hex to get this method working
-		//tail recursive most likely
-		
-		
-		throw new System.NotImplementedException ();
+		if(left == 0 || last_added == 0 ){
+			return result;
+		}else{
+			int count = 0;
+			HexData[] temp;
+			for(int i = 0; i < last_added; i++){
+				temp = hexManagerS.getAdjacentHexes(result[index].x, result[index].z);
+				//add adj hexes to result
+				for(int j =0; j < temp.Length; j++){
+					if(temp[j].hex_type != Hex.Perimeter){
+						result.Add(temp[j]);
+						count++;
+					}
+				}
+				index++;
+			}
+			last_added = count;
+			left = left - 1;
+			return siteRangeHelper (left, last_added, result, index);
+		}
 	}
 	
 	//Return path cost where path_cost = path cost * weight [where weight = path cost^2 * entity_weight]
