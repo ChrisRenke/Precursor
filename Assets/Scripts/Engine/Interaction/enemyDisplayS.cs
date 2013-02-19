@@ -46,7 +46,7 @@ public class enemyDisplayS : MonoBehaviour {
 		col_index = (int) owner.facing_direction;
 		row_index = 0;
 		
-		print ("FACING DIRECTION: " + owner.facing_direction);
+		//print ("FACING DIRECTION: " + owner.facing_direction);
 		
 		frame_index =  col_index + 6 * row_index; 
 		
