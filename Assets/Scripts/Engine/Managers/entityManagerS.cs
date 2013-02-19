@@ -10,6 +10,9 @@ public class entityManagerS : MonoBehaviour {
 	public static List<entityEnemyS> enemy_list;
 	public static List<entityNodeS> resource_node_list;
 	
+	
+	public static int					enemy_starting_ap = 8;
+	
 	public GameObject base_entity;
 	public GameObject player_entity;
 	public GameObject enemy_entity;
@@ -282,7 +285,7 @@ public class entityManagerS : MonoBehaviour {
 		
 		new_enemy_s.x = x;
 		new_enemy_s.z = z;
-		new_enemy_s.current_ap = 6;
+		new_enemy_s.current_ap = enemy_starting_ap;
 		new_enemy_s.knows_base_location = knows_base_location;
 		new_enemy_s.knows_mech_location = knows_mech_location;
 		enemy_list.Add(new_enemy_s);
