@@ -25,7 +25,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	public bool is_this_enemies_turn;
 	
 	//test var
-	public int enemy_sight_range =3; //visible distance (in hexes) where opponent can be seen by enemy, if 3 then checks 3 hexes out in 6 directions 	
+	public int enemy_sight_range = 5; //visible distance (in hexes) where opponent can be seen by enemy, if 3 then checks 3 hexes out in 6 directions 	
 	
 	int t = 0;
 	
@@ -92,15 +92,15 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				print ("Can get to base location is " + can_get_to_base_location + ", Base Path Cost: " + base_path_cost);
 				print ("-------------------------------------------------");
 				
-				t = 1;
-			}
+				
 				//Decide path to take
-				/*if(knows_mech_location && knows_base_location){
-					
-					Debug.Log ("knows_mech_location && knows_base_location");
-					//enemy knows mech location and knows base location check which path is shorter
+				print ("Decide PATH to take");
+				if(knows_mech_location && knows_base_location){
+					//enemy knows mech location and knows base location, check which path is shorter
+					print ("Update 1: knows mech/base location, check which path is shorter");
 					if(can_get_to_mech_location && can_get_to_base_location){
 						//find path with lower cost
+						print ("Update 1:2: knows mech/base location, check which path is shorter");
 						path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base);
 					}else if(can_get_to_base_location){
 						path_to_opponent = path_to_base;
@@ -184,7 +184,11 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 						path_to_opponent = new List<HexData>();
 					}
 				}
-					
+			
+					t = 1;
+			}
+				
+				/*
 				//Finalize path move
 				if(path_to_opponent.Count == 0){
 			 		//no path found so have enemy move randomly
@@ -448,11 +452,11 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				//find path to opponent
 				path_to_opp = getTraversablePath(enemy, opponent, entity_opponent);
 				if(path_to_opp.Count == 0){
-					print ("canGetToOpponent: doesn't know enemy location, but can't find path");
+					print ("canGetToOpponent: enemy is visible, but can't find path");
 					//no path found 
 					return false;
 				}else{
-					print ("canGetToOpponent: doesn't know enemy location, and found path");
+					print ("canGetToOpponent: enemy is visible, and found path");
 					return true;
 				}
 			}else{
@@ -470,7 +474,9 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		Debug.Log("isInMechsightRange: " + entity + " = entity | " + entity.x + " | " + entity.z);
 		List<HexData> hex_range = getsightRange();
 		if(hex_range != null){
+			print ("isInMechsightRange: Size of hex_range = " + hex_range.Count);
 			foreach(HexData h in hex_range){
+				print ("isInMechsightRange: hex: " + h.x + ":" + h.z);
 				if(h.x == entity.x && h.z == entity.z)
 				{
 					//opponent is in sight range of enemy
@@ -498,7 +504,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		hexes_in_range.Add(current_hex);
 		
 		//enter loop for surrounding hexes
-		for(int ring = 1; ring < z + 1; ring++)
+		for(int ring = 1; ring < enemy_sight_range; ring++)
 		{
 			 
 			//draw the first "northeast" edge hex 
