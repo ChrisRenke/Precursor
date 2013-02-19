@@ -73,13 +73,13 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				//TEST: IN VISIBILITY RANGE
 				
 				
-				
 				//TEST: CAN GET TO OPPONENT
 				print ("Knows mech location is " + knows_mech_location + ", Knows base location is " + knows_base_location);
 				print ("mech location is " + mech_s.x + ":" + mech_s.z + ", base location is " + base_s.x + ":" + base_s.z);
 				//Determine whether you can get to mech and base and store there path costs
 				can_get_to_mech_location = canGetToOpponent(hexManagerS.getHex(x,z),hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Player, knows_mech_location, path_to_mech);
 				double mech_path_cost = last_path_cost;
+				
 				if(!can_get_to_mech_location)
 					mech_path_cost = 0;
 				print ("Can get to mech location is " + can_get_to_mech_location + ", Mech Path Cost: " + mech_path_cost);
@@ -99,36 +99,54 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 					//enemy knows mech location and knows base location, check which path is shorter
 					print ("Update 1: knows mech/base location, check which path is shorter");
 					if(can_get_to_mech_location && can_get_to_base_location){
+
 						//find path with lower cost
 						print ("Update 1:2: knows mech/base location, check which path is shorter");
 						path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base);
-					}else if(can_get_to_base_location){
+					}
+					else if(can_get_to_base_location)
+					{
 						path_to_opponent = path_to_base;
-					}else if(can_get_to_mech_location){
+					}
+					else if(can_get_to_mech_location)
+					{
 						path_to_opponent = path_to_mech;
-					}else{
+					}
+					else
+					{
 						//no new path found
 						path_to_opponent = new List<HexData>();
 					}
+
 				}else if(knows_base_location){
+
 					Debug.Log ("knows_base_location");
 					//enemy knows base location, check to see if enemy can find least cost path
-					if(can_get_to_mech_location && can_get_to_base_location){
+					if(can_get_to_mech_location && can_get_to_base_location)
+					{
 						//find path with lower cost
 						path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base);
-					}else if(can_get_to_base_location){
+					}
+					else if(can_get_to_base_location)
+					{
 						//check to see if we can find shorter path to base assuming we can't see mech
 						path_to_base = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player);
 						base_path_cost = last_path_cost;
-						if(path_to_base.Count == 0){
+						if(path_to_base.Count == 0)
+						{
 							//no new path found
 							path_to_opponent = new List<HexData>();
-						}else{
+						}
+						else
+						{
 							path_to_opponent = path_to_base;
 						}
-					}else if(can_get_to_mech_location){
+					}
+					else if(can_get_to_mech_location)
+					{
 						path_to_opponent = path_to_mech;
-					}else{
+					}
+					else{
 						//no new path found
 						//check to see if we can find shorter path to base assuming we can't see mech
 						path_to_base = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player);
@@ -210,6 +228,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 					makeMove(path_to_opponent[0]);
 				}			
 //			}*/
+
 		}
 		
 		
@@ -432,6 +451,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	//True if enemy can can get to specified opponent
 	bool canGetToOpponent(HexData enemy, HexData opponent, EntityE entity_opponent, bool knows_opponents_location, List<HexData> path_to_opp){
+
 		if(knows_opponents_location){
 			//if enemy already "knows opponents location" then don't worry about visibility just get path to opponent
 			print ("canGetToOpponent: knows enemy location, get path:" + entity_opponent);
@@ -444,10 +464,12 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				print ("canGetToOpponent: knows enemy location, and found path");
 				return true;
 			}
-		}else{
+		}
+		else
+		{
 			//if enemy doesn't "know opponents location" then check to see if opponent is visibile
 			print ("canGetToOpponent: doesn't know enemy location, see if enemy in sight range: " + entity_opponent);
-			if(isInMechsightRange(opponent)){
+			if(canSeeHex(opponent)){
 				print ("canGetToOpponent: doesn't know enemy location, get path" + entity_opponent);
 				//find path to opponent
 				path_to_opp = getTraversablePath(enemy, opponent, entity_opponent);
@@ -468,32 +490,28 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	}
 	
 	//Return true if entity is visible(enemy_visibility_range) to enemy based on enemies current x and z
-	public bool isInMechsightRange(HexData entity)
+	public bool canSeeHex(HexData hex)
 	{		
-		
-		Debug.Log("isInMechsightRange: " + entity + " = entity | " + entity.x + " | " + entity.z);
-		List<HexData> hex_range = getsightRange();
-		if(hex_range != null){
-			print ("isInMechsightRange: Size of hex_range = " + hex_range.Count);
-			foreach(HexData h in hex_range){
-				print ("isInMechsightRange: hex: " + h.x + ":" + h.z);
-				if(h.x == entity.x && h.z == entity.z)
+		Debug.Log("canSeeHex: " + hex + " = hex | " + hex.x + " | " + hex.z);  
+			foreach(HexData h in getSightRange()){
+				print ("canSeeHex: hex: " + h.x + ":" + h.z);
+				if(h.x == hex.x && h.z == hex.z)
 				{
 					//opponent is in sight range of enemy
-					print ("isInMechsightRange: opponent is in sight range");
+					print ("canSeeHex: opponent is in sight range");
 					return true;
 				}
-			}
-		}else{
-			throw new System.Exception("Sight Range is null, wtf D: D: DD: D::::::");
-		}
+				//Debug.Log ("...checking hex...");
+			}  
+		
 		//opponent isn't in sight range of enemy
-		print ("isInMechsightRange: opponent is not in sight range");
+		print ("canSeeHex: opponent is not in sight range");
 		return false;
 	}
 	
 	
-	public List<HexData> getsightRange()
+
+	public List<HexData> getSightRange()
 	{
 		HexData current_hex;    
 		List<HexData> hexes_in_range = new List<HexData>();
@@ -553,13 +571,16 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				hexes_in_range.Add(current_hex); 
 			}
 		}
+
+		Debug.LogWarning("hexes_in_range size = " + hexes_in_range.Count);
 		return hexes_in_range;
 	}
 		
 	
 	
 //	//find all hexes in sight range of enemy, sight range set by enemy_sight_range variable 
-//	public List<HexData> getsightRange(){
+
+//	public List<HexData> canSeeHex(){
 //		List<HexData> hexes_start = getAdjacentTraversableHexes(); //get adj hexes
 //		if(hexes_start != null){
 //			int last_added = hexes_start.Count; //the number of hexes add to resulting array
