@@ -146,12 +146,12 @@ public class entityManagerS : MonoBehaviour {
 		switch(entity)
 		{
 			case EntityE.Player:
-				if(hex_x == mech_s.x && mech_s.z == 1)
+				if(hex_x == mech_s.x && hex_z == mech_s.z)
 					return true;
 				return false;
 				
 			case EntityE.Base:
-				if(hex_x == base_s.x && base_s.z == 5)
+				if(hex_x == base_s.x && hex_z == base_s.z)
 					return true;
 				return false;
 				 
