@@ -62,5 +62,5 @@ public interface IPathFind{
     double calcEstimate(HexData hex_start, HexData hex_end);
 	
 	//Secondary version of traversable hexes(in IMove), accounts for a destination hex
-	List<HexData> getAdjacentTraversableHexes (HexData hex, HexData destination);
+	List<HexData> getAdjacentTraversableHexes (HexData hex, HexData destination, EntityE entity);
 }

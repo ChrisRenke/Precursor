@@ -4960,7 +4960,7 @@ LEVEL{
 			Z          = 7
 			Type       = Enemy
 			Omnsc Base = False
-			Omnsc Mech = False
+			Omnsc Mech = True
 		}
 	}
 }

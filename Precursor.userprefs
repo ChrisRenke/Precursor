@@ -1,5 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Engine/Managers/gameManagerS.cs">
     <Files>
       <File FileName="Assets/Scripts/Engine/Interaction/enemyDisplayS.cs" Line="51" Column="17" />
@@ -35,6 +36,12 @@
         <State expanded="True" selected="True" />
       </Pad>
     </Pads>
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Engine\Entity\entityEnemyS.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Engine\Entity\entityEnemyS.cs" Line="6" Column="1" />
+    </Files>
+>>>>>>> 69e32c8789b548a04f208e26359318ce7056c91f
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

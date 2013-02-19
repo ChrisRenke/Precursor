@@ -146,25 +146,29 @@ public class entityManagerS : MonoBehaviour {
 		switch(entity)
 		{
 			case EntityE.Player:
-				if(hex_x == mech_s.x && hex_z == mech_s.z)
+				if(hex_x == mech_s.x && mech_s.z == hex_z)
 					return true;
 				return false;
 				
 			case EntityE.Base:
-				if(hex_x == base_s.x && hex_z == base_s.z)
+				if(hex_x == base_s.x && base_s.z == hex_z)
 					return true;
 				return false;
 				 
 			case EntityE.Node:
-				foreach(entityNodeS node in resource_node_list)
-					if(hex_x == node.x && hex_z == node.z)
-						return true;	
+				if(resource_node_list != null){
+					foreach(entityNodeS node in resource_node_list)
+						if(hex_x == node.x && hex_z == node.z)
+							return true;
+				}
 				return false;
 				
 			case EntityE.Enemy:
-				foreach(entityEnemyS enemy in enemy_list)
-					if(hex_x == enemy.x && hex_z == enemy.z)
-						return true;	
+				if(enemy_list != null){
+					foreach(entityEnemyS enemy in enemy_list)
+						if(hex_x == enemy.x && hex_z == enemy.z)
+							return true;
+				}
 				return false;
 			
 			default:
@@ -182,6 +186,42 @@ public class entityManagerS : MonoBehaviour {
 		   !isEntityPos(hex_x, hex_z, EntityE.Player))
 			return true;
 		return false;
+	}
+	
+	//Same has other canTraversHex except check to see if the indicated hex can be moved onto without considering excluded entity into calculations 
+	//assumption is that if you send in "null" you will get to default case otherwise send it NODE
+	public static bool canTraverseHex(HexData hex, EntityE exclude){
+		return canTraverseHex(hex.x, hex.z, exclude);
+	}
+	
+	public static bool canTraverseHex(int hex_x, int hex_z, EntityE exclude){
+		switch(exclude)
+		{
+			case EntityE.Player:
+				if(!isEntityPos(hex_x, hex_z, EntityE.Enemy)  &&
+				   !isEntityPos(hex_x, hex_z, EntityE.Base))
+					return true;
+				return false;
+			
+			case EntityE.Base:
+				if(!isEntityPos(hex_x, hex_z, EntityE.Enemy)  && 
+				   !isEntityPos(hex_x, hex_z, EntityE.Player))
+					return true;
+				return false;
+			
+			case EntityE.Enemy:
+				if(!isEntityPos(hex_x, hex_z, EntityE.Base)   && 
+				   !isEntityPos(hex_x, hex_z, EntityE.Player))
+					return true;
+				return false;
+			
+			default:
+				if(!isEntityPos(hex_x, hex_z, EntityE.Enemy)  &&
+				   !isEntityPos(hex_x, hex_z, EntityE.Base)   && 
+				   !isEntityPos(hex_x, hex_z, EntityE.Player))
+					return true;
+				return false;
+		}
 	}
 	
 	//instantiate an object into the gamespace

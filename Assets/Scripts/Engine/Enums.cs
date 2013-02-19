@@ -45,6 +45,11 @@ public struct HexData{
 	}
 } 
 
+
+
+
+
+
 public struct NodeData{
 	
 	public readonly int 	x;   	  //level x coord (NE / SW)

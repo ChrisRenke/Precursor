@@ -18,8 +18,8 @@ public class hexManagerS : MonoBehaviour {
  	
 	public static string        level_name;
 	public static HexData[,] 	hexes; 
-	public static int 			x_max, z_max = 0; //size of hex array, used for out of bounds checking
-	
+	public static int 			x_max = 0; //size of hex array, used for out of bounds checking
+	public static int			z_max = 0;
 	  
 	public 		   GameObject  	hex_display_init;
 	
@@ -69,6 +69,20 @@ public class hexManagerS : MonoBehaviour {
 		output[5].direction_from_central_hex = Facing.NorthWest;
 		
 		return output;
+	}
+	
+	public static HexData getHex(int x, int z, Facing direction)
+	{
+		switch(direction)
+		{
+			case Facing.North: 		return hexes[x, z +1];
+			case Facing.NorthEast:	return hexes[x+1, z];
+			case Facing.SouthEast:	return hexes[x+1, z-1];
+			case Facing.South:		return hexes[x, z-1]; 
+			case Facing.SouthWest:	return hexes[x-1, z];	
+			case Facing.NorthWest:	return hexes[x-1, z+1];
+		default: throw new System.Exception("Wtf, how'd you get this?  getHex(facing)");
+		}
 	}
 	
 	

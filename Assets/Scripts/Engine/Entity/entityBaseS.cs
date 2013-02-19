@@ -8,7 +8,6 @@ public class entityBaseS : Combatable {
 	}
 	// Update is called once per frame
 	void Update () {
-	
 	}
 
 	
