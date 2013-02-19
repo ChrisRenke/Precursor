@@ -34,7 +34,7 @@ public class engineIOS : MonoBehaviour {
 	
 	public static bool LoadFromString(string level_data){	
 		
-		string[] level_lines = level_data.Split(new char[] {'\n'});
+		string[] level_lines = level_data.Split(new string[] {"\n","\r\n"},StringSplitOptions.None);
 		int index = 0;
 		
 	//INITIALIZE FILE TO READ\
@@ -52,6 +52,7 @@ public class engineIOS : MonoBehaviour {
 		  	
 	//BEGIN PARSING DATA
 		//PARSE HEADER INFO
+		print ("DEBUG " + level_lines[index]);
 		if(!level_lines[index++].Equals("LEVEL{"))
 		{
 			print("l1 ILL FORMATED!");
@@ -158,7 +159,6 @@ public class engineIOS : MonoBehaviour {
 					if(!entityManagerS.instantiatePlayer(x, z, mech_starting_health_percentage))
 						throw new System.Exception("There is already one player mech, cannot have two! D: Go edit the level file you're loading to only have one!");
 				
-					enginePlayerS.setMech();
 					break;
 				
 				case EntityE.Enemy:
@@ -182,6 +182,9 @@ public class engineIOS : MonoBehaviour {
 				print("MALFORMED HEX!");
 				return false;
 			}
+			
+			
+					enginePlayerS.setMech();
 		}
 //		
 //		Component[] meshFilters = GetComponentsInChildren<MeshFilter>();

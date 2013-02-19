@@ -56,5 +56,6 @@ public class engineHexS : MonoBehaviour {
 	 
 	    renderer.material.SetTextureOffset ("_MainTex", offset); 
 	    renderer.material.SetTextureScale  ("_MainTex", size);
+//		renderer.material.SetColor("_Color", Color.gray);
 	}
 }

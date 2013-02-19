@@ -71,6 +71,20 @@ public class hexManagerS : MonoBehaviour {
 		return output;
 	}
 	
+	public static HexData getHex(int x, int z, Facing direction)
+	{
+		switch(direction)
+		{
+			case Facing.North: 		return hexes[x, z +1];
+			case Facing.NorthEast:	return hexes[x+1, z];
+			case Facing.SouthEast:	return hexes[x+1, z-1];
+			case Facing.South:		return hexes[x, z-1]; 
+			case Facing.SouthWest:	return hexes[x-1, z];	
+			case Facing.NorthWest:	return hexes[x-1, z+1];
+		default: throw new System.Exception("Wtf, how'd you get this?  getHex(facing)");
+		}
+	}
+	
 	
 	
 	//Get hex at given position in the map

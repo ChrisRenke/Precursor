@@ -43,7 +43,7 @@ public class gameManagerS : MonoBehaviour {
 			{
 				
 				if(enemy_enumerator.MoveNext())
-				{
+		 		{
 					entityEnemyS current_enemy = enemy_enumerator.Current;
 					current_enemy.is_this_enemies_turn = true;
 					current_enemy.current_ap = 6;

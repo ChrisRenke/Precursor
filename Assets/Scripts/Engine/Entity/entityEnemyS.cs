@@ -19,13 +19,13 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	public double base_weight;
 	public double mech_weight;
 	
-	public bool knows_mech_location;
-	public bool knows_base_location;
+	public bool knows_mech_location = false;
+	public bool knows_base_location = true;
 	
 	public bool is_this_enemies_turn;
 	
 	//test var
-	public int enemy_site_range; //visible distance (in hexes) where opponent can be seen by enemy, if 3 then checks 3 hexes out in 6 directions 	
+	public int enemy_sight_range =3; //visible distance (in hexes) where opponent can be seen by enemy, if 3 then checks 3 hexes out in 6 directions 	
 	
 	// Use this for initialization
 	void Start () {
@@ -47,7 +47,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			
 			//get base and mech positions
 			entityBaseS base_s = entityManagerS.getBase();
-			entityBaseS mech_s = entityManagerS.getBase();
+			entityMechS mech_s = entityManagerS.getMech();
 			
 			//check ap
 			if(current_ap <= 0)
@@ -57,18 +57,20 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			}
 			
 			//scan through list of enemies
-			foreach(entityEnemyS enemy in entityManagerS.getEnemies())
-			{
+//			foreach(entityEnemyS enemy in entityManagerS.getEnemies())
+//			{
 				print ("working with an enemy");				
 				
 				//Determine whether you can get to mech and base and store there path costs
-				can_get_to_mech_location = canGetToOpponent(hexManagerS.getHex(enemy.x,enemy.z),hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Player, knows_mech_location, path_to_mech);
+				can_get_to_mech_location = canGetToOpponent(hexManagerS.getHex(x,z),hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Player, knows_mech_location, path_to_mech);
 				double mech_path_cost = last_path_cost;
-				can_get_to_base_location = canGetToOpponent(hexManagerS.getHex(enemy.x,enemy.z),hexManagerS.getHex(base_s.x,base_s.z), EntityE.Base, knows_base_location, path_to_base);
+				can_get_to_base_location = canGetToOpponent(hexManagerS.getHex(x,z),hexManagerS.getHex(base_s.x,base_s.z), EntityE.Base, knows_base_location, path_to_base);
 				double base_path_cost = last_path_cost;
 				
 				//Decide path to take
 				if(knows_mech_location && knows_base_location){
+					
+					Debug.Log ("knows_mech_location && knows_base_location");
 					//enemy knows mech location and knows base location check which path is shorter
 					if(can_get_to_mech_location && can_get_to_base_location){
 						//find path with lower cost
@@ -82,13 +84,14 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 						path_to_opponent = new List<HexData>();
 					}
 				}else if(knows_base_location){
+					Debug.Log ("knows_base_location");
 					//enemy knows base location, check to see if enemy can find least cost path
 					if(can_get_to_mech_location && can_get_to_base_location){
 						//find path with lower cost
 						path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base);
 					}else if(can_get_to_base_location){
 						//check to see if we can find shorter path to base assuming we can't see mech
-						path_to_base = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player);
+						path_to_base = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player);
 						base_path_cost = last_path_cost;
 						if(path_to_base.Count == 0){
 							//no new path found
@@ -101,7 +104,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 					}else{
 						//no new path found
 						//check to see if we can find shorter path to base assuming we can't see mech
-						path_to_base = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player);
+						path_to_base = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player);
 						base_path_cost = last_path_cost;
 						if(path_to_base.Count == 0){
 							//no new path found
@@ -111,13 +114,14 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 						}
 					}
 				}else if(knows_mech_location){
+					Debug.Log ("knows_mech_location");
 					//enemy knows mech location, check to see if enemy can find least cost path
 					if(can_get_to_mech_location && can_get_to_base_location){
 						//find path with lower cost
 						path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base);
 					}else if(can_get_to_mech_location){
 						//check to see if we can find shorter path to mech assuming we can't see base
-						path_to_mech = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Base);
+						path_to_mech = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Base);
 						mech_path_cost = last_path_cost;
 						if(path_to_mech.Count == 0){
 							//no path found
@@ -130,7 +134,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 					}else{
 						//haven't found new path
 						//check to see if we can find shorter path to mech assuming we can't see base
-						path_to_mech = getTraversablePath (hexManagerS.getHex(enemy.x,enemy.z), hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Base);
+						path_to_mech = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Base);
 						mech_path_cost = last_path_cost;
 						if(path_to_mech.Count == 0)
 							path_to_opponent = new List<HexData>();
@@ -139,6 +143,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 						}
 					}
 				}else{
+					Debug.Log ("doesn't know either locations omniciently");
 					//enemy doesn't know where anyone is, so see if anyone is around and find least cost path
 					if(can_get_to_mech_location && can_get_to_base_location){
 						//find path with lower cost
@@ -165,7 +170,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 					}
 					
 					print ("no path found,  move randomly");
-				}else if(path_to_opponent.Count == 1 && path_to_opponent[0].x == enemy.x && path_to_opponent[0].z == enemy.z){
+				}else if(path_to_opponent.Count == 1 && path_to_opponent[0].x == x && path_to_opponent[0].z == z){
 					//TODO: enemy found path, so attack
 					print ("enemy found opponent, so att");
 				}else{ 
@@ -173,7 +178,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 					print ("move mech to next position");
 					makeMove(path_to_opponent[0]);
 				}			
-			}
+//			}
 		}
 		
 		if(lerp_move)
@@ -189,6 +194,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			}	
 		}
 		
+		
+		//END TURN IF AP OUT
 	}
 	
 	public List<HexData> getAdjacentTraversableHexes () {
@@ -405,7 +412,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			}
 		}else{
 			//if enemy doesn't "know opponents location" then check to see if opponent is visibile
-			if(isInMechSiteRange(opponent)){
+			if(isInMechsightRange(opponent)){
+				Debug.Log ("can see the enemy within sight range.");
 				//find path to opponent
 				path_to_opp = getTraversablePath(enemy, opponent, entity_opponent);
 				if(path_to_opp.Count == 0){
@@ -415,6 +423,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 					return true;
 				}
 			}else{
+				Debug.Log ("can  !!! NOT !!!see the enemy within sight range.");
 				//opponent isn't visible
 				return false;
 			}
@@ -422,58 +431,133 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	}
 	
 	//Return true if entity is visible(enemy_visibility_range) to enemy based on enemies current x and z
-	public bool isInMechSiteRange(HexData entity)
+	public bool isInMechsightRange(HexData entity)
 	{		
-		List<HexData> hex_range = getSiteRange();
+		
+					Debug.Log(entity + " = entity | " + entity.x + " | " + entity.z);
+		List<HexData> hex_range = getsightRange();
 		if(hex_range != null){
 			foreach(HexData h in hex_range){
-				if(h.x == entity.x && h.z == entity.z){
-					//opponent is in site range of enemy
+				if(h.x == entity.x && h.z == entity.z)
+				{
+					//opponent is in sight range of enemy
+					Debug.Log("isInMechsightRange is true");
 					return true;
 				}
 			}
 		}
-		//opponent isn't in site range of enemy
+		else
+		{
+			throw new System.Exception("Sight Range is null, wtf D: D: DD: D::::::");
+		}
+		//opponent isn't in sight range of enemy
+		Debug.Log("isInMechsightRange is FALSE!!!!!!!!");
 		return false;
 	}
-
-	//find all hexes in site range of enemy, site range set by enemy_site_range variable 
-	public List<HexData> getSiteRange(){
-		List<HexData> hexes_start = getAdjacentTraversableHexes(); //get adj hexes
-		if(hexes_start != null){
-			int last_added = hexes_start.Count; //the number of hexes add to resulting array
-			int left = enemy_site_range - 1; //number of hexes left to span
-			int index = 0; //index we are currently on in result array
-			return siteRangeHelper(left, last_added, hexes_start, index);
-		}
-		return new List<HexData>();
-	}
 	
 	
-	public List<HexData> siteRangeHelper (int left, int last_added, List<HexData> result, int index)
+	public List<HexData> getsightRange()
 	{
-		if(left == 0 || last_added == 0 ){
-			return result;
-		}else{
-			int count = 0;
-			HexData[] temp;
-			for(int i = 0; i < last_added; i++){
-				temp = hexManagerS.getAdjacentHexes(result[index].x, result[index].z);
-				//add adj hexes to result
-				for(int j =0; j < temp.Length; j++){
-					if(temp[j].hex_type != Hex.Perimeter){
-						result.Add(temp[j]);
-						count++;
-					}
-				}
-				index++;
+		HexData current_hex;    
+		List<HexData> hexes_in_range = new List<HexData>();
+		
+		//draw center hex, the one clicked on
+		current_hex = hexManagerS.getHex(x, z); 
+		
+		hexes_in_range.Add(current_hex);
+		
+		//enter loop for surrounding hexes
+		for(int ring = 1; ring < z + 1; ring++)
+		{
+			 
+			//draw the first "northeast" edge hex 
+			current_hex = hexManagerS.getHex(x, z, Facing.NorthEast);
+			hexes_in_range.Add(current_hex); 
+			
+			//draw the "northeast" portion
+			for(int edge_hexes_drawn = 1; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{ 
+				current_hex = hexManagerS.getHex(x, z, Facing.SouthEast);// = AddHexSE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
+				hexes_in_range.Add(current_hex); 
 			}
-			last_added = count;
-			left = left - 1;
-			return siteRangeHelper (left, last_added, result, index);
+			
+			//draw the "southeast" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(x, z, Facing.South);
+				hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "south" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(x, z, Facing.SouthWest);
+				hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "southwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(x, z, Facing.NorthWest);
+				hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "northwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(x, z, Facing.North);
+				hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "north" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(x, z, Facing.NorthEast);
+				hexes_in_range.Add(current_hex); 
+			}
 		}
+		return hexes_in_range;
 	}
+		
 	
+	
+//	//find all hexes in sight range of enemy, sight range set by enemy_sight_range variable 
+//	public List<HexData> getsightRange(){
+//		List<HexData> hexes_start = getAdjacentTraversableHexes(); //get adj hexes
+//		if(hexes_start != null){
+//			int last_added = hexes_start.Count; //the number of hexes add to resulting array
+//			int left = enemy_sight_range - 1; //number of hexes left to span
+//			int index = 0; //index we are currently on in result array
+//			return sightRangeHelper(left, last_added, hexes_start, index);
+//		}
+//		return new List<HexData>();
+//	}
+//	
+//	
+//	public List<HexData> sightRangeHelper (int left, int last_added, List<HexData> result, int index)
+//	{
+//		if(left == 0 || last_added == 0 ){
+//			return result;
+//		}else{
+//			int count = 0;
+//			HexData[] temp;
+//			for(int i = 0; i < last_added; i++){
+//				temp = hexManagerS.getAdjacentHexes(result[index].x, result[index].z);
+//				//add adj hexes to result
+//				for(int j =0; j < temp.Length; j++){
+//					if(temp[j].hex_type != Hex.Perimeter){
+//						result.Add(temp[j]);
+//						count++;
+//					}
+//				}
+//				index++;
+//			}
+//			last_added = count;
+//			left = left - 1;
+//			return sightRangeHelper (left, last_added, result, index);
+//		}
+//	}
+//	
 	//Return path cost where path_cost = path cost * weight [where weight = path cost^2 * entity_weight]
 	public double pathCost(double weight, double path_cost){
 		return path_cost * Math.Pow(path_cost,2) * weight;
