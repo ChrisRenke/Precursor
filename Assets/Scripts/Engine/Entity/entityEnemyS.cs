@@ -19,13 +19,13 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	public double base_weight;
 	public double mech_weight;
 	
-	public bool knows_mech_location = false;
-	public bool knows_base_location = true;
+	public bool knows_mech_location;
+	public bool knows_base_location;
 	
 	public bool is_this_enemies_turn;
 	
 	//test var
-	public int enemy_sight_range = 5; //visible distance (in hexes) where opponent can be seen by enemy, if 3 then checks 3 hexes out in 6 directions 	
+	public int enemy_sight_range; //visible distance (in hexes) where opponent can be seen by enemy, if 3 then checks 3 hexes out in 6 directions 	
 	
 	int t = 0;
 	
@@ -34,20 +34,23 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		path_to_base = new List<HexData>();
 		path_to_mech = new List<HexData>();
 		path_to_opponent = new List<HexData>();
-		last_path_cost = 0;
-		 
+		last_path_cost = 0;		 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//TODO: UPDATE() not tested, contains some sudo code
-		//TEST
-		knows_mech_location = false;
-		knows_base_location = true;
+		
+		//TESTING VARIABLES, must be set for algorithm to work*****
+		knows_mech_location = true;
+		knows_base_location = false;
+		base_weight = 10;
+		mech_weight = 5;
+		enemy_sight_range = 3; //Don't go higher than 3 for my method, very slow, will rework later, but it does work
 		
 		if(gameManagerS.current_turn == Turn.Enemy  && !lerp_move && is_this_enemies_turn)
 		{
-			if( t== 0){
+			//if( t== 0 || t == 1 || t == 2){
 			print ("enemy turn now");
 			
 			//get base and mech positions
@@ -59,21 +62,25 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			{
 				is_this_enemies_turn = false;
 				gameManagerS.enemy_currently_acting = false;
-			}
+				//t =0;	//test
+			}else{
+				
+				//******AP COST SEEMS TO BE MESSING WITH THE PATH, SO HAVE TO HAVE SOME MECHANISIM FOR FOLLING
+				//THE SAME PATH WITHOUT RE WORKING DURING TURN, B/C MAY KEEP GOING BACK AND FORTH AND USING
+				//UP AP WIHTOUT GETING ANYWHERE***********
+				//ALSO MAKE ATTACK METHOD TAKE DOWN AP, THIS MIGHT HELP THE ISSUE ABOVE
 			
+				//MAIN IDEA
 				//if can see mech and base and enemy is able to get to both mech and base
 				//then can get to mech and base is true.
-				
 				//if cant see mech and base and enemy then check to see if in visible range
 				//then can get to mech and base is true if they are in visible range and a path can be found.
-				
 				//if they aren't in visible range or a path can't be found then can get to mech and base will be false
 				
 				print ("WORKING WITH AN ENEMY");
-				//TEST: IN VISIBILITY RANGE
+				print ("AP LEFT:" + current_ap);
 				
-				
-				//TEST: CAN GET TO OPPONENT
+
 				print ("Knows mech location is " + knows_mech_location + ", Knows base location is " + knows_base_location);
 				print ("mech location is " + mech_s.x + ":" + mech_s.z + ", base location is " + base_s.x + ":" + base_s.z);
 				//Determine whether you can get to mech and base and store there path costs
@@ -97,137 +104,146 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				print ("Decide PATH to take");
 				if(knows_mech_location && knows_base_location){
 					//enemy knows mech location and knows base location, check which path is shorter
-					print ("Update 1: knows mech/base location, check which path is shorter");
 					if(can_get_to_mech_location && can_get_to_base_location){
 
 						//find path with lower cost
 						print ("Update 1:2: knows mech/base location, check which path is shorter");
 						path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base);
 					}
-					else if(can_get_to_base_location)
-					{
+					else if(can_get_to_base_location){
+						print ("Update 1:3: knows mech/base location, can't get to mech so go to base");
 						path_to_opponent = path_to_base;
 					}
-					else if(can_get_to_mech_location)
-					{
+					else if(can_get_to_mech_location){
+						print ("Update 1:4: knows mech/base location, can't get to base so go to mech");
 						path_to_opponent = path_to_mech;
 					}
-					else
-					{
+					else{
 						//no new path found
+						print("Update 1:3: knows mech/base location, can't find path to mech or base");
 						path_to_opponent = new List<HexData>();
 					}
 
 				}else if(knows_base_location){
 
-					Debug.Log ("knows_base_location");
-					//enemy knows base location, check to see if enemy can find least cost path
-					if(can_get_to_mech_location && can_get_to_base_location)
-					{
-						//find path with lower cost
+					if(can_get_to_mech_location && can_get_to_base_location){
+						//enemy knows base location, find least cost path 
+						print ("Update 2:1: knows base location, check which path is shorter");
 						path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base);
 					}
-					else if(can_get_to_base_location)
-					{
-						//check to see if we can find shorter path to base assuming we can't see mech
-						path_to_base = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player);
-						base_path_cost = last_path_cost;
-						if(path_to_base.Count == 0)
-						{
-							//no new path found
-							path_to_opponent = new List<HexData>();
-						}
-						else
-						{
-							path_to_opponent = path_to_base;
-						}
-					}
-					else if(can_get_to_mech_location)
-					{
-						path_to_opponent = path_to_mech;
-					}
-					else{
-						//no new path found
+					else if(can_get_to_base_location){	
+						print ("Update 2:2: knows base location, can't get to mech, check for shorter path to base assuming we can't see mech");
 						//check to see if we can find shorter path to base assuming we can't see mech
 						path_to_base = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player);
 						base_path_cost = last_path_cost;
 						if(path_to_base.Count == 0){
 							//no new path found
+							print ("Update 2:3: knows base location, shouldn't reach this code, since path to base already found");
+							path_to_opponent = new List<HexData>();
+						}
+						else{
+							print ("Update 2:4: knows base location, going on path to base");
+							path_to_opponent = path_to_base;
+						}
+					}else if(can_get_to_mech_location){
+						print ("Update 2:5: knows base location, can't get to base so go to mech");
+						path_to_opponent = path_to_mech;
+					}else{
+						//no new path found, check to see if we can find shorter path to base assuming we can't see mech
+						print ("Update 2:6: knows base location, can't find a path to either but try to find path to base assuming mech may be blocking path");
+						path_to_base = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player);
+						base_path_cost = last_path_cost;
+						if(path_to_base.Count == 0){
+							//no new path found
+							print ("Update 2:7: knows base location, path not found to base or mech");
 							path_to_opponent = new List<HexData>();
 						}else{
+							print ("Update 2:8: knows base location, path to base found if enemy not considered");
 							path_to_opponent = path_to_base;
 						}
 					}
 				}else if(knows_mech_location){
-					Debug.Log ("knows_mech_location");
 					//enemy knows mech location, check to see if enemy can find least cost path
 					if(can_get_to_mech_location && can_get_to_base_location){
 						//find path with lower cost
+						print ("Update 3:1: knows mech location, check which path is shorter");
 						path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base);
 					}else if(can_get_to_mech_location){
 						//check to see if we can find shorter path to mech assuming we can't see base
+						print ("Update 3:2: knows mech location, can't see base so try to find shorter path to mech");
 						path_to_mech = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Base);
 						mech_path_cost = last_path_cost;
 						if(path_to_mech.Count == 0){
 							//no path found
+							print ("Update 3:3: knows mech location, shouldn't reach this code since path to mech known");
 							path_to_opponent = new List<HexData>();
 						}else{
+							print ("Update 3:4: knows mech location, path to mech found");
 							path_to_opponent = path_to_mech;
 						}
-					}else if(can_get_to_base_location){					
+					}else if(can_get_to_base_location){
+						print ("Update 3:5: knows mech location, can't get to mech but found path to base");
 						path_to_opponent = path_to_base;	
 					}else{
-						//haven't found new path
-						//check to see if we can find shorter path to mech assuming we can't see base
+						//haven't found new path, check to see if we can find shorter path to mech assuming we can't see base
+						print ("Update 3:6: knows mech location, try to find path to mech assuming path is blocked by base");
 						path_to_mech = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Base);
 						mech_path_cost = last_path_cost;
-						if(path_to_mech.Count == 0)
+						if(path_to_mech.Count == 0){
+							print ("Update 3:7: knows mech location, can't find a path to base or mech");
 							path_to_opponent = new List<HexData>();
-						else{
+						}else{
+							print ("Update 3:8: knows mech location, going on path to mech");
 							path_to_opponent = path_to_mech;
 						}
 					}
 				}else{
-					Debug.Log ("doesn't know either locations omniciently");
 					//enemy doesn't know where anyone is, so see if anyone is around and find least cost path
 					if(can_get_to_mech_location && can_get_to_base_location){
 						//find path with lower cost
+						print ("Update 4:1: don't know base or mech location, check to see which path is shorter");
 						path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, path_to_mech, path_to_base);
 					}else if (can_get_to_mech_location){
+						print ("Update 4:2: don't know base or mech location, can't get to base so go to mech");
 						path_to_opponent = path_to_mech;
 					}else if (can_get_to_base_location){
+						print ("Update 4:3 don't know base or mech location, can't get to mech so go to base");
 						path_to_opponent = path_to_base;
 					}else{ 
 						//can't find a path
+						print ("Update 4:1: don't know base or mech location, can't find path to either base or mech");
 						path_to_opponent = new List<HexData>();
 					}
 				}
-			
-					t = 1;
-			}
 				
-				/*
+				
 				//Finalize path move
 				if(path_to_opponent.Count == 0){
 			 		//no path found so have enemy move randomly
+			 		print ("Update 5:1: no path found so move randomly");
 					path_to_opponent = getAdjacentTraversableHexes();
 					
 					if(path_to_opponent.Count > 0){
 						makeMove(path_to_opponent[UnityEngine.Random.Range(0, path_to_opponent.Count)]);
 					}else{
 						//can't make a move, do nothing
+						print ("Update 5:2: can't move so let next enemy go");
 					}
-					
-					print ("no path found,  move randomly");
 				}else if(path_to_opponent.Count == 1 && path_to_opponent[0].x == x && path_to_opponent[0].z == z){
 					//TODO: enemy found path, so attack
-					print ("enemy found opponent, so att");
+					print ("Update 5:3: enemy found opponent, so att");
 				}else{ 
 					//move enemy to next position
-					print ("move mech to next position");
+					print ("Move enemy one position on path");
 					makeMove(path_to_opponent[0]);
 				}			
-//			}*/
+			
+			
+			}
+				//t++;
+			//}//test
+			
+			
 
 		}
 		
@@ -247,7 +263,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		
 		
 		
-		//END TURN IF AP OUT
+		//TODO: END TURN IF AP OUT
 	}
 	
 	public List<HexData> getAdjacentTraversableHexes () {
@@ -332,7 +348,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		}
 		else if(getTraverseAPCost(hex.hex_type) > current_ap)
 		{
-			//print ("ap over load: " + hex.x + " " + hex.z + " current ap:" + current_ap);
+			print ("canTraverse: ap over load: " + hex.x + " " + hex.z + " current ap:" + current_ap);
 			return false;
 		}
 		else
@@ -363,7 +379,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		if(path != null){
 			//get path cost
 			last_path_cost = path.TotalCost;
-			//print ("path cost:" + last_path_cost);
+			print ("getTraversablePath: path cost = " + last_path_cost);
 		}
 		return extractPath(path);
 	}
@@ -376,6 +392,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			foreach (HexData hex in path){
 				list.Add(hex);
 			}
+			print ("extractPath: size of path = " + list.Count);
 			
 			list.Reverse();	//path comes in backwards
 			
@@ -385,6 +402,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			}
 			
 			list.RemoveAt(list.Count - 1); //last element is the destination hex
+		}else{
+			print ("extractPath: path is empty ");
 		}
 		
 		return list;
@@ -418,6 +437,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				result_hexes.Add(adjacent_hexes[i]); 
 			}
 		}
+		
+		//print ("Number of result_hexes " + result_hexes.Count);
 		//Debug.Log(result_hexes.Count + " are adjacent goods");
 		return result_hexes;
 	}
@@ -455,7 +476,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		if(knows_opponents_location){
 			//if enemy already "knows opponents location" then don't worry about visibility just get path to opponent
 			print ("canGetToOpponent: knows enemy location, get path:" + entity_opponent);
-			path_to_opp = getTraversablePath(enemy, opponent, entity_opponent);	
+			path_to_opp = getTraversablePath(enemy, opponent, EntityE.Node);	
 			if(path_to_opp.Count == 0){
 				//no path found 
 				print ("canGetToOpponent: knows enemy location, but can't find path");
@@ -469,8 +490,10 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		{
 			//if enemy doesn't "know opponents location" then check to see if opponent is visibile
 			print ("canGetToOpponent: doesn't know enemy location, see if enemy in sight range: " + entity_opponent);
-			if(canSeeHex(opponent)){
-				print ("canGetToOpponent: doesn't know enemy location, get path" + entity_opponent);
+			//TODO: TESTING****using old method*********
+			if(canSeeHex(opponent)){ 
+			//if(canSeeHex(opponent)){ ****
+				print ("canGetToOpponent: doesn't know enemy location, get path to " + entity_opponent);
 				//find path to opponent
 				path_to_opp = getTraversablePath(enemy, opponent, entity_opponent);
 				if(path_to_opp.Count == 0){
@@ -488,6 +511,9 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			}
 		}
 	}
+	
+//VERSION 1 SIGHT RANGE METHODS
+	/*
 	
 	//Return true if entity is visible(enemy_visibility_range) to enemy based on enemies current x and z
 	public bool canSeeHex(HexData hex)
@@ -576,46 +602,68 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		return hexes_in_range;
 	}
 		
+//
+*/
+	
+//VERSION 2 sight range methods
+	
+	//Return true if entity is visible(enemy_visibility_range) to enemy based on enemies current x and z
+	public bool canSeeHex(HexData hex)
+	{		
+		Debug.Log("canSeeHex: enemy hex =" + hex + " = hex | " + hex.x + " | " + hex.z);  
+			foreach(HexData h in getSightRange()){
+				//print ("canSeeHex: hex: " + h.x + ":" + h.z);
+				if(h.x == hex.x && h.z == hex.z)
+				{
+					//opponent is in sight range of enemy
+					print ("canSeeHex: opponent is in sight range");
+					return true;
+				}
+				//Debug.Log ("...checking hex...");
+			}  
+		
+		//opponent isn't in sight range of enemy
+		print ("canSeeHex: opponent is not in sight range");
+		return false;
+	}
+	
+	//find all hexes in sight range of enemy, sight range set by enemy_sight_range variable 
+	public List<HexData> getSightRange(){
+		List<HexData> hexes_start = getAdjacentTraversableHexes(); //get adj hexes
+		if(hexes_start != null){
+			int last_added = hexes_start.Count; //the number of hexes add to resulting array
+			int left = enemy_sight_range - 1; //number of hexes left to span
+			int index = 0; //index we are currently on in result array
+			return sightRangeHelper(left, last_added, hexes_start, index);
+		}
+		return new List<HexData>();
+	}
 	
 	
-//	//find all hexes in sight range of enemy, sight range set by enemy_sight_range variable 
-
-//	public List<HexData> canSeeHex(){
-//		List<HexData> hexes_start = getAdjacentTraversableHexes(); //get adj hexes
-//		if(hexes_start != null){
-//			int last_added = hexes_start.Count; //the number of hexes add to resulting array
-//			int left = enemy_sight_range - 1; //number of hexes left to span
-//			int index = 0; //index we are currently on in result array
-//			return sightRangeHelper(left, last_added, hexes_start, index);
-//		}
-//		return new List<HexData>();
-//	}
-//	
-//	
-//	public List<HexData> sightRangeHelper (int left, int last_added, List<HexData> result, int index)
-//	{
-//		if(left == 0 || last_added == 0 ){
-//			return result;
-//		}else{
-//			int count = 0;
-//			HexData[] temp;
-//			for(int i = 0; i < last_added; i++){
-//				temp = hexManagerS.getAdjacentHexes(result[index].x, result[index].z);
-//				//add adj hexes to result
-//				for(int j =0; j < temp.Length; j++){
-//					if(temp[j].hex_type != Hex.Perimeter){
-//						result.Add(temp[j]);
-//						count++;
-//					}
-//				}
-//				index++;
-//			}
-//			last_added = count;
-//			left = left - 1;
-//			return sightRangeHelper (left, last_added, result, index);
-//		}
-//	}
-//	
+	public List<HexData> sightRangeHelper (int left, int last_added, List<HexData> result, int index)
+	{
+		if(left == 0 || last_added == 0 ){
+			return result;
+		}else{
+			int count = 0;
+			HexData[] temp;
+			for(int i = 0; i < last_added; i++){
+				temp = hexManagerS.getAdjacentHexes(result[index].x, result[index].z);
+				//add adj hexes to result
+				for(int j =0; j < temp.Length; j++){
+					if(temp[j].hex_type != Hex.Perimeter){
+						result.Add(temp[j]);
+						count++;
+					}
+				}
+				index++;
+			}
+			last_added = count;
+			left = left - 1;
+			return sightRangeHelper (left, last_added, result, index);
+		}
+	}
+	
 	//Return path cost where path_cost = path cost * weight [where weight = path cost^2 * entity_weight]
 	public double pathCost(double weight, double path_cost){
 		return path_cost * Math.Pow(path_cost,2) * weight;
@@ -625,19 +673,26 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	public List<HexData> minCostPath(double weight1, double weight2, double path_cost1, double path_cost2, List<HexData> path1, List<HexData> path2){
 		double cost1 = pathCost(weight1, path_cost1); 
 		double cost2 = pathCost(weight2, path_cost2); 
-		
-		if(cost1 < cost2)
+		print("minCostPath: comparing costs-" + cost1 +" vs " + cost2);
+		if(cost1 < cost2){
+			print ("minCostPath: mech path returned, cost =" + cost1);
 			return path1;
-		else if(cost2 < cost1)
+		}else if(cost2 < cost1){
+			print ("minCostPath: base path returned, cost =" + cost2);
 			return path2;
-		else{
+		}else{
 			//if paths are equal then return path with higher weight
-			if(weight1 < weight2)
+			print ("minCostPath: paths have same cost, so return path with higher weight-" + weight1 +" vs " + weight2);
+			if(weight1 > weight2){
+				print ("minCostPath: mech path had higher weight = " +weight1);
 				return path1;
-			else if(weight2 < weight1)
+			}else if(weight2 > weight1){
+				print ("minCostPath: mech path had higher weight = " + weight2);
 				return path2;
-			else
-				return path1;
+			}else{
+				print ("minCostPath: path are equal in weight and cost so just go to base");
+				return path2;
+			}
 		}
 	}
 	
