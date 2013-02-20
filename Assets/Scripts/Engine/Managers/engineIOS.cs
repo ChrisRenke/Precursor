@@ -96,11 +96,21 @@ public class engineIOS : MonoBehaviour {
 			int x = getIntR(level_lines[index++]) - load_x_min;
 			int z = getIntR(level_lines[index++]) - load_z_min;
 			
+			Vector3 pos = hexManagerS.CoordsGameTo3D(x,z);
+			GameObject new_hex = (GameObject) Instantiate(hexManagerS.hex_display, pos, Quaternion.identity);
+			engineHexS new_hex_script = (engineHexS) new_hex.GetComponent("engineHexS"); 
+			
 			print ("making hex: " + x + ", " + z);
             Hex hex_type = (Hex) Enum.Parse(typeof(Hex), getStringR(level_lines[index++]));
-			hexManagerS.hexes[x, z] = new HexData(x, z, hex_type);
+			HexData new_hex_data = new HexData(x, z, hex_type, new_hex);
 			
-			Vector3 pos = hexManagerS.CoordsGameTo3D(x,z);
+			new_hex_script.assignHexData_IO_LOADER_ONLY(new_hex_data);
+			new_hex_script.SetVisiual();
+			
+			hexManagerS.hexes[x, z] = new_hex_data;
+			
+			
+			
 			if(pos.x < enginePlayerS.camera_min_x_pos)
 				enginePlayerS.camera_min_x_pos = pos.x;
 			if(pos.x > enginePlayerS.camera_max_x_pos)
@@ -112,10 +122,6 @@ public class engineIOS : MonoBehaviour {
 			if(pos.z < enginePlayerS.camera_min_z_pos)
 				enginePlayerS.camera_min_z_pos = pos.z;
 			
-			GameObject new_hex = (GameObject) Instantiate(hexManagerS.hex_display, pos, Quaternion.identity);
-			engineHexS new_hex_script = (engineHexS) new_hex.GetComponent("engineHexS"); 
-			new_hex_script.buildHexData(x, z, hex_type);
-			new_hex_script.SetVisiual();
 			
 			if(!getCBR(level_lines[index++]))
 			{

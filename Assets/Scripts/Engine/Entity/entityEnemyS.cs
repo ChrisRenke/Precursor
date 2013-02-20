@@ -455,7 +455,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	public bool canSeeHex(HexData hex)
 	{		
 		Debug.Log(hex + " = hex | " + hex.x + " | " + hex.z);  
-			foreach(HexData h in getSightRange()){
+			foreach(HexData h in hexManagerS.getAdjacentHexes(hex, enemy_sight_range)){
 				if(h.x == hex.x && h.z == hex.z)
 				{
 					//opponent is in sight range of enemy
@@ -472,70 +472,6 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	}
 	
 	
-	public List<HexData> getSightRange()
-	{
-		HexData current_hex;    
-		List<HexData> hexes_in_range = new List<HexData>();
-		
-		//draw center hex, the one clicked on
-		current_hex = hexManagerS.getHex(x, z); 
-		
-		hexes_in_range.Add(current_hex);
-		
-		//enter loop for surrounding hexes
-		for(int ring = 1; ring < enemy_sight_range; ring++)
-		{
-			 
-			//draw the first "northeast" edge hex 
-			current_hex = hexManagerS.getHex(x, z, Facing.NorthEast);
-			hexes_in_range.Add(current_hex); 
-			
-			//draw the "northeast" portion
-			for(int edge_hexes_drawn = 1; edge_hexes_drawn < ring; ++edge_hexes_drawn)
-			{ 
-				current_hex = hexManagerS.getHex(x, z, Facing.SouthEast);// = AddHexSE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
-				hexes_in_range.Add(current_hex); 
-			}
-			
-			//draw the "southeast" portion
-			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
-			{
-				current_hex = hexManagerS.getHex(x, z, Facing.South);
-				hexes_in_range.Add(current_hex); 
-			}
-			
-			//draw the "south" portion
-			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
-			{
-				current_hex = hexManagerS.getHex(x, z, Facing.SouthWest);
-				hexes_in_range.Add(current_hex); 
-			}
-			
-			//draw the "southwest" portion
-			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
-			{
-				current_hex = hexManagerS.getHex(x, z, Facing.NorthWest);
-				hexes_in_range.Add(current_hex); 
-			}
-			
-			//draw the "northwest" portion
-			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
-			{
-				current_hex = hexManagerS.getHex(x, z, Facing.North);
-				hexes_in_range.Add(current_hex); 
-			}
-			
-			//draw the "north" portion
-			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
-			{
-				current_hex = hexManagerS.getHex(x, z, Facing.NorthEast);
-				hexes_in_range.Add(current_hex); 
-			}
-		}
-		
-		Debug.LogWarning("hexes_in_range size = " + hexes_in_range.Count);
-		return hexes_in_range;
-	}
 		
 	
 	

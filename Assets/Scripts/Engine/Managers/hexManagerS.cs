@@ -40,6 +40,74 @@ public class hexManagerS : MonoBehaviour {
 	}
 	
 	
+	public static List<HexData> getAdjacentHexes(int x, int z, int sight_range)
+	{
+		return hexManagerS.getAdjacentHexes(getHex(x, z), sight_range);
+	}
+	
+	public static List<HexData> getAdjacentHexes(HexData center, int sight_range)
+	{ 
+		List<HexData> hexes_in_range = new List<HexData>();
+		
+		//get the hex standing on
+		HexData current_hex = center; 
+		hexes_in_range.Add(current_hex);
+		
+		//enter loop for surrounding hexes
+		for(int ring = 1; ring <= sight_range; ring++)
+		{
+			 
+			//draw the first "northeast" edge hex 
+			current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+			hexes_in_range.Add(current_hex); 
+			
+			//draw the "northeast" portion
+			for(int edge_hexes_drawn = 1; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{ 
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthEast);// = AddHexSE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
+				hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "southeast" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.South);
+				hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "south" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthWest);
+				hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "southwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthWest);
+				hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "northwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.North);
+				hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "north" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+				hexes_in_range.Add(current_hex); 
+			}
+		}
+		
+		Debug.LogWarning("hexes_in_range size = " + hexes_in_range.Count);
+		return hexes_in_range;
+	}
+	
 	//Return adjacent hexes for the given entity position
 	public static HexData[] getAdjacentHexes(int x, int z){
 		

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Entity : MonoBehaviour {
 	
@@ -23,6 +24,7 @@ public abstract class  Combatable : Entity{
 	public int base_armor = 0;
 	public int current_ap;
 	public int max_ap;
+	public int sight_range = 5;
 	
 	public int getCurrentHP(){
 		return current_hp;

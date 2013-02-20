@@ -262,7 +262,7 @@ public class entityManagerS : MonoBehaviour {
 	{
 		bool is_first_mech = mech_s == null;
 		GameObject new_entity = instantiateEntity(x, z, EntityE.Player);
-		mech_s = (entityMechS) new_entity.AddComponent("entityMechS");
+		mech_s = (entityMechS) new_entity.GetComponent("entityMechS");
 		
 		if(mech_s == null)
 			throw new System.Exception("Mech Entity not created properly D:");

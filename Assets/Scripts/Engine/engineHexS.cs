@@ -3,20 +3,16 @@ using System.Collections;
 
 public class engineHexS : MonoBehaviour {
 	 
-	public  int x, z;
-	public  Hex hex_type;
+	private HexData hex_data;
 //	public  LineRenderer lr; 
 	
-	public void buildHexData(int _x, int _z, Hex _type)
-	{
-		hex_type = _type;
-		x = _x;
-		z = _z; 
+	public void assignHexData_IO_LOADER_ONLY(HexData _hex_data)
+	{ 
+		hex_data = _hex_data;
 	}
 	
- 	void Start()
-	{
-		
+	public HexData getHexData(){
+		return hex_data;
 	}
 	
 	//vars for the whole sheet
@@ -35,9 +31,9 @@ public class engineHexS : MonoBehaviour {
 	//SetSpriteAnimation
 	public void SetVisiual(){
 		   
-		frame_index = (((9 - (int) hex_type) * 3 ) - 1 ) - UnityEngine.Random.Range(0,2);  //pick a random variant
+		frame_index = (((9 - (int) hex_data.hex_type) * 3 ) - 1 ) - UnityEngine.Random.Range(0,2);  //pick a random variant
 		
-		print ("HEX TYPE: " + hex_type + " | FINDEX: " + frame_index);
+		print ("HEX TYPE: " +  hex_data.hex_type + " | FINDEX: " + frame_index);
 	    
 		// Size of every cell
 	    float sizeX = -1.0f / colCount;

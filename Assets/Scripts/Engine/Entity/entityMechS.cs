@@ -79,6 +79,15 @@ public class entityMechS : Combatable, IMove {
 		
 	}
 	
+	
+	public void colorSightRange(Color clr)
+	{
+		foreach(HexData hex in hexManagerS.getAdjacentHexes(x, z, sight_range))
+		{
+			hex.hex_object.renderer.material.SetColor("_Color", clr);
+		}
+	}
+	
 	public bool destroySelectionHexes(){
 		foreach(GameObject go in selection_hexes)
 		{
@@ -93,6 +102,8 @@ public class entityMechS : Combatable, IMove {
 	
 	//Update is called once per frame
 	void Update () {
+		
+		colorSightRange(Color.red);
 		if(gameManagerS.current_turn == Turn.Player)
 		{
 			
