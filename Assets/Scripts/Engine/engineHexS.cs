@@ -11,8 +11,23 @@ public class engineHexS : MonoBehaviour {
 		hex_data = _hex_data;
 	}
 	
-	public HexData getHexData(){
-		return hex_data;
+	public void updateFoWState()
+	{
+		hex_data = hexManagerS.getHex(hex_data.x, hex_data.z);
+		
+		switch(hex_data.vision_state)
+		{
+			case Vision.Live:
+			renderer.material.SetColor("_Color", Color.white);
+				break;
+			case Vision.Visited:
+			renderer.material.SetColor("_Color", Color.gray);
+				break;
+			case Vision.Unvisted:
+			renderer.material.SetColor("_Color", Color.black);
+				break;
+		}
+		
 	}
 	
 	//vars for the whole sheet
@@ -31,7 +46,7 @@ public class engineHexS : MonoBehaviour {
 	//SetSpriteAnimation
 	public void SetVisiual(){
 		   
-		frame_index = (((9 - (int) hex_data.hex_type) * 3 ) - 1 ) - UnityEngine.Random.Range(0,2);  //pick a random variant
+		frame_index = (((9 - (int) hex_data.hex_type) * 3 ) - 1 ) - UnityEngine.Random.Range(0,3);  //pick a random variant
 		
 		print ("HEX TYPE: " +  hex_data.hex_type + " | FINDEX: " + frame_index);
 	    

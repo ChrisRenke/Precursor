@@ -50,13 +50,14 @@ public struct HexData{
 	public readonly int 		z;  	  //level z coord  (N / S)
 	public readonly Hex 		hex_type; //enviroment type of this hex
 	public readonly GameObject hex_object;
+	public readonly engineHexS hex_script;
 	public Facing   			direction_from_central_hex;
 	public EntityE  			added_occupier;
 	public Vision   			vision_state;
 	public int      			traversal_cost;
 	
 	
-	public HexData(int _x, int _z, Hex _type, GameObject _hex_object){
+	public HexData(int _x, int _z, Hex _type, GameObject _hex_object, engineHexS _hex_script){
 		x = _x;
 		z = _z; 
 		hex_type = _type;
@@ -65,9 +66,10 @@ public struct HexData{
 		traversal_cost = -1;
 		hex_object 	   = _hex_object;
 		vision_state   = Vision.Unvisted;
+		hex_script     = _hex_script;
 	}
 	
-	public HexData(int _x, int _z, Hex _type, GameObject _hex_object, Vision _vision){
+	public HexData(int _x, int _z, Hex _type, GameObject _hex_object, engineHexS _hex_script, Vision _vision){
 		x 							= _x;
 		z 							= _z; 
 		hex_type 					= _type;
@@ -76,7 +78,30 @@ public struct HexData{
 		direction_from_central_hex  = Facing.South; //this is a temp value, should be replaced manually usually
 		added_occupier 				= EntityE.NotCheckedYet;
 		traversal_cost 				= -1;
+		hex_script     = _hex_script;
 	}
+	
+	public HexData(int _x, int _z, bool THIS_METHOD_IS_FOR_DUMMY_PERIMETER_HEXES_ONLY){
+		x = _x;
+		z = _z; 
+		hex_type = Hex.Perimeter;
+		direction_from_central_hex = Facing.South; 
+		added_occupier = EntityE.NotCheckedYet;
+		traversal_cost = -1;
+		hex_object 	   = null;
+		vision_state   = Vision.Unvisted;
+		hex_script     = null;
+	}
+	
+	public bool Equals(object obj) 
+	{
+		if (!(obj is HexData))
+			return false;
+		
+		HexData other_hex = (HexData) obj;
+		return this.x == other_hex.x && this.z == other_hex.z; 
+	}
+	
 } 
 
 

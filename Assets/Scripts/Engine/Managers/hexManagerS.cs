@@ -24,12 +24,18 @@ public class hexManagerS : MonoBehaviour {
 	public 		   GameObject  	hex_display_init;
 	
 	public  static GameObject  	hex_display;
+	
+//	public static Dictionary<Vision, Color> visibility_colors;
 	 
 	
 
 	void Awake(){
 		
-		 hex_display = hex_display_init;
+		hex_display = hex_display_init;
+//		visibility_colors = new Dictionary<Vision, Color>();
+//		visibility_colors.Add(Vision.Live, Color.white);
+//		visibility_colors.Add(Vision.Unvisted, Color.black);
+//		visibility_colors.Add(Vision.Visited, Color.gray);
 		 
 		engineIOS ios      = GameObject.FindGameObjectWithTag("io_manager").GetComponent<engineIOS>();
 		if(!ios.LoadFromTextAsset())
@@ -39,6 +45,24 @@ public class hexManagerS : MonoBehaviour {
 		}
 	}
 	
+	public static void updateAllHexesFoWState()
+	{
+		HashSet<HexData> visible_hexes = new HashSet<HexData>();
+		List<HexData> base_visible = getAdjacentHexes(entityManagerS.getBase().x, entityManagerS.getBase().z, entityManagerS.getBase().sight_range);
+		List<HexData> mech_visible = getAdjacentHexes(entityManagerS.getMech().x, entityManagerS.getMech().z, entityManagerS.getMech().sight_range);
+	
+		visible_hexes.UnionWith(base_visible);
+		visible_hexes.UnionWith(mech_visible);
+		
+		
+	
+	
+	}
+	
+	public static void updateHexVisionState(HexData in_hex, Vision in_vision)
+	{
+		hexes[in_hex.x, in_hex.z].vision_state = in_vision;
+	}
 	
 	public static List<HexData> getAdjacentHexes(int x, int z, int sight_range)
 	{
@@ -141,14 +165,51 @@ public class hexManagerS : MonoBehaviour {
 	
 	public static HexData getHex(int x, int z, Facing direction)
 	{
+		if(x < 0 || x > x_max || z < 0 || z > z_max)  
+		{
+			Debug.LogWarning("getHex(x,z,direction) returning bs perimeter hex");
+			return new HexData(x, z, true);
+		}
+		
 		switch(direction)
 		{
-			case Facing.North: 		return hexes[x, z +1];
-			case Facing.NorthEast:	return hexes[x+1, z];
-			case Facing.SouthEast:	return hexes[x+1, z-1];
-			case Facing.South:		return hexes[x, z-1]; 
-			case Facing.SouthWest:	return hexes[x-1, z];	
-			case Facing.NorthWest:	return hexes[x-1, z+1];
+			case Facing.North: 		
+				if(x < 0 || x > x_max || z +1 < 0 || z +1 > z_max)  
+				{
+					Debug.LogWarning("getHex(x,z,direction) returning bs perimeter hex");
+					return new HexData(x, z +1, true);
+				}
+				return hexes[x, z +1];
+			case Facing.NorthEast:	
+				if(x+1 < 0 || x+1 > x_max || z < 0 || z > z_max)  
+				{
+					Debug.LogWarning("getHex(x,z,direction) returning bs perimeter hex");
+					return new HexData(x+1, z, true);
+				}return hexes[x+1, z];
+			case Facing.SouthEast:	
+				if(x+1 < 0 || x+1 > x_max || z-1 < 0 || z-1 > z_max)  
+				{
+					Debug.LogWarning("getHex(x,z,direction) returning bs perimeter hex");
+					return new HexData(x, z, true);
+				}return hexes[x+1, z-1];
+			case Facing.South:		
+				if(x < 0 || x > x_max || z-1 < 0 || z-1 > z_max)  
+				{
+					Debug.LogWarning("getHex(x,z,direction) returning bs perimeter hex");
+					return new HexData(x, z, true);
+				}return hexes[x, z-1]; 
+			case Facing.SouthWest:	
+				if(x-1 < 0 || x-1 > x_max || z < 0 || z > z_max)  
+				{
+					Debug.LogWarning("getHex(x,z,direction) returning bs perimeter hex");
+					return new HexData(x, z, true);
+				}return hexes[x-1, z];	
+			case Facing.NorthWest:	
+				if(x-1 < 0 || x-1 > x_max || z+1 < 0 || z+1 > z_max)  
+				{
+					Debug.LogWarning("getHex(x,z,direction) returning bs perimeter hex");
+					return new HexData(x, z, true);
+				}return hexes[x-1, z+1];
 		default: throw new System.Exception("Wtf, how'd you get this?  getHex(facing)");
 		}
 	}
@@ -159,7 +220,10 @@ public class hexManagerS : MonoBehaviour {
 	public static HexData getHex(int hex_x, int hex_z){
 		
 		if(hex_x < 0 || hex_x > x_max || hex_z < 0 || hex_z > z_max)  
-			throw new KeyNotFoundException("Accessing out of bounds!");  
+		{
+			Debug.LogWarning("getHex(x,z) returning bs perimeter hex");
+			return new HexData(hex_x, hex_z, true);
+		} 
 		
 		return hexes[hex_x, hex_z];
 	} 

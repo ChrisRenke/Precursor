@@ -11,14 +11,13 @@ public class Entity : MonoBehaviour {
 		x = _x;
 		z = _z;
 	}
-
+	
 }
 
 
 public abstract class  Combatable : Entity{
 	
 	public Facing facing_direction;
-	
 	public int current_hp;
 	public int max_hp;
 	public int base_armor = 0;

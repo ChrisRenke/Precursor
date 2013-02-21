@@ -209,7 +209,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			if(Vector3.Distance(transform.position, ending_pos) <= .05)
 			{ 
 				lerp_move = false;
-				transform.position = ending_pos;
+				transform.position = ending_pos;				
+		 		updateFoWState();
 			}	
 		}
 		
@@ -560,4 +561,24 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	float time_to_complete = 2F;
 	float moveTime = 0.0f;
  
+	public void updateFoWState()
+	{
+		HexData occupying_hex = hexManagerS.getHex(x, z);
+		switch(occupying_hex.vision_state)
+		{
+		case Vision.Live:
+			gameObject.renderer.enabled = true;
+			renderer.material.SetColor("_Color", Color.white);
+			break;
+		case Vision.Visited:
+			gameObject.renderer.enabled = true;
+			renderer.material.SetColor("_Color", Color.gray);
+			break;
+		case Vision.Unvisted:
+			gameObject.renderer.enabled = false;
+			break;
+		default:
+			throw new System.Exception("update FoW Combatable error!!");
+		}
+	}
 }

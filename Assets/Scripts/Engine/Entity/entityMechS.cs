@@ -37,6 +37,9 @@ public class entityMechS : Combatable, IMove {
 	public int armor_upgrade_2 = 3;
 	public int armor_upgrade_3 = 4;
 	
+	public List<HexData> adjacent_visible_hexes;
+	public List<HexData> previous_adjacent_visible_hexes;
+	
 	
 	
 	public int starting_hp_max = 30;
@@ -77,16 +80,10 @@ public class entityMechS : Combatable, IMove {
 	//Use this for initialization
 	void Start () { 
 		
+		updateFoWStates();
 	}
 	
 	
-	public void colorSightRange(Color clr)
-	{
-		foreach(HexData hex in hexManagerS.getAdjacentHexes(x, z, sight_range))
-		{
-			hex.hex_object.renderer.material.SetColor("_Color", clr);
-		}
-	}
 	
 	public bool destroySelectionHexes(){
 		foreach(GameObject go in selection_hexes)
@@ -103,7 +100,6 @@ public class entityMechS : Combatable, IMove {
 	//Update is called once per frame
 	void Update () {
 		
-		colorSightRange(Color.red);
 		if(gameManagerS.current_turn == Turn.Player)
 		{
 			
@@ -236,12 +232,43 @@ public class entityMechS : Combatable, IMove {
 		return true;
 	}
 	
+	public void updateFoWStates()
+	{
+//		adjacent_visible_hexes
+//			previous_adjacent_visible_hexes
+		previous_adjacent_visible_hexes = adjacent_visible_hexes;
+		adjacent_visible_hexes = hexManagerS.getAdjacentHexes(x, z, sight_range);
+		List<HexData> previously_live_now_visited_hexes = new List<HexData>();
+		
+		//turn hexes within range now to Live state
+		foreach(HexData hex in adjacent_visible_hexes)
+		{ 
+			hexManagerS.updateHexVisionState(hex, Vision.Live);
+			hex.hex_script.updateFoWState();
+		} 
+		
+		//turn hexes not within range now to Visisted state
+		if(previous_adjacent_visible_hexes != null)
+			foreach (HexData prev_hex in previous_adjacent_visible_hexes)
+			{
+			    if(!adjacent_visible_hexes.Contains(prev_hex) && !entityBaseS.adjacent_visible_hexes.Contains(prev_hex))
+				{
+					hexManagerS.updateHexVisionState(prev_hex, Vision.Visited);
+					prev_hex.hex_script.updateFoWState();
+					previously_live_now_visited_hexes.Add(prev_hex);
+				}	
+			}
+		
+		entityManagerS.updateEntityFoWStates();
+		
+	}
 	
 	public void moveToHex(int x, int z, int movement_fee, EntityE _standing_on_top_of_entity)
 	{
 		current_ap -= movement_fee; 
 		setLocation(x, z);	
 		moveInWorld(x, z, 6F);
+		updateFoWStates();
 	}
 
 	public List<HexData> getAdjacentTraversableHexes ()
