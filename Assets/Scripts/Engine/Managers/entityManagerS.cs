@@ -119,6 +119,18 @@ public class entityManagerS : MonoBehaviour {
 		Instantiate(part_dict[part_type], CoordsGameTo3DEntiy(x, z) + new Vector3(0,2F, 0), Quaternion.identity);
 	}
 	
+	public static void updateEntityFoWStates()
+	{
+//		for(entityNodeS node in resource_node_list)
+//		{
+//			if(previously_visible.Contains())
+//		}
+		foreach(entityNodeS node in resource_node_list)
+			node.updateFoWState();
+		foreach(entityEnemyS enemy in enemy_list)
+			enemy.updateFoWState();
+	}
+	
 	public static HexData fillEntityData(HexData hex){
 		
 		hex.added_occupier = EntityE.None;
@@ -264,7 +276,7 @@ public class entityManagerS : MonoBehaviour {
 	{
 		bool is_first_mech = mech_s == null;
 		GameObject new_entity = instantiateEntity(x, z, EntityE.Player);
-		mech_s = (entityMechS) new_entity.AddComponent("entityMechS");
+		mech_s = (entityMechS) new_entity.GetComponent("entityMechS");
 		
 		if(mech_s == null)
 			throw new System.Exception("Mech Entity not created properly D:");

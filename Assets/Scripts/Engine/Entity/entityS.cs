@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Entity : MonoBehaviour {
 	
@@ -10,19 +11,19 @@ public class Entity : MonoBehaviour {
 		x = _x;
 		z = _z;
 	}
-
+	
 }
 
 
 public abstract class  Combatable : Entity{
 	
 	public Facing facing_direction;
-	
 	public int current_hp;
 	public int max_hp;
 	public int base_armor = 0;
 	public int current_ap;
 	public int max_ap;
+	public int sight_range = 5;
 	
 	public int getCurrentHP(){
 		return current_hp;

@@ -272,7 +272,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			if(Vector3.Distance(transform.position, ending_pos) <= .05)
 			{ 
 				lerp_move = false;
-				transform.position = ending_pos;
+				transform.position = ending_pos;				
+		 		updateFoWState();
 			}	
 		}
 		
@@ -510,9 +511,9 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	//Return true if entity is visible(enemy_visibility_range) to enemy based on enemies current x and z
 	public bool canSeeHex(HexData hex)
 	{		
-		Debug.Log("canSeeHex: " + hex + " = hex | " + hex.x + " | " + hex.z);  
-			foreach(HexData h in getSightRange()){
-				Debug.Log ("canSeeHex: hex: " + h.x + ":" + h.z);
+
+		Debug.Log(hex + " = hex | " + hex.x + " | " + hex.z);  
+			foreach(HexData h in hexManagerS.getAdjacentHexes(hex, enemy_sight_range)){
 				if(h.x == hex.x && h.z == hex.z)
 				{
 					//opponent is in sight range of enemy
@@ -526,7 +527,6 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		Debug.Log ("canSeeHex: opponent is not in sight range");
 		return false;
 	}
-	
 	
 
 	public List<HexData> getSightRange()
@@ -718,4 +718,24 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	float time_to_complete = 2F;
 	float moveTime = 0.0f;
  
+	public void updateFoWState()
+	{
+		HexData occupying_hex = hexManagerS.getHex(x, z);
+		switch(occupying_hex.vision_state)
+		{
+		case Vision.Live:
+			gameObject.renderer.enabled = true;
+			renderer.material.SetColor("_Color", Color.white);
+			break;
+		case Vision.Visited:
+			gameObject.renderer.enabled = true;
+			renderer.material.SetColor("_Color", Color.gray);
+			break;
+		case Vision.Unvisted:
+			gameObject.renderer.enabled = false;
+			break;
+		default:
+			throw new System.Exception("update FoW Combatable error!!");
+		}
+	}
 }

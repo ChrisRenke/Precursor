@@ -24,12 +24,18 @@ public class hexManagerS : MonoBehaviour {
 	public 		   GameObject  	hex_display_init;
 	
 	public  static GameObject  	hex_display;
+	
+//	public static Dictionary<Vision, Color> visibility_colors;
 	 
 	
 
 	void Awake(){
 		
-		 hex_display = hex_display_init;
+		hex_display = hex_display_init;
+//		visibility_colors = new Dictionary<Vision, Color>();
+//		visibility_colors.Add(Vision.Live, Color.white);
+//		visibility_colors.Add(Vision.Unvisted, Color.black);
+//		visibility_colors.Add(Vision.Visited, Color.gray);
 		 
 		engineIOS ios      = GameObject.FindGameObjectWithTag("io_manager").GetComponent<engineIOS>();
 		if(!ios.LoadFromTextAsset())
@@ -39,6 +45,92 @@ public class hexManagerS : MonoBehaviour {
 		}
 	}
 	
+	public static void updateAllHexesFoWState()
+	{
+		HashSet<HexData> visible_hexes = new HashSet<HexData>();
+		List<HexData> base_visible = getAdjacentHexes(entityManagerS.getBase().x, entityManagerS.getBase().z, entityManagerS.getBase().sight_range);
+		List<HexData> mech_visible = getAdjacentHexes(entityManagerS.getMech().x, entityManagerS.getMech().z, entityManagerS.getMech().sight_range);
+	
+		visible_hexes.UnionWith(base_visible);
+		visible_hexes.UnionWith(mech_visible);
+		
+		
+	
+	
+	}
+	
+	public static void updateHexVisionState(HexData in_hex, Vision in_vision)
+	{
+		hexes[in_hex.x, in_hex.z].vision_state = in_vision;
+	}
+	
+	public static List<HexData> getAdjacentHexes(int x, int z, int sight_range)
+	{
+		return hexManagerS.getAdjacentHexes(getHex(x, z), sight_range);
+	}
+	
+	public static List<HexData> getAdjacentHexes(HexData center, int sight_range)
+	{ 
+		List<HexData> hexes_in_range = new List<HexData>();
+		
+		//get the hex standing on
+		HexData current_hex = center; 
+		hexes_in_range.Add(current_hex);
+		
+		//enter loop for surrounding hexes
+		for(int ring = 1; ring <= sight_range; ring++)
+		{
+			 
+			//draw the first "northeast" edge hex 
+			current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+			hexes_in_range.Add(current_hex); 
+			
+			//draw the "northeast" portion
+			for(int edge_hexes_drawn = 1; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{ 
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthEast);// = AddHexSE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
+				hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "southeast" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.South);
+				hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "south" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthWest);
+				hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "southwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthWest);
+				hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "northwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.North);
+				hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "north" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+				hexes_in_range.Add(current_hex); 
+			}
+		}
+		
+		Debug.LogWarning("hexes_in_range size = " + hexes_in_range.Count);
+		return hexes_in_range;
+	}
 	
 	//Return adjacent hexes for the given entity position
 	public static HexData[] getAdjacentHexes(int x, int z){
@@ -73,14 +165,51 @@ public class hexManagerS : MonoBehaviour {
 	
 	public static HexData getHex(int x, int z, Facing direction)
 	{
+		if(x < 0 || x > x_max || z < 0 || z > z_max)  
+		{
+			Debug.LogWarning("getHex(x,z,direction) returning bs perimeter hex");
+			return new HexData(x, z, true);
+		}
+		
 		switch(direction)
 		{
-			case Facing.North: 		return hexes[x, z +1];
-			case Facing.NorthEast:	return hexes[x+1, z];
-			case Facing.SouthEast:	return hexes[x+1, z-1];
-			case Facing.South:		return hexes[x, z-1]; 
-			case Facing.SouthWest:	return hexes[x-1, z];	
-			case Facing.NorthWest:	return hexes[x-1, z+1];
+			case Facing.North: 		
+				if(x < 0 || x > x_max || z +1 < 0 || z +1 > z_max)  
+				{
+					Debug.LogWarning("getHex(x,z,direction) returning bs perimeter hex");
+					return new HexData(x, z +1, true);
+				}
+				return hexes[x, z +1];
+			case Facing.NorthEast:	
+				if(x+1 < 0 || x+1 > x_max || z < 0 || z > z_max)  
+				{
+					Debug.LogWarning("getHex(x,z,direction) returning bs perimeter hex");
+					return new HexData(x+1, z, true);
+				}return hexes[x+1, z];
+			case Facing.SouthEast:	
+				if(x+1 < 0 || x+1 > x_max || z-1 < 0 || z-1 > z_max)  
+				{
+					Debug.LogWarning("getHex(x,z,direction) returning bs perimeter hex");
+					return new HexData(x, z, true);
+				}return hexes[x+1, z-1];
+			case Facing.South:		
+				if(x < 0 || x > x_max || z-1 < 0 || z-1 > z_max)  
+				{
+					Debug.LogWarning("getHex(x,z,direction) returning bs perimeter hex");
+					return new HexData(x, z, true);
+				}return hexes[x, z-1]; 
+			case Facing.SouthWest:	
+				if(x-1 < 0 || x-1 > x_max || z < 0 || z > z_max)  
+				{
+					Debug.LogWarning("getHex(x,z,direction) returning bs perimeter hex");
+					return new HexData(x, z, true);
+				}return hexes[x-1, z];	
+			case Facing.NorthWest:	
+				if(x-1 < 0 || x-1 > x_max || z+1 < 0 || z+1 > z_max)  
+				{
+					Debug.LogWarning("getHex(x,z,direction) returning bs perimeter hex");
+					return new HexData(x, z, true);
+				}return hexes[x-1, z+1];
 		default: throw new System.Exception("Wtf, how'd you get this?  getHex(facing)");
 		}
 	}
@@ -91,7 +220,10 @@ public class hexManagerS : MonoBehaviour {
 	public static HexData getHex(int hex_x, int hex_z){
 		
 		if(hex_x < 0 || hex_x > x_max || hex_z < 0 || hex_z > z_max)  
-			throw new KeyNotFoundException("Accessing out of bounds!");  
+		{
+			Debug.LogWarning("getHex(x,z) returning bs perimeter hex");
+			return new HexData(hex_x, hex_z, true);
+		} 
 		
 		return hexes[hex_x, hex_z];
 	} 
