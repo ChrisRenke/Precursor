@@ -71,6 +71,10 @@ public class selectionHexS : Entity {
 		if(select_level == SelectLevel.Scavenge)
 		{
 			display_text = node_data.node_level.ToString() + " " + node_data.node_type.ToString() + "\nScavenge Parts\n-" + action_cost + " AP";
+		}else
+		if(select_level == SelectLevel.Attack)
+		{
+			display_text = "Attack Enemy\n-" + action_cost + " AP";
 		}
 		else
 		{
@@ -107,6 +111,9 @@ public class selectionHexS : Entity {
 				case SelectLevel.Scavenge:
 					frame_index = 11;
 					break;
+				case SelectLevel.Attack:
+					frame_index = 7;
+					break;
 			}
 			Debug.Log("Hex selected");
 		}
@@ -129,6 +136,9 @@ public class selectionHexS : Entity {
 				case SelectLevel.Scavenge:
 					frame_index = 6;
 					break;
+				case SelectLevel.Attack:
+					frame_index = 2;
+					break;
 			}
 		}
 		
@@ -140,6 +150,12 @@ public class selectionHexS : Entity {
 		if(select_level == SelectLevel.Scavenge)
 		{
 			mech.scavengeParts(node_data.node_type, node_data.node_level, node_data.x, node_data.z);
+		}
+		else if(select_level == SelectLevel.Attack)
+		{
+			mech.attackEnemy(x, z);
+			Debug.LogWarning("ATTACKING TARGET @ " + x + "," + z);
+			mech.allowSelectionHexesDraw();
 		}
 		else
 		{

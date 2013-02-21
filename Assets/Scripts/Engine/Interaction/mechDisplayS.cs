@@ -4,60 +4,83 @@ using System.Collections.Generic;
 
 public class mechDisplayS : MonoBehaviour {
 		//vars for the whole sheet
-	public int colCount    = 4;
-	public int rowCount    = 2;
+	public int colCount ;
+	public int rowCount ;
 	 
 	//vars for animation
 	public int rowNumber   = 0; //Zero Indexed
 	public int colNumber   = 0; //Zero Indexed
-	public int totalCells  = 8;
+	public int totalCells;
 	
-	public int frame_index = 0;
+	public int fps;
+	
+	public int frame_index;
 	
   	//Maybe this should be a private var
     private Vector2 offset;
 	
-	private entityMechS owner;
-	private int col_index=0;
-	private int row_index=0;
+	private entityMechS owner; 
+	
+	public Material walk_n;
+	public Material walk_ne;
+	public Material walk_se;
+	public Material walk_s;
+	public Material walk_sw;
+	public Material walk_nw;
+	
+//	public Material fin_walk_n;
+//	public Material fin_walk_ne;
+//	public Material fin_walk_se;
+//	public Material fin_walk_s;
+//	public Material fin_walk_sw;
+//	public Material fin_walk_nw;
+	
+	public bool is_walking = false;
+	
+	private Dictionary<Facing, Material> facing_walks;
 	
 //	private bool draw_mode = false; 
 	
 	
 	void Awake()
 	{ 
+		facing_walks = new Dictionary<Facing, Material>();
+		facing_walks.Add (Facing.North, walk_n);
+		facing_walks.Add (Facing.SouthEast, walk_se);
+		facing_walks.Add (Facing.NorthWest, walk_nw);
+		facing_walks.Add (Facing.NorthEast, walk_ne);
+		facing_walks.Add (Facing.South, walk_s);
+		facing_walks.Add (Facing.SouthWest, walk_sw);
 	}
 	
 	
 	
 	//Update
-	void Update () { 
-		SetSpriteAnimation(colCount,rowCount,rowNumber,colNumber,totalCells);  
-	}
-	
-	void Start()
-	{
-		owner = gameObject.GetComponent<entityMechS>();
-	}
+	void Update () {  
+		setMaterial();
+		
+		if(owner.lerp_move)
+		{
+			 SetSpriteAnimation(colCount,rowCount,rowNumber,colNumber,totalCells,fps);
+		}
+	} 
  
 	//SetSpriteAnimation
-	void SetSpriteAnimation(int colCount ,int rowCount ,int rowNumber ,int colNumber,int totalCells){
-		
-		col_index = (int) owner.facing_direction;
-		row_index = owner.upgrade_traverse_water ? 1 : 0;
-		
-		
-		frame_index = col_index + 6 * row_index;
-		frame_index +=  owner.upgrade_traverse_water ? 2 : 0;
-		
+	void SetSpriteAnimation(int colCount ,int rowCount ,int rowNumber ,int colNumber,int totalCells,int fps ){
+	 
+	    // Calculate index
+	    int index  = (int)(Time.time * fps);
+	    // Repeat when exhausting all cells
+	    index = index % totalCells;
+	 
 	    // Size of every cell
 	    float sizeX = 1.0f / colCount;
 	    float sizeY = 1.0f / rowCount;
 	    Vector2 size =  new Vector2(sizeX,sizeY);
 	 
 	    // split into horizontal and vertical index
-	    var uIndex = frame_index % colCount;
-	    var vIndex = frame_index / colCount;
+	    var uIndex = index % colCount;
+	    var vIndex = index / colCount;
 	 
 	    // build offset
 	    // v coordinate is the bottom of the image in opengl so we need to invert.
@@ -67,6 +90,18 @@ public class mechDisplayS : MonoBehaviour {
 	 
 	    renderer.material.SetTextureOffset ("_MainTex", offset);
 	    renderer.material.SetTextureScale  ("_MainTex", size);
+	}
+	
+	
+	void Start()
+	{
+		owner = gameObject.GetComponent<entityMechS>();
+	}
+ 
+	void setMaterial()
+	{
+	    renderer.material = facing_walks[owner.facing_direction];
+		
 	}
 //	
 //	void OnMouseOver()

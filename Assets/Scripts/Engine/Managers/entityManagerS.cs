@@ -92,6 +92,14 @@ public class entityManagerS : MonoBehaviour {
 		return resource_node_list; 
 	}
 	
+	public static entityEnemyS getEnemyAt(int hex_x, int hex_z)
+	{
+		foreach(entityEnemyS enemy in enemy_list)
+			if(hex_x == enemy.x && hex_z == enemy.z)
+				return enemy;	
+		return null;
+	}
+	
 	public static Combatable getCombatableAt(HexData hex)
 	{
 		return getCombatableAt(hex.x, hex.z);
@@ -117,6 +125,13 @@ public class entityManagerS : MonoBehaviour {
 	public static void createPartEffect(int x, int z, Part part_type)
 	{
 		Instantiate(part_dict[part_type], CoordsGameTo3DEntiy(x, z) + new Vector3(0,2F, 0), Quaternion.identity);
+	}
+	
+	public static void purgeEnemy(entityEnemyS dead_enemy)
+	{
+		enemy_list.Remove(dead_enemy);
+		DestroyImmediate(dead_enemy.gameObject);
+		
 	}
 	
 	public static void updateEntityFoWStates()

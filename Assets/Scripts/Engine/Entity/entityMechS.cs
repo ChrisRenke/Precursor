@@ -84,6 +84,12 @@ public class entityMechS : Combatable, IMove {
 	}
 	
 	
+	void OnGUI()
+	{
+		Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
+		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y+30, 200, 15), current_hp + "/" + max_hp + " HP", enginePlayerS.hover_text);
+		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
+	}
 	
 	public bool destroySelectionHexes(){
 		foreach(GameObject go in selection_hexes)
@@ -99,6 +105,14 @@ public class entityMechS : Combatable, IMove {
 	
 	//Update is called once per frame
 	void Update () {
+		
+			
+		if(checkIfDead())
+			onDeath();
+		
+		if(current_ap <= 0)
+			gameManagerS.endPlayerTurn();
+			
 		
 		if(gameManagerS.current_turn == Turn.Player)
 		{
@@ -166,6 +180,30 @@ public class entityMechS : Combatable, IMove {
 					}
 					
 				}
+				
+				//check for adjacent enemies
+				if( current_ap >= getAttackAPCost())
+					foreach(HexData auh in getAdjacentUntraversableHexes())
+					{
+						entityEnemyS enemy = entityManagerS.getEnemyAt(auh.x, auh.z);
+						if(enemy != null)
+						{
+							print ("adjacnet enemy!!!!!!!!!!!!!!!!!!!!!!");
+							selection_hexes.Add(InstantiateSelectionHex(auh.x, auh.z));
+							selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
+							hex_select.x = auh.x;
+							hex_select.z = auh.z;
+							hex_select.direction_from_center = auh.direction_from_central_hex;
+							hex_select.occupier      = EntityE.Enemy;
+							hex_select.hex_type      = hexManagerS.getHex(x, z).hex_type;
+							hex_select.action_cost   = getAttackAPCost();
+							hex_select.select_level  = SelectLevel.Attack; 
+							hex_select.genTextString();
+							
+						}
+						
+					}
+				
 				instantiated_selection_meshes_already = true;
 				Debug.Log("END INSTANTIATING SELECTION MESHES");
 			}
@@ -185,6 +223,26 @@ public class entityMechS : Combatable, IMove {
 				
 		}
 	}
+	
+	
+	
+	
+	public int attackEnemy(int att_x, int att_z)
+	{
+		Debug.LogWarning("ABOUT TO ATTCK ENTITY ON - "+ att_x + "," + att_z);
+		entityEnemyS target = entityManagerS.getEnemyAt(att_x, att_z);
+		current_ap -= getAttackAPCost();
+		
+		Debug.LogWarning("ABOUT TO ATTCK ENTITY "+ target.GetInstanceID());
+		if(target != null)
+			return target.acceptDamage(attack_damage);
+		
+		return 0; //nothing to damage if we get here			
+	}
+	
+	
+	
+	
 	
 	public bool scavengeParts(Node node_type, NodeLevel resource_level, int x, int z)
 	{
@@ -244,7 +302,8 @@ public class entityMechS : Combatable, IMove {
 		foreach(HexData hex in adjacent_visible_hexes)
 		{ 
 			hexManagerS.updateHexVisionState(hex, Vision.Live);
-			hex.hex_script.updateFoWState();
+			if(hex.hex_script != null)
+				hex.hex_script.updateFoWState();
 		} 
 		
 		//turn hexes not within range now to Visisted state
@@ -254,7 +313,8 @@ public class entityMechS : Combatable, IMove {
 			    if(!adjacent_visible_hexes.Contains(prev_hex) && !entityBaseS.adjacent_visible_hexes.Contains(prev_hex))
 				{
 					hexManagerS.updateHexVisionState(prev_hex, Vision.Visited);
-					prev_hex.hex_script.updateFoWState();
+					if(prev_hex.hex_script != null)
+						prev_hex.hex_script.updateFoWState();
 					previously_live_now_visited_hexes.Add(prev_hex);
 				}	
 			}
@@ -416,10 +476,14 @@ public class entityMechS : Combatable, IMove {
 	
 	float dist; 
 	Vector3 starting_pos, ending_pos;
-	bool lerp_move = false; 
+	public bool lerp_move = false; 
 	float time_to_complete = 2F;
 	float moveTime = 0.0f;
  
-	
+	public override bool onDeath()
+	{
+		Application.Quit();
+		return true;
+	}
 	
 }

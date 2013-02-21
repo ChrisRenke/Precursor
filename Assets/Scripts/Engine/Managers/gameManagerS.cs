@@ -10,7 +10,7 @@ public class gameManagerS : MonoBehaviour {
 	public GameObject  selection_hex_input;
 	public static GameObject selection_hex;
 	
-	public List<entityEnemyS>.Enumerator	enemy_enumerator;
+	public static List<entityEnemyS>.Enumerator	enemy_enumerator;
 	public static bool 	  					enemy_currently_acting = false;
 	
 	
@@ -46,21 +46,18 @@ public class gameManagerS : MonoBehaviour {
 		 		{
 					entityEnemyS current_enemy = enemy_enumerator.Current;
 					current_enemy.is_this_enemies_turn = true;
-					current_enemy.current_ap = 6;
 					enemy_currently_acting = true;
 				}
 				else //if there are no more enemies to move, then its the players turn again
 				{
+					foreach(entityEnemyS current_enemy in entityManagerS.enemy_list)
+						current_enemy.current_ap = current_enemy.max_ap;
 					current_turn = Turn.Player;
 				}
 			}
 		}
 	}
 	
-	public void prepareForEnemyTurn()
-	{
-		enemy_enumerator = entityManagerS.getEnemies().GetEnumerator();
-	}
 	
 	void OnGUI()
 	{
@@ -77,11 +74,7 @@ public class gameManagerS : MonoBehaviour {
 		
 		if(GUI.Button(new Rect(Screen.width - 30 - 180, 70, 180, 30), "End Turn"))
 		{
-			current_turn = Turn.Enemy;
-			entityManagerS.getMech().current_ap =  entityManagerS.getMech().max_ap;
-			entityManagerS.getMech().destroySelectionHexes();
-			entityManagerS.getMech().allowSelectionHexesDraw();
-			prepareForEnemyTurn();
+			endPlayerTurn();
 		}
 		
 //		if(GUI.Button(new Rect(gui_spacing, gui_spacing + 40  + gui_spacing , 180, 40), "End Turn"))
@@ -92,5 +85,14 @@ public class gameManagerS : MonoBehaviour {
 //		}
 		
 	
+	}
+	
+	public static void endPlayerTurn()
+	{
+		current_turn = Turn.Enemy;
+		entityManagerS.getMech().current_ap =  entityManagerS.getMech().max_ap;
+		entityManagerS.getMech().destroySelectionHexes();
+		entityManagerS.getMech().allowSelectionHexesDraw();
+		enemy_enumerator = entityManagerS.getEnemies().GetEnumerator();
 	}
 }
