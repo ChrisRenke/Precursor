@@ -4962,5 +4962,12 @@ LEVEL{
 			Omnsc Base = False
 			Omnsc Mech = True
 		}
+		ENTITY{ 
+			X          = 2
+			Z          = 4
+			Type       = Enemy
+			Omnsc Base = True
+			Omnsc Mech = False
+		}
 	}
 }
