@@ -25,7 +25,6 @@ public class entityBaseS : Combatable {
 			
 		if(checkIfDead())
 			onDeath();
-		
 	}
 	
 	

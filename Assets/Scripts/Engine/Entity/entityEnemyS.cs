@@ -589,7 +589,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	float dist; 
 	Vector3 starting_pos, ending_pos;
-	bool lerp_move = false; 
+	public bool lerp_move = false; 
 	float time_to_complete = 2F;
 	float moveTime = 0.0f;
  
