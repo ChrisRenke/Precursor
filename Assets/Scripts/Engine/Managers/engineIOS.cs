@@ -101,7 +101,7 @@ public class engineIOS : MonoBehaviour {
 			GameObject new_hex = (GameObject) Instantiate(hexManagerS.hex_display, pos, Quaternion.identity);
 			engineHexS new_hex_script = (engineHexS) new_hex.GetComponent("engineHexS"); 
 			
-			print ("making hex: " + x + ", " + z);
+//			print ("making hex: " + x + ", " + z);
             Hex hex_type = (Hex) Enum.Parse(typeof(Hex), getStringR(level_lines[index++]));
 			HexData new_hex_data = new HexData(x, z, hex_type, new_hex, new_hex_script, Vision.Unvisted);
 			new_hex_script.assignHexData_IO_LOADER_ONLY(new_hex_data);
@@ -146,21 +146,21 @@ public class engineIOS : MonoBehaviour {
 			print (ent_type);
 			if(ent_type == EntityE.Player)
 			{ 
-				print ("MOVING CAMERA ONTO PLAYER!");
+//				print ("MOVING CAMERA ONTO PLAYER!");
 				GameObject maincam = GameObject.FindGameObjectWithTag("MainCamera");
 				maincam.transform.position = new Vector3(hexManagerS.CoordsGameTo3D(x,z).x, 60, hexManagerS.CoordsGameTo3D(x,z).z);
 			}
 			switch(ent_type)
 			{
 				case EntityE.Base:
-				print("base case");
+//				print("base case");
 					int base_starting_health_percentage = getIntR(level_lines[index++]);
 					if(!entityManagerS.instantiateBase(x, z, base_starting_health_percentage))
 						throw new System.Exception("There is already one base, cannot have two! D: Go edit the level file you're loading to only have one!");
 					break;
 				
 				case EntityE.Player:
-				print("player case");
+//				print("player case");
 					int mech_starting_health_percentage = getIntR(level_lines[index++]);
 					if(!entityManagerS.instantiatePlayer(x, z, mech_starting_health_percentage))
 						throw new System.Exception("There is already one player mech, cannot have two! D: Go edit the level file you're loading to only have one!");
@@ -169,7 +169,7 @@ public class engineIOS : MonoBehaviour {
 					break;
 				
 				case EntityE.Enemy:
-				print("enemy case");
+//				print("enemy case");
 					bool enemy_knows_base_loc = getBoolR(level_lines[index++]);
 					bool enemy_knows_mech_loc = getBoolR(level_lines[index++]);
 					if(!entityManagerS.instantiateEnemy(x, z, enemy_knows_base_loc, enemy_knows_mech_loc))
@@ -177,7 +177,7 @@ public class engineIOS : MonoBehaviour {
 					break;
 				
 				case EntityE.Node: 
-					print("node case");
+//					print("node case");
 					Node node_type                = getNodeR(level_lines[index++]);
 					NodeLevel node_starting_level = getNodeLevelR(level_lines[index++]);
 					entityManagerS.instantiateResourceNode(x, z, node_type, node_starting_level);

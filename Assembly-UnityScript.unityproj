@@ -44,41 +44,58 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Orthello\Examples\1 - Paralax scrolling FilledSprite\JSExample1.js" />
-     <Compile Include="Assets\Orthello\Examples\2 - Moving collidable sprites\JSBlock2.js" />
-     <Compile Include="Assets\Orthello\Examples\2 - Moving collidable sprites\JSExample2.js" />
-     <Compile Include="Assets\Orthello\Examples\2 - Moving collidable sprites\JSStar2.js" />
-     <Compile Include="Assets\Orthello\Examples\3 - Shooting Asteroids\JSAsteroid3.js" />
-     <Compile Include="Assets\Orthello\Examples\3 - Shooting Asteroids\JSBullet3.js" />
-     <Compile Include="Assets\Orthello\Examples\3 - Shooting Asteroids\JSExample3.js" />
-     <Compile Include="Assets\Orthello\Examples\4 - Follow Target View\JSExample4.js" />
-     <Compile Include="Assets\Orthello\Examples\4 - Follow Target View\JSMover4.js" />
-     <Compile Include="Assets\Orthello\Examples\5 - Creating At Runtime\JSExample5.js" />
-     <Compile Include="Assets\Orthello\Examples\6 - Physics\JSExample6.js" />
-     <Compile Include="Assets\Orthello\Examples\7 - Tweening\JSExample7.js" />
-     <Compile Include="Assets\Orthello\Examples\7 - Tweening\JSStar7_1.js" />
-     <Compile Include="Assets\Orthello\Examples\7 - Tweening\JSStar7_2.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Curve\CurvePointControl.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Curve\DrawCurve.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Curve\SimpleCurve.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\DrawLines\DrawLines.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\DrawLines\DrawLinesMouse.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\DrawLines\DrawLinesTouch.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Ellipse\Ellipse1.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Ellipse\Ellipse2.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Grid\DrawGrid.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Highlight\Highlight.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Highlight\MakeSpheres.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Highlight\RotateAroundY.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Orbit\CreateStars.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Orbit\Orbit.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Orbit\RotateViewpoint.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\PartialLine\AnimatePartialLine.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Path\DrawPath.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Points\DrawPoints.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Scribblecube\CameraZoom.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Scribblecube\Scribblecube.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\SelectionBox\SelectionBox.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\SelectionBox\SelectionBox2.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Spline\MakeSpline.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\SplineFollow\SplineFollow2D.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\SplineFollow\SplineFollow3D.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Text\TextDemo.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Xray\DrawBox.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Xray\VectorObject.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\Xray\XrayLineData.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\_Simple2DLine\Line.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\_Simple2DLine\ReallyBasicLine.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\_Simple2DLine\UniformTexturedLine.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\_Simple3DObject\Simple3D 2.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\_Simple3DObject\Simple3D 3.js" />
+     <Compile Include="Assets\Vectrosity\Scripts\_Simple3DObject\Simple3D.js" />
+     <None Include="Assets\Vectrosity\Shaders\ParticleZwrite.shader" />
      <None Include="Assets\Scripts\_Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
-     <None Include="Assets\Orthello\Examples\0 - Simple Examples\TextSprites\lorem.txt" />
-     <None Include="Assets\Orthello\Examples\0 - Simple Examples\TextSprites\Atlases\russian.txt" />
-     <None Include="Assets\Orthello\Examples\4 - Follow Target View\-orthello-config.xml" />
-     <None Include="Assets\Orthello\-Read-Me.txt" />
-     <None Include="Assets\Orthello\Examples\0 - Simple Examples\TextSprites\orthello-font-30.txt" />
+     <None Include="Assets\Vectrosity\Shaders\Unlit .shader" />
+     <None Include="Assets\Vectrosity\Shaders\UnlitAlpha.shader" />
      <None Include="Assets\Scripts\_Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
      <None Include="Assets\Level_Files\awesome.txt" />
-     <None Include="Assets\Orthello\-Update-Upgrade info.txt" />
      <None Include="Assets\Materials\mat terrain textures\draft_terrain_sprite.txt" />
-     <None Include="Assets\Orthello\Examples\0 - Simple Examples\TextSprites\Atlases\img.xml" />
-     <None Include="Assets\Orthello\Examples\0 - Simple Examples\TextSprites\Atlases\glyph.xml" />
+     <None Include="Assets\Pro Standard Assets\Image Based\GlowEffectDownsample.shader" />
      <None Include="Assets\Scripts\_Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
      <None Include="Assets\Scripts\_Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
-     <None Include="Assets\Orthello\Examples\0 - Simple Examples\TextSprites\Atlases\chalk.xml" />
-     <None Include="Assets\Orthello\Examples\0 - Simple Examples\Multi Resolution Art\atlas.xml" />
-     <None Include="Assets\Orthello\Standard Assets\OT\_Base\TintedAlpha.shader" />
-     <None Include="Assets\Orthello\Examples\0 - Simple Examples\RotateTowards\-read-me.txt" />
-     <None Include="Assets\Orthello\Examples\0 - Simple Examples\Persistance\-read-me.txt" />
-     <None Include="Assets\Orthello\Examples\0 - Simple Examples\TextSprites\lorem-rus-utf8.txt" />
+     <None Include="Assets\Vectrosity\Shaders\DepthMask.shader" />
      <None Include="Assets\Materials\texture.shader" />
+     <None Include="Assets\Vectrosity\Shaders\SolidColor.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{C685DC0C-689A-4D77-2680-5C5D35F3208A}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

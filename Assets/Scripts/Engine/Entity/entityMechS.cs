@@ -40,7 +40,7 @@ public class entityMechS : Combatable, IMove {
 	public List<HexData> adjacent_visible_hexes;
 	public List<HexData> previous_adjacent_visible_hexes;
 	
-	
+	public static bool moving_on_path = false;
 	
 	public int starting_hp_max = 30;
 	
@@ -91,6 +91,16 @@ public class entityMechS : Combatable, IMove {
 		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
 	}
 	
+	
+	public static void moveToHexViaPath(Path travel_path)
+	{
+		
+		
+	}
+	
+	
+	
+	
 	public bool destroySelectionHexes(){
 		foreach(GameObject go in selection_hexes)
 		{
@@ -117,43 +127,48 @@ public class entityMechS : Combatable, IMove {
 		if(gameManagerS.current_turn == Turn.Player)
 		{
 			
+			if(moving_on_path)
+			{
+				
+			}
+			else
 			if(!instantiated_selection_meshes_already)
 			{
-				Debug.Log("BEGIN INSTANTIATING SELECTION MESHES");
-				foreach(HexData ath in getAdjacentTraversableHexes())
-				{
-					
-					Debug.Log("making a mesh for selection");
-					selection_hexes.Add(InstantiateSelectionHex(ath.x, ath.z));
-					selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
-					hex_select.direction_from_center = ath.direction_from_central_hex;
-					
-					hex_select.x = ath.x;
-					hex_select.z = ath.z;
-					
-					if(ath.traversal_cost <= 2)
-					{
-						hex_select.select_level = SelectLevel.Easy; 
-					}
-					else if(ath.traversal_cost <= 4)
-					{
-						hex_select.select_level = SelectLevel.Medium;
-					}
-					else
-					{
-						hex_select.select_level = SelectLevel.Hard; 
-					}
-					
-					hex_select.occupier      = ath.added_occupier;
-					if( ath.added_occupier == EntityE.Node)
-					{
-						hex_select.node_data = entityManagerS.getNodeInfoAt(ath.x, ath.z);
-					}
-					hex_select.hex_type      = ath.hex_type;
-					hex_select.action_cost = ath.traversal_cost;
-					hex_select.genTextString();
-					
-				}
+//				Debug.Log("BEGIN INSTANTIATING SELECTION MESHES");
+//				foreach(HexData ath in getAdjacentTraversableHexes())
+//				{
+//					
+//					Debug.Log("making a mesh for selection");
+//					selection_hexes.Add(InstantiateSelectionHex(ath.x, ath.z));
+//					selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
+//					hex_select.direction_from_center = ath.direction_from_central_hex;
+//					
+//					hex_select.x = ath.x;
+//					hex_select.z = ath.z;
+//					
+//					if(ath.traversal_cost <= 2)
+//					{
+//						hex_select.select_level = SelectLevel.Easy; 
+//					}
+//					else if(ath.traversal_cost <= 4)
+//					{
+//						hex_select.select_level = SelectLevel.Medium;
+//					}
+//					else
+//					{
+//						hex_select.select_level = SelectLevel.Hard; 
+//					}
+//					
+//					hex_select.occupier      = ath.added_occupier;
+//					if( ath.added_occupier == EntityE.Node)
+//					{
+//						hex_select.node_data = entityManagerS.getNodeInfoAt(ath.x, ath.z);
+//					}
+//					hex_select.hex_type      = ath.hex_type;
+//					hex_select.action_cost = ath.traversal_cost;
+//					hex_select.genTextString();
+//					
+//				}
 				
 			
 				
@@ -183,6 +198,7 @@ public class entityMechS : Combatable, IMove {
 				
 				//check for adjacent enemies
 				if( current_ap >= getAttackAPCost())
+				{
 					foreach(HexData auh in getAdjacentUntraversableHexes())
 					{
 						entityEnemyS enemy = entityManagerS.getEnemyAt(auh.x, auh.z);
@@ -203,6 +219,7 @@ public class entityMechS : Combatable, IMove {
 						}
 						
 					}
+				}
 				
 				instantiated_selection_meshes_already = true;
 				Debug.Log("END INSTANTIATING SELECTION MESHES");
@@ -232,9 +249,10 @@ public class entityMechS : Combatable, IMove {
 	public Path getPathFromMechTo(HexData destination)
 	{
 		Debug.LogWarning("getPathFromMechTo");
-		return hexManagerS.getTraversablePath(hexManagerS.getHex(x, z), 
+		return hexManagerS.getTraversablePath(
+												hexManagerS.getHex(x, z), 
 												hexManagerS.getHex(destination.x, destination.z),
-												EntityE.Base,
+												EntityE.Player,
 												getTraverseAPCostPathVersion, 
 												getAdjacentTraversableHexesPathVersion);
 	}
@@ -249,7 +267,8 @@ public class entityMechS : Combatable, IMove {
 		
 		//See which of the adjacent hexes are traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++){
-			if(canTraverse(adjacent_hexes[i]) || (adjacent_hexes[i].x == destination.x && adjacent_hexes[i].z == destination.z)){
+			if(entityManagerS.isEntityPos(adjacent_hexes[i], entity) || (canTraverse(adjacent_hexes[i]) && adjacent_hexes[i].vision_state != Vision.Unvisted))
+			{
 				//add hex to traversable array
 				result_hexes.Add(adjacent_hexes[i]); 
 			}

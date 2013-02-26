@@ -27,20 +27,20 @@ public class aStar {
 				//get first element on list
         		var path = queue.Dequeue();
 				//check to see if this element is in the set of already checked hexes, i.o the closed set 
-       			if (closed.Contains(path.LastStep))
+       			if (closed.Contains(path.ThisStep))
             		continue;
 				//check to see if this element is our destination hex
-        		if (path.LastStep.Equals(destination))
+        		if (path.ThisStep.Equals(destination))
            			return path;  //return full path to destination
 			
 				//if element isn't the destination hex and isn't in closed set, add it to closed set
-        		closed.Add(path.LastStep);
+        		closed.Add(path.ThisStep);
         	
 				//Go through neighbors (adjacent hexes) of current element
-				foreach(HexData n in neighbours(path.LastStep, destination, entity))
+				foreach(HexData n in neighbours(path.ThisStep, destination, entity))
         		{
 					//compute distance between current element and it's neighbor
-            		double d = distance(path.LastStep, n);
+            		double d = distance(path.ThisStep, n);
 					//New step added without modifying current path
             		var newPath = path.AddStep(n, d);
 					//add new path to queue

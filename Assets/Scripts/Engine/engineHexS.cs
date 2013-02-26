@@ -7,7 +7,7 @@ public class engineHexS : MonoBehaviour {
 //	public  LineRenderer lr; 
 	
 	private VectorLine border;
-	private VectorLine path_display;
+	private PathDisplay path_display;
 	private Path path_from_mech;
 	private HexData mech_location_when_path_made;
 	
@@ -68,14 +68,15 @@ public class engineHexS : MonoBehaviour {
 			
 			if(path_display != null)
 			{
-				if(!path_display.active)
-					path_display.active = true;
-				
-				path_display.Draw3DAuto();
+				path_display.displayPath(); 
 			}
 		}
 	}
 	
+	void OnMouseUpAsButton()
+	{
+		entityMechS.moveToHexViaPath(path_from_mech);
+	}
 	
 	
 	void OnMouseExit()
@@ -85,7 +86,7 @@ public class engineHexS : MonoBehaviour {
 			border.active = false;
 			
 			if(path_display != null)
-				path_display.active = false;
+				path_display.hidePath();
 //			border.StopDrawing3DAuto();
 		}
 	}

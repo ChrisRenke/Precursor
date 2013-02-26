@@ -47,7 +47,7 @@ public class enginePlayerS : MonoBehaviour {
 	public Color easy;
 	public Color medium;
 	public Color hard;
-	
+	public Color disable;
 	public Color idle;
 	public Color attack;
 	public Color scavenge;
@@ -55,6 +55,7 @@ public class enginePlayerS : MonoBehaviour {
 	public static Color easy_color;
 	public static Color medium_color;
 	public static Color hard_color;
+	public static Color disable_color;
 	public static Color idle_color;
 	public static Color attack_color;
 	public static Color scavenge_color;
@@ -84,6 +85,7 @@ public class enginePlayerS : MonoBehaviour {
 		idle_color = idle;
 		attack_color = attack;
 		scavenge_color = scavenge;
+		disable_color  = disable;
 	}
 	
 	public static void setMech()
