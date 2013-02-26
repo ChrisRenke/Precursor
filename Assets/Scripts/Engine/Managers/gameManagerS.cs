@@ -95,4 +95,11 @@ public class gameManagerS : MonoBehaviour {
 		entityManagerS.getMech().allowSelectionHexesDraw();
 		enemy_enumerator = entityManagerS.getEnemies().GetEnumerator();
 	}
+	
+	public static void endBaseTurn()
+	{
+		//TODO: not sure if this is finished
+		current_turn = Turn.Player;
+		entityManagerS.getBase().current_ap =  entityManagerS.getBase().max_ap;
+	}
 }

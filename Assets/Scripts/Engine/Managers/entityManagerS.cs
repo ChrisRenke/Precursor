@@ -127,8 +127,7 @@ public class entityManagerS : MonoBehaviour {
 		Instantiate(part_dict[part_type], CoordsGameTo3DEntiy(x, z) + new Vector3(0,2F, 0), Quaternion.identity);
 	}
 	
-	public static void purgeEnemy(entityEnemyS dead_enemy)
-	{
+	public static void purgeEnemy(entityEnemyS dead_enemy){
 		enemy_list.Remove(dead_enemy);
 		DestroyImmediate(dead_enemy.gameObject);
 		
