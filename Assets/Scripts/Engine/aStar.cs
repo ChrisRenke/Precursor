@@ -9,7 +9,7 @@ public class aStar {
 	//Distance function returns distance between two adjacent nodes
     //Estimate function returns distance between any node and destination node
 	//Neighbors function returns adjacent traversible hexes for given hex input (Very hefty method)
-    public static Path<HexData> FindPath(HexData start,
+    public static Path FindPath(HexData start,
 		HexData destination, EntityE entity,
 		Func<HexData, HexData, double> distance,
 		Func<HexData, HexData, double> estimate,
@@ -18,9 +18,9 @@ public class aStar {
 			//set of already checked HexData
    	 		var closed = new HashSet<HexData>();
 			//queued HexData in open set
-   			var queue = new PriorityQueue<double, Path<HexData>>();
+   			var queue = new PriorityQueue<double, Path>();
 			//start by adding enemy's hex to queue
-    		queue.Enqueue(0, new Path<HexData> (start));
+    		queue.Enqueue(0, new Path (start));
 		
    			while (!queue.IsEmpty)
     		{

@@ -148,7 +148,7 @@ public class engineIOS : MonoBehaviour {
 			{ 
 				print ("MOVING CAMERA ONTO PLAYER!");
 				GameObject maincam = GameObject.FindGameObjectWithTag("MainCamera");
-				maincam.transform.position = new Vector3(hexManagerS.CoordsGameTo3D(x,z).x, 20, hexManagerS.CoordsGameTo3D(x,z).z);
+				maincam.transform.position = new Vector3(hexManagerS.CoordsGameTo3D(x,z).x, 60, hexManagerS.CoordsGameTo3D(x,z).z);
 			}
 			switch(ent_type)
 			{

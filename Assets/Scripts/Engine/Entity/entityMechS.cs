@@ -222,10 +222,44 @@ public class entityMechS : Combatable, IMove {
 			}
 				
 		}
+	}	
+	
+	public double getTraverseAPCostPathVersion (HexData hex_start, HexData hex_end)
+	{	
+		return (double) getTraverseAPCost(hex_end.hex_type);
 	}
 	
+	public Path getPathFromMechTo(HexData destination)
+	{
+		Debug.LogWarning("getPathFromMechTo");
+		return hexManagerS.getTraversablePath(hexManagerS.getHex(x, z), 
+												hexManagerS.getHex(destination.x, destination.z),
+												EntityE.Base,
+												getTraverseAPCostPathVersion, 
+												getAdjacentTraversableHexesPathVersion);
+	}
 	
-	
+	public List<HexData> getAdjacentTraversableHexesPathVersion (HexData hex, HexData destination, EntityE entity)
+	{
+		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
+		
+		//Get adjacent tiles around player mech
+		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(hex.x, hex.z);
+		//Debug.Log(adjacent_hexes.Length + " found adjacent");
+		
+		//See which of the adjacent hexes are traversable
+		for(int i = 0; i < adjacent_hexes.Length; i++){
+			if(canTraverse(adjacent_hexes[i]) || (adjacent_hexes[i].x == destination.x && adjacent_hexes[i].z == destination.z)){
+				//add hex to traversable array
+				result_hexes.Add(adjacent_hexes[i]); 
+			}
+		}
+		
+		//Debug.Log ("Number of result_hexes " + result_hexes.Count);
+		return result_hexes;
+		
+//		return getAdjacentTraversableHexes();
+	}
 	
 	public int attackEnemy(int att_x, int att_z)
 	{

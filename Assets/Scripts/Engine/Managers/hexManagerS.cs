@@ -22,8 +22,8 @@ public class hexManagerS : MonoBehaviour {
 	public static int			z_max = 0;
 	  
 	public 		   GameObject  	hex_display_init;
-	
 	public  static GameObject  	hex_display;
+	
 	
 //	public static Dictionary<Vision, Color> visibility_colors;
 	 
@@ -131,6 +131,44 @@ public class hexManagerS : MonoBehaviour {
 		Debug.LogWarning("hexes_in_range size = " + hexes_in_range.Count);
 		return hexes_in_range;
 	}
+	
+	
+	
+	//Get path to base
+	public static Path getTraversablePath (HexData start, HexData destination, EntityE ignore_entity, 
+		Func<HexData, HexData, double> traversal_cost_func, 
+		Func<HexData, HexData, EntityE, List<HexData>> neighbor_hex_func)
+	{
+		//Send hex of base and hex of enemy to aStar
+		var path = aStar.FindPath(start, destination, ignore_entity, traversal_cost_func, calcCostToDestinationHex, neighbor_hex_func);
+//		if(path != null){
+//			last_path_cost = path.TotalCost;
+//			Debug.Log ("getTraversablePath: path cost = " + last_path_cost);
+//		}
+		return path;
+	}
+	//Get path to base
+//	public static Path getTraversablePathAsListRemoveFrontBack (HexData start, HexData destination, EntityE ignore_entity, 
+//		Func<HexData, HexData, double> traversal_cost_func,
+////		Func<HexData, HexData, double> destination_cost_estimate_func,
+//		Func<HexData, HexData, EntityE, List<HexData>> neighbor_hex_func)
+//	{
+//		//Send hex of base and hex of enemy to aStar
+//		var path = aStar.FindPath(start, destination, ignore_entity, traversal_cost_func, calcEstimate, neighbor_hex_func);
+//	}
+	
+
+	
+	
+//	#region IPathFind implementation
+
+	public static double calcCostToDestinationHex (HexData hex_start, HexData hex_end)
+	{
+		//TODO: may need to be adjusted later
+        return Math.Abs(hex_start.x - hex_end.x) + Math.Abs(hex_start.z - hex_end.z);
+	}
+	
+	
 	
 	//Return adjacent hexes for the given entity position
 	public static HexData[] getAdjacentHexes(int x, int z){
