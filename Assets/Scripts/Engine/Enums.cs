@@ -12,6 +12,7 @@ public enum Turn         { Player, Enemy, Base };
 public enum SelectLevel  { Disabled, Easy, Medium, Hard, Scavenge, Attack, Upgrade };
 public enum Action       { Repair, UpgradeMech, UpgradeBase, Scavenge, Attack, Traverse, End };
 public enum Vision       { Live, Visited, Unvisted };
+public enum BaseUpgrade  { Temp0, Temp1, Temp2, Temp3, Temp4, Temp5, Temp6, Temp7, Temp8};
 
 //Vector3.f
 

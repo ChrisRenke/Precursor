@@ -12,8 +12,6 @@ public class enemyDisplayS : MonoBehaviour {
 	public int colNumber   = 0; //Zero Indexed
 	public int totalCells  = 8;
 	
-	public int fps = 10;
-	
 	public int frame_index = 0;
 	
   	//Maybe this should be a private var
@@ -23,37 +21,18 @@ public class enemyDisplayS : MonoBehaviour {
 	private int col_index=0;
 	private int row_index=0;
 	
-	public Material walk_n;
-	public Material walk_ne;
-	public Material walk_se;
-	public Material walk_s;
-	public Material walk_sw;
-	public Material walk_nw;
 //	private bool draw_mode = false; 
-		
-	private Dictionary<Facing, Material> facing_walks;
+	
 	
 	void Awake()
 	{ 
-		facing_walks = new Dictionary<Facing, Material>();
-		facing_walks.Add (Facing.North, walk_n);
-		facing_walks.Add (Facing.SouthEast, walk_se);
-		facing_walks.Add (Facing.NorthWest, walk_nw);
-		facing_walks.Add (Facing.NorthEast, walk_ne);
-		facing_walks.Add (Facing.South, walk_s);
-		facing_walks.Add (Facing.SouthWest, walk_sw);
 	}
+	
 	
 	
 	//Update
 	void Update () { 
-		setMaterial();
-		
-		if(owner.lerp_move)
-		{
-			 SetSpriteAnimation(colCount,rowCount,rowNumber,colNumber,totalCells,fps);
-		}
-//		SetSpriteAnimation(colCount,rowCount,rowNumber,colNumber,totalCells);  
+		SetSpriteAnimation(colCount,rowCount,rowNumber,colNumber,totalCells);  
 	}
 	
 	void Start()
@@ -61,23 +40,24 @@ public class enemyDisplayS : MonoBehaviour {
 		owner = gameObject.GetComponent<entityEnemyS>();
 	}
  
-
 	//SetSpriteAnimation
-	void SetSpriteAnimation(int colCount ,int rowCount ,int rowNumber ,int colNumber,int totalCells,int fps ){
-	 
-	    // Calculate index
-	    int index  = (int)(Time.time * fps);
-	    // Repeat when exhausting all cells
-	    index = index % totalCells;
-	 
+	void SetSpriteAnimation(int colCount ,int rowCount ,int rowNumber ,int colNumber,int totalCells){
+		
+		col_index = (int) owner.facing_direction;
+		row_index = 0;
+		
+		//print ("FACING DIRECTION: " + owner.facing_direction);
+		
+		frame_index =  col_index + 6 * row_index; 
+		
 	    // Size of every cell
 	    float sizeX = 1.0f / colCount;
 	    float sizeY = 1.0f / rowCount;
 	    Vector2 size =  new Vector2(sizeX,sizeY);
 	 
 	    // split into horizontal and vertical index
-	    var uIndex = index % colCount;
-	    var vIndex = index / colCount;
+	    var uIndex = frame_index % colCount;
+	    var vIndex = frame_index / colCount;
 	 
 	    // build offset
 	    // v coordinate is the bottom of the image in opengl so we need to invert.
@@ -87,12 +67,6 @@ public class enemyDisplayS : MonoBehaviour {
 	 
 	    renderer.material.SetTextureOffset ("_MainTex", offset);
 	    renderer.material.SetTextureScale  ("_MainTex", size);
-	}
-	void setMaterial()
-	{
-	    renderer.material = facing_walks[owner.facing_direction];
-	    renderer.material.SetColor ("_Color", Color.red);
-		
 	}
 //	
 //	void OnMouseOver()

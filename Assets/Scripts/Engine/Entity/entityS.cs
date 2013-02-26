@@ -30,7 +30,7 @@ public abstract class  Combatable : Entity{
 	public int attack_range  = 1;
 	public int attack_damage = 5;
 	
-	public int sight_range = 5;
+	public int sight_range = 3;
 	
 	public int getCurrentHP(){
 		return current_hp;

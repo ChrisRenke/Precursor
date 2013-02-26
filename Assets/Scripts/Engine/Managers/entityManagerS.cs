@@ -16,7 +16,9 @@ public class entityManagerS : MonoBehaviour {
 	public GameObject base_entity;
 	public GameObject player_entity;
 	public GameObject enemy_entity;
-	public GameObject node_entity;
+	public GameObject junkyard_entity;
+	public GameObject outpost_entity;
+	public GameObject factory_entiy;
 	
 	public GameObject particle_gear;
 	public GameObject particle_plate;
@@ -39,9 +41,9 @@ public class entityManagerS : MonoBehaviour {
 		entity_dict.Add(EntityE.Player, player_entity);
 		entity_dict.Add(EntityE.Enemy, enemy_entity);
 		
-		node_dict.Add(Node.Factory, node_entity);
-		node_dict.Add(Node.Outpost, node_entity);
-		node_dict.Add(Node.Junkyard, node_entity);
+		node_dict.Add(Node.Factory, factory_entiy);
+		node_dict.Add(Node.Outpost, outpost_entity);
+		node_dict.Add(Node.Junkyard, junkyard_entity);
 		
 		part_dict.Add(Part.Gear, particle_gear);
 		part_dict.Add(Part.Plate, particle_plate);
@@ -59,8 +61,7 @@ public class entityManagerS : MonoBehaviour {
 					node.node_level = NodeLevel.Sparse;
 				else
 					node.node_level = NodeLevel.Empty;
-			
-				node.SetVisiual();		
+					
 			}
 	}
 	
@@ -335,7 +336,6 @@ public class entityManagerS : MonoBehaviour {
 			new_node.z = z;
 			new_node.node_type  = node_type;
 			new_node.node_level = node_level;
-			new_node.SetVisiual();
 			resource_node_list.Add(new_node);
 			return true;
 		}

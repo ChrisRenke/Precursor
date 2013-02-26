@@ -1,45 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Engine/Interaction/enginePlayerS.cs">
-    <Files>
-      <File FileName="Assets/Scripts/Engine/Enums.cs" Line="10" Column="54" />
-      <File FileName="Assets/Scripts/Engine/Managers/entityManagerS.cs" Line="44" Column="43" />
-      <File FileName="Assets/Scripts/Engine/Managers/hexManagerS.cs" Line="141" Column="4" />
-      <File FileName="Assets/Scripts/Engine/Managers/engineIOS.cs" Line="93" Column="8" />
-      <File FileName="Assets/Scripts/Engine/Entity/entityMechS.cs" Line="270" Column="4" />
-      <File FileName="Assets/Scripts/Engine/engineHexS.cs" Line="9" Column="21" />
-      <File FileName="Assets/Scripts/Engine/Entity/entityS.cs" Line="105" Column="20" />
-      <File FileName="Assets/Scripts/Engine/Entity/entityNodeS.cs" Line="56" Column="20" />
-      <File FileName="Assets/Scripts/Engine/Interaction/enginePlayerS.cs" Line="149" Column="32" />
-      <File FileName="Assets/Scripts/Engine/Interaction/mechDisplayS.cs" Line="100" Column="2" />
-      <File FileName="Assets/Scripts/Engine/Interaction/enemyDisplayS.cs" Line="23" Column="1" />
-    </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="Assembly-CSharp" expanded="True">
-            <Node name="Assets" expanded="True">
-              <Node name="Level_Files" expanded="True" />
-              <Node name="Materials" expanded="True" />
-              <Node name="Scripts" expanded="True">
-                <Node name="Engine" expanded="True">
-                  <Node name="Entity" expanded="True" />
-                  <Node name="Interaction" expanded="True">
-                    <Node name="enginePlayerS.cs" selected="True" />
-                  </Node>
-                  <Node name="Managers" expanded="True" />
-                </Node>
-                <Node name="MapEditor" expanded="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-      <Pad Id="ClassPad">
-        <State expanded="True" selected="True" />
-      </Pad>
-    </Pads>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

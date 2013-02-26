@@ -126,7 +126,6 @@ public class enginePlayerS : MonoBehaviour {
 			}
 		}
 		 
-		
 
 		
 		if(Input.GetMouseButton(2) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
@@ -141,12 +140,15 @@ public class enginePlayerS : MonoBehaviour {
 				trans_y = Vector3.up * v * -1 * vSensitivity; 
 				trans_x = Vector3.right * h * -1 * hSensitivity; 
 			}
-			 
-			if(Input.GetAxis("Horizontal") > 0)
+			
+			if(Input.GetKey(KeyCode.UpArrow))
+				print ("RIGHT ARROW!");
+				
+			if(Input.GetKey(KeyCode.D)  || Input.GetKey(KeyCode.RightArrow))
 			{
 				trans_x = Vector3.right * hSensitivity * 12F * Time.deltaTime; 
 			} 
-			if(Input.GetAxis("Horizontal") < 0)
+			if(Input.GetKey(KeyCode.A)  || Input.GetKey(KeyCode.LeftArrow))
 			{
 				trans_x = Vector3.right * hSensitivity * -12F * Time.deltaTime; 
 			} 
@@ -330,13 +332,6 @@ public class enginePlayerS : MonoBehaviour {
 	
 	}
 	
-	
-	
-	
-	public void drawPath(Path<HexData> travel_path)
-	{
-		
-	}
 	
 }
 

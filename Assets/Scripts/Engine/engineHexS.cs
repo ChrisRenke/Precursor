@@ -64,8 +64,10 @@ public class engineHexS : MonoBehaviour {
 	    float offsetX = (uIndex+colNumber) * size.x;
 	    float offsetY = (1.0f - size.y) - (vIndex + rowNumber) * size.y;
 	    Vector2 offset = new Vector2(offsetX,offsetY);
-	  
+	 
+//		renderer.material.s
 	    renderer.material.SetTextureOffset ("_MainTex", offset); 
-	    renderer.material.SetTextureScale  ("_MainTex", size); 
+	    renderer.material.SetTextureScale  ("_MainTex", size);
+//		renderer.material.SetColor("_Color", Color.gray);
 	}
 }

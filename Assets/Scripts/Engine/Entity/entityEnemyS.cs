@@ -30,7 +30,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	int t = 0; //test
 	
-	// Use this for initialization
+	//Use this for initialization
 	void Start () {
 		path_to_base = new List<HexData>();
 		path_to_mech = new List<HexData>();
@@ -55,9 +55,9 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	// Update is called once per frame
 	void Update () {	
-		print ("checking if alive enemy " + this.GetInstanceID());
+		//print("checking if alive enemy " + this.GetInstanceID());
 		if(checkIfDead()){
-		print (this.GetInstanceID() + " is DEAD!!");
+			print (this.GetInstanceID() + " is DEAD!!");
 			onDeath();
 			
 		}
@@ -384,7 +384,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	public List<HexData> getTraversablePath (HexData start, HexData destination, EntityE entity)
 	{
 		//Send hex of base and hex of enemy to aStar
-		var path = aStar.FindPath(start, destination, entity, calcDistance, calcEstimate, getAdjacentTraversableHexes);
+		var path = aStar.FindPath(start, destination, entity, calcCostToTravelAdjacentHex, calcCostToTravelToDistantHex, getAdjacentTraversableHexes);
 		if(path != null){
 			last_path_cost = path.TotalCost;
 			Debug.Log ("getTraversablePath: path cost = " + last_path_cost);
@@ -419,12 +419,12 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	
 	#region IPathFind implementation
-	public double calcDistance (HexData hex_start, HexData hex_end)
+	public double calcCostToTravelAdjacentHex (HexData hex_start, HexData hex_end)
 	{	
 		return (double) getTraverseAPCost(hex_end.hex_type);
 	}
 
-	public double calcEstimate (HexData hex_start, HexData hex_end)
+	public double calcCostToTravelToDistantHex (HexData hex_start, HexData hex_end)
 	{
 		//TODO: may need to be adjusted later
         return Math.Abs(hex_start.x - hex_end.x) + Math.Abs(hex_start.z - hex_end.z);
@@ -520,11 +520,12 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	{		
 
 		Debug.Log(hex + " = hex | " + hex.x + " | " + hex.z);  
+		//TODO: grab this method for Base, except pass in attack_range*******************
 			foreach(HexData h in hexManagerS.getAdjacentHexes(hex, sight_range)){
 				if(h.x == hex.x && h.z == hex.z)
 				{
 					//opponent is in sight range of enemy
-					Debug.Log ("canSeeHex: opponent is in sight range");
+					Debug.Log ("canSeeHex: opponent in sight, sight_range = " + sight_range);
 					return true;
 				}
 				//Debug.Log ("...checking hex...");
@@ -589,7 +590,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	float dist; 
 	Vector3 starting_pos, ending_pos;
-	public bool lerp_move = false; 
+	bool lerp_move = false; 
 	float time_to_complete = 2F;
 	float moveTime = 0.0f;
  
