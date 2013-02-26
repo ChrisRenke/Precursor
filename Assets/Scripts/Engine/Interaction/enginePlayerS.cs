@@ -48,9 +48,16 @@ public class enginePlayerS : MonoBehaviour {
 	public Color medium;
 	public Color hard;
 	
+	public Color idle;
+	public Color attack;
+	public Color scavenge;
+	
 	public static Color easy_color;
 	public static Color medium_color;
 	public static Color hard_color;
+	public static Color idle_color;
+	public static Color attack_color;
+	public static Color scavenge_color;
 	
 	public static Dictionary<Action, Texture> action_images;
 	 
@@ -74,7 +81,9 @@ public class enginePlayerS : MonoBehaviour {
 		easy_color = easy;
 		medium_color = medium;
 		hard_color = hard;  
-		
+		idle_color = idle;
+		attack_color = attack;
+		scavenge_color = scavenge;
 	}
 	
 	public static void setMech()
@@ -149,7 +158,8 @@ public class enginePlayerS : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.J))
 		{
 			
-			pathDrawS.drawPath(mech.getPathFromMechTo(hexManagerS.getHex (entityManagerS.getBase().x, entityManagerS.getBase().z)));
+//			pathDrawS.drawPath(mech.getPathFromMechTo(hexManagerS.getHex (entityManagerS.getBase().x, entityManagerS.getBase().z)));
+//			pathDrawS.outlineHex(hexManagerS.getHex(mech.x, mech.z));
 //			drawn_path = false;
 		}
 			

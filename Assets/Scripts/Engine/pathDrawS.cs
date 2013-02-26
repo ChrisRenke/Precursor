@@ -3,7 +3,8 @@ using System.Collections;
 
 public class pathDrawS : MonoBehaviour {
 	
-	static Vector3 y_adj =new Vector3(0,10,0);
+	static Vector3 y_adj_line =new Vector3(0,1,0);
+	static Vector3 y_adj_hex =new Vector3(0,10,0);
 	static Vector3 xz_norm =new Vector3(1,0,1);
 	 
 	
@@ -17,19 +18,7 @@ public class pathDrawS : MonoBehaviour {
 	}
 	
 	public static Color getColorFromCost(int cost)
-	{	
-//		if(cost <= 2)
-//		{
-//			return Color.green;
-//		}
-//		else if(cost <= 4)
-//		{
-//			return Color.yellow;
-//		}
-//		else
-//		{
-//			return Color.red;
-//		}
+	{	 
 		if(cost <= 2)
 		{
 			return enginePlayerS.easy_color;
@@ -46,10 +35,30 @@ public class pathDrawS : MonoBehaviour {
 	}
 	
 	
-	public static void drawPath(Path path)
+	public static VectorLine outlineHex(HexData hex)
+	{
+		MeshFilter ms = (MeshFilter)hex.hex_object.GetComponent("MeshFilter");
+		Vector3[] verts = new Vector3[(ms.mesh.vertices.Length + 1)];
+			 
+//		VectorLine
+		for(int i = 0; i <  ms.mesh.vertices.Length; ++i)
+			verts[i] = ms.mesh.vertices[i] + y_adj_hex + hex.hex_object.transform.position;
+		
+		verts[ms.mesh.vertices.Length] = ms.mesh.vertices[0] + y_adj_hex + hex.hex_object.transform.position;
+		
+		
+		for(int i = 0; i < verts.Length; ++i)
+			verts[i].y = 1;
+			
+		return new VectorLine("border", verts, null, 8F,LineType.Continuous, Joins.Weld); 
+//		VectorLine.MakeLine("border", verts).Draw3DAuto();
+	}
+	
+	
+	public static VectorLine getPathLine(Path path)
 	{
 			Debug.Log("drawPath numba J");
-			Debug.Log("awkward length " + 	path.getPathLength());
+//			Debug.Log("awkward length " + 	path.getPathLength());
 	
 		if(path != null)
 		{
@@ -61,7 +70,7 @@ public class pathDrawS : MonoBehaviour {
 			{
 //				path_spots[i] = Camera.mainCamera.WorldToScreenPoint((hexManagerS.CoordsGameTo3D(path_pos.x, path_pos.z)));
 				
-				path_spots[i] = ((hexManagerS.CoordsGameTo3D(path_pos.x, path_pos.z) + y_adj));
+				path_spots[i] = ((hexManagerS.CoordsGameTo3D(path_pos.x, path_pos.z) + y_adj_line));
 				
 				if(i != 0)
 					lineColors[i-1] = getColorFromCost(path_pos.traversal_cost);
@@ -78,10 +87,13 @@ public class pathDrawS : MonoBehaviour {
 			
 //			VectorLine.SetLine (Color.green, path_spots);
 			VectorLine.Destroy(ref player_route);
-			player_route = new VectorLine("Line", path_spots, lineColors, null, 3F, LineType.Continuous, Joins.Weld); 
+			player_route = new VectorLine("Line", path_spots, lineColors, null, 5F, LineType.Continuous, Joins.Weld); 
 			player_route.SetColorsSmooth(lineColors);
-			player_route.Draw3DAuto();
+			return player_route;
+//			player_route.Draw3DAuto();
 		}
+		
+		return null;
 		
 	}
 }

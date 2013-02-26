@@ -12,6 +12,7 @@ public enum Turn         { Player, Enemy, Base };
 public enum SelectLevel  { Disabled, Easy, Medium, Hard, Scavenge, Attack, Upgrade };
 public enum Action       { Repair, UpgradeMech, UpgradeBase, Scavenge, Attack, Traverse, End };
 public enum Vision       { Live, Visited, Unvisted };
+public enum MouseState   { Idle, Over, Click }
 
 //Vector3.f
 
