@@ -43,10 +43,13 @@ public class entityBaseS : Combatable {
 		} 
 	}
 	
+	
+	
 	// Update is called once per frame
 	void Update () {
 			
 		if(checkIfDead()){
+			print (this.GetInstanceID() + " is DEAD!!");
 			onDeath();
 		}else{
 		
@@ -93,7 +96,8 @@ public class entityBaseS : Combatable {
 							Debug.Log ("Can't attack, not enough ap, so END TURN");
 							can_not_attack = true;
 						}else{
-							int damage_done = attackTarget (entityManagerS.getEnemyAt(enemy_s.x, enemy_s.z));
+							//current_ap -= attack_cost;
+							int damage_done = attackTarget (enemy_s);
 							Debug.Log ("ATTACK opponent, damage done = " + damage_done);
 						}
 						
@@ -120,12 +124,18 @@ public class entityBaseS : Combatable {
 	public override int attackTarget (Combatable target)
 	{
 		//subtract ap cost from total
-		Debug.Log ("Target pos " + target.x + ":" + target.z);
-		Debug.Log ("Base pos " + x + ":" + z);
+		Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z);
 		current_ap -= attack_cost;
-		return target.acceptDamage(attack_damage);
+		
+		Debug.LogWarning("ABOUT TO ATTACK ENTITY " + target.GetInstanceID());
+		if(target != null)
+			return target.acceptDamage(attack_damage);
+		
+		Debug.Log ("ERROR: didn't pick a combatable target");
+		return 0; //nothing to damage if we get here
 	}
-	#endregion
+	
+	#endregion	
 	
 	public override bool onDeath()
 	{

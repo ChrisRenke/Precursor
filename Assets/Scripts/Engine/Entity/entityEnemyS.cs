@@ -15,6 +15,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	private bool   can_get_to_base_location;
 	private double last_path_cost; //path cost of most recent path gotten from traversable path call
 	private bool   end_turn;
+	private bool   chosen_path_is_mech = false;
+	private bool   chosen_path_is_base = false;
 	
 	//Put a weight on entities to decide which is more important when having to make a path choice
 	public double base_weight = 10;
@@ -38,8 +40,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		last_path_cost = 0;		
 		end_turn = false;
 		
-		current_hp = 15;
-		max_hp = 15;
+		current_hp = 21;
+		max_hp = 21;
 		
 		current_ap = 8;
 		max_ap = 8;
@@ -73,6 +75,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				//get base and mech positions
 				entityBaseS base_s = entityManagerS.getBase();
 				entityMechS mech_s = entityManagerS.getMech();
+				chosen_path_is_mech = false;
+				chosen_path_is_base = false;
 				
 				//check ap
 				if(current_ap <= 0 || end_turn)
@@ -132,10 +136,12 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 						else if(can_get_to_base_location){
 							Debug.Log ("Update 1:3: knows mech/base location, can't get to mech so go to base");
 							path_to_opponent = path_to_base;
+							chosen_path_is_base = true;
 						}
 						else if(can_get_to_mech_location){
 							Debug.Log ("Update 1:4: knows mech/base location, can't get to base so go to mech");
 							path_to_opponent = path_to_mech;
+							chosen_path_is_mech = true;
 						}else{
 							Debug.Log("Update 1:3: knows mech/base location, can't find path to mech or base");
 							path_to_opponent = new List<HexData>();
@@ -158,6 +164,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 							else{
 								Debug.Log ("Update 2:4: knows base location, going on path to base");
 								path_to_opponent = path_to_base;
+								chosen_path_is_base = true;
 							}
 						}else if(can_get_to_mech_location){
 							Debug.Log ("Update 2:5: knows base location, can't get to base so go to mech");
@@ -172,6 +179,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 							}else{
 								Debug.Log ("Update 2:8: knows base location, path to base found if enemy not considered");
 								path_to_opponent = path_to_base;
+								chosen_path_is_base = true;
 							}
 						}
 					}else if(knows_mech_location){
@@ -189,10 +197,12 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 							}else{
 								Debug.Log ("Update 3:4: knows mech location, path to mech found");
 								path_to_opponent = path_to_mech;
+								chosen_path_is_mech = true;
 							}
 						}else if(can_get_to_base_location){
 							Debug.Log ("Update 3:5: knows mech location, can't get to mech but found path to base");
-							path_to_opponent = path_to_base;	
+							path_to_opponent = path_to_base;
+							chosen_path_is_base = true;
 						}else{
 							Debug.Log ("Update 3:6: knows mech location, try to find path to mech assuming path is blocked by base");
 							path_to_mech = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Base);
@@ -203,6 +213,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 							}else{
 								Debug.Log ("Update 3:8: knows mech location, going on path to mech");
 								path_to_opponent = path_to_mech;
+								chosen_path_is_mech = true;
 							}
 						}
 					}else{
@@ -213,9 +224,11 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 						}else if (can_get_to_mech_location){
 							Debug.Log ("Update 4:2: don't know base or mech location, can't get to base so go to mech");
 							path_to_opponent = path_to_mech;
+							chosen_path_is_mech = true;
 						}else if (can_get_to_base_location){
 							Debug.Log ("Update 4:3 don't know base or mech location, can't get to mech so go to base");
 							path_to_opponent = path_to_base;
+							chosen_path_is_base = true;
 						}else{ 
 							Debug.Log ("Update 4:5: don't know base or mech location, can't find path to either base or mech");
 							path_to_opponent = new List<HexData>();
@@ -250,8 +263,17 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 							Debug.Log ("Update 5:6: Can't attack, not enough ap, so END TURN");
 							end_turn = true;
 						}else{
-							int damage_done = attackTarget (entityManagerS.getCombatableAt(path_to_opponent[0].x, path_to_opponent[0].z));
-							Debug.Log ("Update 5:7: ATTACK opponent, damage done = " + damage_done);
+							int damage_done = -1;
+							if(chosen_path_is_mech){
+								damage_done = attackTarget (mech_s);
+								Debug.Log ("Target is Mech , damage done = " + damage_done);
+							}else if (chosen_path_is_base){
+								damage_done = attackTarget (base_s);
+								Debug.Log ("Target is Base , damage done = " + damage_done);
+							}else{
+								Debug.Log ("ERROR: ATTACK opponent, wasn't an attackable opponent, damage done = " + damage_done);
+								end_turn = true;
+							}
 						}
 						
 					}else{ 
@@ -551,20 +573,25 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		Debug.Log("minCostPath: comparing costs-" + cost1 +" vs " + cost2);
 		if(cost1 < cost2){
 			Debug.Log ("minCostPath: mech path returned, cost =" + cost1);
+			chosen_path_is_mech = true;
 			return path1;
 		}else if(cost2 < cost1){
 			Debug.Log ("minCostPath: base path returned, cost =" + cost2);
+			chosen_path_is_base = true;
 			return path2;
 		}else{
 			Debug.Log ("minCostPath: paths have same cost, so return path with higher weight-" + weight1 +" vs " + weight2);
 			if(weight1 > weight2){
 				Debug.Log ("minCostPath: mech path had higher weight = " +weight1);
+				chosen_path_is_mech = true;
 				return path1;
 			}else if(weight2 > weight1){
-				Debug.Log ("minCostPath: mech path had higher weight = " + weight2);
+				Debug.Log ("minCostPath: base path had higher weight = " + weight2);
+				chosen_path_is_base = true;
 				return path2;
 			}else{
 				Debug.Log ("minCostPath: path are equal in weight and cost so just go to base");
+				chosen_path_is_base = true;
 				return path2;
 			}
 		}
@@ -572,12 +599,17 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	public override int attackTarget (Combatable target)
 	{
-		//TODO: finish method, account for opponent defenses etc
-			
 		//subtract ap cost from total
+		Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z);
 		current_ap -= attack_cost;
-		return target.acceptDamage(attack_damage);
-	}
+		
+		Debug.LogWarning("ABOUT TO ATTACK ENTITY " + target.GetInstanceID());
+		if(target != null)
+			return target.acceptDamage(attack_damage);
+		
+		Debug.Log ("ERROR: didn't pick a combatable target");
+		return 0; //nothing to damage if we get here
+	}	
 	
 	
 	public void moveInWorld(int _destination_x, int _destination_z, float _time_to_complete)

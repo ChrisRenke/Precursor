@@ -448,6 +448,7 @@ public class entityMechS : Combatable, IMove {
 	 *  @return  damage delt
 	 */
 	public override int attackTarget(Combatable target){
+		Debug.Log ("Hit");
 //		int range  = upgrade_weapon_range ? weapon_upgrade_range : weapon_base_range;
 		int damage = upgrade_weapon_damage ? weapon_upgrade_damage : weapon_base_damage;
 		int cost   = upgrade_weapon_cost ? weapon_upgrade_cost : weapon_base_cost;
