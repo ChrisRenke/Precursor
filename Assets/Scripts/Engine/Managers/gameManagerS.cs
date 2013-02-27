@@ -31,7 +31,7 @@ public class gameManagerS : MonoBehaviour {
 	
 		//if the player still has actions
 //		if(entityManagerS.getMech().current_ap > 0)
-		if(current_turn == Turn.Player)
+		if(current_turn == Turn.Player || current_turn == Turn.Base)
 		{ 
 //			current_turn  = Turn.Player;
 			//TODO nothing hahah
@@ -89,17 +89,25 @@ public class gameManagerS : MonoBehaviour {
 	
 	public static void endPlayerTurn()
 	{
-		current_turn = Turn.Enemy;
+//		current_turn = Turn.Enemy;
+//		entityManagerS.getMech().current_ap =  entityManagerS.getMech().max_ap;
+//		entityManagerS.getMech().destroySelectionHexes();
+//		entityManagerS.getMech().allowSelectionHexesDraw();
+//		enemy_enumerator = entityManagerS.getEnemies().GetEnumerator();
+		
+		
+		current_turn = Turn.Base;
 		entityManagerS.getMech().current_ap =  entityManagerS.getMech().max_ap;
 		entityManagerS.getMech().destroySelectionHexes();
 		entityManagerS.getMech().allowSelectionHexesDraw();
-		enemy_enumerator = entityManagerS.getEnemies().GetEnumerator();
+		
 	}
 	
 	public static void endBaseTurn()
 	{
 		//TODO: not sure if this is finished
-		current_turn = Turn.Player;
+		current_turn = Turn.Enemy;
 		entityManagerS.getBase().current_ap =  entityManagerS.getBase().max_ap;
+		enemy_enumerator = entityManagerS.getEnemies().GetEnumerator();
 	}
 }

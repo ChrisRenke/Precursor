@@ -66,7 +66,9 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			if(gameManagerS.current_turn == Turn.Enemy  && !lerp_move && is_this_enemies_turn)
 			{
 				//if( t== 0 || t == 1 || t == 2){
-				Debug.Log ("enemy turn now");
+				Debug.Log ("ENEMY TURN NOW " + x + ":" + z);
+				print ("ENEMY hp = " + current_hp);
+				print ("ENEMY Ap = " + current_ap);
 				
 				//get base and mech positions
 				entityBaseS base_s = entityManagerS.getBase();

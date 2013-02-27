@@ -49,11 +49,13 @@ public class entityBaseS : Combatable {
 		if(checkIfDead()){
 			onDeath();
 		}else{
-			
+		
 			if(gameManagerS.current_turn == Turn.Base)
 			{
 				
-				Debug.Log("Base turn now");
+				Debug.Log("BASE TURN NOW");
+				print ("BASE hp = " + current_hp);
+				print ("BASE Ap = " + current_ap);
 				
 				//check ap
 				if(current_ap <= 0 || (can_not_heal && can_not_attack))
@@ -91,7 +93,7 @@ public class entityBaseS : Combatable {
 							Debug.Log ("Can't attack, not enough ap, so END TURN");
 							can_not_attack = true;
 						}else{
-							int damage_done = attackTarget (entityManagerS.getCombatableAt(enemy_s.x, enemy_s.z));
+							int damage_done = attackTarget (entityManagerS.getEnemyAt(enemy_s.x, enemy_s.z));
 							Debug.Log ("ATTACK opponent, damage done = " + damage_done);
 						}
 						
@@ -118,6 +120,8 @@ public class entityBaseS : Combatable {
 	public override int attackTarget (Combatable target)
 	{
 		//subtract ap cost from total
+		Debug.Log ("Target pos " + target.x + ":" + target.z);
+		Debug.Log ("Base pos " + x + ":" + z);
 		current_ap -= attack_cost;
 		return target.acceptDamage(attack_damage);
 	}
@@ -214,7 +218,7 @@ public class entityBaseS : Combatable {
 			
 			//See if any of the adjacent_hexes are an enemy
 			for(int i = 0; i < adjacent_hexes.Length; i++)
-				if(entityManagerS.getCombatableAt(adjacent_hexes[i]) != null)
+				if(entityManagerS.getEnemyAt(adjacent_hexes[i].x, adjacent_hexes[i].z) != null)
 					return false; 
 			
 			return true;
@@ -223,15 +227,16 @@ public class entityBaseS : Combatable {
 	//return script of weakest enemy, this method seems slow, may adjust later
 	entityEnemyS getWeakestEnemy(){
 		int low_health = 9999;
-		entityEnemyS weak_enemy = null;
+		entityEnemyS final_weak_enemy = null;
 		//get all hexes in attack range
 		foreach(HexData h in hexManagerS.getAdjacentHexes(hexManagerS.getHex(x,z), attack_range)){
 				//check to see if enemy is at hex
-				weak_enemy = entityManagerS.getEnemyAt(h.x, h.z);
+				entityEnemyS weak_enemy = entityManagerS.getEnemyAt(h.x, h.z);
 				if(weak_enemy != null){
 					if( weak_enemy.current_hp < low_health){
 						Debug.Log("Weakest enemy is: " + weak_enemy.x + ":" + weak_enemy.z);
-						low_health = weak_enemy.current_hp; 
+						low_health = weak_enemy.current_hp;
+						final_weak_enemy = weak_enemy;
 					}
 				}
 		}
@@ -241,7 +246,7 @@ public class entityBaseS : Combatable {
 			return null;
 		}
 		
-		return weak_enemy;
+		return final_weak_enemy;
 		
 	}
 
