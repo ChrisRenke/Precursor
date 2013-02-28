@@ -41,8 +41,28 @@ public class enginePlayerS : MonoBehaviour {
 	public Texture icon_upgrade;
 	public Texture icon_end;
 	
+	
+	
+	
+	public Color easy;
+	public Color medium;
+	public Color hard;
+	public Color disable;
+	public Color idle;
+	public Color attack;
+	public Color scavenge;
+	
+	public static Color easy_color;
+	public static Color medium_color;
+	public static Color hard_color;
+	public static Color disable_color;
+	public static Color idle_color;
+	public static Color attack_color;
+	public static Color scavenge_color;
+	
 	public static Dictionary<Action, Texture> action_images;
 	 
+//	private static LineRenderer lr;
 	
 	// Use this for initialization
 	void Awake () {  
@@ -59,6 +79,13 @@ public class enginePlayerS : MonoBehaviour {
 		action_images.Add(Action.UpgradeMech, icon_upgrade);
 		action_images.Add(Action.End, icon_end);
 		
+		easy_color = easy;
+		medium_color = medium;
+		hard_color = hard;  
+		idle_color = idle;
+		attack_color = attack;
+		scavenge_color = scavenge;
+		disable_color  = disable;
 	}
 	
 	public static void setMech()
@@ -66,8 +93,12 @@ public class enginePlayerS : MonoBehaviour {
 		mech    = GameObject.FindGameObjectWithTag("player_mech").GetComponent<entityMechS>();
 	}
 	
+	
+	public static bool drawn_path = false;
 	// Update is called once per frame
 	void Update() {
+		
+		
 		Vector3 screenBottomLeft = maincam.camera.ScreenToWorldPoint(new Vector3(0,0,0));
 		Vector3 screenTopRight = maincam.camera.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,0));
 		
@@ -125,7 +156,14 @@ public class enginePlayerS : MonoBehaviour {
 				maincam.camera.orthographicSize = minZoom; 
 			}
 		}
-		 
+
+		if(Input.GetKeyDown(KeyCode.J))
+		{
+			
+//			pathDrawS.drawPath(mech.getPathFromMechTo(hexManagerS.getHex (entityManagerS.getBase().x, entityManagerS.getBase().z)));
+//			pathDrawS.outlineHex(hexManagerS.getHex(mech.x, mech.z));
+//			drawn_path = false;
+		}
 
 		
 		if(Input.GetMouseButton(2) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
@@ -152,6 +190,7 @@ public class enginePlayerS : MonoBehaviour {
 			{
 				trans_x = Vector3.right * hSensitivity * -12F * Time.deltaTime; 
 			} 
+			
 			
 			
 			if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
@@ -332,6 +371,23 @@ public class enginePlayerS : MonoBehaviour {
 	
 	}
 	
+	
+//	public void drawPath(Path<HexData> travel_path)
+//	{
+////		if(travel_path != null)
+////		{
+////			
+////			Debug.Log(travel_path.Count + " number of nodes on path");
+////			lr.SetVertexCount(travel_path.Count);
+////			int i = 0;
+////			foreach(HexData path_pos in travel_path)
+////			{
+////				Vector3 pos = hexManagerS.CoordsGameTo3D(path_pos.x, path_pos.z) + new Vector3(0,30,0);
+////				lr.SetPosition(i, pos);
+////				i++;
+////			}
+////		}
+//	}
 	
 }
 

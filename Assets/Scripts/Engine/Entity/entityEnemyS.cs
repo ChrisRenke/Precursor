@@ -57,6 +57,36 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
 	}
 	
+		//Extract hexes from path and put hexes into a List 
+	private List<HexData> extractPath (Path path)
+	{
+		
+		if(path != null){
+			last_path_cost = path.TotalCost;
+			Debug.Log ("getTraversablePath: path cost = " + last_path_cost);
+		}
+		
+		List<HexData> list = new List<HexData>();
+		if(path != null){
+			foreach (HexData hex in path){
+				list.Add(hex);
+			}
+			Debug.Log ("extractPath: size of path = " + list.Count);
+			
+			list.Reverse();	//path comes in backwards
+			
+			//if list size is 2, don't remove the enemies position from list
+			if(list.Count > 2){
+				list.RemoveAt(0); //first element is the current enemies position
+			}
+			
+			list.RemoveAt(list.Count - 1); //last element is the destination hex
+		}else{
+			Debug.Log ("extractPath: path is empty");
+		}
+		
+		return list;
+	}
 	
 	// Update is called once per frame
 	void Update () {	
@@ -164,7 +194,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 						}
 						else if(can_get_to_base_location){	
 							Debug.Log ("Update 2:2: knows base location, can't get to mech, check for shorter path to base assuming we can't see mech");
-							path_to_base = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player);
+							path_to_base = extractPath(hexManagerS.getTraversablePath(hexManagerS.getHex(x,z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
 							base_path_cost = last_path_cost;
 							if(path_to_base.Count == 0){
 								Debug.Log ("Update 2:3: knows base location, shouldn't reach this code, since path to base already found");
@@ -180,7 +210,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 							path_to_opponent = path_to_mech;
 						}else{
 							Debug.Log ("Update 2:6: knows base location, can't find a path to either but try to find path to base assuming mech may be blocking path");
-							path_to_base = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player);
+							path_to_base =  extractPath(hexManagerS.getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
 							base_path_cost = last_path_cost;
 							if(path_to_base.Count == 0){
 								Debug.Log ("Update 2:7: knows base location, path not found to base or mech");
@@ -198,7 +228,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 							path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, ref path_to_mech, ref path_to_base);
 						}else if(can_get_to_mech_location){
 							Debug.Log ("Update 3:2: knows mech location, can't see base so try to find shorter path to mech");
-							path_to_mech = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Base);
+							path_to_mech = extractPath(hexManagerS.getTraversablePath(hexManagerS.getHex(x,z), hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Base, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
 							mech_path_cost = last_path_cost;
 							if(path_to_mech.Count == 0){
 								Debug.Log ("Update 3:3: knows mech location, shouldn't reach this code since path to mech known");
@@ -214,7 +244,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 							chosen_path_is_base = true;
 						}else{
 							Debug.Log ("Update 3:6: knows mech location, try to find path to mech assuming path is blocked by base");
-							path_to_mech = getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Base);
+							path_to_mech = extractPath(hexManagerS.getTraversablePath(hexManagerS.getHex(x,z), hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Base, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
 							mech_path_cost = last_path_cost;
 							if(path_to_mech.Count == 0){
 								Debug.Log ("Update 3:7: knows mech location, can't find a path to base or mech");
@@ -337,6 +367,12 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				}	
 			}
 		}//not dead
+	}
+	
+	
+	public double getTraverseAPCostPathVersion (HexData hex_start, HexData hex_end)
+	{	
+		return (double) getTraverseAPCost(hex_end.hex_type);
 	}
 	
 	public List<HexData> getAdjacentTraversableHexes () {
@@ -469,7 +505,6 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	}
 	
 	
-	#region IPathFind implementation
 	public double calcCostToTravelAdjacentHex (HexData hex_start, HexData hex_end)
 	{	
 		return (double) getTraverseAPCost(hex_end.hex_type);
@@ -500,7 +535,6 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		//Debug.Log ("Number of result_hexes " + result_hexes.Count);
 		return result_hexes;
 	}
-	#endregion
 	
  
 	public int getTraverseAPCost(Hex hex_type){
@@ -534,7 +568,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		if(knows_opponents_location){
 			//if enemy already "knows opponents location" then don't worry about visibility just get path to opponent
 			Debug.Log ("canGetToOpponent: knows enemy location, get path:" + entity_opponent);
-			path_to_opp = getTraversablePath(enemy, opponent, EntityE.Node);	
+			path_to_opp = extractPath(hexManagerS.getTraversablePath(enemy, opponent, EntityE.Node, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
+			
 			if(path_to_opp.Count == 0){
 				Debug.Log ("canGetToOpponent: knows enemy location, but can't find path");
 				return false;
@@ -550,7 +585,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			if(canSeeHex(opponent)){ 
 			//if(canSeeHex(opponent)){ ****
 				Debug.Log ("canGetToOpponent: doesn't know enemy location, get path to " + entity_opponent);
-				path_to_opp = getTraversablePath(enemy, opponent, entity_opponent);
+				path_to_opp = extractPath(hexManagerS.getTraversablePath(enemy, opponent, EntityE.Node, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
 				if(path_to_opp.Count == 0){
 					Debug.Log ("canGetToOpponent: enemy is visible, but can't find path");
 					return false;

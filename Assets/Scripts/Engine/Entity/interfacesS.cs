@@ -60,6 +60,7 @@ public interface IPathFind{
 
     //Return estimated distance between any node and destination node
     double calcCostToTravelToDistantHex(HexData hex_start, HexData hex_end);
+
 	
 	//Secondary version of traversable hexes(in IMove), accounts for a destination hex
 	List<HexData> getAdjacentTraversableHexes (HexData hex, HexData destination, EntityE entity);
