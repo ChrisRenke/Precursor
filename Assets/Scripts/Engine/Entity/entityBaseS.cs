@@ -239,7 +239,7 @@ public class entityBaseS : Combatable {
 		int low_health = 9999;
 		entityEnemyS final_weak_enemy = null;
 		//get all hexes in attack range
-		foreach(HexData h in hexManagerS.getAdjacentHexes(hexManagerS.getHex(x,z), attack_range)){
+		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z, attack_range)){
 				//check to see if enemy is at hex
 				entityEnemyS weak_enemy = entityManagerS.getEnemyAt(h.x, h.z);
 				if(weak_enemy != null){

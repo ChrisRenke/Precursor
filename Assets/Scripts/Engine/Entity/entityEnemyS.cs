@@ -26,8 +26,6 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	public bool knows_base_location;
 	
 	public bool is_this_enemies_turn;
-	
-	
 	 
 	
 	int t = 0; //test
@@ -544,8 +542,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	{		
 
 		Debug.Log(hex + " = hex | " + hex.x + " | " + hex.z);  
-		//TODO: grab this method for Base, except pass in attack_range*******************
-			foreach(HexData h in hexManagerS.getAdjacentHexes(hex, sight_range)){
+			foreach(HexData h in hexManagerS.getAdjacentHexes(x,z, sight_range)){
 				if(h.x == hex.x && h.z == hex.z)
 				{
 					//opponent is in sight range of enemy
