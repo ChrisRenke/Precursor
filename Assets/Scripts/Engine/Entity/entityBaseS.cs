@@ -6,10 +6,10 @@ using System.Collections.Generic;
 public class entityBaseS : Combatable {
 	
 	//variables
-	BaseUpgrade health_level;
-	BaseUpgrade structure_level;
-	BaseUpgrade defense_level;
-	BaseUpgrade ap_cost_level;
+	BaseUpgrade health_level = BaseUpgrade.None;
+	BaseUpgrade structure_level = BaseUpgrade.None;
+	BaseUpgrade defense_level = BaseUpgrade.None;
+	BaseUpgrade ap_cost_level = BaseUpgrade.None;
 	private int heal_amount = 3;
 	private int heal_cost = 3;
 	private bool  can_not_heal;
@@ -147,72 +147,132 @@ public class entityBaseS : Combatable {
 	//Assumption: entityMech will take care of whether upgrade is allowed	
 	public bool upgradeBase(BaseUpgrade upgrade){
 		//increase health, walls(armour), attack/range cost, and reduce ap
+		//Upgrades can only be applied once
 		switch(upgrade){
 				case BaseUpgrade.Health1:
-					health_level = BaseUpgrade.Health1;
-					max_hp += 10;
-					current_hp = max_hp; //when upgrade happens base health gets refilled
-					return true;		
-			
+					if(health_level != upgrade && health_level < upgrade){
+						health_level = BaseUpgrade.Health1;
+						max_hp += 10;
+						current_hp = max_hp; //when upgrade happens base health gets refilled
+						return true;
+					}else{
+						Debug.Log ("Base Already has this health upgrade, can't downgrade");
+						return false;
+					}
 				case BaseUpgrade.Health2:
-					health_level = BaseUpgrade.Health2;
-					max_hp += 15;
-					current_hp = max_hp; //when upgrade happens base health gets refilled
-					return true;		
+					if(health_level != upgrade && health_level < upgrade){
+						health_level = BaseUpgrade.Health2;
+						max_hp += 15;
+						current_hp = max_hp; //when upgrade happens base health gets refilled
+						return true;
+					}else{
+						Debug.Log ("Base Already has this health upgrade, can't downgrade");
+						return false;
+					}
 			
 				case BaseUpgrade.Health3:
-					health_level = BaseUpgrade.Health3;
-					max_hp += 20;
-					current_hp = max_hp; //when upgrade happens base health gets refilled
-					return true;		
+					if(health_level != upgrade && health_level < upgrade){
+						health_level = BaseUpgrade.Health3;
+						max_hp += 20;
+						current_hp = max_hp; //when upgrade happens base health gets refilled
+						return true;
+					}else{
+						Debug.Log ("Base Already has this health upgrade, can't downgrade");
+						return false;
+					}
 			
 				case BaseUpgrade.Structure1:
-					structure_level = BaseUpgrade.Structure1;
-					base_armor += 5;
-					return true;
+					if(structure_level != upgrade && structure_level < upgrade){
+						structure_level = BaseUpgrade.Structure1;
+						base_armor += 5;
+						return true;
+					}else{
+						Debug.Log ("Base Already has this structure upgrade, can't downgrade");
+						return false;
+					}
 			
 				case BaseUpgrade.Structure2:
-					structure_level = BaseUpgrade.Structure2;
-					base_armor += 5;
-					return true;
+					if(structure_level != upgrade && structure_level < upgrade){
+						structure_level = BaseUpgrade.Structure2;
+						base_armor += 5;
+						return true;
+					}else{
+						Debug.Log ("Base Already has this structure upgrade, can't downgrade");
+						return false;
+					}
 					
 				case BaseUpgrade.Structure3:
-					structure_level = BaseUpgrade.Structure3;
-					base_armor += 10;
-					return true;
+					if(structure_level != upgrade && structure_level < upgrade){
+						structure_level = BaseUpgrade.Structure3;
+						base_armor += 10;
+						return true;
+					}else{
+						Debug.Log ("Base Already has this structure upgrade, can't downgrade");
+						return false;
+					}
 					 
 				case BaseUpgrade.Defenses1:
-					defense_level = BaseUpgrade.Defenses1;
-					attack_range  += 1;
-					attack_damage += 2;
-					return true;
+					if(defense_level != upgrade && defense_level < upgrade){
+						defense_level = BaseUpgrade.Defenses1;
+						attack_range  += 1;
+						attack_damage += 2;
+						return true;
+					}else{
+						Debug.Log ("Base Already has this defense upgrade, can't downgrade");
+						return false;
+					}
 	
 				case BaseUpgrade.Defenses2:
-					defense_level = BaseUpgrade.Defenses2;
-					attack_range  += 1;
-					attack_damage += 3;
-					return true;
+					if(defense_level != upgrade && defense_level < upgrade){
+						defense_level = BaseUpgrade.Defenses2;
+						attack_range  += 1;
+						attack_damage += 3;
+						return true;
+					}else{
+						Debug.Log ("Base Already has this defense upgrade, can't downgrade");
+						return false;
+					}
 					
 				case BaseUpgrade.Defenses3:
-					defense_level = BaseUpgrade.Defenses3;
-					attack_range  += 2;
-					attack_damage += 5;
+					if(defense_level != upgrade && defense_level < upgrade){
+						defense_level = BaseUpgrade.Defenses3;
+						attack_range  += 2;
+						attack_damage += 5;
 					return true;
+					}else{
+						Debug.Log ("Base Already has this defense upgrade, can't downgrade");
+						return false;
+					}
 	
 				case BaseUpgrade.AP1:
-					ap_cost_level = BaseUpgrade.AP1;
-					attack_cost   -= 1;
-					return true;
+					if(ap_cost_level != upgrade && ap_cost_level < upgrade){
+						ap_cost_level = BaseUpgrade.AP1;
+						attack_cost   -= 1;
+						return true;
+					}else{
+						Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
+						return false;
+					}
 	
 				case BaseUpgrade.AP2:
-					ap_cost_level = BaseUpgrade.AP2;
-					attack_cost   -= 2;
-					return true;
+					if(ap_cost_level != upgrade && ap_cost_level < upgrade){
+						ap_cost_level = BaseUpgrade.AP2;
+						attack_cost   -= 2;
+						return true;
+					}else{
+						Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
+						return false;
+					}
 					
 				case BaseUpgrade.AP3:
-					ap_cost_level = BaseUpgrade.AP3;
-					attack_cost   -= 1;
-					return true;
+					if(ap_cost_level != upgrade && ap_cost_level < upgrade){
+						ap_cost_level = BaseUpgrade.AP3;
+						attack_cost   -= 1;
+						return true;
+					}else{
+						Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
+						return false;
+					}
 				
 				default:
 					//Nothing get's updated

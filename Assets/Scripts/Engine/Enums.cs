@@ -12,7 +12,7 @@ public enum Turn         { Player, Enemy, Base };
 public enum SelectLevel  { Disabled, Easy, Medium, Hard, Scavenge, Attack, Upgrade };
 public enum Action       { Repair, UpgradeMech, UpgradeBase, Scavenge, Attack, Traverse, End };
 public enum Vision       { Live, Visited, Unvisted };
-public enum BaseUpgrade  { Health1, Health2, Health3, Structure1, Structure2, Structure3, Defenses1, Defenses2, Defenses3, AP1, AP2, AP3 };
+public enum BaseUpgrade  { None, Health1, Health2, Health3, Structure1, Structure2, Structure3, Defenses1, Defenses2, Defenses3, AP1, AP2, AP3 };
 
 //Vector3.f
 
