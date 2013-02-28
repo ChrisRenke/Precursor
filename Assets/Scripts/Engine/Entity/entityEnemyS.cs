@@ -17,6 +17,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	private bool   end_turn;
 	private bool   chosen_path_is_mech = false;
 	private bool   chosen_path_is_base = false;
+	private HexData last_move; //************Can't Move Backwards unless can't move anywhere else;
 	
 	//Put a weight on entities to decide which is more important when having to make a path choice
 	public double base_weight = 10;
@@ -26,7 +27,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	public bool knows_base_location;
 	
 	public bool is_this_enemies_turn;
-	 
+	
 	
 	int t = 0; //test
 	
@@ -43,6 +44,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		
 		current_ap = 8;
 		max_ap = 8;
+		last_move = hexManagerS.getHex(x,z); //last move = current position
 	}
 	
 	void OnGUI()
@@ -244,13 +246,30 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 						if(path_to_opponent.Count > 0){
 							//try to make a random move
 							int move = UnityEngine.Random.Range(0, path_to_opponent.Count);
+							bool not_end = true;
+							
+							//don't enter loop if path_to_opponent.Count is 1 since only one choice to make
+							Debug.Log ("LastMove:" + last_move.x + ":" + last_move.z);
+							while(not_end && path_to_opponent.Count != 1){
+								if(path_to_opponent[move].x == last_move.x && path_to_opponent[move].z == last_move.z){
+									Debug.Log("Enemy trying to move backwards, try another move");
+									move = UnityEngine.Random.Range(0, path_to_opponent.Count);
+								}else{
+							 		Debug.Log("Found a good move");
+									not_end = false;
+								}
+							}
+							Debug.Log ("NewMove:" + path_to_opponent[move].x + ":" + path_to_opponent[move].z);
 							if(current_ap - getTraverseAPCost(path_to_opponent[move].hex_type) < 0){
 								Debug.Log ("Update 5:2: can't make a move, not enough ap, END TURN");
 								end_turn = true;
 							}else{
 								Debug.Log ("Update 5:3: Move to random position");
+								last_move = hexManagerS.getHex(x,z);
 								makeMove(path_to_opponent[move]);
 							}
+							
+							
 						}else{
 							Debug.Log ("Update 5:4: can't move, END TURN");
 							end_turn = true;
@@ -281,6 +300,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 							end_turn = true;
 						}else{
 							Debug.Log ("Update 5:9: Move enemy one position on path");
+							last_move = hexManagerS.getHex(x,z);
 							makeMove(path_to_opponent[0]);
 						}
 					}			
@@ -449,7 +469,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	public double calcCostToTravelToDistantHex (HexData hex_start, HexData hex_end)
 	{
 		//TODO: may need to be adjusted later
-        return Math.Abs(hex_start.x - hex_end.x) + Math.Abs(hex_start.z - hex_end.z);
+        return Math.Sqrt(Math.Pow(Math.Abs(hex_start.x - hex_end.x),2) + Math.Pow(Math.Abs(hex_start.z - hex_end.z),2))*2;
 	}
 	
 	public List<HexData> getAdjacentTraversableHexes (HexData hex, HexData destination, EntityE entity)
