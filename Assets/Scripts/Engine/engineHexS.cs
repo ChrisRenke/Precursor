@@ -30,6 +30,8 @@ public class engineHexS : MonoBehaviour {
 	{
 		VectorLine.Destroy(ref border);
 		border = null;
+		VectorLine.Destroy(ref glow);
+		glow = null;
 	}
 	
 	public void assignHexData_IO_LOADER_ONLY(HexData _hex_data)
@@ -126,6 +128,9 @@ public class engineHexS : MonoBehaviour {
 	{ 
 		border = pathDrawS.outlineHex(hex_data);
 		border.SetColor(enginePlayerS.select_color);
+		glow = pathDrawS.outlineHex(hex_data);
+		glow.lineWidth = border.lineWidth * 1.75F;
+		glow.SetColor(enginePlayerS.glow_color);
 	}
 	
 //	void popFrontOfPath() 
@@ -148,12 +153,12 @@ public class engineHexS : MonoBehaviour {
 			
 			if(!border.active)
 				border.active = true; 
-//			if(!glow.active)
-//				glow.active = true; 
+			if(!glow.active)
+				glow.active = true; 
 			
 			border.SetColor(enginePlayerS.select_color);
 			border.Draw3DAuto();
-//			glow.Draw3DAuto();
+			glow.Draw3DAuto();
 			
 			
 			HexData mech_hex = hexManagerS.getHex(entityManagerS.getMech().x, entityManagerS.getMech().z);
@@ -183,6 +188,8 @@ public class engineHexS : MonoBehaviour {
 				
 				return;
 			}
+			
+//			if()
 			
 			
 			//if the path is no longer starting from where the player mechu currently is...
@@ -238,7 +245,7 @@ public class engineHexS : MonoBehaviour {
 		if(hex_data.vision_state != Vision.Unvisted)
 		{ 
 			border.active = false;
-//			glow.active = false; 
+			glow.active = false; 
 			
 			draw_mode = false;
 			 clearBorders();

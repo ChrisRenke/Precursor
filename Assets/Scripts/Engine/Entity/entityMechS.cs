@@ -128,18 +128,20 @@ public class entityMechS : Combatable, IMove {
 		if(checkIfDead())
 			onDeath();
 		
-		if(current_ap <= 0)
+		if(gameManagerS.current_turn == Turn.Player && current_ap <= 0)
 		{
 			moving_on_path = false;
 			travel_path_en = null;
 			travel_path    = null;
 			gameManagerS.endPlayerTurn();
 		}
-			
 		
 		if(gameManagerS.current_turn == Turn.Player)
 		{
 			
+		
+				
+				
 			if(moving_on_path && !lerp_move)
 			{
 				
