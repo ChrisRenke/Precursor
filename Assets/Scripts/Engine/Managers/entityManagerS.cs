@@ -9,6 +9,7 @@ public class entityManagerS : MonoBehaviour {
 	public static entityMechS mech_s;
 	public static List<entityEnemyS> enemy_list;
 	public static List<entityNodeS> resource_node_list;
+	public static List<entityNodeS> spawn_points;
 	
 	
 	public static int					enemy_starting_ap = 8;
@@ -35,6 +36,7 @@ public class entityManagerS : MonoBehaviour {
 	    mech_s  	 	    = gameObject.GetComponent<entityMechS>();
 		enemy_list 			= new List<entityEnemyS>();
 		resource_node_list  = new List<entityNodeS>(); 
+		spawn_points 		= new List<entityNodeS>();
 		
 		entity_dict = new Dictionary<EntityE, GameObject>();
 		entity_dict.Add(EntityE.Base, base_entity);
@@ -98,6 +100,10 @@ public class entityManagerS : MonoBehaviour {
 			if(hex_x == enemy.x && hex_z == enemy.z)
 				return enemy;	
 		return null;
+	}
+	
+	public static List<entityNodeS> getSpawnPoints(){
+		return spawn_points; 
 	}
 	
 	public static Combatable getCombatableAt(HexData hex)
@@ -341,6 +347,96 @@ public class entityManagerS : MonoBehaviour {
 		else
 		{
 			throw new System.Exception("Trying to create a resource node, but passing in an invalid EntityE type! D:");
+		}
+	}
+	
+	//Make spawn points, ASSUMPTION: assumes atleast 5 resouce nodes in existence that aren't 
+	//close to base or mech starting positions
+	public static bool initEnemySpawnPoints(){
+		//After resource nodes, mech and base are made grab resource node positions and choose 5 spawn spots
+		int distance_from_other_entities = 5;
+		int number_of_resource_nodes_needed_on_map = 6;
+		spawn_points = new List<entityNodeS>(); //always reset list if this method is called
+		
+		if(resource_node_list.Count < number_of_resource_nodes_needed_on_map){
+			Debug.Log ("Not enough resource nodes on map");
+			return false;
+		}
+		
+		foreach(entityNodeS r_node in resource_node_list){
+			//only choose spawn spots that are atleast "distance_from_other_entities" hexes away from base and mech start position
+			//then make spawn spot on the resource node, plus check that an enemy isn't already on the spawn spot 
+			if(!entity_in_sight(r_node.x, r_node.z, distance_from_other_entities) && getEnemyAt(r_node.x, r_node.z) == null){
+				spawn_points.Add(r_node);
+			}
+		}
+		
+		if(spawn_points.Count == 0){
+			Debug.Log ("Couldn't make any spawn points, either all hexes occupied or all nodes are close to mech and base");
+			return false;
+		}
+			
+		return true;
+	}
+	
+	private static bool entity_in_sight(int x_r, int z_r, int distance_from_entities){
+		Debug.Log("Resource node " + x_r + " | " + z_r);  
+			foreach(HexData h in hexManagerS.getAdjacentHexes(x_r, z_r, distance_from_entities)){
+				if((h.x == mech_s.x && h.z == mech_s.z) || (h.x == base_s.x && h.z == base_s.z))
+				{
+					//entity mech or base is too close to resource node
+					Debug.Log ("entity mech or base is too close to resource node, sight_range = " + distance_from_entities);
+					return true;
+				}
+			}  
+		Debug.Log ("no entities close to resouce node");
+		return false;
+	}
+	
+	
+	public static bool Make_A_New_Enemy_At_Spawn_Point(){ 
+		int enemies_on_board = entityManagerS.getEnemies().Count;
+		int enemy_quota = 5; //if number of enemies on board is lower than this number, more enemies need to be made
+		bool sp_made = initEnemySpawnPoints(); //get valid spawn points
+		
+		if(!sp_made){
+			Debug.Log ("Get Spawn Points failed");
+			return sp_made;
+		}
+		
+		//Check the quota of enemies to see if we can make more enemies
+		if (enemies_on_board <= enemy_quota){
+			//Have a chance algorithm for what enemy should spawn
+			int r = UnityEngine.Random.Range(0,20);
+			int r1 = UnityEngine.Random.Range(0,spawn_points.Count);
+			if(r < 4){
+				//Initialize new enemy at one point in List of Spawn Points(r1)
+				bool check = entityManagerS.instantiateEnemy(spawn_points[r1].x, spawn_points[r1].z, true, true);	
+				Debug.Log("make_new_enemy: " + check + " , x= " + spawn_points[r1].x + ", z=" + spawn_points[r1].z);
+				return check;
+			}else if(r < 8){
+				//Initialize new enemy at one point in List of Spawn Points(r1)
+				bool check = entityManagerS.instantiateEnemy(spawn_points[r1].x, spawn_points[r1].z, true, false);	
+				Debug.Log("make_new_enemy: " + check + " , x= " + spawn_points[r1].x + ", z=" + spawn_points[r1].z);
+				return check;
+			}else if(r < 12){
+				//Initialize new enemy at one point in List of Spawn Points(r1)
+				bool check = entityManagerS.instantiateEnemy(spawn_points[r1].x, spawn_points[r1].z, false, true);	
+				Debug.Log("make_new_enemy: " + check + " , x= " + spawn_points[r1].x + ", z=" + spawn_points[r1].z);
+				return check;
+			}else if(r < 16){
+				//Initialize new enemy at one point in List of Spawn Points(r1)
+				bool check = entityManagerS.instantiateEnemy(spawn_points[r1].x, spawn_points[r1].z, false, false);	
+				Debug.Log("make_new_enemy: " + check + " , x= " + spawn_points[r1].x + ", z=" + spawn_points[r1].z);
+				return check;
+			}else{
+				Debug.Log("enemy didn't spawn this time around, 20% chance this will happen");
+				return false;
+			}
+		
+		}else{
+			Debug.Log("There are enough enemies on board, won't spawn more");
+			return false;
 		}
 	}
 	

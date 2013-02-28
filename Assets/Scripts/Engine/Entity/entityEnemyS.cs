@@ -18,7 +18,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	private bool   chosen_path_is_mech = false;
 	private bool   chosen_path_is_base = false;
 	private HexData last_move; //************Can't Move Backwards unless can't move anywhere else;
-	
+	private bool made_one;
 	//Put a weight on entities to decide which is more important when having to make a path choice
 	public double base_weight = 10;
 	public double mech_weight = 5;
@@ -45,6 +45,9 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		current_ap = 8;
 		max_ap = 8;
 		last_move = hexManagerS.getHex(x,z); //last move = current position
+		//Every enemy from awesome file calls this method when made so enemies won't be made if there isn't atleast one enemy in awesome file, will adjust later
+		made_one = entityManagerS.Make_A_New_Enemy_At_Spawn_Point();
+		Debug.Log ("initEnemySpawnPoints: enemy made = " + made_one);
 	}
 	
 	void OnGUI()
@@ -58,10 +61,16 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	// Update is called once per frame
 	void Update () {	
 		//print("checking if alive enemy " + this.GetInstanceID());
+		if(t==0){
+			Debug.Log ("enemies on board: " + entityManagerS.enemy_list.Count);
+			t=1;
+		}
+		
 		if(checkIfDead()){
-			print (this.GetInstanceID() + " is DEAD!!");
+			Debug.Log(this.GetInstanceID() + " is DEAD!!");
+			made_one = entityManagerS.Make_A_New_Enemy_At_Spawn_Point();
+			Debug.Log ("try to make another enemy: " + made_one);
 			onDeath();
-			
 		}
 		else
 		{
