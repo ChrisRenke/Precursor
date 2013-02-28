@@ -51,6 +51,8 @@ public class enginePlayerS : MonoBehaviour {
 	public Color idle;
 	public Color attack;
 	public Color scavenge;
+	public Color select_;
+	public Color glow;
 	
 	public static Color easy_color;
 	public static Color medium_color;
@@ -59,6 +61,8 @@ public class enginePlayerS : MonoBehaviour {
 	public static Color idle_color;
 	public static Color attack_color;
 	public static Color scavenge_color;
+	public static Color select_color;
+	public static Color glow_color;
 	
 	public static Dictionary<Action, Texture> action_images;
 	 
@@ -86,6 +90,8 @@ public class enginePlayerS : MonoBehaviour {
 		attack_color = attack;
 		scavenge_color = scavenge;
 		disable_color  = disable;
+		glow_color = glow;
+		select_color = select_;
 	}
 	
 	public static void setMech()
@@ -253,6 +259,36 @@ public class enginePlayerS : MonoBehaviour {
 		}
     }
 	
+	public static void popFrontOfRoute()
+	{
+		if(current_path_display!=null)
+			current_path_display.removeFrontNode();
+	}	
+	
+	public static void setRoute(PathDisplay in_path, string _display_text, HexData _display_text_at)
+	{
+		display_text_at = _display_text_at;
+		display_text = _display_text;
+		
+		if(current_path_display != null)
+		{ 
+			if(!current_path_display.Equals(in_path))
+			{ 
+				current_path_display.hidePath();
+				current_path_display.destroySelf();
+			}
+		}
+		current_path_display = in_path;
+		
+		if(current_path_display != null)
+		{
+			current_path_display.displayPath();
+		}
+	}
+	
+	public static string 	  display_text;
+	public static HexData 	  display_text_at;
+	public static PathDisplay current_path_display;
 	
 	GameObject RaycastMouse(string _tag)
 	{ 
@@ -298,6 +334,11 @@ public class enginePlayerS : MonoBehaviour {
 	public int gui_spacing      = 10;
 	void OnGUI()
 	{
+		
+		Vector3 spot_on_screen = Camera.main.WorldToScreenPoint (hexManagerS.CoordsGameTo3D(display_text_at.x, display_text_at.z)); 
+		GUI.Label(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15, 200,30),
+			display_text, 
+			enginePlayerS.hover_text);
    		
         GUI.DrawTexture(new Rect(gui_spacing * 1 + 0 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_gear, ScaleMode.ScaleToFit, true);
         GUI.DrawTexture(new Rect(gui_spacing * 2 + 1 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_piston, ScaleMode.ScaleToFit, true);

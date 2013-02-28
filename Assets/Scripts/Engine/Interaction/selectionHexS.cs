@@ -30,7 +30,7 @@ public class selectionHexS : Entity {
 	
 	void Awake()
 	{	
-		mech    = GameObject.FindGameObjectWithTag("player_mech").GetComponent<entityMechS>();
+		mech    =  entityManagerS.getMech();
 	}
 	
 	//Update
@@ -87,6 +87,18 @@ public class selectionHexS : Entity {
 				display_text = hex_type.ToString() + "\n"  + node_data.node_level.ToString() + " " + node_data.node_type.ToString() + "\n-" + action_cost + " AP";
 			}
 		}
+	}
+	void OnGUI()
+	{
+		if(draw_mode)
+		{
+			Vector3 spot_on_screen = Camera.main.WorldToScreenPoint (transform.position);
+//			GUI.DrawTexture(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15, 200,30), 
+			GUI.Label(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15, 200,30),
+				display_text, 
+				enginePlayerS.hover_text);
+		}
+		 
 	}
 	
 	void OnMouseOver()
@@ -157,27 +169,15 @@ public class selectionHexS : Entity {
 			Debug.LogWarning("ATTACKING TARGET @ " + x + "," + z);
 			mech.allowSelectionHexesDraw();
 		}
-		else
-		{
-			mech.moveToHex(x, z, action_cost, occupier);
-		}
+//		else
+//		{
+////			mech.moveToHex(x, z, action_cost, occupier);
+//		}
 		
 		mech.destroySelectionHexes();
 	}
 	
 		
-	void OnGUI()
-	{
-		if(draw_mode)
-		{
-			Vector3 spot_on_screen = Camera.main.WorldToScreenPoint (transform.position);
-//			GUI.DrawTexture(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15, 200,30), 
-			GUI.Label(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15, 200,30),
-				display_text, 
-				enginePlayerS.hover_text);
-		}
-		 
-	}
 	void OnMouseExit()
 	{
 		if(select_level == SelectLevel.Disabled)

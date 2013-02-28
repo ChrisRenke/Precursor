@@ -19,6 +19,7 @@ public class entityBaseS : Combatable {
 			hexManagerS.updateHexVisionState(hex, Vision.Live);
 			hex.hex_script.updateFoWState();
 		} 
+		entityManagerS.updateEntityFoWStates();
 	}
 	// Update is called once per frame
 	void Update () {

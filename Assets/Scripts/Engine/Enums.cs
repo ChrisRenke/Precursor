@@ -9,7 +9,7 @@ public enum Facing       { North, NorthEast, SouthEast, South, SouthWest, NorthW
 public enum NodeLevel    { Empty, Sparse, Full  };
 public enum Node         { Factory, Junkyard, Outpost}
 public enum Turn         { Player, Enemy, Base };
-public enum SelectLevel  { Disabled, Easy, Medium, Hard, Scavenge, Attack, Upgrade };
+public enum SelectLevel  { Disabled, Easy, Medium, Hard, Scavenge, Attack, Upgrade, Travel};
 public enum Action       { Repair, UpgradeMech, UpgradeBase, Scavenge, Attack, Traverse, End };
 public enum Vision       { Live, Visited, Unvisted };
 public enum MouseState   { Idle, Over, Click }
@@ -54,6 +54,7 @@ public struct HexData{
 	public readonly engineHexS hex_script;
 	public Facing   			direction_from_central_hex;
 	public EntityE  			added_occupier;
+	public bool					is_node_here;
 	public Vision   			vision_state;
 	public int      			traversal_cost;
 	
@@ -68,6 +69,7 @@ public struct HexData{
 		hex_object 	   = _hex_object;
 		vision_state   = Vision.Unvisted;
 		hex_script     = _hex_script;
+		is_node_here = false;
 	}
 	
 	public HexData(int _x, int _z, Hex _type, GameObject _hex_object, engineHexS _hex_script, Vision _vision){
@@ -80,6 +82,7 @@ public struct HexData{
 		added_occupier 				= EntityE.NotCheckedYet;
 		traversal_cost 				= -1;
 		hex_script     = _hex_script;
+		is_node_here = false;
 	}
 	
 	public HexData(int _x, int _z, bool THIS_METHOD_IS_FOR_DUMMY_PERIMETER_HEXES_ONLY){
@@ -92,6 +95,7 @@ public struct HexData{
 		hex_object 	   = null;
 		vision_state   = Vision.Unvisted;
 		hex_script     = null;
+		is_node_here = false;
 	}
 	
 	public bool Equals(object obj) 

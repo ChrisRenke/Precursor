@@ -45,6 +45,19 @@ public class hexManagerS : MonoBehaviour {
 		}
 	}
 	
+	public static void setNodePresenseOnHexes()
+	{
+		for(int x = 0; x < x_max; x++)
+		{
+			for(int z = 0; z < z_max; z++)
+			{
+				if(hexes[x,z].hex_script != null)
+					hexes[x,z].is_node_here = hexes[x,z].hex_script.setNodePresence();
+				
+			}
+		}
+	}
+	
 	public static void updateAllHexesFoWState()
 	{
 		HashSet<HexData> visible_hexes = new HashSet<HexData>();

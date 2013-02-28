@@ -74,6 +74,17 @@ public class entityManagerS : MonoBehaviour {
 		throw new System.Exception("DONT getNodeInfoAt wihtout first checkin there is a not there!!");
 	}
 	
+	public static bool isNodeAt(int x, int z)
+	{
+		foreach(entityNodeS node in resource_node_list)
+			if(x == node.x && z == node.z)
+			{
+				return true;
+			}
+		return false;
+		
+	}
+	
 	
 	public static entityBaseS getBase(){
 		return base_s;

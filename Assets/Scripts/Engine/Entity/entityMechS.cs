@@ -41,6 +41,11 @@ public class entityMechS : Combatable, IMove {
 	public List<HexData> previous_adjacent_visible_hexes;
 	
 	public static bool moving_on_path = false;
+	public static List<HexData> travel_path;
+	public static IEnumerator<HexData> travel_path_en;
+	public static bool is_standing_on_node;
+	
+	
 	
 	public int starting_hp_max = 30;
 	
@@ -83,18 +88,21 @@ public class entityMechS : Combatable, IMove {
 		updateFoWStates();
 	}
 	
+//	
+//	void OnGUI()
+//	{
+//		Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
+//		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y+30, 200, 15), current_hp + "/" + max_hp + " HP", enginePlayerS.hover_text);
+//		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
+//	}
 	
-	void OnGUI()
+	
+	public static void moveToHexViaPath(Path _travel_path)
 	{
-		Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
-		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y+30, 200, 15), current_hp + "/" + max_hp + " HP", enginePlayerS.hover_text);
-		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
-	}
-	
-	
-	public static void moveToHexViaPath(Path travel_path)
-	{
-		
+		travel_path = _travel_path.getTraverseOrderList();
+		travel_path_en = travel_path.GetEnumerator();
+		travel_path_en.MoveNext();
+		moving_on_path = true;
 		
 	}
 	
@@ -121,14 +129,27 @@ public class entityMechS : Combatable, IMove {
 			onDeath();
 		
 		if(current_ap <= 0)
+		{
+			moving_on_path = false;
+			travel_path_en = null;
+			travel_path    = null;
 			gameManagerS.endPlayerTurn();
+		}
 			
 		
 		if(gameManagerS.current_turn == Turn.Player)
 		{
 			
-			if(moving_on_path)
+			if(moving_on_path && !lerp_move)
 			{
+				
+				if(travel_path_en.MoveNext())
+				{
+					moveToHex(travel_path_en.Current, 
+						entityManagerS.isNodeAt(travel_path_en.Current.x, travel_path_en.Current.z));
+				
+					enginePlayerS.popFrontOfRoute();	
+				}
 				
 			}
 			else
@@ -172,29 +193,29 @@ public class entityMechS : Combatable, IMove {
 				
 			
 				
-				//if we're on a resource node and we have enough ap to scavenge, then build a seclection hex for right here
-				if(entityManagerS.isEntityPos(x, z, EntityE.Node) && current_ap >= scavenge_base_cost)
-				{
-					NodeData nd = entityManagerS.getNodeInfoAt(x, z);
-					
-					//if the node isn't already empty
-					if(nd.node_level != NodeLevel.Empty)
-					{
-						selection_hexes.Add(InstantiateSelectionHex(x, z));
-						selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
-						
-						hex_select.x = x;
-						hex_select.z = z;
-						hex_select.direction_from_center = Facing.NorthWest;
-						hex_select.occupier      = EntityE.Node;
-						hex_select.hex_type      = hexManagerS.getHex(x, z).hex_type;
-						hex_select.action_cost   = scavenge_base_cost;
-						hex_select.select_level  = SelectLevel.Scavenge;
-						hex_select.node_data     = nd;
-						hex_select.genTextString();
-					}
-					
-				}
+//				//if we're on a resource node and we have enough ap to scavenge, then build a seclection hex for right here
+//				if(entityManagerS.isEntityPos(x, z, EntityE.Node) && current_ap >= scavenge_base_cost)
+//				{
+//					NodeData nd = entityManagerS.getNodeInfoAt(x, z);
+//					
+//					//if the node isn't already empty
+//					if(nd.node_level != NodeLevel.Empty)
+//					{
+//						selection_hexes.Add(InstantiateSelectionHex(x, z));
+//						selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
+//						
+//						hex_select.x = x;
+//						hex_select.z = z;
+//						hex_select.direction_from_center = Facing.NorthWest;
+//						hex_select.occupier      = EntityE.Node;
+//						hex_select.hex_type      = hexManagerS.getHex(x, z).hex_type;
+//						hex_select.action_cost   = scavenge_base_cost;
+//						hex_select.select_level  = SelectLevel.Scavenge;
+//						hex_select.node_data     = nd;
+//						hex_select.genTextString();
+//					}
+//					
+//				}
 				
 				//check for adjacent enemies
 				if( current_ap >= getAttackAPCost())
@@ -294,13 +315,16 @@ public class entityMechS : Combatable, IMove {
 	}
 	
 	
-	
+	public int getScavengeAPCost()
+	{
+		return scavenge_base_cost;
+	}
 	
 	
 	public bool scavengeParts(Node node_type, NodeLevel resource_level, int x, int z)
 	{
 		
-		if(scavenge_base_cost > current_ap)
+		if(getScavengeAPCost() > current_ap)
 			throw new System.Exception("Don't have enough AP to scavenge, why is this being offered????");
 		
 		if(resource_level == NodeLevel.Empty)
@@ -335,7 +359,7 @@ public class entityMechS : Combatable, IMove {
 			}
 		}
 		
-		current_ap -= scavenge_base_cost;
+		current_ap -= getScavengeAPCost();
 		
 		allowSelectionHexesDraw();
 		
@@ -376,12 +400,14 @@ public class entityMechS : Combatable, IMove {
 		
 	}
 	
-	public void moveToHex(int x, int z, int movement_fee, EntityE _standing_on_top_of_entity)
+	public void moveToHex(HexData location, bool _standing_on_top_of_node)
 	{
-		current_ap -= movement_fee; 
-		setLocation(x, z);	
-		moveInWorld(x, z, 6F);
+		current_ap -= location.traversal_cost; 
+		setLocation(location.x, location.z);	
+		moveInWorld(location.x, location.z, 6F);
+		setFacingDirection(location.direction_from_central_hex);
 		updateFoWStates();
+		is_standing_on_node = _standing_on_top_of_node;
 	}
 
 	public List<HexData> getAdjacentTraversableHexes ()
