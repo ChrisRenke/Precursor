@@ -362,6 +362,7 @@ public class entityManagerS : MonoBehaviour {
 		}
 	}
 	
+	
 	//converts engine coordinates into 3D space cordinates
 	public static Vector3 CoordsGameTo3DEntiy(int x, int z)
 	{  
@@ -419,7 +420,7 @@ public class entityManagerS : MonoBehaviour {
 	}
 	
 	
-	public static bool Make_A_New_Enemy_At_Spawn_Point(){ 
+	public static bool spawnNewEnemy(){ 
 		int enemies_on_board = entityManagerS.getEnemies().Count;
 		int enemy_quota = 5; //if number of enemies on board is lower than this number, more enemies need to be made
 		bool sp_made = initEnemySpawnPoints(); //get valid spawn points
@@ -430,7 +431,7 @@ public class entityManagerS : MonoBehaviour {
 		}
 		
 		//Check the quota of enemies to see if we can make more enemies
-		if (enemies_on_board <= enemy_quota){
+		if (enemies_on_board < enemy_quota){
 			//Have a chance algorithm for what enemy should spawn
 			int r = UnityEngine.Random.Range(0,20);
 			int r1 = UnityEngine.Random.Range(0,spawn_points.Count);

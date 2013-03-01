@@ -46,7 +46,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		max_ap = 8;
 		last_move = hexManagerS.getHex(x,z); //last move = current position
 		//Every enemy from awesome file calls this method when made so enemies won't be made if there isn't atleast one enemy in awesome file, will adjust later
-		made_one = entityManagerS.Make_A_New_Enemy_At_Spawn_Point();
+		made_one = entityManagerS.spawnNewEnemy();
 		Debug.Log ("initEnemySpawnPoints: enemy made = " + made_one);
 	}
 	
@@ -98,7 +98,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		 
 		if(checkIfDead()){
 			Debug.Log(this.GetInstanceID() + " is DEAD!!");
-			made_one = entityManagerS.Make_A_New_Enemy_At_Spawn_Point();
+			made_one = entityManagerS.spawnNewEnemy();
 			Debug.Log ("try to make another enemy: " + made_one);
 			onDeath();
 		}

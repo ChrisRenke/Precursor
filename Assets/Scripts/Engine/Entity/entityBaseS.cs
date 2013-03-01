@@ -150,42 +150,43 @@ public class entityBaseS : Combatable {
 		//increase health, walls(armour), attack/range cost, and reduce ap
 		//Upgrades can only be applied once
 		switch(upgrade){
-				case BaseUpgrade.Health1:
-					if(health_level != upgrade && health_level < upgrade){
-						health_level = BaseUpgrade.Health1;
-						max_hp += 10;
-						current_hp = max_hp; //when upgrade happens base health gets refilled
-						return true;
-					}else{
-						Debug.Log ("Base Already has this health upgrade, can't downgrade");
-						return false;
-					}
-				case BaseUpgrade.Health2:
-					if(health_level != upgrade && health_level < upgrade){
-						health_level = BaseUpgrade.Health2;
-						max_hp += 15;
-						current_hp = max_hp; //when upgrade happens base health gets refilled
-						return true;
-					}else{
-						Debug.Log ("Base Already has this health upgrade, can't downgrade");
-						return false;
-					}
-			
-				case BaseUpgrade.Health3:
-					if(health_level != upgrade && health_level < upgrade){
-						health_level = BaseUpgrade.Health3;
-						max_hp += 20;
-						current_hp = max_hp; //when upgrade happens base health gets refilled
-						return true;
-					}else{
-						Debug.Log ("Base Already has this health upgrade, can't downgrade");
-						return false;
-					}
-			
+//				case BaseUpgrade.Health1:
+//					if(health_level != upgrade && health_level < upgrade){
+//						health_level = BaseUpgrade.Health1;
+//						max_hp += 10;
+//						current_hp = max_hp; //when upgrade happens base health gets refilled
+//						return true;
+//					}else{
+//						Debug.Log ("Base Already has this health upgrade, can't downgrade");
+//						return false;
+//					}
+//				case BaseUpgrade.Health2:
+//					if(health_level != upgrade && health_level < upgrade){
+//						health_level = BaseUpgrade.Health2;
+//						max_hp += 15;
+//						current_hp = max_hp; //when upgrade happens base health gets refilled
+//						return true;
+//					}else{
+//						Debug.Log ("Base Already has this health upgrade, can't downgrade");
+//						return false;
+//					}
+//			
+//				case BaseUpgrade.Health3:
+//					if(health_level != upgrade && health_level < upgrade){
+//						health_level = BaseUpgrade.Health3;
+//						max_hp += 20;
+//						current_hp = max_hp; //when upgrade happens base health gets refilled
+//						return true;
+//					}else{
+//						Debug.Log ("Base Already has this health upgrade, can't downgrade");
+//						return false;
+//					}
+//			
 				case BaseUpgrade.Structure1:
 					if(structure_level != upgrade && structure_level < upgrade){
 						structure_level = BaseUpgrade.Structure1;
-						base_armor += 5;
+						base_armor += 1;
+						max_hp += 15;
 						return true;
 					}else{
 						Debug.Log ("Base Already has this structure upgrade, can't downgrade");
@@ -195,7 +196,8 @@ public class entityBaseS : Combatable {
 				case BaseUpgrade.Structure2:
 					if(structure_level != upgrade && structure_level < upgrade){
 						structure_level = BaseUpgrade.Structure2;
-						base_armor += 5;
+						base_armor += 1;
+						max_hp += 20;
 						return true;
 					}else{
 						Debug.Log ("Base Already has this structure upgrade, can't downgrade");
@@ -205,7 +207,8 @@ public class entityBaseS : Combatable {
 				case BaseUpgrade.Structure3:
 					if(structure_level != upgrade && structure_level < upgrade){
 						structure_level = BaseUpgrade.Structure3;
-						base_armor += 10;
+						base_armor += 1;
+						max_hp += 25;
 						return true;
 					}else{
 						Debug.Log ("Base Already has this structure upgrade, can't downgrade");
@@ -216,7 +219,7 @@ public class entityBaseS : Combatable {
 					if(defense_level != upgrade && defense_level < upgrade){
 						defense_level = BaseUpgrade.Defenses1;
 						attack_range  += 1;
-						attack_damage += 2;
+						attack_damage += 1;
 						return true;
 					}else{
 						Debug.Log ("Base Already has this defense upgrade, can't downgrade");
@@ -227,7 +230,7 @@ public class entityBaseS : Combatable {
 					if(defense_level != upgrade && defense_level < upgrade){
 						defense_level = BaseUpgrade.Defenses2;
 						attack_range  += 1;
-						attack_damage += 3;
+						attack_damage += 2;
 						return true;
 					}else{
 						Debug.Log ("Base Already has this defense upgrade, can't downgrade");
@@ -237,8 +240,8 @@ public class entityBaseS : Combatable {
 				case BaseUpgrade.Defenses3:
 					if(defense_level != upgrade && defense_level < upgrade){
 						defense_level = BaseUpgrade.Defenses3;
-						attack_range  += 2;
-						attack_damage += 5;
+						attack_range  += 0;
+						attack_damage += 3;
 					return true;
 					}else{
 						Debug.Log ("Base Already has this defense upgrade, can't downgrade");
@@ -248,7 +251,7 @@ public class entityBaseS : Combatable {
 				case BaseUpgrade.AP1:
 					if(ap_cost_level != upgrade && ap_cost_level < upgrade){
 						ap_cost_level = BaseUpgrade.AP1;
-						attack_cost   -= 1;
+						max_ap   += 5;
 						return true;
 					}else{
 						Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
@@ -258,7 +261,7 @@ public class entityBaseS : Combatable {
 				case BaseUpgrade.AP2:
 					if(ap_cost_level != upgrade && ap_cost_level < upgrade){
 						ap_cost_level = BaseUpgrade.AP2;
-						attack_cost   -= 2;
+						max_ap   += 5;
 						return true;
 					}else{
 						Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
@@ -268,7 +271,7 @@ public class entityBaseS : Combatable {
 				case BaseUpgrade.AP3:
 					if(ap_cost_level != upgrade && ap_cost_level < upgrade){
 						ap_cost_level = BaseUpgrade.AP3;
-						attack_cost   -= 1;
+						max_ap   += 5;
 						return true;
 					}else{
 						Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
