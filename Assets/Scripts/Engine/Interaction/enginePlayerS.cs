@@ -163,15 +163,6 @@ public class enginePlayerS : MonoBehaviour {
 			}
 		}
 		 
-		if(Input.GetKeyDown(KeyCode.J))
-		{
-			
-//			pathDrawS.drawPath(mech.getPathFromMechTo(hexManagerS.getHex (entityManagerS.getBase().x, entityManagerS.getBase().z)));
-//			pathDrawS.outlineHex(hexManagerS.getHex(mech.x, mech.z));
-//			drawn_path = false;
-		}
-			
-
 		
 		if(Input.GetMouseButton(2) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
 		{ 
@@ -185,12 +176,15 @@ public class enginePlayerS : MonoBehaviour {
 				trans_y = Vector3.up * v * -1 * vSensitivity; 
 				trans_x = Vector3.right * h * -1 * hSensitivity; 
 			}
-			 
-			if(Input.GetAxis("Horizontal") > 0)
+			
+			if(Input.GetKey(KeyCode.UpArrow))
+				print ("RIGHT ARROW!");
+				
+			if(Input.GetKey(KeyCode.D)  || Input.GetKey(KeyCode.RightArrow))
 			{
 				trans_x = Vector3.right * hSensitivity * 12F * Time.deltaTime; 
 			} 
-			if(Input.GetAxis("Horizontal") < 0)
+			if(Input.GetKey(KeyCode.A)  || Input.GetKey(KeyCode.LeftArrow))
 			{
 				trans_x = Vector3.right * hSensitivity * -12F * Time.deltaTime; 
 			} 
@@ -409,26 +403,6 @@ public class enginePlayerS : MonoBehaviour {
     
 	
 	}
-	
-	
-	
-	
-//	public void drawPath(Path<HexData> travel_path)
-//	{
-////		if(travel_path != null)
-////		{
-////			
-////			Debug.Log(travel_path.Count + " number of nodes on path");
-////			lr.SetVertexCount(travel_path.Count);
-////			int i = 0;
-////			foreach(HexData path_pos in travel_path)
-////			{
-////				Vector3 pos = hexManagerS.CoordsGameTo3D(path_pos.x, path_pos.z) + new Vector3(0,30,0);
-////				lr.SetPosition(i, pos);
-////				i++;
-////			}
-////		}
-//	}
 	
 }
 

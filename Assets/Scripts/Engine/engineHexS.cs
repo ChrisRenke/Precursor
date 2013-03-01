@@ -174,7 +174,7 @@ public class engineHexS : MonoBehaviour {
 //					Debug.LogWarning("STANDING ON HEX WITH NODE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 					genTextString(SelectLevel.Scavenge, entityManagerS.getMech().getScavengeAPCost());
 					
-					if(entityManagerS.getMech().current_ap > entityManagerS.getMech().getScavengeAPCost() && node_data.node_level != NodeLevel.Empty)
+					if(entityManagerS.getMech().current_ap >= entityManagerS.getMech().getScavengeAPCost() && node_data.node_level != NodeLevel.Empty)
 						border.SetColor(enginePlayerS.scavenge_color);
 					else
 					{
@@ -295,8 +295,10 @@ public class engineHexS : MonoBehaviour {
 	    float offsetX = (uIndex+colNumber) * size.x;
 	    float offsetY = (1.0f - size.y) - (vIndex + rowNumber) * size.y;
 	    Vector2 offset = new Vector2(offsetX,offsetY);
-	  
+	 
+//		renderer.material.s
 	    renderer.material.SetTextureOffset ("_MainTex", offset); 
-	    renderer.material.SetTextureScale  ("_MainTex", size); 
+	    renderer.material.SetTextureScale  ("_MainTex", size);
+//		renderer.material.SetColor("_Color", Color.gray);
 	}
 }

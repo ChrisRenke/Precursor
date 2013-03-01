@@ -55,12 +55,12 @@ public interface ICollect {
 //methods needed for A*
 public interface IPathFind{
 	//Return distance between two adjacent nodes
+
 //	double calcDistance(HexData hex_start, HexData hex_end);
 //	
 //
 //    //Return estimated distance between any node and destination node
 //    double calcEstimate(HexData hex_start, HexData hex_end);
-	
 	//Secondary version of traversable hexes(in IMove), accounts for a destination hex
 	List<HexData> getAdjacentTraversableHexes (HexData hex, HexData destination, EntityE entity);
 }
