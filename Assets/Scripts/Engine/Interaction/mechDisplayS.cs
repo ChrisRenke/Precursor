@@ -57,7 +57,7 @@ public class mechDisplayS : MonoBehaviour {
 	
 	//Update
 	void Update () {  
-		setMaterial();
+		setFacing();
 		
 		if(owner.lerp_move)
 		{
@@ -98,80 +98,9 @@ public class mechDisplayS : MonoBehaviour {
 		owner = gameObject.GetComponent<entityMechS>();
 	}
  
-	void setMaterial()
+	void setFacing()
 	{
 	    renderer.material = facing_walks[owner.facing_direction];
 		
 	}
-//	
-//	void OnMouseOver()
-//	{
-//		if(Input.GetMouseButton(0))
-//		{
-//			switch(select_level)
-//			{
-//				case SelectLevel.Disabled:
-//					frame_index = 7;
-//					break;
-//				case SelectLevel.Easy:
-//					frame_index = 4;
-//					break;
-//				case SelectLevel.Medium:
-//					frame_index = 5;
-//					break;
-//				case SelectLevel.Hard:
-//					frame_index = 6;
-//					break;
-//			}
-//			Debug.Log("Hex selected");
-//		}
-//		else
-//		{
-//			switch(select_level)
-//			{
-//				case SelectLevel.Disabled:
-//					frame_index = 5;
-//					break;
-//				case SelectLevel.Easy:
-//					frame_index = 1;
-//					break;
-//				case SelectLevel.Medium:
-//					frame_index = 2;
-//					break;
-//				case SelectLevel.Hard:
-//					frame_index = 3;
-//					break;
-//			}
-//		}
-//		draw_mode = true;
-//	}
-//	
-//		
-//	void OnGUI()
-//	{
-//		if(draw_mode)
-//		{
-//			Vector3 spot_on_screen = Camera.main.WorldToScreenPoint (transform.position);
-//			GUI.Label(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15, 200,30),
-//				hex_type.ToString() + "\n" + "-" + movement_cost + " AP", 
-//				enginePlayerS.hover_text);
-//		}
-//		 
-//	}
-//	void OnMouseExit()
-//	{
-//		if(select_level == SelectLevel.Disabled)
-//			frame_index = 7;		
-//		else
-//			frame_index = 0;
-//		
-//		draw_mode = false;
-//	}
-//	
-//	
-//	// Use this for initialization
-//	void Start () {
-//	
-//	}
-//	
 }

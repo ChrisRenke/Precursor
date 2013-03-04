@@ -97,6 +97,7 @@ public class pathDrawS : MonoBehaviour {
 					}
 					else
 					{
+						usable_ap = 1;
 						if(this_turns_travelable == -1)
 							this_turns_travelable = i-1;
 						path_widths[i-1] = 2;
@@ -107,9 +108,13 @@ public class pathDrawS : MonoBehaviour {
 					}
 					
 					
-					var circle = new VectorLine("Circle", new Vector3[30], path_colors[i-1], null, 10F, LineType.Continuous, Joins.Weld);
-					circle.MakeCircle(path_spots[i], Vector3.up, .3F);
-					spots.Add(circle);
+//					var circle = new VectorLine("Circle", new Vector3[30], path_colors[i-1], null, 10F, LineType.Continuous, Joins.Weld);
+//					circle.MakeCircle(path_spots[i], Vector3.up, .3F);
+//					spots.Add(circle);
+					VectorLine outline = outlineHex(path_pos);
+					outline.SetColor(path_colors[i-1]);
+					outline.lineWidth = usable_ap/max_ap * max_path_width/2 + max_path_width/4;
+					spots.Add (outline);
 				}
 				
 				
@@ -128,7 +133,8 @@ public class pathDrawS : MonoBehaviour {
 			
 			
 //			VectorLine.SetLine (Color.green, path_spots);
-			VectorLine.Destroy(ref player_route);
+//			VectorLine.Destroy(ref player_route);
+			
 			player_route = new VectorLine("Line", path_spots, path_colors, null, 5F, LineType.Continuous, Joins.Weld); 
 //			player_route.MakeCircle(path_spots[3], Vector3.up, 2F, 10);
 			player_route.SetColorsSmooth(path_colors);
@@ -150,7 +156,7 @@ public class pathDrawS : MonoBehaviour {
 //	       rings.MakeCircle(path_spots[3], Vector3.up, 8F);
 //	       rings.Draw3DAuto();
 			
-			return new PathDisplay(spots, player_route);
+			return new PathDisplay(spots, player_route, new List<Color>(path_colors), new List<float>(path_widths));
 //			player_route.Draw3DAuto();
 		}
 		
@@ -164,33 +170,86 @@ public class pathDrawS : MonoBehaviour {
 
 public class PathDisplay{
 		
-		public List<VectorLine> visitable_hexes;
-		public VectorLine       path_line;
-		
-		public PathDisplay(List<VectorLine> visits, VectorLine line)
-		{
-			path_line = line;
-			visitable_hexes = visits;
-		}
-		
-		public void displayPath()
-		{
-			foreach(VectorLine vl in visitable_hexes)
-			{
-				vl.active = true;
-				vl.Draw3DAuto();
-			}
-			
-			path_line.Draw3DAuto();
-		}
-		
-		public void hidePath()
-		{
-			foreach(VectorLine vl in visitable_hexes)
-			{
-				vl.active = false; 
-			}
-			
-			path_line.active = false; 
-		}
+	public VectorLine       path_line;
+	private List<VectorLine> spot_list;
+	private List<Color>		 color_list;
+	private List<float>      width_list;
+	
+	public PathDisplay(List<VectorLine> visits, VectorLine line,
+					List<Color> _color, List<float> _widths)
+	{
+		path_line = line;
+		spot_list = visits;
+		color_list = _color;
+		width_list = _widths;
 	}
+
+	public void removeFrontNode()
+	{
+		color_list.RemoveAt(0);
+		width_list.RemoveAt(0);
+		Vector3[] new_points = new Vector3[path_line.points3.Length -1];
+		for(int i = 0; i < new_points.Length - 1; ++i)
+		{
+			new_points[i] = path_line.points3[i+1];
+		}
+		
+		VectorLine.Destroy(ref path_line);
+		path_line = new VectorLine("path", new_points, null, 5F ,LineType.Continuous,Joins.Weld);
+		path_line.SetColorsSmooth(color_list.ToArray());
+		path_line.SetWidths(width_list.ToArray());
+		path_line.Draw3DAuto();
+		
+		VectorLine del_spot = spot_list[0];
+		spot_list.RemoveAt(0);
+		VectorLine.Destroy(ref del_spot);
+	}
+	
+	public void destroySelf()
+	{
+		
+		for(int i = 0; i < spot_list.Count; ++i)
+		{ 
+			VectorLine vl =  spot_list[i];
+			VectorLine.Destroy(ref vl);
+		}
+		VectorLine.Destroy(ref path_line); 
+	}
+	
+	
+	public void displayPath()
+	{
+		foreach(VectorLine vl in spot_list)
+		{
+			vl.active = true;
+			vl.Draw3DAuto();
+		}
+		
+		path_line.active = true; 
+		path_line.Draw3DAuto();
+	}
+	
+	public void hidePath()
+	{
+		foreach(VectorLine vl in spot_list)
+		{
+			vl.active = false; 
+		}
+		if(path_line!=null)
+			path_line.active = false; 
+	}
+	
+	
+	public bool Equals(object obj) 
+	{
+		if(obj == null)
+			return false;
+		
+		if (!(obj is PathDisplay))
+			return false;
+		
+		PathDisplay other_path = (PathDisplay) obj;
+		return this.spot_list.Equals(other_path.spot_list); 
+	}
+	
+}

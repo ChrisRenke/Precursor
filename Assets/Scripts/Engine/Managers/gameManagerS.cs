@@ -53,6 +53,7 @@ public class gameManagerS : MonoBehaviour {
 					foreach(entityEnemyS current_enemy in entityManagerS.enemy_list)
 						current_enemy.current_ap = current_enemy.max_ap;
 					current_turn = Turn.Player;
+					entityManagerS.getMech().current_ap = entityManagerS.getMech().max_ap;
 				}
 			}
 		}
@@ -89,7 +90,11 @@ public class gameManagerS : MonoBehaviour {
 	
 	public static void endPlayerTurn()
 	{
+//<<<<<<< HEAD
 //		current_turn = Turn.Enemy;
+////		entityManagerS.getMech().current_ap =  entityManagerS.getMech().max_ap;
+//=======
+////		current_turn = Turn.Enemy;
 //		entityManagerS.getMech().current_ap =  entityManagerS.getMech().max_ap;
 //		entityManagerS.getMech().destroySelectionHexes();
 //		entityManagerS.getMech().allowSelectionHexesDraw();
@@ -97,7 +102,7 @@ public class gameManagerS : MonoBehaviour {
 		
 		
 		current_turn = Turn.Base;
-		entityManagerS.getMech().current_ap =  entityManagerS.getMech().max_ap;
+		entityManagerS.getMech().current_ap =  0;
 		entityManagerS.getMech().destroySelectionHexes();
 		entityManagerS.getMech().allowSelectionHexesDraw();
 		
@@ -109,5 +114,7 @@ public class gameManagerS : MonoBehaviour {
 		current_turn = Turn.Enemy;
 		entityManagerS.getBase().current_ap =  entityManagerS.getBase().max_ap;
 		enemy_enumerator = entityManagerS.getEnemies().GetEnumerator();
+		entityManagerS.getMech().current_ap =  0;
+		
 	}
 }

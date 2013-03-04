@@ -207,6 +207,7 @@ public class engineIOS : MonoBehaviour {
 //        transform.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
 //        transform.gameObject.active = true;
 		 
+		hexManagerS.setNodePresenseOnHexes();
 		return true;
 	}
 	

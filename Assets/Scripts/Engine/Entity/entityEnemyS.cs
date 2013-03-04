@@ -39,14 +39,14 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		last_path_cost = 0;		
 		end_turn = false;
 		
-		current_hp = 21;
-		max_hp = 21;
+		current_hp = 15;
+		max_hp = 15;
 		
 		current_ap = 8;
 		max_ap = 8;
 		last_move = hexManagerS.getHex(x,z); //last move = current position
 		//Every enemy from awesome file calls this method when made so enemies won't be made if there isn't atleast one enemy in awesome file, will adjust later
-		made_one = entityManagerS.Make_A_New_Enemy_At_Spawn_Point();
+		made_one = entityManagerS.spawnNewEnemy();
 		Debug.Log ("initEnemySpawnPoints: enemy made = " + made_one);
 	}
 	
@@ -89,16 +89,16 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	}
 	
 	// Update is called once per frame
-	void Update () {	
+	void Update () {	 
 		//print("checking if alive enemy " + this.GetInstanceID());
 		if(t==0){
 			Debug.Log ("enemies on board: " + entityManagerS.enemy_list.Count);
 			t=1;
 		}
-		
+		 
 		if(checkIfDead()){
 			Debug.Log(this.GetInstanceID() + " is DEAD!!");
-			made_one = entityManagerS.Make_A_New_Enemy_At_Spawn_Point();
+			made_one = entityManagerS.spawnNewEnemy();
 			Debug.Log ("try to make another enemy: " + made_one);
 			onDeath();
 		}
@@ -504,7 +504,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		return list;
 	}
 	
-	
+	 
 	public double calcCostToTravelAdjacentHex (HexData hex_start, HexData hex_end)
 	{	
 		return (double) getTraverseAPCost(hex_end.hex_type);
@@ -514,7 +514,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	{
 		//TODO: may need to be adjusted later
         return Math.Sqrt(Math.Pow(Math.Abs(hex_start.x - hex_end.x),2) + Math.Pow(Math.Abs(hex_start.z - hex_end.z),2))*2;
-	}
+	} 
 	
 	public List<HexData> getAdjacentTraversableHexes (HexData hex, HexData destination, EntityE entity)
 	{
@@ -685,7 +685,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	float dist; 
 	Vector3 starting_pos, ending_pos;
-	bool lerp_move = false; 
+	public bool lerp_move = false; 
 	float time_to_complete = 2F;
 	float moveTime = 0.0f;
  
