@@ -34,6 +34,23 @@ public class enginePlayerS : MonoBehaviour {
 	public Texture part_strut;
 	public Texture part_gear;
 	
+	//added
+	public Texture ap_bar;
+	public Texture hp_bar;
+	
+	public Texture hp_backboard;
+	public Texture parts_backboard;
+	public Texture top_menu_backboard;
+	public Texture upgradeBackboard;
+	
+	public Texture base_button;
+	public Texture end_turn_button;
+	public Texture health_button;
+	public Texture mech_button;
+	public Texture star_button;
+	public Texture transport_button;
+	//
+	
 	public Texture icon_traverse;
 	public Texture icon_repair;
 	public Texture icon_scavenge;
@@ -326,6 +343,8 @@ public class enginePlayerS : MonoBehaviour {
 	public int gui_element_size = 80;
 	public int gui_text_element_size =  20;
 	public int gui_spacing      = 10;
+	public int xpos = Screen.width; //(Screen.width)-(this_element.width)/2;
+    public int ypos = Screen.height;//(Screen.height)-(this_element.height)/2;
 	void OnGUI()
 	{
 		
@@ -334,12 +353,17 @@ public class enginePlayerS : MonoBehaviour {
 			display_text, 
 			enginePlayerS.hover_text);
    		
+		//edit here
         GUI.DrawTexture(new Rect(gui_spacing * 1 + 0 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_gear, ScaleMode.ScaleToFit, true);
         GUI.DrawTexture(new Rect(gui_spacing * 2 + 1 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_piston, ScaleMode.ScaleToFit, true);
         GUI.DrawTexture(new Rect(gui_spacing * 3 + 2 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_plate, ScaleMode.ScaleToFit, true);
         GUI.DrawTexture(new Rect(gui_spacing * 4 + 3 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_strut, ScaleMode.ScaleToFit, true);
 		
-        GUI.Label(new Rect(gui_spacing * 1 + 0 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Gear].ToString(),    gui_norm_text);
+		//Menus
+		//(Screen.width)-(this_element.width)/2;
+		GUI.DrawTexture(new Rect(570, gui_spacing, 180, 40), top_menu_backboard, ScaleMode.ScaleToFit, true);
+        
+		GUI.Label(new Rect(gui_spacing * 1 + 0 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Gear].ToString(),    gui_norm_text);
         GUI.Label(new Rect(gui_spacing * 2 + 1 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Piston].ToString(), gui_norm_text);
         GUI.Label(new Rect(gui_spacing * 3 + 2 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Plate].ToString(),  gui_norm_text);
         GUI.Label(new Rect(gui_spacing * 4 + 3 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Strut].ToString(),  gui_norm_text);
