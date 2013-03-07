@@ -26,6 +26,8 @@ public class gameManagerS : MonoBehaviour {
 	
 	}
 	
+	private int spawn_tries = 0;
+	
 	// Update is called once per frame
 	void Update () {
 	
@@ -33,11 +35,17 @@ public class gameManagerS : MonoBehaviour {
 //		if(entityManagerS.getMech().current_ap > 0)
 		if(current_turn == Turn.Player || current_turn == Turn.Base)
 		{ 
+			spawn_tries = 0;
 //			current_turn  = Turn.Player;
 			//TODO nothing hahah
 		}
 		else if(current_turn == Turn.Enemy)
 		{ 
+			if(spawn_tries < 5 )
+			{
+				entityManagerS.spawnNewEnemy();
+				spawn_tries++;
+			}
 			
 			if(!enemy_currently_acting)
 			{

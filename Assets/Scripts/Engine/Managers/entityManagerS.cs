@@ -422,7 +422,7 @@ public class entityManagerS : MonoBehaviour {
 	
 	public static bool spawnNewEnemy(){ 
 		int enemies_on_board = entityManagerS.getEnemies().Count;
-		int enemy_quota = 5; //if number of enemies on board is lower than this number, more enemies need to be made
+		int enemy_quota = 12; //if number of enemies on board is lower than this number, more enemies need to be made
 		bool sp_made = initEnemySpawnPoints(); //get valid spawn points
 		
 		if(!sp_made){

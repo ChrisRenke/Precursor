@@ -1,19 +1,43 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Level_Files/vert_level_1.txt">
+    <Files>
+      <File FileName="Assets/Scripts/Engine/engineHexS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Entity/entityMechS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Interaction/selectionHexS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Managers/gameManagerS.cs" Line="38" Column="20" />
+      <File FileName="Assets/Scripts/Engine/Interaction/enginePlayerS.cs" Line="348" Column="12" />
+      <File FileName="Assets/Scripts/Engine/Enums.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Entity/interfacesS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Entity/entityEnemyS.cs" Line="318" Column="27" />
+      <File FileName="Assets/Scripts/Engine/Managers/entityManagerS.cs" Line="423" Column="34" />
+      <File FileName="Assets/Scripts/Engine/Entity/entityNodeS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Interaction/mechDisplayS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Interaction/enemyDisplayS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Entity/entityBaseS.cs" Line="34" Column="26" />
+      <File FileName="Assets/Scripts/Engine/pathDrawS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Level_Files/awesome.txt" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Managers/hexManagerS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/MapEditor/editorMenuEntityS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/MapEditor/editorEntityS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Managers/engineIOS.cs" Line="174" Column="31" />
+      <File FileName="Assets/Level_Files/vert_level_1.txt" Line="11815" Column="22" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Assets" expanded="True">
+              <Node name="Level_Files" expanded="True">
+                <Node name="vert_level_1.txt" selected="True" />
+              </Node>
               <Node name="Scripts" expanded="True">
                 <Node name="Engine" expanded="True">
-                  <Node name="Entity" expanded="True">
-                    <Node name="entityEnemyS.cs" selected="True" />
-                  </Node>
+                  <Node name="Entity" expanded="True" />
                   <Node name="Interaction" expanded="True" />
                   <Node name="Managers" expanded="True" />
                 </Node>
+                <Node name="MapEditor" expanded="True" />
               </Node>
             </Node>
           </Node>

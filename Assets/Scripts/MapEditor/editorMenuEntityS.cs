@@ -20,9 +20,26 @@ public class editorMenuEntityS : MonoBehaviour {
 			
 			GameObject new_entity = (GameObject) Instantiate(entities[i], new Vector3(x, 5 + (.01F * i) + .01F, z), Quaternion.identity);	
 			
-			editorEntityS new_entity_s = new_entity.GetComponent<editorEntityS>();
+			editorEntityS new_entity_s = new_entity.AddComponent<editorEntityS>();
 			new_entity_s.menu_item = true;
 			new_entity_s.menu_item_num = i; 
+			switch(i){
+			case 1:
+			new_entity_s.entity_type = EntityE.Base; break;
+			case 2:
+			new_entity_s.entity_type = EntityE.Player;break;
+			case 3:
+			new_entity_s.entity_type = EntityE.Node;break;
+			case 4:
+			new_entity_s.entity_type = EntityE.Node;break;
+			case 5:
+			new_entity_s.entity_type = EntityE.Node;break;
+			case 6:
+			new_entity_s.entity_type = EntityE.Enemy;break;
+			}
+				
+				
+			
 			
 			new_entity.transform.parent = transform;
 		}

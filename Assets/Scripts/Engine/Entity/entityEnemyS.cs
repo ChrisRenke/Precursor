@@ -52,11 +52,14 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	void OnGUI()
 	{
-		Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
-		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y+30, 200, 15), current_hp + "/" + max_hp + " HP", enginePlayerS.hover_text);
-		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
+		
+		if(hexManagerS.getHex(x,z).vision_state == Vision.Live)
+		{
+			Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
+			GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y+30, 200, 15), current_hp + "/" + max_hp + " HP", enginePlayerS.hover_text);
+			GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
+		}
 	}
-	
 		//Extract hexes from path and put hexes into a List 
 	private List<HexData> extractPath (Path path)
 	{
@@ -98,8 +101,6 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		 
 		if(checkIfDead()){
 			Debug.Log(this.GetInstanceID() + " is DEAD!!");
-			made_one = entityManagerS.spawnNewEnemy();
-			Debug.Log ("try to make another enemy: " + made_one);
 			onDeath();
 		}
 		else
@@ -355,16 +356,27 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		
 			if(lerp_move)
 			{	
-				transform.position = Vector3.Lerp(transform.position, ending_pos,  moveTime);
-		 		moveTime += Time.deltaTime/dist;
-				
-				
-				if(Vector3.Distance(transform.position, ending_pos) <= .05)
-				{ 
+				if(hexManagerS.getHex(x,z).vision_state != Vision.Live)
+				{
+					
 					lerp_move = false;
 					transform.position = ending_pos;				
 			 		updateFoWState();
-				}	
+					
+				}
+				else{
+						
+					transform.position = Vector3.Lerp(transform.position, ending_pos,  moveTime);
+			 		moveTime += Time.deltaTime/dist;
+					
+					
+					if(Vector3.Distance(transform.position, ending_pos) <= .05)
+					{ 
+						lerp_move = false;
+						transform.position = ending_pos;				
+				 		updateFoWState();
+					}	
+				}
 			}
 		}//not dead
 	}

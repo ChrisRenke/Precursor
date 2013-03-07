@@ -22,17 +22,22 @@ public class editorEntityS : MonoBehaviour {
 	//node stuff
 	public Node         node_type;
 	public int     	   	node_starting_level = 2;  //0 empty, 1 sparse, 2 full
+	public bool         node_is_enemy_spawn = false;
 		
 	//enemy stuff
 	public bool 	   	enemy_knows_mech_loc = false;
 	public bool 	   	enemy_knows_base_loc = false;
+	
+	 
 	
 	void OnGUI()
 	{
 		if(menu_item)
 		{
 			Vector3 spot_on_screen = Camera.main.WorldToScreenPoint (transform.position);
-			GUI.Label(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15,200,30), entity_type.ToString(), tooltipStyle);
+//			GUI.Label(
+//				new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15,200,30), 
+//				entity_type.ToString(), tooltipStyle);
 		}
 	}
 

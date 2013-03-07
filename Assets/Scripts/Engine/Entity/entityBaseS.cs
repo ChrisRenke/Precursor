@@ -5,20 +5,28 @@ using System.Collections.Generic;
 
 public class entityBaseS : Combatable {
 	
-	//variables
-	BaseUpgrade health_level = BaseUpgrade.None;
-	BaseUpgrade structure_level = BaseUpgrade.None;
-	BaseUpgrade defense_level = BaseUpgrade.None;
-	BaseUpgrade ap_cost_level = BaseUpgrade.None;
+	//variables 
+	public BaseUpgrade structure_level = BaseUpgrade.Level0;
+	public BaseUpgrade defense_level = BaseUpgrade.Level0;
+	public BaseUpgrade wall_level = BaseUpgrade.Level0;
 	private int heal_amount = 5;
 	private int heal_cost = 10;
 	private bool  can_not_heal;
 	private bool  can_not_attack;
 	
 	
+	public Renderer walls;
+	public Renderer def;
+	public Renderer struc;
+	
 	public static List<HexData> adjacent_visible_hexes;
 	//Use this for initialization
 	void Start () {
+		
+		def = transform.FindChild("entityBaseDefense").renderer;
+		walls = transform.FindChild("entityBaseWalls").renderer;
+		struc = transform.FindChild("entityBaseStructure").renderer;
+		
 		max_hp = 100;
 		current_hp = 100;
 		
@@ -46,9 +54,80 @@ public class entityBaseS : Combatable {
 	
 	
 	
+			//vars for the whole sheet
+	public int colCount    = 4;
+	public int rowCount    = 2;
+	 
+	//vars for animation
+	public int rowNumber   = 3; //Zero Indexed
+	public int colNumber   = 4; //Zero Indexed
+	public int totalCells  = 12;
+	
+	
+	void visualDisplay()
+	{
+		int def_index =0 ;
+		int struct_index =0 ;
+		int wall_index =0 ;
+		
+		
+		switch(wall_level)
+		{
+			case BaseUpgrade.Level0: 			wall_index = 0; break;
+			case BaseUpgrade.Level1: 		wall_index = 1;break;
+			case BaseUpgrade.Level2: 		wall_index = 2;break;
+			case BaseUpgrade.Level3: 		wall_index = 3;break;
+		}
+		
+		switch(defense_level)
+		{
+			case BaseUpgrade.Level0:	def_index = 0;break;
+			case BaseUpgrade.Level1: 	def_index = 1;break;
+			case BaseUpgrade.Level2: 	def_index = 2;break;
+			case BaseUpgrade.Level3: 	def_index = 3;break;
+		}
+		
+		switch(structure_level)
+		{
+			case BaseUpgrade.Level0:	struct_index = 0;break;
+			case BaseUpgrade.Level1: 	struct_index = 1;break;
+			case BaseUpgrade.Level2: 	struct_index = 2;break;
+			case BaseUpgrade.Level3: 	struct_index = 3;break;
+		}
+		
+	    // Repeat when exhausting all cells
+//	    index = index % totalCells;
+	 
+//	    // Size of every cell
+//	    float sizeX = 1.0f / colCount;
+//	    float sizeY = 1.0f / rowCount;
+//	    Vector2 size =  new Vector2(sizeX,sizeY);
+	 
+	    // split into horizontal and vertical index
+//	    var uIndex = index % colCount;
+//	    var vIndex = index / colCount;
+	 
+	    // build offset
+	    // v coordinate is the bottom of the image in opengl so we need to invert.
+//	    float offsetX = (uIndex+colNumber) * size.x;
+//	    float offsetY = (1.0f - size.y) - (vIndex + rowNumber) * size.y;
+	    Vector2 def_offset = new Vector2((float) defense_level/4, 0);
+	    Vector2 wall_offset = new Vector2((float) wall_level/4, .3333333F);
+	    Vector2 struct_offset = new Vector2((float) structure_level/4, .666666F);
+	 
+	    def.material.SetTextureOffset ("_MainTex", def_offset);
+	    walls.material.SetTextureOffset ("_MainTex", wall_offset);
+	    struc.material.SetTextureOffset ("_MainTex", struct_offset);
+//	    def.material.SetTextureOffset ("_MainTex", def_offset);
+//	    renderer.material.SetTextureScale  ("_MainTex", size);
+	
+	
+	
+	}
+	
 	// Update is called once per frame
 	void Update () {
-			
+			visualDisplay();
 		if(checkIfDead()){
 			print (this.GetInstanceID() + " is DEAD!!");
 			onDeath();
@@ -146,46 +225,18 @@ public class entityBaseS : Combatable {
 	
 	//Player calls this method to change bases upgrade level
 	//Assumption: entityMech will take care of whether upgrade is allowed	
-	public bool upgradeBase(BaseUpgrade upgrade){
+	public bool upgradeBase(BaseCategories category, BaseUpgrade upgrade){
 		//increase health, walls(armour), attack/range cost, and reduce ap
 		//Upgrades can only be applied once
-		switch(upgrade){
-//				case BaseUpgrade.Health1:
-//					if(health_level != upgrade && health_level < upgrade){
-//						health_level = BaseUpgrade.Health1;
-//						max_hp += 10;
-//						current_hp = max_hp; //when upgrade happens base health gets refilled
-//						return true;
-//					}else{
-//						Debug.Log ("Base Already has this health upgrade, can't downgrade");
-//						return false;
-//					}
-//				case BaseUpgrade.Health2:
-//					if(health_level != upgrade && health_level < upgrade){
-//						health_level = BaseUpgrade.Health2;
-//						max_hp += 15;
-//						current_hp = max_hp; //when upgrade happens base health gets refilled
-//						return true;
-//					}else{
-//						Debug.Log ("Base Already has this health upgrade, can't downgrade");
-//						return false;
-//					}
-//			
-//				case BaseUpgrade.Health3:
-//					if(health_level != upgrade && health_level < upgrade){
-//						health_level = BaseUpgrade.Health3;
-//						max_hp += 20;
-//						current_hp = max_hp; //when upgrade happens base health gets refilled
-//						return true;
-//					}else{
-//						Debug.Log ("Base Already has this health upgrade, can't downgrade");
-//						return false;
-//					}
-//			
-				case BaseUpgrade.Structure1:
+		switch(category){
+
+		case BaseCategories.Structure:
+		{
+			switch(upgrade)
+			{
+				case BaseUpgrade.Level1:
 					if(structure_level != upgrade && structure_level < upgrade){
-						structure_level = BaseUpgrade.Structure1;
-						base_armor += 1;
+						structure_level = BaseUpgrade.Level1;
 						max_hp += 15;
 						return true;
 					}else{
@@ -193,10 +244,9 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 			
-				case BaseUpgrade.Structure2:
+				case BaseUpgrade.Level2:
 					if(structure_level != upgrade && structure_level < upgrade){
-						structure_level = BaseUpgrade.Structure2;
-						base_armor += 1;
+						structure_level = BaseUpgrade.Level2;
 						max_hp += 20;
 						return true;
 					}else{
@@ -204,20 +254,25 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 					
-				case BaseUpgrade.Structure3:
+				case BaseUpgrade.Level3:
 					if(structure_level != upgrade && structure_level < upgrade){
-						structure_level = BaseUpgrade.Structure3;
-						base_armor += 1;
+						structure_level = BaseUpgrade.Level3;
 						max_hp += 25;
 						return true;
 					}else{
 						Debug.Log ("Base Already has this structure upgrade, can't downgrade");
 						return false;
 					}
-					 
-				case BaseUpgrade.Defenses1:
+			}
+				break;
+		}
+		case BaseCategories.Defense:
+		{
+			switch(upgrade)
+			{
+				case BaseUpgrade.Level1:
 					if(defense_level != upgrade && defense_level < upgrade){
-						defense_level = BaseUpgrade.Defenses1;
+						defense_level = BaseUpgrade.Level1;
 						attack_range  += 1;
 						attack_damage += 1;
 						return true;
@@ -226,9 +281,9 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 	
-				case BaseUpgrade.Defenses2:
+				case BaseUpgrade.Level2:
 					if(defense_level != upgrade && defense_level < upgrade){
-						defense_level = BaseUpgrade.Defenses2;
+						defense_level = BaseUpgrade.Level2;
 						attack_range  += 1;
 						attack_damage += 2;
 						return true;
@@ -237,9 +292,9 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 					
-				case BaseUpgrade.Defenses3:
+				case BaseUpgrade.Level3:
 					if(defense_level != upgrade && defense_level < upgrade){
-						defense_level = BaseUpgrade.Defenses3;
+						defense_level = BaseUpgrade.Level3;
 						attack_range  += 0;
 						attack_damage += 3;
 					return true;
@@ -247,10 +302,18 @@ public class entityBaseS : Combatable {
 						Debug.Log ("Base Already has this defense upgrade, can't downgrade");
 						return false;
 					}
-	
-				case BaseUpgrade.AP1:
-					if(ap_cost_level != upgrade && ap_cost_level < upgrade){
-						ap_cost_level = BaseUpgrade.AP1;
+				
+			}
+				break;
+		}
+		case BaseCategories.Walls:
+		{
+			switch(upgrade)
+			{
+			case BaseUpgrade.Level1:
+					if(wall_level != upgrade && wall_level < upgrade){
+						wall_level = BaseUpgrade.Level1;
+						base_armor += 1;
 						max_ap   += 5;
 						return true;
 					}else{
@@ -258,9 +321,10 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 	
-				case BaseUpgrade.AP2:
-					if(ap_cost_level != upgrade && ap_cost_level < upgrade){
-						ap_cost_level = BaseUpgrade.AP2;
+				case BaseUpgrade.Level2:
+					if(wall_level != upgrade && wall_level < upgrade){
+						wall_level = BaseUpgrade.Level2;
+						base_armor += 1;
 						max_ap   += 5;
 						return true;
 					}else{
@@ -268,21 +332,25 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 					
-				case BaseUpgrade.AP3:
-					if(ap_cost_level != upgrade && ap_cost_level < upgrade){
-						ap_cost_level = BaseUpgrade.AP3;
+				case BaseUpgrade.Level3:
+					if(wall_level != upgrade && wall_level < upgrade){
+						wall_level = BaseUpgrade.Level3;
 						max_ap   += 5;
+						base_armor += 1;
 						return true;
 					}else{
 						Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
 						return false;
 					}
+			}
+				break;
+		}
 				
 				default:
 					//Nothing get's updated
 					return false;
 		}
-	
+		return false;
 	}
 	
 	//heal self when it's base turn only if no enemy next to base
