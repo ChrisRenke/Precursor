@@ -89,6 +89,7 @@
      <None Include="Assets\Pro Standard Assets\Image Based\GlowEffectDownsample.shader" />
      <None Include="Assets\Scripts\_Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
      <None Include="Assets\Scripts\_Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
+     <None Include="Assets\Level_Files\vert_level_1.txt" />
      <None Include="Assets\Vectrosity\Shaders\DepthMask.shader" />
      <None Include="Assets\Materials\texture.shader" />
      <None Include="Assets\Vectrosity\Shaders\SolidColor.shader" />
