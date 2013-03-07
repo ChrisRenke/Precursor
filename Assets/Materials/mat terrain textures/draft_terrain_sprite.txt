@@ -1,0 +1,76 @@
+{"frames": {
+
+"deserthex.png":
+{
+	"frame": {"x":0,"y":0,"w":512,"h":296},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":296},
+	"sourceSize": {"w":512,"h":296}
+},
+"farmlandhex.png":
+{
+	"frame": {"x":512,"y":0,"w":512,"h":296},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":296},
+	"sourceSize": {"w":512,"h":296}
+},
+"foresthex.png":
+{
+	"frame": {"x":1024,"y":0,"w":512,"h":296},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":296},
+	"sourceSize": {"w":512,"h":296}
+},
+"grasslandhex.png":
+{
+	"frame": {"x":1536,"y":0,"w":512,"h":296},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":296},
+	"sourceSize": {"w":512,"h":296}
+},
+"hillshex.png":
+{
+	"frame": {"x":0,"y":296,"w":512,"h":296},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":296},
+	"sourceSize": {"w":512,"h":296}
+},
+"mountain_hex.png":
+{
+	"frame": {"x":512,"y":296,"w":512,"h":296},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":296},
+	"sourceSize": {"w":512,"h":296}
+},
+"swamphex.png":
+{
+	"frame": {"x":1024,"y":296,"w":512,"h":296},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":296},
+	"sourceSize": {"w":512,"h":296}
+},
+"waterhex.png":
+{
+	"frame": {"x":1536,"y":296,"w":512,"h":296},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":296},
+	"sourceSize": {"w":512,"h":296}
+}},
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "draft_terrain_sprite.png",
+	"format": "RGBA8888",
+	"size": {"w":2048,"h":592},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:2605257441d11c556218a93d5326faf5$"
+}
+}
