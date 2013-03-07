@@ -63,6 +63,12 @@ public class mechDisplayS : MonoBehaviour {
 		{
 			 SetSpriteAnimation(colCount,rowCount,rowNumber,colNumber,totalCells,fps);
 		}
+		else
+		{
+			
+		    Vector2 offset = new Vector2(0,0);
+		    renderer.material.SetTextureOffset ("_MainTex", offset);
+		}
 	} 
  
 	//SetSpriteAnimation
