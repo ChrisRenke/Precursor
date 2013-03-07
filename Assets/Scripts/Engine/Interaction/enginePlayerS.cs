@@ -28,28 +28,6 @@ public class enginePlayerS : MonoBehaviour {
 	
 	private static GameObject maincam;
 	private static entityMechS mech;
-			
-	public Texture part_piston;
-	public Texture part_plate;
-	public Texture part_strut;
-	public Texture part_gear;
-	
-	//added
-	public Texture ap_bar;
-	public Texture hp_bar;
-	
-	public Texture hp_backboard;
-	public Texture parts_backboard;
-	public Texture top_menu_backboard;
-	public Texture upgradeBackboard;
-	
-	public Texture base_button;
-	public Texture end_turn_button;
-	public Texture health_button;
-	public Texture mech_button;
-	public Texture star_button;
-	public Texture transport_button;
-	//
 	
 	public Texture icon_traverse;
 	public Texture icon_repair;
@@ -57,9 +35,6 @@ public class enginePlayerS : MonoBehaviour {
 	public Texture icon_attack;
 	public Texture icon_upgrade;
 	public Texture icon_end;
-	
-	
-	
 	
 	public Color easy;
 	public Color medium;
@@ -119,8 +94,7 @@ public class enginePlayerS : MonoBehaviour {
 	
 	public static bool drawn_path = false;
 	// Update is called once per frame
-	void Update() {
-		
+	void Update() { 
 		
 		Vector3 screenBottomLeft = maincam.camera.ScreenToWorldPoint(new Vector3(0,0,0));
 		Vector3 screenTopRight = maincam.camera.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,0));
@@ -151,7 +125,7 @@ public class enginePlayerS : MonoBehaviour {
 		
 		//zoom out
 		if(Input.GetKey(KeyCode.Equals))
-		{ 
+		{  
 			zoom_adjust += .5F * zoomSensitivity; 
 		}
 		
@@ -182,7 +156,7 @@ public class enginePlayerS : MonoBehaviour {
 		 
 		
 		if(Input.GetMouseButton(2) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
-		{ 
+		{  
 			Vector3 trans_x = Vector3.back;
 			Vector3 trans_y = Vector3.back;
 			
@@ -200,22 +174,22 @@ public class enginePlayerS : MonoBehaviour {
 			if(Input.GetKey(KeyCode.D)  || Input.GetKey(KeyCode.RightArrow))
 			{
 				trans_x = Vector3.right * hSensitivity * 12F * Time.deltaTime; 
-			} 
+			}  
 			if(Input.GetKey(KeyCode.A)  || Input.GetKey(KeyCode.LeftArrow))
 			{
 				trans_x = Vector3.right * hSensitivity * -12F * Time.deltaTime; 
-			} 
+			}  
 			
 			
 			
 			if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
 			{
 				trans_y = Vector3.up * vSensitivity * 12F * Time.deltaTime; 
-			} 
+			}  
 			if(Input.GetKey(KeyCode.S)|| Input.GetKey(KeyCode.DownArrow))
 			{
 				trans_y = Vector3.up * vSensitivity * -12F * Time.deltaTime; 
-			} 
+			}  
 			
 			if(trans_x != Vector3.back)
 			{
@@ -241,7 +215,7 @@ public class enginePlayerS : MonoBehaviour {
 		
 		
 		if(true)
-		{ 
+		{  
 			Vector3 adjustedScreenBottomLeft = maincam.camera.ScreenToWorldPoint(new Vector3(0,0,0));
 			Vector3 adjustedScreenTopRight = maincam.camera.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,0));
 			
@@ -282,9 +256,9 @@ public class enginePlayerS : MonoBehaviour {
 		display_text = _display_text;
 		
 		if(current_path_display != null)
-		{ 
+		{  
 			if(!current_path_display.Equals(in_path))
-			{ 
+			{  
 				current_path_display.hidePath();
 				current_path_display.destroySelf();
 			}
@@ -302,7 +276,7 @@ public class enginePlayerS : MonoBehaviour {
 	public static PathDisplay current_path_display;
 	
 	GameObject RaycastMouse(string _tag)
-	{ 
+	{  
 		print (_tag);
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);	
 		RaycastHit[] results = Physics.RaycastAll(ray, 30);
@@ -315,7 +289,7 @@ public class enginePlayerS : MonoBehaviour {
 				return results[i].transform.gameObject;
 			}
 			
-		} 
+		}  
 		print ("Nothing clicked.");
 		return null; 
 	}
@@ -335,7 +309,7 @@ public class enginePlayerS : MonoBehaviour {
 ////					hex_tile.CloneRing(1);
 ////				}
 //			}
-//		} 
+//		}  
 //		print ("nothing");
 //		return null; 
 //	}
@@ -343,88 +317,81 @@ public class enginePlayerS : MonoBehaviour {
 	public int gui_element_size = 80;
 	public int gui_text_element_size =  20;
 	public int gui_spacing      = 10;
-	public int xpos = Screen.width; //(Screen.width)-(this_element.width)/2;
-    public int ypos = Screen.height;//(Screen.height)-(this_element.height)/2;
+	
 	void OnGUI()
-	{
-		
+	{		
 		Vector3 spot_on_screen = Camera.main.WorldToScreenPoint (hexManagerS.CoordsGameTo3D(display_text_at.x, display_text_at.z)); 
 		GUI.Label(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15, 200,30),
 			display_text, 
 			enginePlayerS.hover_text);
-   		
-		//edit here
-        GUI.DrawTexture(new Rect(gui_spacing * 1 + 0 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_gear, ScaleMode.ScaleToFit, true);
-        GUI.DrawTexture(new Rect(gui_spacing * 2 + 1 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_piston, ScaleMode.ScaleToFit, true);
-        GUI.DrawTexture(new Rect(gui_spacing * 3 + 2 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_plate, ScaleMode.ScaleToFit, true);
-        GUI.DrawTexture(new Rect(gui_spacing * 4 + 3 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_strut, ScaleMode.ScaleToFit, true);
 		
-		//Menus
-		//(Screen.width)-(this_element.width)/2;
-		GUI.DrawTexture(new Rect(570, gui_spacing, 180, 40), top_menu_backboard, ScaleMode.ScaleToFit, true);
-        
-		GUI.Label(new Rect(gui_spacing * 1 + 0 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Gear].ToString(),    gui_norm_text);
-        GUI.Label(new Rect(gui_spacing * 2 + 1 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Piston].ToString(), gui_norm_text);
-        GUI.Label(new Rect(gui_spacing * 3 + 2 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Plate].ToString(),  gui_norm_text);
-        GUI.Label(new Rect(gui_spacing * 4 + 3 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Strut].ToString(),  gui_norm_text);
-    
-		if(GUI.Button(new Rect(gui_spacing, gui_spacing, 180, 40), "Aquatic Fins 5gr | 2plt"))
-		{ 
-			if(
-				(entityMechS.getPartCount(Part.Plate) >= 2) && 
-				(entityMechS.getPartCount(Part.Gear) >= 5))
-			{
-					entityMechS.adjustPartCount(Part.Plate, -2);
-					entityMechS.adjustPartCount(Part.Gear, -5);
-				mech.upgrade_traverse_water = true;
-					mech.destroySelectionHexes();
-					mech.allowSelectionHexesDraw();
-				} 
-			else
-					print ("no good!");
-		}
-		
-		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing , gui_spacing, 180, 40), "Climbing Hooks 5gr | 2pst"))
-		{ 
+			 	 GUI.Label(new Rect(gui_spacing * 1 + 0 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Gear].ToString(),    gui_norm_text);
+	 GUI.Label(new Rect(gui_spacing * 2 + 1 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Piston].ToString(), gui_norm_text);
+	 GUI.Label(new Rect(gui_spacing * 3 + 2 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Plate].ToString(),  gui_norm_text);
+	 GUI.Label(new Rect(gui_spacing * 4 + 3 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Strut].ToString(),  gui_norm_text);
+	    
+	 GUI.Label(new Rect(Screen.width - (1 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), "AP",  gui_norm_text);
+	 GUI.Label(new Rect(Screen.width - (2 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), "HP",  gui_norm_text);
 			
-				if(
-					(entityMechS.getPartCount(Part.Piston) >= 2) && 
-					(entityMechS.getPartCount(Part.Gear) >= 5))
-				{
-					entityMechS.adjustPartCount(Part.Piston, -2);
-					entityMechS.adjustPartCount(Part.Gear, -5);
-					mech.upgrade_traverse_mountain = true;
-					mech.destroySelectionHexes();
-					mech.allowSelectionHexesDraw();
-				} 
-			else
-					print ("no good!");
-		}
+	 GUI.Label(new Rect(Screen.width - (1 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_element_size), mech.getCurrentAP() + "/" + mech.getMaxAP(),  gui_norm_text);
+	 GUI.Label(new Rect(Screen.width - (2 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_element_size), mech.getCurrentHP() + "/" + mech.getMaxHP(),  gui_norm_text);
+//MOVED GUI BUTTON DISPLAYS TO : UPDATE SCRIPT, it's attached to the camera   
 		
-		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing + 180 + gui_spacing, gui_spacing, 180, 40), "Leg Speed 3pst | 3str"))
-		{  
-				if(
-					(entityMechS.getPartCount(Part.Piston) >= 3) && 
-					(entityMechS.getPartCount(Part.Strut) >= 3))
-				{
-					entityMechS.adjustPartCount(Part.Piston, -3);
-					entityMechS.adjustPartCount(Part.Strut, -3);
-					mech.upgrade_traverse_cost = true;
-					mech.destroySelectionHexes();
-					mech.allowSelectionHexesDraw();
-				} 
-			else
-					print ("no good!");
-		}
+		//edit here
+//        GUI.DrawTexture(new Rect(gui_spacing * 1 + 0 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_gear, ScaleMode.ScaleToFit, true);
+//        GUI.DrawTexture(new Rect(gui_spacing * 2 + 1 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_piston, ScaleMode.ScaleToFit, true);
+//        GUI.DrawTexture(new Rect(gui_spacing * 3 + 2 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_plate, ScaleMode.ScaleToFit, true);
+//        GUI.DrawTexture(new Rect(gui_spacing * 4 + 3 * gui_element_size, Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), part_strut, ScaleMode.ScaleToFit, true);
+//		
 		
-		
-		
-		GUI.Label(new Rect(Screen.width - (1 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), "AP",  gui_norm_text);
-        GUI.Label(new Rect(Screen.width - (2 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), "HP",  gui_norm_text);
-		
-		GUI.Label(new Rect(Screen.width - (1 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_element_size), mech.getCurrentAP() + "/" + mech.getMaxAP(),  gui_norm_text);
-        GUI.Label(new Rect(Screen.width - (2 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_element_size), mech.getCurrentHP() + "/" + mech.getMaxHP(),  gui_norm_text);
-    
+//		if(GUI.Button(new Rect(gui_spacing, gui_spacing, 180, 40), "Aquatic Fins 5gr | 2plt"))
+//		{  
+//			if(
+//				(entityMechS.getPartCount(Part.Plate) >= 2) && 
+//				(entityMechS.getPartCount(Part.Gear) >= 5))
+//			{
+//					entityMechS.adjustPartCount(Part.Plate, -2);
+//					entityMechS.adjustPartCount(Part.Gear, -5);
+//				mech.upgrade_traverse_water = true;
+//					mech.destroySelectionHexes();
+//					mech.allowSelectionHexesDraw();
+//				}  
+//			else
+//					print ("no good!");
+//		}
+//		
+//		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing , gui_spacing, 180, 40), "Climbing Hooks 5gr | 2pst"))
+//		{  
+//			
+//				if(
+//					(entityMechS.getPartCount(Part.Piston) >= 2) && 
+//					(entityMechS.getPartCount(Part.Gear) >= 5))
+//				{
+//					entityMechS.adjustPartCount(Part.Piston, -2);
+//					entityMechS.adjustPartCount(Part.Gear, -5);
+//					mech.upgrade_traverse_mountain = true;
+//					mech.destroySelectionHexes();
+//					mech.allowSelectionHexesDraw();
+//				}  
+//			else
+//					print ("no good!");
+//		}
+//		
+//		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing + 180 + gui_spacing, gui_spacing, 180, 40), "Leg Speed 3pst | 3str"))
+//		{   
+//				if(
+//					(entityMechS.getPartCount(Part.Piston) >= 3) && 
+//					(entityMechS.getPartCount(Part.Strut) >= 3))
+//				{
+//					entityMechS.adjustPartCount(Part.Piston, -3);
+//					entityMechS.adjustPartCount(Part.Strut, -3);
+//					mech.upgrade_traverse_cost = true;
+//					mech.destroySelectionHexes();
+//					mech.allowSelectionHexesDraw();
+//				}  
+//			else
+//					print ("no good!");
+//		}
 	
 	}
 	
