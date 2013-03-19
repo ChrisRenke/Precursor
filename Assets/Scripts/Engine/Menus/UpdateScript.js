@@ -40,27 +40,26 @@ function OnGUI(){
      var button_spacing : int = button_size_height/2; 
      
 	 //End Turn Button
-	 if(GUI.Button(Rect(((button_size_width)*2)- ((button_spacing)*3), (button_size_height)- ((button_spacing)/3), 180, 60), end_turn_button)) {
-	      //pause the game
-	    Time.timeScale = 0;
-	    //show the pause menu
-	    var script4 = GetComponent("UpgradeMenuS");
-	    script4.enabled = true;
+	 if(GUI.Button(Rect((button_x_start*3.35),((button_y_start/1.65)), (button_size_height *2.50), (button_size_width/6)), end_turn_button)) {
 	 }
-	 
+	 	 	 
 	 //add variables here for adjusting these labels just base everything off of screen size
-	GUI.DrawTexture(Rect(button_size_width + (button_size_width) - (button_x_start) - ((button_spacing)*2), 0, 450, 105), top_menu_backboard, ScaleMode.ScaleToFit, true);
-    GUI.DrawTexture(Rect(-(button_x_start) + -((button_spacing)), ((button_y_start)* 5)- ((button_spacing)/2), 630, 140), upgrade_backboard, ScaleMode.ScaleToFit, true);
-	GUI.DrawTexture(Rect(((button_size_width)*3) - (button_x_start), ((button_y_start)* 5) - ((button_spacing)/2), 630, 140), parts_backboard, ScaleMode.ScaleToFit, true);
-	GUI.DrawTexture(Rect(((button_size_width)*2) - (button_x_start) - ((button_size_height)*2), ((button_y_start)* 5) - ((button_spacing)/2), 630, 140), hp_backboard, ScaleMode.ScaleToFit, true);
-	GUI.DrawTexture(Rect(((button_size_width)*2) - ((button_spacing)*2), ((button_y_start)* 5) + (button_spacing), 163, 20), hp_bar, ScaleMode.ScaleToFit, true);
-	GUI.DrawTexture(Rect(((button_size_width)*2) - ((button_spacing)*2), ((button_y_start)* 5) + (button_size_height), 163, 20), ap_bar, ScaleMode.ScaleToFit, true);
-		  
+    GUI.DrawTexture(Rect((button_x_start*2.50), ((button_y_start/5)-(button_y_start*7.75)), (button_size_height *6), (button_size_width*6)), top_menu_backboard, ScaleMode.ScaleToFit, true);
+    GUI.DrawTexture(Rect(0, (button_y_start/6), (button_size_height *4), (button_size_width*4)), upgrade_backboard, ScaleMode.ScaleToFit, true);
+	GUI.DrawTexture(Rect((button_x_start *6), (button_y_start/8), (button_size_height *4), (button_size_width*4)), parts_backboard, ScaleMode.ScaleToFit, true);
+	GUI.DrawTexture(Rect((button_x_start*3.15), (button_y_start/7), (button_size_height *4), (button_size_width*4)), hp_backboard, ScaleMode.ScaleToFit, true);
+	GUI.DrawTexture(Rect((button_x_start*3.55), (button_y_start/8), (button_size_height *2.35), (button_size_width*4)), hp_bar, ScaleMode.ScaleToFit, true);
+	GUI.DrawTexture(Rect((button_x_start*3.55), (button_y_start/2), (button_size_height *2.35), (button_size_width*4)), ap_bar, ScaleMode.ScaleToFit, true);
+		  	  
 	GUI.Label(Rect(Screen.width - (1 * (10 + 80)), Screen.height - (10 + 80), 80, 80), "AP",  gui_normal_text);
 	GUI.Label(Rect(Screen.width - (2 * (10 + 80)), Screen.height - (10 + 80), 80, 80), "HP",  gui_normal_text);
 	
+	 //Objective  Button
+	 if(GUI.Button(Rect((button_x_start*3.75),((button_y_start/25)), button_size_height, (button_size_width/5)), star_button)) {
+	 }
+	 	
 	//Base Button
-	 if(GUI.Button(Rect(3, ((button_y_start)* 5) + (button_spacing) + ((button_size_height)/4), 64, 64), base_button)) {
+	 if(GUI.Button(Rect((button_x_start/10),(button_y_start*5.55), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), base_button)) {
 	      //pause the game
 	    Time.timeScale = 0;
 	    //show the pause menu
@@ -69,7 +68,7 @@ function OnGUI(){
 	 }
 	 
 	 //Mech Button  
-	 if(GUI.Button(Rect(((button_size_height)-((button_spacing)/4)-3), ((button_y_start)* 5) + (button_spacing) + ((button_size_height)/4), 64, 64), mech_button)) {
+	 if(GUI.Button(Rect((button_x_start/2),(button_y_start*5.55), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), mech_button)) {
 	      //pause the game
 	    Time.timeScale = 0;
 	    //show the pause menu
@@ -78,7 +77,7 @@ function OnGUI(){
 	 }
 	 
 	 //Health button
-	 if(GUI.Button(Rect((((button_size_height)*2)-(button_size_height/3)-5), ((button_y_start)* 5) + (button_spacing) + ((button_size_height)/4), 64, 64), health_button)) {
+	 if(GUI.Button(Rect(((button_size_width/5.25) + (button_x_start/2)),(button_y_start*5.55), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), health_button)) {
 	      //pause the game
 	    Time.timeScale = 0;
 	    //show the pause menu
@@ -87,7 +86,7 @@ function OnGUI(){
 	 }
 	 
 	 //Transport button
-	 if(GUI.Button(Rect((((button_size_height)*3)-(button_spacing)-9), ((button_y_start)* 5) + (button_spacing) + ((button_size_height)/4), 64, 64), transport_button)) {
+	 if(GUI.Button(Rect((((button_size_width/5.25)*2) + (button_x_start/2)), (button_y_start*5.55), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), transport_button)) {
 	      //pause the game
 	    Time.timeScale = 0;
 	    //show the pause menu
