@@ -92,7 +92,6 @@ function OnGUI(){
 	    //show the pause menu
 	    var script3 = GetComponent("UpgradeMenuS");
 	    script3.enabled = true;
-	 }
-		
+	 }	
 
 }
