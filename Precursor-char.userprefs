@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Engine/Menus/UpdateScript.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Engine/Menus/UpgradeMenuS.js">
     <Files>
-      <File FileName="Assets/Scripts/Engine/Menus/UpdateScript.js" Line="67" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Menus/UpdateScript.js" Line="32" Column="2" />
+      <File FileName="Assets/Scripts/Engine/Menus/UpgradeMenuS.js" Line="40" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
