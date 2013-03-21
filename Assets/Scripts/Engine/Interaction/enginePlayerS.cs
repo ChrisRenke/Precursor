@@ -31,6 +31,7 @@ public class enginePlayerS : MonoBehaviour {
 	
 	private static GameObject maincam;
 	private static entityMechS mech;
+	private static entityBaseS the_base;
 			
 	public Texture part_piston;
 	public Texture part_plate;
@@ -100,6 +101,7 @@ public class enginePlayerS : MonoBehaviour {
 	public static void setMech()
 	{
 		mech    = GameObject.FindGameObjectWithTag("player_mech").GetComponent<entityMechS>();
+		the_base    = entityManagerS.getBase();
 	}
 	
 	
@@ -347,7 +349,7 @@ public class enginePlayerS : MonoBehaviour {
         GUI.Label(new Rect(gui_spacing * 3 + 2 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Plate].ToString(),  gui_norm_text);
         GUI.Label(new Rect(gui_spacing * 4 + 3 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Strut].ToString(),  gui_norm_text);
     
-		if(GUI.Button(new Rect(gui_spacing, gui_spacing, 180, 40), "Aquatic Fins 5gr | 2plt"))
+		if(GUI.Button(new Rect(gui_spacing, gui_spacing, 180, 40), "Aquatic Fins 5 gear | 2 plate"))
 		{ 
 			if(
 				(entityMechS.getPartCount(Part.Plate) >= 2) && 
@@ -363,7 +365,7 @@ public class enginePlayerS : MonoBehaviour {
 					print ("no good!");
 		}
 		
-		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing , gui_spacing, 180, 40), "Climbing Hooks 5gr | 2pst"))
+		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing , gui_spacing, 180, 40), "Climbing Hooks 5 gear | 2 piston"))
 		{ 
 			
 				if(
@@ -380,7 +382,7 @@ public class enginePlayerS : MonoBehaviour {
 					print ("no good!");
 		}
 		
-		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing + 180 + gui_spacing, gui_spacing, 180, 40), "Leg Speed 3pst | 3str"))
+		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing + 180 + gui_spacing, gui_spacing, 180, 40), "Leg Speed 3 piston | 3 strut"))
 		{  
 				if(
 					(entityMechS.getPartCount(Part.Piston) >= 3) && 
@@ -395,6 +397,63 @@ public class enginePlayerS : MonoBehaviour {
 			else
 					print ("no good!");
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		if(GUI.Button(new Rect(gui_spacing, gui_spacing + gui_spacing + 40, 180, 40), "Base Guns 4 pstn | 4 struts"))
+		{ 
+			if(
+				(entityMechS.getPartCount(Part.Piston) >= 4) && 
+				(entityMechS.getPartCount(Part.Strut) >= 4)  && (int)the_base.defense_level <= 3)
+			{
+					entityMechS.adjustPartCount(Part.Piston, -4);
+					entityMechS.adjustPartCount(Part.Strut, -4);
+				the_base.upgradeBase(BaseCategories.Defense, (BaseUpgrade) the_base.defense_level + 1);
+//				mech.upgrade_traverse_water = tru?e;
+//					mech.destroySelectionHexes();
+//					mech.allowSelectionHexesDraw();
+				} 
+			else
+					print ("no good!");
+		}
+		
+		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing , gui_spacing  + gui_spacing + 40, 180, 40), "Base Struct 5gears | 4plates"))
+		{ 
+			
+				if(
+					(entityMechS.getPartCount(Part.Plate) >= 4) && 
+					(entityMechS.getPartCount(Part.Gear) >= 5)  && (int)the_base.structure_level <= 3)
+				{
+					entityMechS.adjustPartCount(Part.Plate, -4);
+					entityMechS.adjustPartCount(Part.Gear, -5);
+					the_base.upgradeBase(BaseCategories.Defense, (BaseUpgrade) the_base.structure_level + 1);
+				} 
+			else
+					print ("no good!");
+		}
+		
+		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing + 180 + gui_spacing, gui_spacing  + gui_spacing + 40, 180, 40), "Base Walls 3 plate | 4struts "))
+		{  
+				if(
+					(entityMechS.getPartCount(Part.Plate) >= 3) && 
+					(entityMechS.getPartCount(Part.Strut) >= 4) && (int)the_base.wall_level <= 3)
+				{
+					entityMechS.adjustPartCount(Part.Plate, -3);
+					entityMechS.adjustPartCount(Part.Strut, -4);
+					the_base.upgradeBase(BaseCategories.Walls, (BaseUpgrade) the_base.wall_level + 1);
+				} 
+			else
+					print ("no good!");
+		}
+		
+		
+		
+		
 		
 		
 		
