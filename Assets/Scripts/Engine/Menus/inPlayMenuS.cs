@@ -8,7 +8,7 @@ public class inPlayMenuS : MonoBehaviour {
 	public GUIStyle gui_normal_text;
 	public GUIStyle parts_text;
 	
-	//hp bars
+	//hp/ap bars
 	public GUIStyle ap_bar;
 	public GUIStyle hp_bar;
 	
@@ -25,6 +25,9 @@ public class inPlayMenuS : MonoBehaviour {
 	public GUIStyle health_button_style;
 	public GUIStyle mech_button_style;
 	public GUIStyle transport_button_style;
+	
+	//custom styles for boxes
+	public GUIStyle top_menu_backboard_style;
 	
 	//window size
 	private int screen_size_x;
@@ -54,10 +57,6 @@ public class inPlayMenuS : MonoBehaviour {
 		int button_size_height = screen_size_y/9; 
 		int button_size = button_size_height/2; 
 		 
-		//End Turn Button
-		if(GUI.Button(new Rect(button_x_start*3,(button_y_start/1), (button_size_height *2), (button_size_width/6)), "", end_turn_button_style)) {
-		}
-		
 		
 		//HP/AP bar Button
 		if(GUI.Button(new Rect(button_x_start*4,(button_y_start*5), (button_size_height *2), (button_size_width/19)), "", hp_bar)) {
@@ -66,12 +65,17 @@ public class inPlayMenuS : MonoBehaviour {
 		if(GUI.Button(new Rect(button_x_start*4,(button_y_start*5)+(button_y_start/2), (button_size_height *2), (button_size_width/19)), "", ap_bar)) {
 		}
 		
+		//End Turn Button
+		if(GUI.Button(new Rect(button_x_start*3,((button_y_start/1)), (button_size_height *2), (button_size_width/6)), "", end_turn_button_style)) {
+			gameManagerS.endPlayerTurn();
+		}
+		
 		//add variables here for adjusting backboards
-		GUI.DrawTexture(new Rect((button_x_start*3), ((button_y_start/5)-(button_y_start*8)), (button_size_height *6), (button_size_width*6)), top_menu_backboard, ScaleMode.ScaleToFit, true);
+		GUI.DrawTexture(new Rect(((button_x_start*4)-(button_x_start/5)), ((button_y_start/5)-(button_y_start*8)), (button_size_height *6), (button_size_width*6)), top_menu_backboard, ScaleMode.ScaleToFit, true);
 		GUI.DrawTexture(new Rect(0, (button_y_start/8), (button_size_height *4), (button_size_width*4)), upgrade_backboard, ScaleMode.ScaleToFit, true);
 		GUI.DrawTexture(new Rect((button_x_start *6), (button_y_start/15), (button_size_height *4), (button_size_width*4)), parts_backboard, ScaleMode.ScaleToFit, true);
 		GUI.DrawTexture(new Rect((button_x_start*3), (button_y_start/7), (button_size_height *4), (button_size_width*4)), hp_backboard, ScaleMode.ScaleToFit, true);
-			
+
 		//Part Count Text
 		int t_x_start = screen_size_x - (screen_size_x/6 + screen_size_x/40); 
 		int t_y_end = screen_size_y - screen_size_y/22; 
@@ -89,14 +93,20 @@ public class inPlayMenuS : MonoBehaviour {
 		GUI.Label(new Rect(screen_size_x/2, screen_size_y - screen_size_y/22, (t_size_width), (t_size_width)), mech.getCurrentAP() + "/" + mech.getMaxAP() + "AP",  gui_normal_text);
 		
 		 //Objective  Button
-		 if(GUI.Button(new Rect((button_x_start*4),(button_y_start/28), button_size_height, (button_size_width/5)), "", star_button_style)) {
+		 if(GUI.Button(new Rect((button_x_start*3),(button_y_start/25), button_size_height, (button_size_width/5)), "", star_button_style)) {
+			//pause the game
+		    Time.timeScale = 0;
+		    //show the pause menu
+			script.menu_choice = Menu.Objective;
+		    script.enabled = true;
 		 }
 		 	
 		//Base Button
-		 if(GUI.Button(new Rect((button_x_start/10),(button_y_start*6), ((button_size_height)-(button_size_height/5)), (button_size_width/6)), "", base_button_style)) {
+		 if(GUI.Button(new Rect((button_x_start/10),(button_y_start*5), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", base_button_style)) {
 		    //pause the game
 		    Time.timeScale = 0;
 		    //show the pause menu
+			script.menu_choice = Menu.BaseUpgrade;
 		    script.enabled = true;
 		 }
 		 
@@ -105,6 +115,7 @@ public class inPlayMenuS : MonoBehaviour {
 		    //pause the game
 		    Time.timeScale = 0;
 		    //show the pause menu
+			script.menu_choice = Menu.MechUpgrade;
 		    script.enabled = true;
 		 }
 		 
@@ -113,6 +124,7 @@ public class inPlayMenuS : MonoBehaviour {
 		    //pause the game
 		    Time.timeScale = 0;
 		    //show the pause menu
+			script.menu_choice = Menu.HealthUpgrade;
 		    script.enabled = true;
 		 }
 		 
@@ -121,65 +133,9 @@ public class inPlayMenuS : MonoBehaviour {
 		    //pause the game
 		    Time.timeScale = 0;
 		    //show the pause menu
+			script.menu_choice = Menu.TransportUpgrade;
 		    script.enabled = true;
-		 }
-		
-		
-		
-	 //MOVED GUI BUTTON DISPLAYS TO : UPDATE SCRIPT, it's attached to the camera   
-		
-		//edit here
-//		
-		
-//		if(GUI.Button(new Rect(gui_spacing, gui_spacing, 180, 40), "Aquatic Fins 5gr | 2plt"))
-//		{  
-//			if(
-//				(entityMechS.getPartCount(Part.Plate) >= 2) && 
-//				(entityMechS.getPartCount(Part.Gear) >= 5))
-//			{
-//					entityMechS.adjustPartCount(Part.Plate, -2);
-//					entityMechS.adjustPartCount(Part.Gear, -5);
-//				mech.upgrade_traverse_water = true;
-//					mech.destroySelectionHexes();
-//					mech.allowSelectionHexesDraw();
-//				}  
-//			else
-//					print ("no good!");
-//		}
-//		
-//		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing , gui_spacing, 180, 40), "Climbing Hooks 5gr | 2pst"))
-//		{  
-//			
-//				if(
-//					(entityMechS.getPartCount(Part.Piston) >= 2) && 
-//					(entityMechS.getPartCount(Part.Gear) >= 5))
-//				{
-//					entityMechS.adjustPartCount(Part.Piston, -2);
-//					entityMechS.adjustPartCount(Part.Gear, -5);
-//					mech.upgrade_traverse_mountain = true;
-//					mech.destroySelectionHexes();
-//					mech.allowSelectionHexesDraw();
-//				}  
-//			else
-//					print ("no good!");
-//		}
-//		
-//		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing + 180 + gui_spacing, gui_spacing, 180, 40), "Leg Speed 3pst | 3str"))
-//		{   
-//				if(
-//					(entityMechS.getPartCount(Part.Piston) >= 3) && 
-//					(entityMechS.getPartCount(Part.Strut) >= 3))
-//				{
-//					entityMechS.adjustPartCount(Part.Piston, -3);
-//					entityMechS.adjustPartCount(Part.Strut, -3);
-//					mech.upgrade_traverse_cost = true;
-//					mech.destroySelectionHexes();
-//					mech.allowSelectionHexesDraw();
-//				}  
-//			else
-//					print ("no good!");
-//		}
-	
+		 }	
 	}
 	
 }
