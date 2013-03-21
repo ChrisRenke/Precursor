@@ -193,6 +193,7 @@ public class engineIOS : MonoBehaviour {
 			
 					enginePlayerS.setMech();
 					inPlayMenuS.setMech();
+					UpgradeMenuS.setMech();
 		}
 //		
 //		Component[] meshFilters = GetComponentsInChildren<MeshFilter>();

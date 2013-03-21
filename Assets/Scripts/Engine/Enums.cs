@@ -6,7 +6,7 @@ public enum Hex  	     { Desert, Farmland, Forest, Grass, Hills, Marsh, Mountain
 public enum EntityE      { None, Player, Base, Enemy, Node, NotCheckedYet };
 public enum PlayerStates { Idle, Walking, Scavenging, Attacking, Upgrading };
 public enum Facing       { North, NorthEast, SouthEast, South, SouthWest, NorthWest };
-public enum NodeLevel    { Empty, Sparse, Full  };
+public enum NodeLevel    { Empty, Sparse, Full };
 public enum Node         { Factory, Junkyard, Outpost}
 public enum Turn         { Player, Enemy, Base };
 public enum SelectLevel  { Disabled, Easy, Medium, Hard, Scavenge, Attack, Upgrade, Travel};
@@ -17,6 +17,7 @@ public enum MouseState   { Idle, Over, Click }
 //public enum UpgradeState { Unupgraded, Level1, Level2, Level3}
 //public enum BaseUpgrade  { Structure, Walls, Defense }; 
 public enum BaseUpgrade  { None, Structure1, Structure2, Structure3, Defenses1, Defenses2, Defenses3, AP1, AP2, AP3 }; 
+public enum Menu  {Default , Objective, BaseUpgrade, MechUpgrade, HealthUpgrade, TransportUpgrade}; 
 //Vector3.f
 
 //public struct Orientation{

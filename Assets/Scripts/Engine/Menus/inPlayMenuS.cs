@@ -26,6 +26,9 @@ public class inPlayMenuS : MonoBehaviour {
 	public GUIStyle mech_button_style;
 	public GUIStyle transport_button_style;
 	
+	//custom styles for boxes
+	public GUIStyle top_menu_backboard_style;
+	
 	//window size
 	private int screen_size_x;
 	private int screen_size_y;
@@ -56,10 +59,11 @@ public class inPlayMenuS : MonoBehaviour {
 		 
 		//End Turn Button
 		if(GUI.Button(new Rect(button_x_start*3,((button_y_start/1)), (button_size_height *2), (button_size_width/6)), "", end_turn_button_style)) {
+			gameManagerS.endPlayerTurn();
 		}
 		 	 	 
 		//add variables here for adjusting backboards
-		GUI.DrawTexture(new Rect((button_x_start*2), ((button_y_start/5)-(button_y_start*7)), (button_size_height *6), (button_size_width*6)), top_menu_backboard, ScaleMode.ScaleToFit, true);
+		GUI.DrawTexture(new Rect((button_x_start*2), (button_y_start*5), (button_size_height *6), (button_size_width*6)), top_menu_backboard, ScaleMode.ScaleToFit, true);
 		GUI.DrawTexture(new Rect(0, (button_y_start/6), (button_size_height *4), (button_size_width*4)), upgrade_backboard, ScaleMode.ScaleToFit, true);
 		GUI.DrawTexture(new Rect((button_x_start *6), (button_y_start/8), (button_size_height *4), (button_size_width*4)), parts_backboard, ScaleMode.ScaleToFit, true);
 		GUI.DrawTexture(new Rect((button_x_start*3), (button_y_start/7), (button_size_height *4), (button_size_width*4)), hp_backboard, ScaleMode.ScaleToFit, true);
@@ -78,12 +82,17 @@ public class inPlayMenuS : MonoBehaviour {
 		GUI.Label(new Rect(t_x_start - t_spacing, t_y_end, t_size_width, t_size_height), entityMechS.part_count[Part.Gear].ToString(),  parts_text);
 		GUI.Label(new Rect(t_x_start, t_y_end, t_size_width, t_size_height), entityMechS.part_count[Part.Piston].ToString(),  parts_text);
 			
-		//HP/AP bar text
+		//HP-AP bar text
 		GUI.Label(new Rect(screen_size_x/2, screen_size_y - screen_size_y/9, (t_size_width), (t_size_width)), mech.getCurrentHP() + "/" + mech.getMaxHP() + "HP",  gui_normal_text);
 		GUI.Label(new Rect(screen_size_x/2, screen_size_y - screen_size_y/22, (t_size_width), (t_size_width)), mech.getCurrentAP() + "/" + mech.getMaxAP() + "AP",  gui_normal_text);
 		
 		 //Objective  Button
 		 if(GUI.Button(new Rect((button_x_start*3),(button_y_start/25), button_size_height, (button_size_width/5)), "", star_button_style)) {
+			//pause the game
+		    Time.timeScale = 0;
+		    //show the pause menu
+			script.menu_choice = Menu.Objective;
+		    script.enabled = true;
 		 }
 		 	
 		//Base Button
@@ -91,7 +100,9 @@ public class inPlayMenuS : MonoBehaviour {
 		    //pause the game
 		    Time.timeScale = 0;
 		    //show the pause menu
+			script.menu_choice = Menu.BaseUpgrade;
 		    script.enabled = true;
+			
 		 }
 		 
 		 //Mech Button  
@@ -99,6 +110,7 @@ public class inPlayMenuS : MonoBehaviour {
 		    //pause the game
 		    Time.timeScale = 0;
 		    //show the pause menu
+			script.menu_choice = Menu.MechUpgrade;
 		    script.enabled = true;
 		 }
 		 
@@ -107,6 +119,7 @@ public class inPlayMenuS : MonoBehaviour {
 		    //pause the game
 		    Time.timeScale = 0;
 		    //show the pause menu
+			script.menu_choice = Menu.HealthUpgrade;
 		    script.enabled = true;
 		 }
 		 
@@ -115,64 +128,9 @@ public class inPlayMenuS : MonoBehaviour {
 		    //pause the game
 		    Time.timeScale = 0;
 		    //show the pause menu
+			script.menu_choice = Menu.TransportUpgrade;
 		    script.enabled = true;
 		 }
-		
-		
-		
-	 //MOVED GUI BUTTON DISPLAYS TO : UPDATE SCRIPT, it's attached to the camera   
-		
-		//edit here
-//		
-		
-//		if(GUI.Button(new Rect(gui_spacing, gui_spacing, 180, 40), "Aquatic Fins 5gr | 2plt"))
-//		{  
-//			if(
-//				(entityMechS.getPartCount(Part.Plate) >= 2) && 
-//				(entityMechS.getPartCount(Part.Gear) >= 5))
-//			{
-//					entityMechS.adjustPartCount(Part.Plate, -2);
-//					entityMechS.adjustPartCount(Part.Gear, -5);
-//				mech.upgrade_traverse_water = true;
-//					mech.destroySelectionHexes();
-//					mech.allowSelectionHexesDraw();
-//				}  
-//			else
-//					print ("no good!");
-//		}
-//		
-//		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing , gui_spacing, 180, 40), "Climbing Hooks 5gr | 2pst"))
-//		{  
-//			
-//				if(
-//					(entityMechS.getPartCount(Part.Piston) >= 2) && 
-//					(entityMechS.getPartCount(Part.Gear) >= 5))
-//				{
-//					entityMechS.adjustPartCount(Part.Piston, -2);
-//					entityMechS.adjustPartCount(Part.Gear, -5);
-//					mech.upgrade_traverse_mountain = true;
-//					mech.destroySelectionHexes();
-//					mech.allowSelectionHexesDraw();
-//				}  
-//			else
-//					print ("no good!");
-//		}
-//		
-//		if(GUI.Button(new Rect(gui_spacing + 180 + gui_spacing + 180 + gui_spacing, gui_spacing, 180, 40), "Leg Speed 3pst | 3str"))
-//		{   
-//				if(
-//					(entityMechS.getPartCount(Part.Piston) >= 3) && 
-//					(entityMechS.getPartCount(Part.Strut) >= 3))
-//				{
-//					entityMechS.adjustPartCount(Part.Piston, -3);
-//					entityMechS.adjustPartCount(Part.Strut, -3);
-//					mech.upgrade_traverse_cost = true;
-//					mech.destroySelectionHexes();
-//					mech.allowSelectionHexesDraw();
-//				}  
-//			else
-//					print ("no good!");
-//		}
 	
 	}
 	
