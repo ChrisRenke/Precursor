@@ -145,7 +145,7 @@ public class UpgradeMenuS : MonoBehaviour {
 		
 	}
 	
-		//see if an upgrade can be applied
+	//see if an upgrade can be applied
 	private void canApplyUpgrade(int button_style_number){
 		//find the button style number and then menu that was chosen and see if upgrade can be applied
 		switch(button_style_number){
@@ -295,7 +295,9 @@ public class UpgradeMenuS : MonoBehaviour {
 								mech.upgrade_traverse_water = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
-							}  
+							}else
+								print ("no good!");
+				
 							break;
 							
 						case Menu.HealthUpgrade:

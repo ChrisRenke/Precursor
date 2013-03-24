@@ -18,6 +18,12 @@ public class inPlayMenuS : MonoBehaviour {
 	public Texture top_menu_backboard;
 	public Texture upgrade_backboard;	
 	
+	//backboard styles
+	public GUIStyle hp_backboard_style;
+	public GUIStyle parts_backboard_style;
+	public GUIStyle top_menu_backboard_style;
+	public GUIStyle upgrade_backboard_style;
+	
 	//custom styles for buttons
 	public GUIStyle end_turn_button_style;
 	public GUIStyle star_button_style;
@@ -25,9 +31,6 @@ public class inPlayMenuS : MonoBehaviour {
 	public GUIStyle health_button_style;
 	public GUIStyle mech_button_style;
 	public GUIStyle transport_button_style;
-	
-	//custom styles for boxes
-	public GUIStyle top_menu_backboard_style;
 	
 	//window size
 	private int screen_size_x;
@@ -63,13 +66,30 @@ public class inPlayMenuS : MonoBehaviour {
 		}
 		 	 	 
 		//add variables here for adjusting backboards
-		GUI.DrawTexture(new Rect((button_x_start*2), (button_y_start*5), (button_size_height *6), (button_size_width*6)), top_menu_backboard, ScaleMode.ScaleToFit, true);
+		GUI.DrawTexture(new Rect(screen_size_x/4, screen_size_y/9, button_size_width, button_size_height), top_menu_backboard, ScaleMode.ScaleToFit, true);
+		//if(GUI.Button(new Rect(screen_size_x/4, 0, button_size_width, button_size_height), "" ,top_menu_backboard_style)) {
+	    //}
+				
 		GUI.DrawTexture(new Rect(0, (button_y_start/6), (button_size_height *4), (button_size_width*4)), upgrade_backboard, ScaleMode.ScaleToFit, true);
+		//if(GUI.Button(new Rect(screen_size_x/4, 0, button_size_width, button_size_height), "" ,top_menu_backboard_style)) {
+	    //}
+		
 		GUI.DrawTexture(new Rect((button_x_start *6), (button_y_start/8), (button_size_height *4), (button_size_width*4)), parts_backboard, ScaleMode.ScaleToFit, true);
+		//if(GUI.Button(new Rect(screen_size_x/4, 0, button_size_width, button_size_height), "" ,top_menu_backboard_style)) {
+	    //}
+		
 		GUI.DrawTexture(new Rect((button_x_start*3), (button_y_start/7), (button_size_height *4), (button_size_width*4)), hp_backboard, ScaleMode.ScaleToFit, true);
+		//if(GUI.Button(new Rect(screen_size_x/4, 0, button_size_width, button_size_height), "" ,top_menu_backboard_style)) {
+	    //}
+		
 		GUI.DrawTexture(new Rect((button_x_start*3), (button_y_start/8), (button_size_height *2), (button_size_width*4)), hp_bar, ScaleMode.ScaleToFit, true);
+		//if(GUI.Button(new Rect(screen_size_x/4, 0, button_size_width, button_size_height), "" ,top_menu_backboard_style)) {
+	    //}
+		
 		GUI.DrawTexture(new Rect((button_x_start*3), (button_y_start/2), (button_size_height *2), (button_size_width*4)), ap_bar, ScaleMode.ScaleToFit, true);
-			
+		//if(GUI.Button(new Rect(screen_size_x/4, 0, button_size_width, button_size_height), "" ,top_menu_backboard_style)) {
+	    //}
+		
 		//Part Count Text
 		int t_x_start = screen_size_x - (screen_size_x/6 + screen_size_x/40); 
 		int t_y_end = screen_size_y - screen_size_y/22; 
