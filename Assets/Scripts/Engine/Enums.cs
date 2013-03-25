@@ -17,7 +17,7 @@ public enum MouseState   { Idle, Over, Click }
 //public enum UpgradeState { Unupgraded, Level1, Level2, Level3}
 //public enum BaseUpgrade  { Structure, Walls, Defense }; 
 public enum BaseUpgrade  { None, Structure1, Structure2, Structure3, Defenses1, Defenses2, Defenses3, AP1, AP2, AP3 }; 
-public enum Menu  {Default , Objective, BaseUpgrade, MechUpgrade, HealthUpgrade, TransportUpgrade}; 
+public enum Menu  {Default , Objective, BaseUpgrade1, BaseUpgrade2, BaseUpgrade3, MechUpgrade1, MechUpgrade2, MechUpgrade3, HealthUpgrade}; 
 //Vector3.f
 
 //public struct Orientation{

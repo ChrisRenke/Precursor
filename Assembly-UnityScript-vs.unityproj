@@ -44,6 +44,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Engine\Menus\UpdateScript.js" />
      <Compile Include="Assets\Vectrosity\Scripts\Curve\CurvePointControl.js" />
      <Compile Include="Assets\Vectrosity\Scripts\Curve\DrawCurve.js" />
      <Compile Include="Assets\Vectrosity\Scripts\Curve\SimpleCurve.js" />
