@@ -46,6 +46,7 @@ public class UpgradeMenuS : MonoBehaviour {
 	public GUIStyle check_mark_style;
 	//default button style, blank backboard
 	public GUIStyle default_button_style;
+	public GUIStyle health_menu_style;
 
 	//Window size
 	private int screen_size_x;
@@ -63,6 +64,9 @@ public class UpgradeMenuS : MonoBehaviour {
 	private int[,] parts_count_for_wall_upgrades = new int[3,4] 	{ {2,0,0,1}, {4,0,0,2}, {4,0,0,3} }; //Row 0 = wall upgrade 1, Row 1 = wall upgrade 2, Row 2 = wall upgrade 3
 	private int[,] parts_count_for_struc_upgrades = new int[3,4] 	{ {1,1,1,1}, {2,2,2,2}, {4,4,4,4} }; //Row 0 = structure upgrade 1, Row 1 = structure upgrade 2, Row 2 = structure upgrade 3
 	private int[,] parts_count_for_weapon_upgrades = new int[3,4] 	{ {2,0,0,3}, {2,0,2,3}, {3,1,3,3} }; //Row 0 = weapon upgrade 1, Row 1 = weapon upgrade 2, Row 2 = weapon upgrade 3
+	
+	private bool [,] show_check_boxes_mech_menu = new bool[3,3] {{false, false, false}, {false, false, false}, {false, false, false}}; //Row 0 = mobile_upgrades/Row 2 = gun_upgrades/ Row 3 = other_upgrades and each column corresponds to 3 buttons on screen menu
+	private bool [,] show_check_boxes_base_menu = new bool[3,3] {{false, false, false}, {false, false, false}, {false, false, false}}; //Row 0 = wall upgrades/ row 2 = struc upgrades/ row 3 = weapon upgrades
 	
 	private static entityMechS mech;
 
@@ -210,31 +214,30 @@ public class UpgradeMenuS : MonoBehaviour {
 
 	    //Upgrade Menu buttons
 	    int label_x_start  = window_size_width/2; 
-	    int button_x_start  = window_size_width/9; 
-	    int button_y_start  = window_size_height/4 + window_size_height/15; 
-		int button_size_width  = window_size_width/6; 
-	    int button_size_height  = window_size_height/8; 
-	    int button_spacing  = button_size_height/2; 
+	    int button_x_start  = window_size_width/9 + window_size_x/26; 
+	    int button_y_start  = window_size_height/4 + window_size_height/36; 
+		int button_size_width = window_size_width/6; 
+	    int button_size_height = window_size_height/6; 
+	    int button_spacing = button_size_height/4 - button_size_height/30; 
 		
 	    //upgrade button 0
 	    if(GUI.Button(new Rect(button_x_start, button_y_start, button_size_width, button_size_height), "" ,button_one_style)) {
 			canApplyUpgrade(0);
 	    }
 
-
 	    //upgrade button 1
 	    if(GUI.Button(new Rect(button_x_start, button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height), "", button_two_style)) {
 	    	canApplyUpgrade(1);
 	    }
 
-
 	    //upgrade button 2
 	    if(GUI.Button(new Rect(button_x_start, button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "", button_three_style)) {
 	    	canApplyUpgrade(2);
 	    }
+		
+		showCheckBoxes(button_x_start + button_x_start/4, button_y_start, button_size_width/2, button_size_height, button_spacing);
 
-
-	    //Logo Pictures to show which upgrade has occured, 3 dots or something that will be highlighted when upgrade has ben applied
+		//Logo Pictures to show which upgrade has occured, 3 dots or something that will be highlighted when upgrade has ben applied
 	    GUI.Label(new Rect(label_x_start, button_y_start, button_size_width, button_size_height), "Description 1");
 	    GUI.Label(new Rect(label_x_start, button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height), "Description 2");
 	    GUI.Label(new Rect(label_x_start, button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "Description 3");
@@ -243,6 +246,64 @@ public class UpgradeMenuS : MonoBehaviour {
 	    //layout end
 	    GUI.EndGroup();
 
+	}
+	
+	//if upgrade has occured show the correct check for that button
+	private void showCheckBoxes(int button_x_start, int button_y_start, int button_size_width, int button_size_height, int button_spacing){
+		bool use_base_check_boxes = false;
+		bool[,] check_box_array;
+		int index = 0;
+		
+		switch(menu_choice){
+			case Menu.BaseUpgrade1:
+				use_base_check_boxes = true;
+				index = 0;
+				break;
+			case Menu.BaseUpgrade2:
+				use_base_check_boxes = true;
+				index = 1;
+				break;
+			case Menu.BaseUpgrade3:
+				use_base_check_boxes = true;
+				index = 2;
+				break;
+			case Menu.MechUpgrade1:
+				index = 0;				
+				break;
+			case Menu.MechUpgrade2:
+				index = 1;				
+				break;
+			case Menu.MechUpgrade3:
+				index = 2;				
+				break;
+			default:
+				break;
+		}
+		
+		if(use_base_check_boxes){
+			check_box_array = show_check_boxes_base_menu;
+		}else{
+			check_box_array = show_check_boxes_mech_menu;
+		}
+		
+		button_x_start = button_x_start + button_size_width*2 - button_size_width/6;
+		button_y_start = button_y_start + button_size_height/6;
+		//base menu 
+		if(check_box_array[index,0] == true){
+			//show check box for upgrade button 
+			GUI.Button(new Rect(button_x_start, button_y_start, button_size_width, button_size_height/2 + button_size_height/4), "" ,check_mark_style);
+		}
+		
+		if(check_box_array[index,1] == true){
+			//show check box for upgrade button
+			GUI.Button(new Rect(button_x_start, button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height/2 + button_size_height/4), "", check_mark_style);
+		}
+		
+		if(check_box_array[index,2] == true){
+			//show check box for upgrade button
+			GUI.Button(new Rect(button_x_start, button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height/2 + button_size_height/4), "", check_mark_style);	
+		}
+		
 	}
 	
 	private void part_labels (int window_size_width, int window_size_height, ref int[,] parts_array){
@@ -334,6 +395,8 @@ public class UpgradeMenuS : MonoBehaviour {
 							//see if we can apply upgrade
 		    				if(part_check_for_base(button_style_number, ref parts_count_for_wall_upgrades, BaseUpgrade.AP1)){
 								//upgrade was successful, TODO: change look of base
+								//show check box for button
+								show_check_boxes_base_menu[0,button_style_number] = true;
 							}else
 								print ("no good!");
 							break;
@@ -342,6 +405,8 @@ public class UpgradeMenuS : MonoBehaviour {
 							//see if we can apply upgrade
 		    				if(part_check_for_base(button_style_number, ref parts_count_for_struc_upgrades, BaseUpgrade.Structure1)){
 								//upgrade was successful, TODO: change look of base
+								//show check box for button
+								show_check_boxes_base_menu[1,button_style_number] = true;
 							}else
 								print ("no good!");
 							break;
@@ -350,6 +415,8 @@ public class UpgradeMenuS : MonoBehaviour {
 							//see if we can apply upgrade
 		    				if(part_check_for_base(button_style_number, ref parts_count_for_weapon_upgrades, BaseUpgrade.Defenses1)){
 								//upgrade was successful, TODO: change look of base
+								//show check box for button
+								show_check_boxes_base_menu[2,button_style_number] = true;
 							}else
 								print ("no good!");
 							break;
@@ -358,6 +425,8 @@ public class UpgradeMenuS : MonoBehaviour {
 						case Menu.MechUpgrade1:
 							//see if we can apply upgrade water
 		    				if(part_check(button_style_number, ref parts_count_for_mobile_upgrades)){
+								//show check box for button
+								show_check_boxes_mech_menu[0,button_style_number] = true;
 								mech.upgrade_traverse_water = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
@@ -368,6 +437,8 @@ public class UpgradeMenuS : MonoBehaviour {
 						case Menu.MechUpgrade2:
 							//see if we can apply upgrade legs
 		    				if(part_check(button_style_number, ref parts_count_for_gun_upgrades)){
+								//show check box for button
+								show_check_boxes_mech_menu[1,button_style_number] = true;
 								mech.upgrade_weapon_range = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
@@ -378,6 +449,8 @@ public class UpgradeMenuS : MonoBehaviour {
 						case Menu.MechUpgrade3:
 							//see if we can apply upgrade legs
 		    				if(part_check(button_style_number, ref parts_count_for_other_upgrades)){
+								//show check box for button
+								show_check_boxes_mech_menu[2,button_style_number] = true;
 								mech.upgrade_armor_1 = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
@@ -399,6 +472,8 @@ public class UpgradeMenuS : MonoBehaviour {
 							//see if we can apply upgrade
 		    				if(part_check_for_base(button_style_number, ref parts_count_for_wall_upgrades, BaseUpgrade.AP2)){
 								//upgrade was successful, TODO: change look of base
+								//show check box for button
+								show_check_boxes_base_menu[0,button_style_number] = true;
 							}else
 								print ("no good!");
 							break;
@@ -407,6 +482,8 @@ public class UpgradeMenuS : MonoBehaviour {
 							//see if we can apply upgrade
 		    				if(part_check_for_base(button_style_number, ref parts_count_for_struc_upgrades, BaseUpgrade.Structure2)){
 								//upgrade was successful, TODO: change look of base
+								//show check box for button
+								show_check_boxes_base_menu[1,button_style_number] = true;
 							}else
 								print ("no good!");
 							break;
@@ -415,6 +492,8 @@ public class UpgradeMenuS : MonoBehaviour {
 							//see if we can apply upgrade
 		    				if(part_check_for_base(button_style_number, ref parts_count_for_weapon_upgrades, BaseUpgrade.Defenses2)){
 								//upgrade was successful, TODO: change look of base
+								//show check box for button
+								show_check_boxes_base_menu[2,button_style_number] = true;
 							}else
 								print ("no good!");
 							break;
@@ -423,6 +502,8 @@ public class UpgradeMenuS : MonoBehaviour {
 						case Menu.MechUpgrade1:
 							//see if we can apply upgrade mountain
 		    				if(part_check(button_style_number, ref parts_count_for_mobile_upgrades)){
+								//show check box for button
+								show_check_boxes_mech_menu[0,button_style_number] = true;
 								mech.upgrade_traverse_mountain = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
@@ -433,6 +514,8 @@ public class UpgradeMenuS : MonoBehaviour {
 						case Menu.MechUpgrade2:
 							//see if we can apply upgrade legs
 		    				if(part_check(button_style_number, ref parts_count_for_gun_upgrades)){
+								//show check box for button
+								show_check_boxes_mech_menu[1,button_style_number] = true;
 								mech.upgrade_weapon_damage = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
@@ -443,6 +526,8 @@ public class UpgradeMenuS : MonoBehaviour {
 						case Menu.MechUpgrade3:
 							//see if we can apply upgrade legs
 		    				if(part_check(button_style_number, ref parts_count_for_other_upgrades)){
+								//show check box for button
+								show_check_boxes_mech_menu[2,button_style_number] = true;
 								mech.upgrade_armor_2 = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
@@ -465,6 +550,8 @@ public class UpgradeMenuS : MonoBehaviour {
 							//see if we can apply upgrade
 		    				if(part_check_for_base(button_style_number, ref parts_count_for_wall_upgrades, BaseUpgrade.AP3)){
 								//upgrade was successful, TODO: change look of base
+								//show check box for button
+								show_check_boxes_base_menu[0,button_style_number] = true;
 							}else
 								print ("no good!");
 							break;
@@ -473,6 +560,8 @@ public class UpgradeMenuS : MonoBehaviour {
 							//see if we can apply upgrade
 		    				if(part_check_for_base(button_style_number, ref parts_count_for_struc_upgrades, BaseUpgrade.Structure3)){
 								//upgrade was successful, TODO: change look of base
+								//show check box for button
+								show_check_boxes_base_menu[1,button_style_number] = true;
 							}else
 								print ("no good!");
 							break;
@@ -481,6 +570,8 @@ public class UpgradeMenuS : MonoBehaviour {
 							//see if we can apply upgrade
 		    				if(part_check_for_base(button_style_number, ref parts_count_for_weapon_upgrades, BaseUpgrade.Defenses3)){
 								//upgrade was successful, TODO: change look of base
+								//show check box for button
+								show_check_boxes_base_menu[2,button_style_number] = true;
 							}else
 								print ("no good!");
 							break;
@@ -489,6 +580,8 @@ public class UpgradeMenuS : MonoBehaviour {
 						case Menu.MechUpgrade1:
 							//see if we can apply upgrade legs
 		    				if(part_check(button_style_number, ref parts_count_for_mobile_upgrades)){
+								//show check box for button
+								show_check_boxes_mech_menu[0,button_style_number] = true;
 								mech.upgrade_traverse_cost = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
@@ -499,6 +592,8 @@ public class UpgradeMenuS : MonoBehaviour {
 						case Menu.MechUpgrade2:
 							//see if we can apply upgrade legs
 		    				if(part_check(button_style_number, ref parts_count_for_gun_upgrades)){
+								show_check_boxes_mech_menu[1,button_style_number] = true;
+								//show check box for button
 								mech.upgrade_weapon_cost = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
@@ -511,6 +606,8 @@ public class UpgradeMenuS : MonoBehaviour {
 						case Menu.MechUpgrade3:
 							//see if we can apply upgrade legs
 		    				if(part_check(button_style_number, ref parts_count_for_other_upgrades)){
+								//show check box for button
+								show_check_boxes_mech_menu[2,button_style_number] = true;
 								mech.upgrade_armor_3 = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
@@ -582,14 +679,14 @@ public class UpgradeMenuS : MonoBehaviour {
 	    GUI.BeginGroup(new Rect(window_size_x, window_size_y, window_size_width, window_size_height));
 		
 		//The Menu background box
-	    GUI.Box(new Rect(0, 0, window_size_width, window_size_height), "");
+	    GUI.Box(new Rect(0, 0, window_size_width, window_size_height), "", health_menu_style);
 		
-		int label_x_start  = window_size_width/6; 
-	    int button_x_start  = window_size_width/11; 
-	    int button_y_start  = window_size_height/4 + window_size_height/15; 
-		int button_size_width  = window_size_width/6; 
-	    int button_size_height  = window_size_height/8; 
-	    int button_spacing  = button_size_height/2; 
+		int label_x_start  = window_size_width/5;
+		int button_x_start  = window_size_width/7 + window_size_width/75; 
+	    int button_y_start  = window_size_height/4 + window_size_height/45; 
+		int button_size_width  = window_size_width/7; 
+	    int button_size_height  = window_size_height/6; 
+	    int button_spacing  = button_size_height/5 + window_size_height/75; 
 		
 	    //Game resume button (close upgrade menu)
 	    if(GUI.Button(new Rect(window_size_width - window_size_width/12, window_size_height/20, window_size_width/20, window_size_height/20), "X", default_button_style)) {
@@ -640,7 +737,7 @@ public class UpgradeMenuS : MonoBehaviour {
 	    GUI.Label(new Rect(label_x_start + (2 * button_spacing) + (2 * button_size_width), button_y_start + (button_size_height), button_size_width, button_size_height), "" + entityMechS.getPartCount(Part.Plate));
 		GUI.Label(new Rect(label_x_start + (3 * button_spacing) + (3 * button_size_width), button_y_start + (button_size_height), button_size_width, button_size_height), "" + entityMechS.getPartCount(Part.Strut));
 		
-		GUI.Label(new Rect(label_x_start + (2 * button_spacing) + (button_size_width), button_y_start + (button_size_height * 2), button_size_width, button_size_height), "Current HP = " + mech.current_hp);
+		GUI.Label(new Rect(label_x_start + (2 * button_spacing) + (button_size_width), button_y_start + (button_size_height * 3), button_size_width, button_size_height), "Current HP = " + mech.current_hp);
 		
 		GUI.EndGroup();
 	}
