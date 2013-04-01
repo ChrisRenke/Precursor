@@ -26,7 +26,7 @@ public class inPlayMenuS : MonoBehaviour {
 	public GUIStyle health_button_style;
 	public GUIStyle mech_button_style;
 	public GUIStyle transport_button_style;
-	public GUIStyle default_button_style;
+	public GUIStyle default_button_style_transport;
 	
 	//transport upgrade cost
 	int ap_cost_transport = 4;
@@ -169,9 +169,9 @@ public class inPlayMenuS : MonoBehaviour {
 				}
 			 }	
 		}
-//		else{
-//			GUI.Button(new Rect((((button_size_width/5)*2) + (button_x_start/2)), ((button_y_start*5) + (screen_size_y/11)), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", default_button_style);
-//		}
+		else{
+			GUI.Button(new Rect((((button_size_width/5)*2) + (button_x_start/2)), ((button_y_start*5) + (screen_size_y/11)), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", default_button_style_transport);
+		}
 		
 		//Objective Button
 		 if(GUI.Button(new Rect((((button_size_width/5)*3) + (button_x_start/2)), ((button_y_start*5) + (screen_size_y/11)), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", star_button_style)) {

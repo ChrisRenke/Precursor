@@ -24,8 +24,8 @@ public class UpgradeMenuS : MonoBehaviour {
 	public GUIStyle gun_upgrade_style3;
 	//mech other styles
 	public GUIStyle goggles_upgrade_style;
-	public GUIStyle other_upgrade_style1;
-	public GUIStyle other_upgrade_style2;
+	public GUIStyle teleport_upgrade_style;
+	public GUIStyle other_upgrade_style;
 	//base wall styles
 	public GUIStyle wall_upgrade_style;
 	public GUIStyle wall_upgrade_style2;
@@ -822,6 +822,7 @@ public class UpgradeMenuS : MonoBehaviour {
 		return false;
 	}
 	
+	//Health Menu
 	private void healthMenu() {
 		GUI.skin = healthMenuSkin;
 		int window_size_x  = screen_size_x /4 - screen_size_x /16; 
@@ -835,12 +836,12 @@ public class UpgradeMenuS : MonoBehaviour {
 		//The Menu background box
 	    GUI.Box(new Rect(0, 0, window_size_width, window_size_height), "");
 		
-		int label_x_start  = window_size_width/6; 
-	    int button_x_start  = window_size_width/11; 
-	    int button_y_start  = window_size_height/4 + window_size_height/15; 
-		int button_size_width  = window_size_width/6; 
-	    int button_size_height  = window_size_height/8; 
-	    int button_spacing  = button_size_height/2; 
+		int label_x_start  = window_size_width/5;
+		int button_x_start  = window_size_width/7 + window_size_width/75; 
+	    int button_y_start  = window_size_height/4 + window_size_height/45; 
+		int button_size_width  = window_size_width/7; 
+	    int button_size_height  = window_size_height/6; 
+	    int button_spacing  = button_size_height/5 + window_size_height/75; 
 		
 	    //Game resume button (close upgrade menu)
 	    if(GUI.Button(new Rect(window_size_width - window_size_width/12, window_size_height/20, window_size_width/20, window_size_height/20), "X", default_button_style)) {
@@ -911,11 +912,23 @@ public class UpgradeMenuS : MonoBehaviour {
 	    GUI.Label(new Rect(label_x_start + (2 * button_spacing) + (2 * button_size_width), button_y_start + (button_size_height), button_size_width, button_size_height), "" + entityMechS.getPartCount(Part.Plate));
 		GUI.Label(new Rect(label_x_start + (3 * button_spacing) + (3 * button_size_width), button_y_start + (button_size_height), button_size_width, button_size_height), "" + entityMechS.getPartCount(Part.Strut));
 		
-		GUI.Label(new Rect(label_x_start + (2 * button_spacing) + (button_size_width), button_y_start + (button_size_height * 2), button_size_width, button_size_height), "Current HP = " + mech.current_hp);
+		GUI.Label(new Rect(label_x_start + (2 * button_spacing) + (button_size_width), button_y_start + (button_size_height * 3), button_size_width * 2, button_size_height), "Current HP = " + mech.current_hp);
 		
+		//hp bar variables
+		int width_denominator = 18;
+		int width_numerator = 5;
+		int denominator_hp = width_denominator * mech.getMaxHP();
+		int multiple_hp = denominator_hp/width_denominator;
+		int numerator_hp = width_numerator * multiple_hp;
+		int difference_hp = mech.getMaxHP() - numerator_hp;
+		
+		//HP bar Button
+		GUI.Button(new Rect(label_x_start + (button_spacing) + (button_size_width) - label_x_start/20,button_y_start + (button_size_height * 3) - button_y_start/6, (((numerator_hp - (mech.getMaxHP() - mech.getCurrentHP() - difference_hp)) * (screen_size_y * width_numerator))/denominator_hp), (screen_size_x/80)), mech.getCurrentHP() + "/" + mech.getMaxHP() + "HP", hp_bar);
+				
 		GUI.EndGroup();
 	}
 	
+	//Objective Menu 
 	private void objectiveMenu() {
 		GUI.skin = objectiveMenuSkin;
 		int window_size_x  = screen_size_x /4 - screen_size_x /16; 
@@ -1032,7 +1045,7 @@ public class UpgradeMenuS : MonoBehaviour {
 			
 				case Menu.MechUpgrade3:
 					//run the upgrade menu script other
-    				theUpgradeMenu(goggles_upgrade_style,other_upgrade_style1,other_upgrade_style2);
+    				theUpgradeMenu(goggles_upgrade_style,teleport_upgrade_style,other_upgrade_style);
 					break;	
 			
 				case Menu.HealthUpgrade:
