@@ -114,7 +114,6 @@ public class entityBaseS : Combatable {
 		
 	}
 	
-	//TODO: delete this method
 	void OnGUI()
 	{
 		//hp bar variables
@@ -127,7 +126,7 @@ public class entityBaseS : Combatable {
 			
 		Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
 		if(show_health_bar){
-			GUI.Button(new Rect((Screen.width/2 - (Screen.width/10)),((Screen.height/6*5) + ((Screen.height/6)/35)), (((numerator_hp - (max_hp - current_hp - difference_hp)) * (width_numerator * Screen.width))/denominator_hp), (Screen.width/80)), current_hp + "/" + max_hp + " HP", enginePlayerS.hp_bar_for_base);
+			GUI.Button(new Rect(((Screen.width/2)),(((Screen.height/6)*5) + (Screen.height/8)), (((numerator_hp - (max_hp - current_hp - difference_hp)) * (width_numerator * Screen.height))/denominator_hp) , (Screen.width/40)), current_hp + "/" + max_hp + " HP", enginePlayerS.hp_bar_for_base);
 		}
 	}
 	
