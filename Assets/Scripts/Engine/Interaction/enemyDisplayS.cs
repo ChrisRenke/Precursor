@@ -91,8 +91,13 @@ public class enemyDisplayS : MonoBehaviour {
 	void setMaterial()
 	{
 	    renderer.material = facing_walks[owner.facing_direction];
-	    renderer.material.SetColor ("_Color", Color.red);
-		
+		if(hexManagerS.getHex(owner.x,owner.z).vision_state == Vision.Live){
+	  	  renderer.material.SetColor ("_Color", Color.red);
+			renderer.enabled = true;
+			
+		}else{
+			renderer.enabled = false;
+		}
 	}
 //	
 //	void OnMouseOver()

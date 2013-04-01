@@ -8,6 +8,10 @@ public class enginePlayerS : MonoBehaviour {
 	public int 									minZoom 	= 25;
 	 
 	public static GUIStyle						hover_text;
+	public static GUIStyle						hp_bar_for_enemy;
+	public static GUIStyle						hp_bar_for_base;
+	public GUIStyle								hp_bar;
+	public GUIStyle								hp_bar_base;
 	public GUIStyle								selection_hover;
 	
 	
@@ -66,6 +70,8 @@ public class enginePlayerS : MonoBehaviour {
 		gui_bold_text_static = gui_bold_text;
 		gui_norm_text_static = gui_norm_text;
 		hover_text 		= selection_hover;
+		hp_bar_for_enemy = hp_bar;
+		hp_bar_for_base = hp_bar_base;
 		action_images = new Dictionary<Action, Texture>();
 		action_images.Add(Action.Repair, icon_repair);
 		action_images.Add(Action.Traverse, icon_traverse);

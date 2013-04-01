@@ -2,16 +2,18 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Engine\Menus\UpgradeMenuS.cs">
     <Files>
-      <File FileName="Assets\Scripts\Engine\Menus\UpgradeMenuS.cs" Line="20" Column="19" />
-      <File FileName="Assets\Scripts\Engine\Menus\inPlayMenuS.cs" Line="144" Column="42" />
-      <File FileName="Assets\Scripts\Engine\Managers\gameManagerS.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Engine\Enums.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Engine\Menus\popUpMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Engine\Menus\UpgradeMenuS.cs" Line="826" Column="31" />
+      <File FileName="Assets\Scripts\Engine\Menus\inPlayMenuS.cs" Line="173" Column="40" />
+      <File FileName="Assets\Scripts\Engine\Managers\gameManagerS.cs" Line="7" Column="16" />
+      <File FileName="Assets\Scripts\Engine\Enums.cs" Line="19" Column="3" />
+      <File FileName="Assets\Scripts\Engine\Entity\entityEnemyS.cs" Line="31" Column="43" />
+      <File FileName="Assets\Scripts\Engine\Entity\entityBaseS.cs" Line="116" Column="28" />
+      <File FileName="Assets\Scripts\Engine\Entity\entityMechS.cs" Line="110" Column="8" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Menus\UpgradeMenuS.cs" line="702" />
+      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Entity\entityMechS.cs" line="109" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
