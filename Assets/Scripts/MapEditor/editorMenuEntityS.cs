@@ -20,27 +20,24 @@ public class editorMenuEntityS : MonoBehaviour {
 			
 			GameObject new_entity = (GameObject) Instantiate(entities[i], new Vector3(x, 5 + (.01F * i) + .01F, z), Quaternion.identity);	
 			
-			editorEntityS new_entity_s = new_entity.AddComponent<editorEntityS>();
-			new_entity_s.menu_item = true;
-			new_entity_s.menu_item_num = i; 
+			entity_core new_entity_s = new_entity.GetComponent<entity_core>();
+			new_entity_s.menu_item = true; 
 			switch(i){
+			case 0:
+			new_entity_s.ent_type = editor_entity.Town; break;
 			case 1:
-			new_entity_s.entity_type = EntityE.Base; break;
+			new_entity_s.ent_type = editor_entity.Mech;break;
 			case 2:
-			new_entity_s.entity_type = EntityE.Player;break;
+			new_entity_s.ent_type = editor_entity.Factory;break;
 			case 3:
-			new_entity_s.entity_type = EntityE.Node;break;
+			new_entity_s.ent_type = editor_entity.Junkyard;break;
 			case 4:
-			new_entity_s.entity_type = EntityE.Node;break;
+			new_entity_s.ent_type = editor_entity.Outpost;break;
 			case 5:
-			new_entity_s.entity_type = EntityE.Node;break;
+			new_entity_s.ent_type = editor_entity.Enemy;break;
 			case 6:
-			new_entity_s.entity_type = EntityE.Enemy;break;
-			}
-				
-				
-			
-			
+			new_entity_s.ent_type = editor_entity.Spawn;break;
+			} 
 			new_entity.transform.parent = transform;
 		}
 	}

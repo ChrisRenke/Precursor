@@ -7,55 +7,57 @@ using System.IO;
 
 public class editorEntityManagerS : MonoBehaviour {
 	
-	public static Dictionary<int, Dictionary<int, EntityData>> entity_db = new Dictionary<int, Dictionary<int, EntityData>>();  
-	 
+	public static Dictionary<int, Dictionary<int, GameObject>>	  entity_db  = new Dictionary<int, Dictionary<int, GameObject>>();  
+	public static Dictionary<editor_entity, GameObject>    	entity_dict  = new Dictionary<editor_entity, GameObject>(); 
 	  
 	public GameObject  	player_entity;
 	public GameObject  	enemy_entity;
+	public GameObject  	spawn_entity;
 	public GameObject  	outpost_entity;
 	public GameObject  	junkyard_entity; 
 	public GameObject  	factory_entity; 
 	public GameObject  	base_entity; 
 	
-	public static Dictionary<EntityE, GameObject> entity_dict = new Dictionary<EntityE, GameObject>();
-	public static Dictionary<Node, GameObject> node_dict	  = new Dictionary<Node, GameObject>();
+	
+	//enemy
+	public int       enemy_current_hp = 15;
+	public int 	     enemy_max_hp     = 15;
+	public int       enemy_spawner_owner_id = 0;
+	public bool 	 enemy_know_mech_location = false;
+	public bool	 	 enemy_know_base_location = true;
+	
+	//town
+	public int         town_current_hp = 100;
+	public int 	       town_max_hp = 100;
+	public BaseUpgrade town_structure_level = BaseUpgrade.Level0;
+	public BaseUpgrade town_wall_level      = BaseUpgrade.Level0;
+	public BaseUpgrade town_defense_level   = BaseUpgrade.Level0;
+	
+	//spawn
+	public int  spawner_max_enemies_from_this_spawn = 3;
+	public int  spawner_id_number = 0;
+	public bool spawned_enemies_know_mech_location = false;
+	public bool spawned_enemies_know_base_location = true;
+	
+	//node
+	public NodeLevel node_level = NodeLevel.Full; 
+	
+	//mech 
+	public int      mech_current_hp  = 30;
+	public int 	    mech_max_hp 	 = 30; 
 	
 	
-	
-	
-	//player stuff
-	public int     	   mech_starting_health_percentage = 100;
-	
-	//base stuff
-	public int     	   base_starting_health_percentage = 100;
-	
-	//node stuff
-	public int     	   node_starting_level = 2;  //0 empty, 1 sparse, 2 full	
-	private string     node_label;
-		
-	//enemy stuff
-	public bool 	   enemy_knows_mech_loc = false;
-	public string	   enemy_knows_mech_loc_str_t = "Does NOT know MECH location";
-	public string	   enemy_knows_mech_loc_str_f = "Knows MECH location";
-	private string	   enemy_knows_mech_loc_str;
-	public bool 	   enemy_knows_base_loc = false;
-	public string	   enemy_knows_base_loc_str_t = "Does NOT know BASE location";
-	public string	   enemy_knows_base_loc_str_f = "Knows BASE location";
-	private string	   enemy_knows_base_loc_str;
 	
 	
 	// Use this for initialization
 	void Start () { 
-		entity_dict.Add(EntityE.Player, player_entity);
-		entity_dict.Add(EntityE.Enemy, enemy_entity);
-		entity_dict.Add(EntityE.Base, base_entity); 
-		
-		node_dict.Add(Node.Outpost, outpost_entity);
-		node_dict.Add(Node.Junkyard, junkyard_entity); 
-		node_dict.Add(Node.Factory, factory_entity); 
-		
-		enemy_knows_mech_loc_str = enemy_knows_mech_loc_str_f;
-		enemy_knows_base_loc_str = enemy_knows_base_loc_str_f;
+		entity_dict.Add(editor_entity.Mech, 	player_entity);
+		entity_dict.Add(editor_entity.Town, 	base_entity); 
+		entity_dict.Add(editor_entity.Enemy, 	enemy_entity);
+		entity_dict.Add(editor_entity.Spawn, 	spawn_entity);  
+		entity_dict.Add(editor_entity.Factory, 	factory_entity);
+		entity_dict.Add(editor_entity.Outpost, 	outpost_entity);
+		entity_dict.Add(editor_entity.Junkyard, junkyard_entity);  
 	}
 	
 	// Update is called once per frame
@@ -80,68 +82,114 @@ public class editorEntityManagerS : MonoBehaviour {
 		return false;
 	}
 	
-  	private GameObject InstantiateEntity(Vector3 pos, EntityE ent_type, int x, int z)
+  	private GameObject InstantiateEntity(Vector3 pos, editor_entity ent_type, int x, int z)
 	{ 
 		GameObject new_ent  = (GameObject) Instantiate(entity_dict[ent_type], pos, Quaternion.identity);
-		editorEntityS ent_s = new_ent.GetComponent<editorEntityS>(); 
 		
-		ent_s.x_coord = x;
-		ent_s.z_coord = z;
-		ent_s.name = "entity("+ent_s.x_coord +"," + ent_s.z_coord+")";
-		ent_s.entity_type = ent_type;
+		switch(ent_type){
+			
+		case editor_entity.Enemy:{
+			var script = new_ent.GetComponent<info_enemy>();
+			script.x = x;
+			script.z = z;
+			script.name = "entity("+ x +"," + z +")";
+			script.ent_type = ent_type;
+			script.current_hp = enemy_current_hp;
+			script.max_hp = enemy_max_hp;
+			script.spawner_owner_id   = enemy_spawner_owner_id;
+			script.know_mech_location = enemy_know_mech_location;
+			script.know_base_location = enemy_know_base_location;
+		} break;
+		case editor_entity.Spawn:{
+			var script = new_ent.GetComponent<info_spawn>();
+			script.max_enemies_from_this_spawn = spawner_max_enemies_from_this_spawn;
+			script.spawner_id_number = spawner_id_number;
+			script.spawned_enemies_know_mech_location = spawned_enemies_know_mech_location;
+			script.spawned_enemies_know_base_location = spawned_enemies_know_base_location; 
+			script.x = x;
+			script.z = z;
+			script.name = "entity("+ x +"," + z +")";
+			script.ent_type = ent_type;
+		}  break;
+		case editor_entity.Mech:{
+			var script = new_ent.GetComponent<info_mech>();
+			script.x = x;
+			script.z = z;
+			script.name = "entity("+ x +"," + z +")";
+			script.ent_type = ent_type;
+			script.current_hp =  mech_current_hp;
+			script.max_hp = 	 mech_max_hp; 		
+		} break;
+		case editor_entity.Town:{
+			var script = new_ent.GetComponent<info_town>();
+			script.x = x;
+			script.z = z;
+			script.name = "entity("+ x +"," + z +")";
+			script.ent_type = ent_type;
+			script.current_hp = town_current_hp;
+			script.max_hp     = town_max_hp;
+			script.structure_level = town_structure_level;
+			script.wall_level = town_wall_level;
+			script.defense_level = town_defense_level; 
+		} break;
+			
+		case editor_entity.Junkyard:{
+			var script = new_ent.GetComponent<info_node>();
+			script.x = x;
+			script.z = z;
+			script.name = "entity("+ x +"," + z +")";
+			script.ent_type = ent_type;
+			script.node_level = node_level;
+		}break;
+		case editor_entity.Factory:{
+			var script = new_ent.GetComponent<info_node>();
+			script.x = x;
+			script.z = z;
+			script.name = "entity("+ x +"," + z +")";
+			script.ent_type = ent_type;
+			script.node_level = node_level;
+		}break;
+		case editor_entity.Outpost:{
+			var script = new_ent.GetComponent<info_node>();
+			script.x = x;
+			script.z = z;
+			script.name = "entity("+ x +"," + z +")";
+			script.ent_type = ent_type;
+			script.node_level = node_level;
+		}break;
+		}
 		
-		return new_ent;
+		return new_ent; 
 	}
 	
-	public void deleteEntity(editorEntityS entity_s)
+	
+	public void deleteEntity(GameObject entity_to_delete)
 	{
-		entity_db[entity_s.x_coord].Remove(entity_s.z_coord);
-		if(entity_db[entity_s.x_coord].Keys.Count == 0)
+		
+		var script = entity_to_delete.GetComponent<entity_core>();
+		entity_db[script.x].Remove(script.z);
+		if(entity_db[script.x].Keys.Count == 0)
 		{
 			print("removing sub level");
-			entity_db.Remove(entity_s.x_coord);
+			entity_db.Remove(script.x);
 		}
 		
-		Destroy(entity_s.gameObject);
+		Destroy(entity_to_delete);
 	}
 	
 	
-	public void setEntityProperties(editorEntityS ent_s)
-	{
-		if(ent_s.entity_type == EntityE.Base)
-		{
-			ent_s.base_starting_health_percentage = base_starting_health_percentage;
-		}
-		else if(ent_s.entity_type == EntityE.Player)
-		{
-			ent_s.mech_starting_health_percentage = mech_starting_health_percentage;
-		}
-		else if(ent_s.entity_type == EntityE.Node)
-		{
-			ent_s.node_starting_level = node_starting_level;
-		}
-		else if(ent_s.entity_type == EntityE.Enemy)
-		{
-			ent_s.enemy_knows_base_loc = enemy_knows_base_loc;
-			ent_s.enemy_knows_mech_loc = enemy_knows_mech_loc;
-		} 
-	}
-	
-	public void LoadEntity(EntityE ent_type, int x, int z)
+	public void LoadEntity(editor_entity ent_type, int x, int z)
 	{
 		Vector3 converted = editorUserS.CoordsGameTo3D(x, z);
 		Vector3 adjusted  = new Vector3(converted.x, converted.y + 1F, converted.z + .5F);
 		AddEntity(adjusted, ent_type, x, z);
-		
 	}
 	
 	
-	public GameObject AddEntity(Vector3 pos, EntityE ent_type, int x, int z)
+	public GameObject AddEntity(Vector3 pos, editor_entity ent_type, int x, int z)
 	{
 	
-		GameObject new_ent;
-		editorEntityS new_ent_s;
-		
+		GameObject new_ent;  
 		print ("ENTITY created @ " + x + ", " + z);
 		
 		if(entity_db.ContainsKey(x))
@@ -149,17 +197,14 @@ public class editorEntityManagerS : MonoBehaviour {
 			if(entity_db[x].ContainsKey(z))
 			{
 				
+					var script = entity_db[x][z].GetComponent<entity_core>();
 					//if there is already an entity there and we want to overwrite, overwrite it 
-					if(entity_db[x][z].getEntityType() != editorUserS.last_created_entity_type)
+					if(script.ent_type != editorUserS.last_created_entity_type)
 					{
-						new_ent   = InstantiateEntity(pos, ent_type, x, z);
-						new_ent_s = new_ent.GetComponent<editorEntityS>();
-						setEntityProperties(new_ent_s);
+						new_ent   = InstantiateEntity(pos, ent_type, x, z); 
 						
 						//now delete what is already there
-						Destroy(entity_db[x][z].getEntity());
-						entity_db[x][z]= new EntityData(new_ent_s.name, new_ent, ent_type, x, z);  
-						print ("--replacing : " + entity_db[x][z].getEntityType().ToString() + " with " + ent_type);
+						Destroy(entity_db[x][z]);  
 					}
 					else
 					{
@@ -171,11 +216,9 @@ public class editorEntityManagerS : MonoBehaviour {
 				//we've just gotta make a new z entry since nothing has ever been made in this z spot
 				print ("--nothing ever in that z.");  
 				
-				new_ent = InstantiateEntity(pos, ent_type, x, z);
-				new_ent_s = new_ent.GetComponent<editorEntityS>();
-				setEntityProperties(new_ent_s);
+				new_ent = InstantiateEntity(pos, ent_type, x, z); 
 				
-				entity_db[x].Add(z,  new EntityData(new_ent_s.name, new_ent, ent_type, x, z));   
+				entity_db[x].Add(z,  new_ent);   
 				
 			}
 		}
@@ -183,108 +226,88 @@ public class editorEntityManagerS : MonoBehaviour {
 		{
 			//nothing has ever been made in this x row, so make the z dict and the z entry
 			print ("--nothing ever in that x.");  
-			new_ent = InstantiateEntity(pos, ent_type, x, z);
-			new_ent_s = new_ent.GetComponent<editorEntityS>();
-			setEntityProperties(new_ent_s);
+			new_ent = InstantiateEntity(pos, ent_type, x, z); 
 			
-			entity_db.Add(x, new Dictionary<int, EntityData>());
-			entity_db[x].Add(z,  new EntityData(new_ent_s.name, new_ent, ent_type, x, z));  
+			entity_db.Add(x, new Dictionary<int, GameObject>());
+			entity_db[x].Add(z,  new_ent);  
 			  
 		}
 		
-		return entity_db[x][z].getEntity();
-		 
-	}
-	
-	
-	public class EntityData {
-		
-		public int x_coord;
-		public int z_coord;
-		public string name;
-		public EntityE entity_type;   
-		public GameObject occupier;
-		
-		public EntityData(string _name, 
-						GameObject _occupier,
-						EntityE   _entity_type,
-						int    _x_coord,
-						int    _z_coord)
-		{
-			name 		= _name;
-			x_coord     = _x_coord;
-			z_coord     = _z_coord; 
-			occupier    = _occupier;
-			entity_type = _entity_type;
-		} 
-		
-		public EntityE getEntityType()
-		{
-			return entity_type;
-		}
-		
-		public GameObject getEntity()
-		{
-			return occupier;
-		}
-		
-	}	
+		return entity_db[x][z];
+	} 
+	 
 	
 	void OnGUI()
 	{
 		if(editorUserS.entity_mode)
 		{
 			//draw Base config options
-			if(editorUserS.last_created_entity_type == EntityE.Base)
+			if(editorUserS.last_created_entity_type == editor_entity.Town)
 			{
-				base_starting_health_percentage = (int)GUI.HorizontalSlider(new Rect( 30, 70, 210, 30), base_starting_health_percentage, (float) 0, (float) 100);	
-				GUI.Label(new Rect(250, 65, 150, 30),  base_starting_health_percentage + "% starting hp" );
+				town_current_hp = (int)GUI.HorizontalSlider(new Rect( 30, 70, 210, 30), town_current_hp, (float) 0, (float) 200);	
+				GUI.Label(new Rect(250, 65, 150, 30),  "CurrentHP: " + town_current_hp);
+				
+				town_max_hp = (int)GUI.HorizontalSlider(new Rect( 30, 110, 210, 30), town_max_hp, (float) 0, (float) 200);	
+				GUI.Label(new Rect(250, 105, 150, 30),  "MaxHP: " +  town_max_hp  );
+				
+				town_structure_level = (BaseUpgrade)GUI.HorizontalSlider(new Rect( 30, 150, 210, 30), (int)town_structure_level, (float) 0, (float) 3                                                                                                                                                                                                                                                                                                     );	
+				GUI.Label(new Rect(250, 145, 150, 30), "Structure: " + town_structure_level);
+				
+				town_wall_level = (BaseUpgrade)GUI.HorizontalSlider(new Rect( 30, 190, 210, 30), (int)town_wall_level, (float) 0, (float) 3);	
+				GUI.Label(new Rect(250, 185, 150, 30), "Walls: " + town_wall_level);
+				
+				town_defense_level = (BaseUpgrade)GUI.HorizontalSlider(new Rect( 30, 230, 210, 30), (int)town_defense_level, (float) 0, (float) 3);	
+				GUI.Label(new Rect(250, 225, 150, 30), "Defense: " + town_defense_level);
+				
 			}
 			else
 			//draw Player config options
-			if(editorUserS.last_created_entity_type == EntityE.Player)
+			if(editorUserS.last_created_entity_type == editor_entity.Mech)
 			{ 
-				mech_starting_health_percentage = (int)GUI.HorizontalSlider(new Rect( 30, 70, 210, 30), mech_starting_health_percentage, (float) 0, (float) 100);	
-				GUI.Label(new Rect(250, 65, 150, 30),  mech_starting_health_percentage + "% starting hp");
+				mech_current_hp = (int)GUI.HorizontalSlider(new Rect( 30, 70, 210, 30), mech_current_hp, (float) 0, (float) 200);	
+				GUI.Label(new Rect(250, 65, 150, 30),  "CurrentHP: " + mech_current_hp );
+				
+				mech_max_hp = (int)GUI.HorizontalSlider(new Rect( 30, 110, 210, 30), mech_max_hp, (float) 0, (float) 200);	
+				GUI.Label(new Rect(250, 105, 150, 30), "MaxHP: " + mech_max_hp  );
+				
 			}
 			else
 			//draw node config options
-			if(editorUserS.last_created_entity_type == EntityE.Node)
+			if(editorUserS.last_created_entity_type == editor_entity.Factory || editorUserS.last_created_entity_type == editor_entity.Junkyard || editorUserS.last_created_entity_type == editor_entity.Outpost)
 			{
-				node_starting_level = (int)GUI.HorizontalSlider(new Rect( 30, 70, 210, 30), node_starting_level, (float) 0, (float) 2);	
-				if(node_starting_level == 0)
-					node_label = "Empty";
-				else if(node_starting_level == 1)
-					node_label = "Sparse";
-				else
-					node_label = "Full";
-				GUI.Label(new Rect(250, 65, 100, 30),  node_label);
+				node_level = (NodeLevel)GUI.HorizontalSlider(new Rect( 30, 70, 210, 30), (int)node_level, (float) 0, (float) 2);	 
+				GUI.Label(new Rect(250, 65, 100, 30),  node_level.ToString());
 			}
 			else
 			//draw enemy config options
-			if(editorUserS.last_created_entity_type == EntityE.Enemy)
-			{
-				if(GUI.Button(new Rect( 30, 70, 210, 30), enemy_knows_base_loc_str))
-				{
-					enemy_knows_base_loc  = !enemy_knows_base_loc;
-					
-					if(enemy_knows_base_loc)
-						enemy_knows_base_loc_str = enemy_knows_base_loc_str_t;
-					else
-						enemy_knows_base_loc_str = enemy_knows_base_loc_str_f;
-				} 
+			if(editorUserS.last_created_entity_type == editor_entity.Enemy)
+			{ 
+				if(GUI.Button(new Rect( 30, 70, 210, 30), "Base: " + enemy_know_base_location))
+					enemy_know_base_location  = !enemy_know_base_location; 
 				
-				if(GUI.Button(new Rect( 30, 110, 210, 30), enemy_knows_mech_loc_str))
-				{
-					enemy_knows_mech_loc  = !enemy_knows_mech_loc;
-					
-					if(enemy_knows_mech_loc)
-						enemy_knows_mech_loc_str = enemy_knows_mech_loc_str_t;
-					else
-						enemy_knows_mech_loc_str = enemy_knows_mech_loc_str_f;
-				} 
+				if(GUI.Button(new Rect( 30, 110, 210, 30), "Mech: " + enemy_know_mech_location))
+					enemy_know_mech_location  = !enemy_know_mech_location; 
+				
+				enemy_spawner_owner_id = (int) GUI.HorizontalSlider(new Rect( 30, 150, 210, 30), enemy_spawner_owner_id, (float) 0, (float) 20);
+				GUI.Label(new Rect(250, 150, 100, 60), "Source SpawnerID: " + enemy_spawner_owner_id );
 			} 
-		}
+			else
+			//draw spawn config options
+			if(editorUserS.last_created_entity_type == editor_entity.Spawn)
+			{ 
+				if(GUI.Button(new Rect( 30, 70, 210, 30), "Base: " + spawned_enemies_know_base_location))
+					spawned_enemies_know_base_location  = !spawned_enemies_know_base_location; 
+				
+				if(GUI.Button(new Rect( 30, 110, 210, 30), "Mech: " + spawned_enemies_know_mech_location))
+					spawned_enemies_know_mech_location  = !spawned_enemies_know_mech_location; 
+				
+				spawner_id_number = (int) GUI.HorizontalSlider(new Rect( 30, 150, 210, 30), spawner_id_number, (float) 0, (float) 20);
+				GUI.Label(new Rect(250, 150, 100, 30),  "SpawnerID: " + spawner_id_number);
+				
+				spawner_max_enemies_from_this_spawn = (int) GUI.HorizontalSlider(new Rect( 30, 190, 210, 30), spawner_max_enemies_from_this_spawn, (float) 0, (float) 20);
+				GUI.Label(new Rect(250, 190, 100, 60), "Simultaneous Enemies: " + spawner_max_enemies_from_this_spawn);
+			} 
+		} 
 			 
 		
 	}

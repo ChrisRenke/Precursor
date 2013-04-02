@@ -44,6 +44,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Engine\Menus\UpdateScript.js" />
+     <Compile Include="Assets\Scripts\Engine\Menus\UpgradeMenuS.js" />
      <Compile Include="Assets\Vectrosity\Scripts\Curve\CurvePointControl.js" />
      <Compile Include="Assets\Vectrosity\Scripts\Curve\DrawCurve.js" />
      <Compile Include="Assets\Vectrosity\Scripts\Curve\SimpleCurve.js" />
@@ -93,6 +95,9 @@
      <None Include="Assets\Vectrosity\Shaders\DepthMask.shader" />
      <None Include="Assets\Materials\texture.shader" />
      <None Include="Assets\Vectrosity\Shaders\SolidColor.shader" />
+ <Reference Include="Library\ScriptAssemblies\Assembly-UnityScript-firstpass">
+ <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">

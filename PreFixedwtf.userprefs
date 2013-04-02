@@ -1,27 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Engine/Managers/hexManagerS.cs">
-    <Files>
-      <File FileName="Assets/Scripts/Engine/engineHexS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Entity/entityMechS.cs" Line="73" Column="29" />
-      <File FileName="Assets/Scripts/Engine/Interaction/selectionHexS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Managers/gameManagerS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Interaction/enginePlayerS.cs" Line="399" Column="4" />
-      <File FileName="Assets/Scripts/Engine/Enums.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Entity/interfacesS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Entity/entityEnemyS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Managers/entityManagerS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Entity/entityNodeS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Interaction/mechDisplayS.cs" Line="90" Column="3" />
-      <File FileName="Assets/Scripts/Engine/Entity/entityBaseS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/pathDrawS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Level_Files/awesome.txt" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Managers/hexManagerS.cs" Line="217" Column="59" />
-      <File FileName="Assets/Scripts/MapEditor/editorMenuEntityS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MapEditor/editorEntityS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Managers/engineIOS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Level_Files/vert_level_1.txt" Line="1" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
@@ -32,11 +11,11 @@
                 <Node name="Engine" expanded="True">
                   <Node name="Entity" expanded="True" />
                   <Node name="Interaction" expanded="True" />
-                  <Node name="Managers" expanded="True">
-                    <Node name="hexManagerS.cs" selected="True" />
-                  </Node>
+                  <Node name="Managers" expanded="True" />
                 </Node>
-                <Node name="MapEditor" expanded="True" />
+                <Node name="MapEditor" expanded="True">
+                  <Node name="editorIOS.cs" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>

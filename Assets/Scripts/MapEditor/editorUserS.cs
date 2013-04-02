@@ -39,7 +39,7 @@ public class editorUserS : MonoBehaviour {
 	public GameObject 							hexMenuPrefab;
 	 
 	public static Hex         					last_created_hex_type; 
-	public static EntityE  						last_created_entity_type;
+	public static editor_entity 				last_created_entity_type;
 	
 	public int 									min_brush_size;
 	public int 									max_brush_size;
@@ -96,11 +96,11 @@ public class editorUserS : MonoBehaviour {
 		 
 	 
 	// Update is called once per frame
-	void Update() {
+	void Update() {//250, 225, 150, 30),
 		 
 		if(( (Input.mousePosition.x > 30 &&  Input.mousePosition.x < 240 ) 
 					&&
-			 (Input.mousePosition.y < Screen.height - 30 &&  Input.mousePosition.y > Screen.height - 140 ))
+			 (Input.mousePosition.y < Screen.height - 30 &&  Input.mousePosition.y > Screen.height - 260 ))
 			||
 			((Input.mousePosition.x > Screen.width - 240 && Input.mousePosition.x < Screen.width - 30)
 			&&
@@ -353,7 +353,7 @@ public class editorUserS : MonoBehaviour {
 	{
 		
 		GameObject 	    clicked_game_object;
-		editorEntityS 	entity_s;
+		entity_core 	entity_s;
 		
 		//alt + left click
 		if(Input.GetKey(KeyCode.LeftAlt) && Input.GetMouseButtonDown(0))
@@ -362,8 +362,8 @@ public class editorUserS : MonoBehaviour {
 			
 			if(clicked_game_object != null)
 			{
-				entity_s          				     = clicked_game_object.GetComponent<editorEntityS>();
-				editorUserS.last_created_entity_type = entity_s.entity_type; 
+				entity_s          				     = clicked_game_object.GetComponent<entity_core>();
+				editorUserS.last_created_entity_type = entity_s.ent_type; 
 			}
 		}
 		else
@@ -374,8 +374,8 @@ public class editorUserS : MonoBehaviour {
 			 
 			if(clicked_game_object != null)
 			{
-				entity_s          = clicked_game_object.GetComponent<editorEntityS>();
-				ems.deleteEntity(entity_s);
+				entity_s          = clicked_game_object.GetComponent<entity_core>();
+				ems.deleteEntity(clicked_game_object);
 			}
 		}
 		else
@@ -383,6 +383,7 @@ public class editorUserS : MonoBehaviour {
 		if(Input.GetMouseButtonDown(0))
 		{
 			clicked_game_object = RaycastMouse(EntTag);
+			
 			if(clicked_game_object == null)
 			{ 
 				clicked_game_object = RaycastMouse(HexTag);
@@ -412,13 +413,13 @@ public class editorUserS : MonoBehaviour {
 			
 			if(clicked_game_object != null)
 			{
-				entity_s          = clicked_game_object.GetComponent<editorEntityS>();
+				entity_s          = clicked_game_object.GetComponent<entity_core>();
 				
 				if(entity_s.menu_item)
 				{ 
 					clicked_game_object 				 = RaycastMouse(EntTag);
-					entity_s          				     = clicked_game_object.GetComponent<editorEntityS>();
-					editorUserS.last_created_entity_type = entity_s.entity_type; 
+					entity_s          				     = clicked_game_object.GetComponent<entity_core>();
+					editorUserS.last_created_entity_type = entity_s.ent_type; 
 				}
 			}
 			
@@ -489,6 +490,7 @@ public class editorUserS : MonoBehaviour {
 	
 	void OnGUI()
 	{
+		GUI.Box(new Rect(30, 5, 210, 250), "TOOLS");
 		draw_mode_label =  overwrite_mode ? "Overwrite" : "Fill";
 		over_mode_label =  entity_mode ?  "Entity"    : "Terrain"; 
 		current_brush   =  entity_mode ?  last_created_entity_type.ToString()    : last_created_hex_type.ToString(); 

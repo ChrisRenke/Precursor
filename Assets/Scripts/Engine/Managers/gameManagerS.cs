@@ -81,10 +81,10 @@ public class gameManagerS : MonoBehaviour {
 //					entityManagerS.getMech().allowSelectionHexesDraw();
 //		}
 		
-		if(GUI.Button(new Rect(Screen.width - 30 - 180, 70, 180, 30), "End Turn"))
-		{
-			endPlayerTurn();
-		}
+//		if(GUI.Button(new Rect(Screen.width - 30 - 180, 70, 180, 30), "End Turn"))
+//		{
+//			endPlayerTurn();
+//		}
 		
 //		if(GUI.Button(new Rect(gui_spacing, gui_spacing + 40  + gui_spacing , 180, 40), "End Turn"))
 //		{

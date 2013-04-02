@@ -116,40 +116,40 @@ public class editorIOS : MonoBehaviour {
 		
         sb.AppendLine("\tENTITIES{");
 		
-		foreach(KeyValuePair<int, Dictionary<int, editorEntityManagerS.EntityData>> entry_1 in editorEntityManagerS.entity_db)
-		{
-		    foreach(KeyValuePair<int, editorEntityManagerS.EntityData> entry_2 in entry_1.Value)
-			{
-				
-        		sb.AppendLine("\t\tENTITY{ " );
-//        		sb.AppendLine("\t\t\tName       = " + entry_2.Value.name);
-        		sb.AppendLine("\t\t\tX          = " + entry_2.Value.x_coord);
-        		sb.AppendLine("\t\t\tZ          = " + entry_2.Value.z_coord);
-        		sb.AppendLine("\t\t\tType       = " + entry_2.Value.entity_type);
-				
-				editorEntityS ent_s = entry_2.Value.occupier.GetComponent<editorEntityS>();
-				if(ent_s.entity_type == EntityE.Base)
-				{					//  Z          = "
-        			sb.AppendLine("\t\t\tHP Perc    = " + ent_s.base_starting_health_percentage); 
-				}
-				else if(ent_s.entity_type == EntityE.Player)
-				{
-        			sb.AppendLine("\t\t\tHP Perc    = " + ent_s.mech_starting_health_percentage); 
-				}
-				else if(ent_s.entity_type == EntityE.Node)
-				{ 
-        			sb.AppendLine("\t\t\tNode       = " + ent_s.node_type); 
-        			sb.AppendLine("\t\t\tNode Lvl   = " + ent_s.node_starting_level); 
-				}
-				else if(ent_s.entity_type == EntityE.Enemy)
-				{
-        			sb.AppendLine("\t\t\tOmnsc Base = " + ent_s.enemy_knows_base_loc); 
-        			sb.AppendLine("\t\t\tOmnsc Mech = " + ent_s.enemy_knows_mech_loc);  
-				} 
-        		sb.AppendLine("\t\t}");
-			}
-			// do something with entry.Value or entry.Key
-		}
+//		foreach(KeyValuePair<int, Dictionary<int, editorEntityManagerS.EntityData>> entry_1 in editorEntityManagerS.entity_db)
+//		{
+//		    foreach(KeyValuePair<int, editorEntityManagerS.EntityData> entry_2 in entry_1.Value)
+//			{
+//				
+//        		sb.AppendLine("\t\tENTITY{ " );
+////        		sb.AppendLine("\t\t\tName       = " + entry_2.Value.name);
+//        		sb.AppendLine("\t\t\tX          = " + entry_2.Value.x_coord);
+//        		sb.AppendLine("\t\t\tZ          = " + entry_2.Value.z_coord);
+//        		sb.AppendLine("\t\t\tType       = " + entry_2.Value.entity_type);
+//				
+//				editorEntityS ent_s = entry_2.Value.occupier.GetComponent<editorEntityS>();
+//				if(ent_s.entity_type == EntityE.Base)
+//				{					//  Z          = "
+//        			sb.AppendLine("\t\t\tHP Perc    = " + ent_s.base_starting_health_percentage); 
+//				}
+//				else if(ent_s.entity_type == EntityE.Player)
+//				{
+//        			sb.AppendLine("\t\t\tHP Perc    = " + ent_s.mech_starting_health_percentage); 
+//				}
+//				else if(ent_s.entity_type == EntityE.Node)
+//				{ 
+//        			sb.AppendLine("\t\t\tNode       = " + ent_s.node_type); 
+//        			sb.AppendLine("\t\t\tNode Lvl   = " + ent_s.node_starting_level); 
+//				}
+//				else if(ent_s.entity_type == EntityE.Enemy)
+//				{
+//        			sb.AppendLine("\t\t\tOmnsc Base = " + ent_s.enemy_knows_base_loc); 
+//        			sb.AppendLine("\t\t\tOmnsc Mech = " + ent_s.enemy_knows_mech_loc);  
+//				} 
+//        		sb.AppendLine("\t\t}");
+//			}
+//			// do something with entry.Value or entry.Key
+//		}
 		
         sb.AppendLine("\t}");		
         sb.AppendLine("}");
@@ -206,111 +206,111 @@ public class editorIOS : MonoBehaviour {
 		editorHexManagerS.hex_db = new Dictionary<int, Dictionary<int, editorHexManagerS.editorHexData>>();
 		
 		//remove existing entities 
-		foreach(KeyValuePair<int, Dictionary<int, editorEntityManagerS.EntityData>> entry_1 in editorEntityManagerS.entity_db)
-		{
-		    foreach(KeyValuePair<int, editorEntityManagerS.EntityData> entry_2 in entry_1.Value)
-			{
-				Destroy(entry_2.Value.occupier);
-			}
-		}
-		editorEntityManagerS.entity_db = new Dictionary<int, Dictionary<int, editorEntityManagerS.EntityData>>();
+//		foreach(KeyValuePair<int, Dictionary<int, editorEntityManagerS.EntityData>> entry_1 in editorEntityManagerS.entity_db)
+//		{
+//		    foreach(KeyValuePair<int, editorEntityManagerS.EntityData> entry_2 in entry_1.Value)
+//			{
+//				Destroy(entry_2.Value.occupier);
+//			}
+//		}
+//		editorEntityManagerS.entity_db = new Dictionary<int, Dictionary<int, editorEntityManagerS.EntityData>>();
 			
 		
 	
-	//BEGIN PARSING DATA
-		//PARSE HEADER INFO
-		if(!level_lines[index++].Equals("LEVEL{"))
-		{
-			print("l1 ILL FORMATED!");
-			return false;
-		} 
-		if(getIntR(level_lines[index++]) != level_editor_format_version) //EDITOR VER
-		{
-			print ("EDITOR VERSION MISMATCH!");
-			return false;
-		}
-		level_name 		= getStringR(level_lines[index++]); //NAME
-		version    		= getIntR(level_lines[index++]);    //VERSION
-		
-		int x_dim, z_dim, total_count, game_count, border_count;
-		x_dim 			= getIntR(level_lines[index++]);  		//X_dim
-		z_dim 			= getIntR(level_lines[index++]);		//Z_dim
-		
-		getIntR(level_lines[index++]);
-		getIntR(level_lines[index++]);
-		getIntR(level_lines[index++]);
-		getIntR(level_lines[index++]);
-		
-		total_count 	= getIntR(level_lines[index++]);  		//total count
-		game_count 		= getIntR(level_lines[index++]);		//game count
-		border_count 	= getIntR(level_lines[index++]);  		//border count
-		
-		
-		//BEGIN PARSING HEXES
-		if(!level_lines[index++].Contains("HEXES{"))
-		{
-			print("HEXES ILL FORMATED");
-			return false;
-		}
-		while(getHexR(level_lines[index++])) //next line is a HEX{
-		{
-			int x = getIntR(level_lines[index++]);
-			int z = getIntR(level_lines[index++]);
-            Hex hex_type = (Hex) Enum.Parse(typeof(Hex), getStringR(level_lines[index++]));
-			editorUserS.tms.LoadHex(hex_type, x, z);
-			if(!getCBR(level_lines[index++]))
-			{
-				print("MALFORMED HEX!");
-				return false;
-			}
-		}
-		 
-//		print (reader.ReadLine());
-		//BEGIN PARSING ENTITES
-		if(!level_lines[index++].Contains("ENTITIES{"))
-		{
-			print("ENTITIES ILL FORMATED");
-			return false;
-		}
-		while(getEntR(level_lines[index++])) //next line is a HEX{
-		{
-			int x = getIntR(level_lines[index++]);
-			int z = getIntR(level_lines[index++]);
-            EntityE ent_type = (EntityE) Enum.Parse(typeof(EntityE), getStringR(level_lines[index++]));
-			
-			editorUserS.ems.base_starting_health_percentage = 100;
-			editorUserS.ems.mech_starting_health_percentage = 100;
-			editorUserS.ems.enemy_knows_base_loc 			= false;
-			editorUserS.ems.enemy_knows_mech_loc 			= false;
-			editorUserS.ems.node_starting_level				= 2;
-			
-			switch(ent_type)
-			{
-				case EntityE.Base:
-					editorUserS.ems.base_starting_health_percentage = getIntR(level_lines[index++]);
-					break;
-				case EntityE.Player:
-					editorUserS.ems.mech_starting_health_percentage = getIntR(level_lines[index++]);
-					break;
-				case EntityE.Enemy:
-					editorUserS.ems.enemy_knows_base_loc = getBoolR(level_lines[index++]);
-					editorUserS.ems.enemy_knows_mech_loc = getBoolR(level_lines[index++]);
-					break;
-				case EntityE.Node:
-					editorUserS.ems.node_starting_level	 = getIntR(level_lines[index++]);
-					break;
-			}
-			 
-			editorUserS.ems.LoadEntity(ent_type, x, z);
-			if(!getCBR(level_lines[index++]))
-			{
-				print("MALFORMED HEX!");
-				return false;
-			}
-		}
-		 
-		//store last edited level key
-		PlayerPrefs.SetString (LAST_EDITED, level_name);
+//	//BEGIN PARSING DATA
+//		//PARSE HEADER INFO
+//		if(!level_lines[index++].Equals("LEVEL{"))
+//		{
+//			print("l1 ILL FORMATED!");
+//			return false;
+//		} 
+//		if(getIntR(level_lines[index++]) != level_editor_format_version) //EDITOR VER
+//		{
+//			print ("EDITOR VERSION MISMATCH!");
+//			return false;
+//		}
+//		level_name 		= getStringR(level_lines[index++]); //NAME
+//		version    		= getIntR(level_lines[index++]);    //VERSION
+//		
+//		int x_dim, z_dim, total_count, game_count, border_count;
+//		x_dim 			= getIntR(level_lines[index++]);  		//X_dim
+//		z_dim 			= getIntR(level_lines[index++]);		//Z_dim
+//		
+//		getIntR(level_lines[index++]);
+//		getIntR(level_lines[index++]);
+//		getIntR(level_lines[index++]);
+//		getIntR(level_lines[index++]);
+//		
+//		total_count 	= getIntR(level_lines[index++]);  		//total count
+//		game_count 		= getIntR(level_lines[index++]);		//game count
+//		border_count 	= getIntR(level_lines[index++]);  		//border count
+//		
+//		
+//		//BEGIN PARSING HEXES
+//		if(!level_lines[index++].Contains("HEXES{"))
+//		{
+//			print("HEXES ILL FORMATED");
+//			return false;
+//		}
+//		while(getHexR(level_lines[index++])) //next line is a HEX{
+//		{
+//			int x = getIntR(level_lines[index++]);
+//			int z = getIntR(level_lines[index++]);
+//            Hex hex_type = (Hex) Enum.Parse(typeof(Hex), getStringR(level_lines[index++]));
+//			editorUserS.tms.LoadHex(hex_type, x, z);
+//			if(!getCBR(level_lines[index++]))
+//			{
+//				print("MALFORMED HEX!");
+//				return false;
+//			}
+//		}
+//		 
+////		print (reader.ReadLine());
+//		//BEGIN PARSING ENTITES
+//		if(!level_lines[index++].Contains("ENTITIES{"))
+//		{
+//			print("ENTITIES ILL FORMATED");
+//			return false;
+//		}
+//		while(getEntR(level_lines[index++])) //next line is a HEX{
+//		{
+//			int x = getIntR(level_lines[index++]);
+//			int z = getIntR(level_lines[index++]);
+//            EntityE ent_type = (EntityE) Enum.Parse(typeof(EntityE), getStringR(level_lines[index++]));
+//			
+//			editorUserS.ems.base_starting_health_percentage = 100;
+//			editorUserS.ems.mech_starting_health_percentage = 100;
+//			editorUserS.ems.enemy_knows_base_loc 			= false;
+//			editorUserS.ems.enemy_knows_mech_loc 			= false;
+//			editorUserS.ems.node_starting_level				= 2;
+//			
+//			switch(ent_type)
+//			{
+//				case EntityE.Base:
+//					editorUserS.ems.base_starting_health_percentage = getIntR(level_lines[index++]);
+//					break;
+//				case EntityE.Player:
+//					editorUserS.ems.mech_starting_health_percentage = getIntR(level_lines[index++]);
+//					break;
+//				case EntityE.Enemy:
+//					editorUserS.ems.enemy_knows_base_loc = getBoolR(level_lines[index++]);
+//					editorUserS.ems.enemy_knows_mech_loc = getBoolR(level_lines[index++]);
+//					break;
+//				case EntityE.Node:
+//					editorUserS.ems.node_starting_level	 = getIntR(level_lines[index++]);
+//					break;
+//			}
+//			 
+//			editorUserS.ems.LoadEntity(ent_type, x, z);
+//			if(!getCBR(level_lines[index++]))
+//			{
+//				print("MALFORMED HEX!");
+//				return false;
+//			}
+//		}
+//		 
+//		//store last edited level key
+//		PlayerPrefs.SetString (LAST_EDITED, level_name);
 		return true;
 	}
 	

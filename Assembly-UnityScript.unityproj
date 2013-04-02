@@ -44,6 +44,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Engine\Menus\UpdateScript.js" />
+     <Compile Include="Assets\Scripts\Engine\Menus\UpgradeMenuS.js" />
      <Compile Include="Assets\Vectrosity\Scripts\Curve\CurvePointControl.js" />
      <Compile Include="Assets\Vectrosity\Scripts\Curve\DrawCurve.js" />
      <Compile Include="Assets\Vectrosity\Scripts\Curve\SimpleCurve.js" />
@@ -97,6 +99,8 @@
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{AAC948CB-5DC0-2F81-3EB8-DBC917649384}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+    <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
+      <Project>{69C453B9-DF4A-3944-F1BB-A5C873C00393}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

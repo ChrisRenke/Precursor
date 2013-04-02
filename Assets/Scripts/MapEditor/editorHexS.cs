@@ -12,17 +12,17 @@ public class editorHexS : MonoBehaviour {
 	public bool        menu_item = false;
 	private bool 	   sampling_mode = false;
 	
-	
-		
-	void OnGUI()
-	{
-		if(menu_item || sampling_mode)
-		{
-			Vector3 spot_on_screen = Camera.main.WorldToScreenPoint (transform.position);
-			GUI.Label(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15,200,30), hex_type.ToString(), editorHexManagerS.tooltip);
-		}
-		 
-	}
+//	
+//		
+//	void OnGUI()
+//	{
+//		if(menu_item || sampling_mode)
+//		{
+//			Vector3 spot_on_screen = Camera.main.WorldToScreenPoint (transform.position);
+//			GUI.Label(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15,200,30), hex_type.ToString(), editorHexManagerS.tooltip);
+//		}
+//		 
+//	}
 
 	
 	void OnMouseEnter()
