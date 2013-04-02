@@ -1,0 +1,368 @@
+LEVEL{
+	EDITOR VER   = 3
+	Level Name   = yoyoyo
+	Level Ver    = 0
+	X_dim        = 16
+	Z_dim        = 15
+	X_min        = -7
+	X_max        = 8
+	Z_min        = -8
+	Z_max        = 6
+	Total_Hexes  = 147
+	Game_Hexes   = 101
+	Border_Hexes = 46
+	HEXES{
+		HEX{ 
+			X    = 0
+			Z    = 0
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = -1
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = 1
+			Type = Forest
+		}
+		HEX{ 
+			X    = 0
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 4
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 0
+			Z    = -2
+			Type = Grass
+		}
+		HEX{ 
+			X    = 0
+			Z    = -3
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 0
+			Z    = -4
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 0
+			Z    = -5
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 0
+			Z    = -6
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 1
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -2
+			Type = Grass
+		}
+		HEX{ 
+			X    = 1
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 4
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 1
+			Z    = -3
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 1
+			Z    = -4
+			Type = Forest
+		}
+		HEX{ 
+			X    = 1
+			Z    = -5
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 1
+			Z    = -6
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 1
+			Z    = -7
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -1
+			Z    = 0
+			Type = Forest
+		}
+		HEX{ 
+			X    = -1
+			Z    = 1
+			Type = Desert
+		}
+		HEX{ 
+			X    = -1
+			Z    = 2
+			Type = Forest
+		}
+		HEX{ 
+			X    = -1
+			Z    = -1
+			Type = Grass
+		}
+		HEX{ 
+			X    = -1
+			Z    = 3
+			Type = Forest
+		}
+		HEX{ 
+			X    = -1
+			Z    = 4
+			Type = Forest
+		}
+		HEX{ 
+			X    = -1
+			Z    = -2
+			Type = Grass
+		}
+		HEX{ 
+			X    = -1
+			Z    = -3
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -1
+			Z    = 5
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -1
+			Z    = -5
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -1
+			Z    = -4
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -2
+			Z    = 1
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = 2
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = 0
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -2
+			Z    = 3
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = -2
+			Type = Grass
+		}
+		HEX{ 
+			X    = -2
+			Z    = -1
+			Type = Farmland
+		}
+		HEX{ 
+			X    = -2
+			Z    = -3
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -2
+			Z    = 4
+			Type = Forest
+		}
+		HEX{ 
+			X    = -2
+			Z    = 5
+			Type = Forest
+		}
+		HEX{ 
+			X    = -2
+			Z    = 6
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 2
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 0
+			Type = Grass
+		}
+		HEX{ 
+			X    = 2
+			Z    = -1
+			Type = Grass
+		}
+		HEX{ 
+			X    = 2
+			Z    = -2
+			Type = Grass
+		}
+		HEX{ 
+			X    = 2
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 4
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 2
+			Z    = -3
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 2
+			Z    = -4
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 2
+			Z    = -5
+			Type = Forest
+		}
+		HEX{ 
+			X    = 2
+			Z    = -6
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 2
+			Z    = -7
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 2
+			Z    = -8
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 3
+			Z    = 0
+			Type = Forest
+		}
+		HEX{ 
+			X    = 3
+			Z    = -1
+			Type = Forest
+		}
+		HEX{ 
+			X    = 3
+			Z    = -2
+			Type = Forest
+		}
+		HEX{ 
+			X    = 3
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 3
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 3
+			Z    = -3
+			Type = Grass
+		}
+		HEX{ 
+			X    = 3
+			Z    = -4
+			Type = Forest
+		}
+		HEX{ 
+			X    = 3
+			Z    = -5
+			Type = Forest
+		}
+		HEX{ 
+			X    = 3
+			Z    = -7
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 3
+			Z    = -6
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 3
+			Z    = -8
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 4
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 0
+			Type 

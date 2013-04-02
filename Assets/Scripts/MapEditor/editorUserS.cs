@@ -48,7 +48,10 @@ public class editorUserS : MonoBehaviour {
 	
 	public float								vSensitivity = 1.0F; 
 	public float 								hSensitivity = 1.0F;
+	
+	//change this for mac v win
 	public float 								zoomSensitivity = 1.0F;
+	public float 								scoll_modify = 6F;
 	
 	public GUIStyle getTooltip()
 	{
@@ -98,7 +101,7 @@ public class editorUserS : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {//250, 225, 150, 30),
 		 
-		if(( (Input.mousePosition.x > 30 &&  Input.mousePosition.x < 240 ) 
+		if(( (Input.mousePosition.x > 25 &&  Input.mousePosition.x < 245 ) 
 					&&
 			 (Input.mousePosition.y < Screen.height - 30 &&  Input.mousePosition.y > Screen.height - 260 ))
 			||
@@ -123,7 +126,7 @@ public class editorUserS : MonoBehaviour {
 		
 		GameObject maincam = GameObject.FindGameObjectWithTag("MainCamera");
 		float w = Input.GetAxis("Mouse ScrollWheel");
-		float zoom_adjust = w * zoomSensitivity;
+		float zoom_adjust = w * zoomSensitivity * scoll_modify;
 		
 		
 		if(Input.GetKeyDown(KeyCode.Q))

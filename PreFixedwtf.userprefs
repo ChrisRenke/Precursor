@@ -8,18 +8,13 @@
             <Node name="Assets" expanded="True">
               <Node name="Level_Files" expanded="True" />
               <Node name="Scripts" expanded="True">
-                <Node name="Engine" expanded="True">
-                  <Node name="Entity" expanded="True" />
-                  <Node name="Interaction" expanded="True" />
-                  <Node name="Managers" expanded="True" />
-                </Node>
+                <Node name="Engine" expanded="True" />
                 <Node name="MapEditor" expanded="True">
-                  <Node name="editorIOS.cs" selected="True" />
+                  <Node name="editorEntityManagerS.cs" selected="True" />
                 </Node>
               </Node>
             </Node>
           </Node>
-          <Node name="Assembly-UnityScript" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">

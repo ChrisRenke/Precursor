@@ -24,6 +24,7 @@ public class info_enemy : entity_core {
 		StringBuilder sb = makeOutputHeaderSB();
 		sb.AppendLine("\t\t\tcurrent_hp = " + current_hp);
 		sb.AppendLine("\t\t\tmax_hp     = " + max_hp);
+		sb.AppendLine("\t\t\towner_id   = " + spawner_owner_id);
 		sb.AppendLine("\t\t\tmech_loc   = " + know_mech_location);
 		sb.AppendLine("\t\t\tbase_loc   = " + know_base_location);
         sb.AppendLine("\t\t}");
@@ -33,6 +34,6 @@ public class info_enemy : entity_core {
 	
 	void OnGUI(){ 
 		Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
-		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y, 200, 35), "Spawner: " + spawner_owner_id, appearnce);
+		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y - 5, 200, 35), "Spwn: " + spawner_owner_id, appearnce);
 	}
 }

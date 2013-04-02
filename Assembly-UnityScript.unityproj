@@ -18,7 +18,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_WEBPLAYER;WEBPLUG;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_0_1;UNITY_4_0;ENABLE_PROFILER;UNITY_EDITOR</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_STANDALONE;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_0_1;UNITY_4_0;UNITY_STANDALONE_WIN;ENABLE_PROFILER;UNITY_EDITOR</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -84,7 +84,10 @@
      <None Include="Assets\Vectrosity\Shaders\ParticleZwrite.shader" />
      <None Include="Assets\Scripts\_Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
      <None Include="Assets\Vectrosity\Shaders\Unlit .shader" />
+     <None Include="Assets\yourtextfile.txt" />
      <None Include="Assets\Vectrosity\Shaders\UnlitAlpha.shader" />
+     <None Include="Assets\Level_Files\save_test_2.txt" />
+     <None Include="Assets\Level_Files\save_test_3.txt" />
      <None Include="Assets\Scripts\_Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
      <None Include="Assets\Level_Files\awesome.txt" />
      <None Include="Assets\Materials\mat terrain textures\draft_terrain_sprite.txt" />
@@ -92,8 +95,11 @@
      <None Include="Assets\Pro Standard Assets\Image Based\GlowEffectDownsample.shader" />
      <None Include="Assets\Scripts\_Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
      <None Include="Assets\Scripts\_Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
+     <None Include="Assets\Level_Files\save_test_1.txt" />
+     <None Include="Assets\Level_Files\yoyoyo.txt" />
      <None Include="Assets\Vectrosity\Shaders\DepthMask.shader" />
      <None Include="Assets\Materials\texture.shader" />
+     <None Include="Assets\untitled level.txt" />
      <None Include="Assets\Vectrosity\Shaders\SolidColor.shader" />
   </ItemGroup>
   <ItemGroup>
