@@ -66,61 +66,24 @@ public class entityBaseS : Combatable {
 	
 	void visualDisplay()
 	{
-		int def_index =0 ;
-		int struct_index =0 ;
-		int wall_index =0 ;
-		
-		
-		switch(wall_level)
-		{
-			case BaseUpgrade.Level0: 			wall_index = 0; break;
-			case BaseUpgrade.Level1: 		wall_index = 1;break;
-			case BaseUpgrade.Level2: 		wall_index = 2;break;
-			case BaseUpgrade.Level3: 		wall_index = 3;break;
-		}
-		
-		switch(defense_level)
-		{
-			case BaseUpgrade.Level0:	def_index = 0;break;
-			case BaseUpgrade.Level1: 	def_index = 1;break;
-			case BaseUpgrade.Level2: 	def_index = 2;break;
-			case BaseUpgrade.Level3: 	def_index = 3;break;
-		}
-		
-		switch(structure_level)
-		{
-			case BaseUpgrade.Level0:	struct_index = 0;break;
-			case BaseUpgrade.Level1: 	struct_index = 1;break;
-			case BaseUpgrade.Level2: 	struct_index = 2;break;
-			case BaseUpgrade.Level3: 	struct_index = 3;break;
-		}
-		
-	    // Repeat when exhausting all cells
-//	    index = index % totalCells;
-	 
-//	    // Size of every cell
-//	    float sizeX = 1.0f / colCount;
-//	    float sizeY = 1.0f / rowCount;
-//	    Vector2 size =  new Vector2(sizeX,sizeY);
-	 
-	    // split into horizontal and vertical index
-//	    var uIndex = index % colCount;
-//	    var vIndex = index / colCount;
-	 
-	    // build offset
-	    // v coordinate is the bottom of the image in opengl so we need to invert.
-//	    float offsetX = (uIndex+colNumber) * size.x;
-//	    float offsetY = (1.0f - size.y) - (vIndex + rowNumber) * size.y;
-	    Vector2 def_offset = new Vector2((float) defense_level/4, 0);
+		int def_index = (int)defense_level;
+		int struct_index = (int)structure_level ;
+		int wall_index = (int) wall_level;
+		  
+	    Vector2 struct_offset = new Vector2((float) structure_level/4, 0);
 	    Vector2 wall_offset = new Vector2((float) wall_level/4, .3333333F);
-	    Vector2 struct_offset = new Vector2((float) structure_level/4, .666666F);
+	    Vector2 def_offset = new Vector2((float) defense_level/4, .666666F);
 	 
 	    def.material.SetTextureOffset ("_MainTex", def_offset);
 	    walls.material.SetTextureOffset ("_MainTex", wall_offset);
 	    struc.material.SetTextureOffset ("_MainTex", struct_offset);
 //	    def.material.SetTextureOffset ("_MainTex", def_offset);
 //	    renderer.material.SetTextureScale  ("_MainTex", size);
-	
+//	
+//		def.renderer.material.SetColor("_Color",Color.green);
+//		struc.renderer.material.SetColor("_Color",Color.red);
+//		walls.renderer.material.SetColor("_Color",Color.blue);
+		
 	
 	
 	}
@@ -136,14 +99,14 @@ public class entityBaseS : Combatable {
 			if(gameManagerS.current_turn == Turn.Base)
 			{
 				
-				Debug.Log("BASE TURN NOW");
-				print ("BASE hp = " + current_hp);
-				print ("BASE Ap = " + current_ap);
+//				//Debug.Log("BASE TURN NOW");
+//				print ("BASE hp = " + current_hp);
+//				print ("BASE Ap = " + current_ap);
 				
 				//check ap
 				if(current_ap <= 0 || (can_not_heal && can_not_attack))
 				{
-					Debug.Log("Ran out of Ap or can't make a move");
+					//Debug.Log("Ran out of Ap or can't make a move");
 					gameManagerS.endBaseTurn();
 					can_not_heal = false;
 					can_not_attack = false;
@@ -153,19 +116,19 @@ public class entityBaseS : Combatable {
 					if(heal()){ 
 						int heal_points = healhp(heal_amount);
 						if(heal_points == temp){
-							Debug.Log ("no healing occurred");
+							//Debug.Log ("no healing occurred");
 							can_not_heal = true;
 						}else{
 							if(current_ap - heal_cost < 0){
-								Debug.Log ("not enough ap to heal");
+								//Debug.Log ("not enough ap to heal");
 								can_not_heal = true;
 							}else{
-								Debug.Log ("healing occured");
+								//Debug.Log ("healing occured");
 								current_ap -= heal_cost;
 							}
 						}
 					}else{
-						Debug.Log ("can't heal, under attack");
+						//Debug.Log ("can't heal, under attack");
 						can_not_heal = true;
 					}
 					
@@ -173,16 +136,16 @@ public class entityBaseS : Combatable {
 					entityEnemyS enemy_s = getWeakestEnemy();
 					if(enemy_s != null){	
 						if(current_ap - attack_cost < 0){
-							Debug.Log ("Can't attack, not enough ap, so END TURN");
+							//Debug.Log ("Can't attack, not enough ap, so END TURN");
 							can_not_attack = true;
 						}else{
 							//current_ap -= attack_cost;
 							int damage_done = attackTarget (enemy_s);
-							Debug.Log ("ATTACK opponent, damage done = " + damage_done);
+							//Debug.Log ("ATTACK opponent, damage done = " + damage_done);
 						}
 						
 					}else{
-						Debug.Log ("no enemies in range, can't attack");
+						//Debug.Log ("no enemies in range, can't attack");
 						can_not_attack = true;
 					}
 				}
@@ -204,14 +167,14 @@ public class entityBaseS : Combatable {
 	public override int attackTarget (Combatable target)
 	{
 		//subtract ap cost from total
-		Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z);
+		//Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z);
 		current_ap -= attack_cost;
 		
-		Debug.LogWarning("ABOUT TO ATTACK ENTITY " + target.GetInstanceID());
+		//Debug.LogWarning("ABOUT TO ATTACK ENTITY " + target.GetInstanceID());
 		if(target != null)
 			return target.acceptDamage(attack_damage);
 		
-		Debug.Log ("ERROR: didn't pick a combatable target");
+		//Debug.Log ("ERROR: didn't pick a combatable target");
 		return 0; //nothing to damage if we get here
 	}
 	
@@ -240,7 +203,7 @@ public class entityBaseS : Combatable {
 						max_hp += 15;
 						return true;
 					}else{
-						Debug.Log ("Base Already has this structure upgrade, can't downgrade");
+						//Debug.Log ("Base Already has this structure upgrade, can't downgrade");
 						return false;
 					}
 			
@@ -250,7 +213,7 @@ public class entityBaseS : Combatable {
 						max_hp += 20;
 						return true;
 					}else{
-						Debug.Log ("Base Already has this structure upgrade, can't downgrade");
+						//Debug.Log ("Base Already has this structure upgrade, can't downgrade");
 						return false;
 					}
 					
@@ -260,7 +223,7 @@ public class entityBaseS : Combatable {
 						max_hp += 25;
 						return true;
 					}else{
-						Debug.Log ("Base Already has this structure upgrade, can't downgrade");
+						//Debug.Log ("Base Already has this structure upgrade, can't downgrade");
 						return false;
 					}
 			}
@@ -277,7 +240,7 @@ public class entityBaseS : Combatable {
 						attack_damage += 1;
 						return true;
 					}else{
-						Debug.Log ("Base Already has this defense upgrade, can't downgrade");
+						//Debug.Log ("Base Already has this defense upgrade, can't downgrade");
 						return false;
 					}
 	
@@ -288,7 +251,7 @@ public class entityBaseS : Combatable {
 						attack_damage += 2;
 						return true;
 					}else{
-						Debug.Log ("Base Already has this defense upgrade, can't downgrade");
+						//Debug.Log ("Base Already has this defense upgrade, can't downgrade");
 						return false;
 					}
 					
@@ -299,7 +262,7 @@ public class entityBaseS : Combatable {
 						attack_damage += 3;
 					return true;
 					}else{
-						Debug.Log ("Base Already has this defense upgrade, can't downgrade");
+						//Debug.Log ("Base Already has this defense upgrade, can't downgrade");
 						return false;
 					}
 				
@@ -317,7 +280,7 @@ public class entityBaseS : Combatable {
 						max_ap   += 5;
 						return true;
 					}else{
-						Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
+						//Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
 						return false;
 					}
 	
@@ -328,7 +291,7 @@ public class entityBaseS : Combatable {
 						max_ap   += 5;
 						return true;
 					}else{
-						Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
+						//Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
 						return false;
 					}
 					
@@ -339,7 +302,7 @@ public class entityBaseS : Combatable {
 						base_armor += 1;
 						return true;
 					}else{
-						Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
+						//Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
 						return false;
 					}
 			}
@@ -376,7 +339,7 @@ public class entityBaseS : Combatable {
 				entityEnemyS weak_enemy = entityManagerS.getEnemyAt(h.x, h.z);
 				if(weak_enemy != null){
 					if( weak_enemy.current_hp < low_health){
-						Debug.Log("Weakest enemy is: " + weak_enemy.x + ":" + weak_enemy.z);
+						//Debug.Log("Weakest enemy is: " + weak_enemy.x + ":" + weak_enemy.z);
 						low_health = weak_enemy.current_hp;
 						final_weak_enemy = weak_enemy;
 					}
@@ -384,7 +347,7 @@ public class entityBaseS : Combatable {
 		}
 		
 		if(low_health == 9999){ 
-			Debug.Log ("no enemy's in attack range");
+			//Debug.Log ("no enemy's in attack range");
 			return null;
 		}
 		

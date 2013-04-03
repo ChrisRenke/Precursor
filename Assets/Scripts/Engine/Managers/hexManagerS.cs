@@ -141,7 +141,7 @@ public class hexManagerS : MonoBehaviour {
 			}
 		}
 		
-		Debug.LogWarning("hexes_in_range size = " + hexes_in_range.Count);
+//		Debug.LogWarning("hexes_in_range size = " + hexes_in_range.Count);
 		return hexes_in_range;
 	}
 	

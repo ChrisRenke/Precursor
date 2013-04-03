@@ -11,7 +11,7 @@ public class editorIOS : MonoBehaviour {
 	
 	public static string       level_name = "untitled level";  
 	public static int 			version; 
-	public static int          level_editor_format_version = 6;
+	public static int          level_editor_format_version = 7;
 	public static string 		LAST_EDITED  = "LASTEDITED";
 	private static String      key_list_key = "LEVELKEYS";
 	
@@ -48,7 +48,7 @@ public class editorIOS : MonoBehaviour {
 	
 	public void Save()
 	{
-		System.IO.File.WriteAllText(Application.dataPath + "/yourtextfile.txt", "shitshittest");
+//		System.IO.File.WriteAllText(Application.dataPath + "/yourtextfile.txt", "shitshittest");
 		int x_dim, z_dim;
 		print ("SAVE!");
         // create a writer and open the file
@@ -93,12 +93,19 @@ public class editorIOS : MonoBehaviour {
         tw.WriteLine("\tEDITOR VER   = " + level_editor_format_version );
         tw.WriteLine("\tLevel Name   = " + level_name );
         tw.WriteLine("\tLevel Ver    = " + version ); 
+		
+        tw.WriteLine("\tRound Num    = " + "1" ); 
+		tw.WriteLine("\tTurn         = " + "Player");
+		tw.WriteLine("\tCurrent_ap   = " + "18");
+		
         tw.WriteLine("\tX_dim        = " + x_dim ); 
         tw.WriteLine("\tZ_dim        = " + z_dim );  
+		
         tw.WriteLine("\tX_min        = " + x_min );  
         tw.WriteLine("\tX_max        = " + x_max );  
         tw.WriteLine("\tZ_min        = " + z_min );  
-        tw.WriteLine("\tZ_max        = " + z_max );  
+        tw.WriteLine("\tZ_max        = " + z_max ); 
+		
         tw.WriteLine("\tTotal_Hexes  = " + count ); 
         tw.WriteLine("\tGame_Hexes   = " + (count - border_count)); 
         tw.WriteLine("\tBorder_Hexes = " + border_count);  
@@ -203,6 +210,7 @@ public class editorIOS : MonoBehaviour {
 		editorEntityManagerS.entity_db = new Dictionary<int, Dictionary<int, GameObject>>();
 			
 		
+		int x_dim, z_dim, total_count, game_count, border_count;
 	
 //	//BEGIN PARSING DATA
 		//PARSE HEADER INFO
@@ -219,10 +227,13 @@ public class editorIOS : MonoBehaviour {
 		level_name 		= getStringR(reader.ReadLine()); //NAME
 		version    		= getIntR(reader.ReadLine());    //VERSION
 		
-		int x_dim, z_dim, total_count, game_count, border_count;
+		getIntR(reader.ReadLine());
+		getStringR(reader.ReadLine());
+		getIntR(reader.ReadLine());
+		
 		x_dim 			= getIntR(reader.ReadLine());  		//X_dim
 		z_dim 			= getIntR(reader.ReadLine());		//Z_dim
-		
+				 
 		getIntR(reader.ReadLine());
 		getIntR(reader.ReadLine());
 		getIntR(reader.ReadLine());
@@ -232,6 +243,7 @@ public class editorIOS : MonoBehaviour {
 		game_count 		= getIntR(reader.ReadLine());		//game count
 		border_count 	= getIntR(reader.ReadLine());  		//border count
 		
+		 
 		
 		//BEGIN PARSING HEXES
 		if(!reader.ReadLine().Contains("HEXES{"))
@@ -276,8 +288,8 @@ public class editorIOS : MonoBehaviour {
 				break;
 				
 				case editor_entity.Spawn:
-					editorUserS.ems.spawner_id_number = getIntR(reader.ReadLine());
 //					editorUserS.ems.spawner_max_enemies_from_this_spawn = getIntR(reader.ReadLine());
+					editorUserS.ems.spawner_id_number = getIntR(reader.ReadLine());
 					editorUserS.ems.spawner_cadence = getStringR(reader.ReadLine());
 					editorUserS.ems.spawned_enemies_know_mech_location = getBoolR(reader.ReadLine());
 					editorUserS.ems.spawned_enemies_know_base_location = getBoolR(reader.ReadLine()); 

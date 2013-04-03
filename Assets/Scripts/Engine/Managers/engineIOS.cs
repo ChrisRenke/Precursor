@@ -9,7 +9,7 @@ using System.IO;
 
 public class engineIOS : MonoBehaviour {
 	 
-	public static int   				level_editor_format_version = 4;
+	public static int   				level_editor_format_version = 7;
 	public TextAsset                    level_string_asset;
 	
 	//used for parsing level files
@@ -35,20 +35,7 @@ public class engineIOS : MonoBehaviour {
 	public static bool LoadFromString(string level_data){	
 		
 		string[] level_lines = level_data.Split(new string[] {"\n","\r\n"},StringSplitOptions.None);
-		int index = 0;
-		
-	//INITIALIZE FILE TO READ\
-//		StreamReader reader;
-//		FileInfo filer = new FileInfo(Application.dataPath + "/Level_Files/" + level_name + ".pcl");
-//		if(filer != null && filer.Exists)
-//		{
-//		   reader = filer.OpenText();  // returns StreamReader
-//		} 
-//		else
-//		{
-//			print ("FILE DOES NOT EXIST!");
-//			return false;
-//		}
+		int index = 0; 
 		  	
 	//BEGIN PARSING DATA
 		//PARSE HEADER INFO
@@ -65,6 +52,10 @@ public class engineIOS : MonoBehaviour {
 		}
 		hexManagerS.level_name   = getStringR(level_lines[index++]); //NAME
 		int version    		= getIntR(level_lines[index++]);    //VERSION
+		int round    		= getIntR(level_lines[index++]);    //VERSION
+		Turn current_turn   = getTurnR(level_lines[index++]);
+		int current_ap 		= getIntR(level_lines[index++]);    //VERSION
+		
 		
 		int total_count, game_count, border_count;
 		hexManagerS.x_max = getIntR(level_lines[index++]);
@@ -142,43 +133,80 @@ public class engineIOS : MonoBehaviour {
 		{
 			int x = getIntR(level_lines[index++]) - load_x_min;
 			int z = getIntR(level_lines[index++]) - load_z_min;
-            EntityE ent_type = (EntityE) Enum.Parse(typeof(EntityE), getStringR(level_lines[index++]));
-			print (ent_type);
-			if(ent_type == EntityE.Player)
+            editor_entity ent_type = (editor_entity) Enum.Parse(typeof(editor_entity), getStringR(level_lines[index++]));
+//			print (ent_type);
+			if(ent_type == editor_entity.Mech)
 			{ 
 //				print ("MOVING CAMERA ONTO PLAYER!");
 				GameObject maincam = GameObject.FindGameObjectWithTag("MainCamera");
 				maincam.transform.position = new Vector3(hexManagerS.CoordsGameTo3D(x,z).x, 60, hexManagerS.CoordsGameTo3D(x,z).z);
 			}
+			
 			switch(ent_type)
 			{
-				case EntityE.Base:
-//				print("base case");
-					int base_starting_health_percentage = getIntR(level_lines[index++]);
-					if(!entityManagerS.instantiateBase(x, z, base_starting_health_percentage))
+				case editor_entity.Town: 
+					int town_current_hp =  getIntR(level_lines[index++]);
+					int town_max_hp     =  getIntR(level_lines[index++]);
+					BaseUpgrade town_wall_level = getBaseUpgrade(level_lines[index++]);
+					BaseUpgrade town_defense_level = getBaseUpgrade(level_lines[index++]); 
+					BaseUpgrade town_structure_level = getBaseUpgrade(level_lines[index++]);  
+				
+					if(!entityManagerS.instantiateBase(x, z, town_current_hp, town_max_hp, town_wall_level,	town_defense_level, town_structure_level))
 						throw new System.Exception("There is already one base, cannot have two! D: Go edit the level file you're loading to only have one!");
 					break;
 				
-				case EntityE.Player:
+				case editor_entity.Mech:
 //				print("player case");
-					int mech_starting_health_percentage = getIntR(level_lines[index++]);
-					if(!entityManagerS.instantiatePlayer(x, z, mech_starting_health_percentage))
+					int mech_current_hp =  getIntR(level_lines[index++]);
+					int mech_max_hp     =  getIntR(level_lines[index++]);
+					bool gun_range	= getBoolR(level_lines[index++]);
+					bool gun_cost	= getBoolR(level_lines[index++]);
+					bool gun_damage	= getBoolR(level_lines[index++]);
+					bool mobi_cost	= getBoolR(level_lines[index++]);
+					bool mobi_water	= getBoolR(level_lines[index++]);
+					bool mobi_mntn	= getBoolR(level_lines[index++]);
+					bool ex_tele	= getBoolR(level_lines[index++]);
+					bool ex_armor	= getBoolR(level_lines[index++]);
+					bool ex_scav    = getBoolR(level_lines[index++]);
+				
+					if(!entityManagerS.instantiatePlayer(x, z, mech_current_hp, mech_max_hp, 
+					 gun_range,
+					 gun_cost	,
+					 gun_damage	,
+					 mobi_cost	,
+					 mobi_water	,
+					 mobi_mntn	,
+					 ex_tele	,
+					 ex_armor	,
+					 ex_scav))
 						throw new System.Exception("There is already one player mech, cannot have two! D: Go edit the level file you're loading to only have one!");
 				
 //					hexManagerS.getAdjacentHexes(entityManagerS.getBase().sentityManagerS.getBase().sight_range)updateFoWState()
 					break;
 				
-				case EntityE.Enemy:
+				case editor_entity.Spawn:
+					int spawner_id_number =  getIntR(level_lines[index++]);
+					string spawner_cadence = getStringR(level_lines[index++]);
+					bool spawned_enemies_know_mech_location = getBoolR(level_lines[index++]);
+					bool spawned_enemies_know_base_location = getBoolR(level_lines[index++]); 
+					entityManagerS.instantiateSpawn(x, z, spawner_id_number, spawner_cadence, spawned_enemies_know_mech_location, spawned_enemies_know_base_location);
+					break;
+				
+				case editor_entity.Enemy:
 //				print("enemy case");
-					bool enemy_knows_base_loc = getBoolR(level_lines[index++]);
+					int enemy_current_hp =  getIntR(level_lines[index++]);
+					int enemy_max_hp     =  getIntR(level_lines[index++]);
+					int enemy_spawner_id_number =  getIntR(level_lines[index++]);
 					bool enemy_knows_mech_loc = getBoolR(level_lines[index++]);
-					if(!entityManagerS.instantiateEnemy(x, z, enemy_knows_base_loc, enemy_knows_mech_loc))
+					bool enemy_knows_base_loc = getBoolR(level_lines[index++]);
+					if(!entityManagerS.instantiateEnemy(x, z, enemy_current_hp, enemy_max_hp, enemy_spawner_id_number, enemy_knows_base_loc, enemy_knows_mech_loc))
 						throw new System.Exception("Issue adding enemy!");
 					break;
 				
-				case EntityE.Node: 
-//					print("node case");
-					Node node_type                = getNodeR(level_lines[index++]);
+				case editor_entity.Factory: 
+				case editor_entity.Junkyard: 
+				case editor_entity.Outpost:  
+					Node node_type                = (Node) Enum.Parse(typeof(Node), ent_type.ToString()); 
 					NodeLevel node_starting_level = getNodeLevelR(level_lines[index++]);
 					entityManagerS.instantiateResourceNode(x, z, node_type, node_starting_level);
 					break;
@@ -210,6 +238,7 @@ public class engineIOS : MonoBehaviour {
 //        transform.gameObject.active = true;
 		 
 		hexManagerS.setNodePresenseOnHexes();
+		entityManagerS.buildEnemySpawnCounts();
 		return true;
 	}
 	
@@ -251,6 +280,11 @@ public class engineIOS : MonoBehaviour {
     	return reader.Contains("ENTITY{"); 
 	} 
 	
+	private static Turn getTurnR(String reader) //close bracket Reader
+	{  
+          return (Turn) Enum.Parse(typeof(Turn), getStringR(reader)); 
+	} 
+	
 	private static NodeLevel getNodeLevelR(String reader) //close bracket Reader
 	{  
           return (NodeLevel) Enum.Parse(typeof(NodeLevel), getStringR(reader));
@@ -260,5 +294,10 @@ public class engineIOS : MonoBehaviour {
           return (Node) Enum.Parse(typeof(Node), getStringR(reader));
 	} 
 	
-
+	
+	public static BaseUpgrade getBaseUpgrade(String line)
+	{  
+    	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
+		return (BaseUpgrade)BaseUpgrade.Parse(typeof(BaseUpgrade), items[1]);
+	} 
 }

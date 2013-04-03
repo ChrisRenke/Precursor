@@ -5,7 +5,8 @@ public class engineHexS : MonoBehaviour {
 	 
 	private HexData hex_data;
 //	public  LineRenderer lr; 
-	
+	public int x_DISPLAYONLY;
+	public int z_DISPLAYONLY;
 	private VectorLine border;
 	private VectorLine glow;
 	private PathDisplay path_display;
@@ -37,6 +38,8 @@ public class engineHexS : MonoBehaviour {
 	public void assignHexData_IO_LOADER_ONLY(HexData _hex_data)
 	{ 
 		hex_data = _hex_data;
+		z_DISPLAYONLY = hex_data.z;
+		x_DISPLAYONLY = hex_data.x;
 	}
 	
 	public bool setNodePresence()
@@ -141,6 +144,7 @@ public class engineHexS : MonoBehaviour {
 	void OnMouseEnter()
 	{
 		createBorder();
+//		print (node_occupier + " node for this hex");
 	}
 	
 	void OnMouseOver()
@@ -279,7 +283,7 @@ public class engineHexS : MonoBehaviour {
 		   
 		frame_index = (((9 - (int) hex_data.hex_type) * 3 ) - 1 ) - UnityEngine.Random.Range(0,3);  //pick a random variant
 		
-		print ("HEX TYPE: " +  hex_data.hex_type + " | FINDEX: " + frame_index);
+//		print ("HEX TYPE: " +  hex_data.hex_type + " | FINDEX: " + frame_index);
 	    
 		// Size of every cell
 	    float sizeX = -1.0f / colCount;

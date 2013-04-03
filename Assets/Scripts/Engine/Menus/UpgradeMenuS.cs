@@ -292,9 +292,7 @@ public class UpgradeMenuS : MonoBehaviour {
 							{
 								entityMechS.adjustPartCount(Part.Plate, -2);
 								entityMechS.adjustPartCount(Part.Gear, -5);
-								mech.upgrade_traverse_water = true;
-								mech.destroySelectionHexes();
-								mech.allowSelectionHexesDraw();
+								mech.upgrade_traverse_water = true; 
 							}  
 							break;
 							

@@ -7,7 +7,17 @@ public class entityMechS : Combatable, IMove {
 	 
 	public bool upgrade_traverse_water		= false;
 	public bool upgrade_traverse_mountain 	= false;
-	public bool upgrade_traverse_cost 		= false; 
+	public bool upgrade_traverse_cost 		= false;
+	
+	public bool upgrade_armor = false;
+	public bool upgrade_scavenge = false;
+	public bool upgrade_teleport = false;
+	
+	public bool upgrade_weapon_range  = false;
+	public bool upgrade_weapon_damage = false;
+	public bool upgrade_weapon_cost   = false;
+	
+	
 	public int  traverse_upgrade_cost  		= -1;
 	public int  traverse_standard_cost 		=  2;
 	public int  traverse_slow_cost     		=  4;
@@ -23,19 +33,13 @@ public class entityMechS : Combatable, IMove {
 	public int weapon_base_damage = 3;
 	public int weapon_base_range  = 1;
 	public int weapon_base_cost   = 4; 
-	public bool upgrade_weapon_range  = false;
-	public bool upgrade_weapon_damage = false;
-	public bool upgrade_weapon_cost   = false;
+	
 	public int weapon_upgrade_range  = 3;
 	public int weapon_upgrade_cost   = 3;
 	public int weapon_upgrade_damage = 5;
 	
-	public bool upgrade_armor_1 = false;
-	public bool upgrade_armor_2 = false;
-	public bool upgrade_armor_3 = false;
-	public int armor_upgrade_1 = 2;
-	public int armor_upgrade_2 = 3;
-	public int armor_upgrade_3 = 4;
+	public int armor_upgrade = 2; 
+	
 	
 	public List<HexData> adjacent_visible_hexes;
 	public List<HexData> previous_adjacent_visible_hexes;
@@ -51,9 +55,7 @@ public class entityMechS : Combatable, IMove {
 	
 	public int starting_ap = 18;
 	public int starting_ap_max = 18;
-	
-	public static bool instantiated_selection_meshes_already = false;
-	public static List<GameObject> selection_hexes;
+	 
 	
 	public static Dictionary<Part, int> part_count;
 	
@@ -68,7 +70,7 @@ public class entityMechS : Combatable, IMove {
 	
 	void Awake()
 	{
-		selection_hexes = new List<GameObject>();
+ 
 		part_count = new Dictionary<Part, int>();
 		part_count.Add(Part.Gear, 0);
 		part_count.Add(Part.Plate, 0);
@@ -107,20 +109,7 @@ public class entityMechS : Combatable, IMove {
 	}
 	
 	
-	
-	
-	public bool destroySelectionHexes(){
-		foreach(GameObject go in selection_hexes)
-		{
-			Destroy(go);
-		}
-		return true;
-	}
-	
-	public void allowSelectionHexesDraw(){
-		instantiated_selection_meshes_already = false;
-	}
-	
+	 
 	//Update is called once per frame
 	void Update () {
 		
@@ -128,7 +117,7 @@ public class entityMechS : Combatable, IMove {
 		if(checkIfDead())
 			onDeath();
 		
-		if(gameManagerS.current_turn == Turn.Player && current_ap <= 0)
+		if(gameManagerS.current_turn == Turn.Player && current_ap <= 0 && !lerp_move)
 		{
 			moving_on_path = false;
 			travel_path_en = null;
@@ -154,99 +143,99 @@ public class entityMechS : Combatable, IMove {
 				}
 				
 			}
-			else
-			if(!instantiated_selection_meshes_already)
-			{
-//				Debug.Log("BEGIN INSTANTIATING SELECTION MESHES");
-//				foreach(HexData ath in getAdjacentTraversableHexes())
+//			else
+//			if(!instantiated_selection_meshes_already)
+//			{
+////				Debug.Log("BEGIN INSTANTIATING SELECTION MESHES");
+////				foreach(HexData ath in getAdjacentTraversableHexes())
+////				{
+////					
+////					Debug.Log("making a mesh for selection");
+////					selection_hexes.Add(InstantiateSelectionHex(ath.x, ath.z));
+////					selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
+////					hex_select.direction_from_center = ath.direction_from_central_hex;
+////					
+////					hex_select.x = ath.x;
+////					hex_select.z = ath.z;
+////					
+////					if(ath.traversal_cost <= 2)
+////					{
+////						hex_select.select_level = SelectLevel.Easy; 
+////					}
+////					else if(ath.traversal_cost <= 4)
+////					{
+////						hex_select.select_level = SelectLevel.Medium;
+////					}
+////					else
+////					{
+////						hex_select.select_level = SelectLevel.Hard; 
+////					}
+////					
+////					hex_select.occupier      = ath.added_occupier;
+////					if( ath.added_occupier == EntityE.Node)
+////					{
+////						hex_select.node_data = entityManagerS.getNodeInfoAt(ath.x, ath.z);
+////					}
+////					hex_select.hex_type      = ath.hex_type;
+////					hex_select.action_cost = ath.traversal_cost;
+////					hex_select.genTextString();
+////					
+////				}
+//				
+//			
+//				
+////				//if we're on a resource node and we have enough ap to scavenge, then build a seclection hex for right here
+////				if(entityManagerS.isEntityPos(x, z, EntityE.Node) && current_ap >= scavenge_base_cost)
+////				{
+////					NodeData nd = entityManagerS.getNodeInfoAt(x, z);
+////					
+////					//if the node isn't already empty
+////					if(nd.node_level != NodeLevel.Empty)
+////					{
+////						selection_hexes.Add(InstantiateSelectionHex(x, z));
+////						selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
+////						
+////						hex_select.x = x;
+////						hex_select.z = z;
+////						hex_select.direction_from_center = Facing.NorthWest;
+////						hex_select.occupier      = EntityE.Node;
+////						hex_select.hex_type      = hexManagerS.getHex(x, z).hex_type;
+////						hex_select.action_cost   = scavenge_base_cost;
+////						hex_select.select_level  = SelectLevel.Scavenge;
+////						hex_select.node_data     = nd;
+////						hex_select.genTextString();
+////					}
+////					
+////				}
+//				
+//				//check for adjacent enemies
+//				if( current_ap >= getAttackAPCost())
 //				{
-//					
-//					Debug.Log("making a mesh for selection");
-//					selection_hexes.Add(InstantiateSelectionHex(ath.x, ath.z));
-//					selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
-//					hex_select.direction_from_center = ath.direction_from_central_hex;
-//					
-//					hex_select.x = ath.x;
-//					hex_select.z = ath.z;
-//					
-//					if(ath.traversal_cost <= 2)
+//					foreach(HexData auh in getAdjacentUntraversableHexes())
 //					{
-//						hex_select.select_level = SelectLevel.Easy; 
-//					}
-//					else if(ath.traversal_cost <= 4)
-//					{
-//						hex_select.select_level = SelectLevel.Medium;
-//					}
-//					else
-//					{
-//						hex_select.select_level = SelectLevel.Hard; 
-//					}
-//					
-//					hex_select.occupier      = ath.added_occupier;
-//					if( ath.added_occupier == EntityE.Node)
-//					{
-//						hex_select.node_data = entityManagerS.getNodeInfoAt(ath.x, ath.z);
-//					}
-//					hex_select.hex_type      = ath.hex_type;
-//					hex_select.action_cost = ath.traversal_cost;
-//					hex_select.genTextString();
-//					
-//				}
-				
-			
-				
-//				//if we're on a resource node and we have enough ap to scavenge, then build a seclection hex for right here
-//				if(entityManagerS.isEntityPos(x, z, EntityE.Node) && current_ap >= scavenge_base_cost)
-//				{
-//					NodeData nd = entityManagerS.getNodeInfoAt(x, z);
-//					
-//					//if the node isn't already empty
-//					if(nd.node_level != NodeLevel.Empty)
-//					{
-//						selection_hexes.Add(InstantiateSelectionHex(x, z));
-//						selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
+//						entityEnemyS enemy = entityManagerS.getEnemyAt(auh.x, auh.z);
+//						if(enemy != null)
+//						{
+//							print ("adjacnet enemy!!!!!!!!!!!!!!!!!!!!!!");
+//							selection_hexes.Add(InstantiateSelectionHex(auh.x, auh.z));
+//							selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
+//							hex_select.x = auh.x;
+//							hex_select.z = auh.z;
+//							hex_select.direction_from_center = auh.direction_from_central_hex;
+//							hex_select.occupier      = EntityE.Enemy;
+//							hex_select.hex_type      = hexManagerS.getHex(x, z).hex_type;
+//							hex_select.action_cost   = getAttackAPCost();
+//							hex_select.select_level  = SelectLevel.Attack; 
+//							hex_select.genTextString();
+//							
+//						}
 //						
-//						hex_select.x = x;
-//						hex_select.z = z;
-//						hex_select.direction_from_center = Facing.NorthWest;
-//						hex_select.occupier      = EntityE.Node;
-//						hex_select.hex_type      = hexManagerS.getHex(x, z).hex_type;
-//						hex_select.action_cost   = scavenge_base_cost;
-//						hex_select.select_level  = SelectLevel.Scavenge;
-//						hex_select.node_data     = nd;
-//						hex_select.genTextString();
 //					}
-//					
 //				}
-				
-				//check for adjacent enemies
-				if( current_ap >= getAttackAPCost())
-				{
-					foreach(HexData auh in getAdjacentUntraversableHexes())
-					{
-						entityEnemyS enemy = entityManagerS.getEnemyAt(auh.x, auh.z);
-						if(enemy != null)
-						{
-							print ("adjacnet enemy!!!!!!!!!!!!!!!!!!!!!!");
-							selection_hexes.Add(InstantiateSelectionHex(auh.x, auh.z));
-							selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
-							hex_select.x = auh.x;
-							hex_select.z = auh.z;
-							hex_select.direction_from_center = auh.direction_from_central_hex;
-							hex_select.occupier      = EntityE.Enemy;
-							hex_select.hex_type      = hexManagerS.getHex(x, z).hex_type;
-							hex_select.action_cost   = getAttackAPCost();
-							hex_select.select_level  = SelectLevel.Attack; 
-							hex_select.genTextString();
-							
-						}
-						
-					}
-				}
-				
-				instantiated_selection_meshes_already = true;
-				Debug.Log("END INSTANTIATING SELECTION MESHES");
-			}
+//				
+//				instantiated_selection_meshes_already = true;
+//				Debug.Log("END INSTANTIATING SELECTION MESHES");
+//			}
 		}
 		
 		if(lerp_move)
@@ -255,8 +244,7 @@ public class entityMechS : Combatable, IMove {
      		moveTime += Time.deltaTime/dist;
 			
 			if( Vector3.Distance(transform.position, ending_pos) <= .05)
-			{
-				allowSelectionHexesDraw();
+			{ 
 				lerp_move = false;
 				transform.position = ending_pos;
 			}
@@ -271,7 +259,7 @@ public class entityMechS : Combatable, IMove {
 	
 	public Path getPathFromMechTo(HexData destination)
 	{
-		Debug.LogWarning("getPathFromMechTo");
+//		Debug.LogWarning("getPathFromMechTo");
 		return hexManagerS.getTraversablePath(
 												hexManagerS.getHex(x, z), 
 												hexManagerS.getHex(destination.x, destination.z),
@@ -319,7 +307,7 @@ public class entityMechS : Combatable, IMove {
 	
 	public int getScavengeAPCost()
 	{
-		return scavenge_base_cost;
+		return  scavenge_base_cost;
 	}
 	
 	
@@ -333,6 +321,9 @@ public class entityMechS : Combatable, IMove {
 			return false;
 		
 		int num_of_each_type = (int) resource_level;
+		
+		if(upgrade_scavenge)
+			num_of_each_type++;
 		
 		if(node_type == Node.Factory)
 		{
@@ -361,9 +352,7 @@ public class entityMechS : Combatable, IMove {
 			}
 		}
 		
-		current_ap -= getScavengeAPCost();
-		
-		allowSelectionHexesDraw();
+		current_ap -= getScavengeAPCost(); 
 		
 		entityManagerS.updateNodeLevel(x, z, resource_level);
 		return true;

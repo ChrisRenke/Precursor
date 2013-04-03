@@ -1,6 +1,23 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Engine/Entity/entityS.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Engine/Managers/hexManagerS.cs" Line="144" Column="53" />
+      <File FileName="Assets/Scripts/Engine/Managers/entityManagerS.cs" Line="408" Column="2" />
+      <File FileName="Assets/Scripts/Engine/engineHexS.cs" Line="234" Column="43" />
+      <File FileName="Assets/Scripts/Engine/Managers/gameManagerS.cs" Line="43" Column="31" />
+      <File FileName="Assets/Scripts/Engine/Interaction/enginePlayerS.cs" Line="360" Column="10" />
+      <File FileName="Assets/Scripts/Engine/Managers/engineIOS.cs" Line="240" Column="6" />
+      <File FileName="Assets/Scripts/Engine/Entity/entityMechS.cs" Line="324" Column="3" />
+      <File FileName="Assets/Scripts/Engine/Interaction/selectionHexS.cs" Line="176" Column="3" />
+      <File FileName="Assets/Scripts/Engine/Entity/entityEnemyS.cs" Line="110" Column="30" />
+      <File FileName="Assets/Scripts/Engine/Entity/entitySpawnS.cs" Line="12" Column="48" />
+      <File FileName="Assets/Scripts/Engine/Menus/UpgradeMenuS.cs" Line="295" Column="45" />
+      <File FileName="Assets/Scripts/Engine/Entity/entityBaseS.cs" Line="162" Column="34" />
+      <File FileName="Assets/Scripts/Engine/Interaction/mechDisplayS.cs" Line="15" Column="17" />
+      <File FileName="Assets/Scripts/Engine/pathDrawS.cs" Line="64" Column="36" />
+      <File FileName="Assets/Scripts/Engine/Entity/entityS.cs" Line="44" Column="2" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
@@ -8,10 +25,18 @@
             <Node name="Assets" expanded="True">
               <Node name="Level_Files" expanded="True" />
               <Node name="Scripts" expanded="True">
-                <Node name="Engine" expanded="True" />
-                <Node name="MapEditor" expanded="True">
-                  <Node name="editorEntityManagerS.cs" selected="True" />
+                <Node name="Engine" expanded="True">
+                  <Node name="Entity" expanded="True">
+                    <Node name="entityS.cs" selected="True" />
+                  </Node>
+                  <Node name="Interaction" expanded="True" />
+                  <Node name="Managers" expanded="True" />
+                  <Node name="Menus" expanded="True" />
                 </Node>
+                <Node name="MapEditor" expanded="True" />
+              </Node>
+              <Node name="Vectrosity" expanded="True">
+                <Node name="Shaders" expanded="True" />
               </Node>
             </Node>
           </Node>

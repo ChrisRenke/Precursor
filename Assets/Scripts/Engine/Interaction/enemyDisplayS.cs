@@ -12,7 +12,7 @@ public class enemyDisplayS : MonoBehaviour {
 	public int colNumber   = 0; //Zero Indexed
 	public int totalCells  = 8;
 	
-	public int fps = 10;
+	private int fps = 32;
 	
 	public int frame_index = 0;
 	
@@ -88,14 +88,41 @@ public class enemyDisplayS : MonoBehaviour {
 	    renderer.material.SetTextureOffset ("_MainTex", offset);
 	    renderer.material.SetTextureScale  ("_MainTex", size);
 	}
+	
+	void setToStanding(int colCount ,int rowCount ,int rowNumber ,int colNumber,int totalCells,int fps ){
+	 
+	    // Calculate index 
+	    // Repeat when exhausting all cells
+	    int index = 17;
+	 
+	    // Size of every cell
+	    float sizeX = 1.0f / colCount;
+	    float sizeY = 1.0f / rowCount;
+	    Vector2 size =  new Vector2(sizeX,sizeY);
+	 
+	    // split into horizontal and vertical index
+	    var uIndex = index % colCount;
+	    var vIndex = index / colCount;
+	 
+	    // build offset
+	    // v coordinate is the bottom of the image in opengl so we need to invert.
+	    float offsetX = (uIndex+colNumber) * size.x;
+	    float offsetY = (1.0f - size.y) - (vIndex + rowNumber) * size.y;
+	    Vector2 offset = new Vector2(offsetX,offsetY);
+	 
+	    renderer.material.SetTextureOffset ("_MainTex", offset);
+	    renderer.material.SetTextureScale  ("_MainTex", size);
+	}
+	
 	void setMaterial()
 	{
 	    renderer.material = facing_walks[owner.facing_direction];
+		setToStanding(colCount,rowCount,rowNumber,colNumber,totalCells,fps);
 		
-		if(hexManagerS.getHex(owner.x, owner.z).vision_state == Vision.Live)
-	  		renderer.material.SetColor ("_Color", Color.red);
-		else
+		if(hexManagerS.getHex(owner.x, owner.z).vision_state != Vision.Live)
 			renderer.enabled = false;
+//	  		renderer.material.SetColor ("_Color", Color.red);
+//		else
 	}
 //	
 //	void OnMouseOver()

@@ -89,14 +89,7 @@ public class editorHexManagerS : MonoBehaviour {
 		return new_hex;
 	}
 	 
-	
-	public void debug(string str)
-	{
-		if(debug_prints)
-		{
-			print (str);
-		}
-	}
+	 
 	
 	
 	public GameObject BrushHex(bool overwrite, Hex clicked_hex_type, int brush_size, Vector3 pos, Hex draw_hex_type, int x, int z)
@@ -104,7 +97,7 @@ public class editorHexManagerS : MonoBehaviour {
 		GameObject current_hex; 
 		bool border_mode = false;
 		GameObject origin_hex;
-		debug("BrushHex called");
+		Debug.Log("BrushHex called");
 		
 		//draw center hex, the one clicked on
 		current_hex = AddHex(overwrite, clicked_hex_type, brush_size, pos, draw_hex_type, x, z);
@@ -113,12 +106,12 @@ public class editorHexManagerS : MonoBehaviour {
 		for(int ring = 1; ring < brush_size + 1; ring++)
 		{
 			
-			debug("entering ring: ring level " + ring);
+			Debug.Log("entering ring: ring level " + ring);
 			//if we're in the extra iteration of the loop (hence the +1 to brush size
 			if(ring == brush_size)
 			{
 				
-				debug("setting ring to border mode");
+				Debug.Log("setting ring to border mode");
 				
 				//set border_mode to true
 				border_mode = true;
@@ -131,48 +124,48 @@ public class editorHexManagerS : MonoBehaviour {
 			}
 				
 			//draw the first "northeast" edge hex
-			debug("    drawing a northeast edge before initial from");
+			Debug.Log("    drawing a northeast edge before initial from");
 			current_hex = AddHexNE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex));
 			 
 			//draw the "northeast" portion
 			for(int edge_hexes_drawn = 1; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				debug("    drawing a northeast edge.");
+				Debug.Log("    drawing a northeast edge.");
 				current_hex = AddHexSE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 			
 			//draw the "southeast" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				debug("    drawing a southeast edge.");
+				Debug.Log("    drawing a southeast edge.");
 				current_hex = AddHexS(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 			
 			//draw the "south" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				debug("    drawing a south edge.");
+				Debug.Log("    drawing a south edge.");
 				current_hex = AddHexSW(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 			
 			//draw the "southwest" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				debug("    drawing a southwest edge.");
+				Debug.Log("    drawing a southwest edge.");
 				current_hex = AddHexNW(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 			
 			//draw the "northwest" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				debug("    drawing a northwest edge.");
+				Debug.Log("    drawing a northwest edge.");
 				current_hex = AddHexN(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 			
 			//draw the "north" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				debug("    drawing a north edge.");
+				Debug.Log("    drawing a north edge.");
 				current_hex = AddHexNE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 			}
 		}
@@ -285,7 +278,7 @@ public class editorHexManagerS : MonoBehaviour {
 			
 			hex_db[x][z]= new editorHexData(created_hex_script.name, created_hex, draw_hex_type, x, z);
 			
-			debug("    created new hex at " + x + "," + z + "by altering existing");
+			Debug.Log("    created new hex at " + x + "," + z + "by altering existing");
 			return created_hex;
 		}
 		
@@ -311,11 +304,11 @@ public class editorHexManagerS : MonoBehaviour {
 			//add the entry to the corresponding z dict 
 			hex_db[x].Add(z, db_entry);
 			
-			debug("    created new hex at " + x + "," + z + " from nothing");
+			Debug.Log("    created new hex at " + x + "," + z + " from nothing");
 			return created_hex;
 		}
 		
-			debug("    returned existing hex at " + x + "," + z);
+			Debug.Log("    returned existing hex at " + x + "," + z);
 		return hex_db[x][z].occupier;
 	}
 		
@@ -533,7 +526,7 @@ public class editorHexManagerS : MonoBehaviour {
 		GameObject current_hex; 
 		bool border_mode = false;
 		
-		debug("BrushHex called");
+		Debug.Log("BrushHex called");
 		
 		//draw center hex, the one clicked on
 		
@@ -546,7 +539,7 @@ public class editorHexManagerS : MonoBehaviour {
 		for(int ring = 1; ring < brush_size; ring++)
 		{ 
 			//draw the first "northeast" edge hex
-			debug("    drawing a northeast edge before initial from");
+			Debug.Log("    drawing a northeast edge before initial from");
 			
 				x += 1;
 				z += 0;
@@ -558,7 +551,7 @@ public class editorHexManagerS : MonoBehaviour {
 			{ 
 				x += 1;
 				z -= 1;
-				debug("    drawing a northeast edge.");
+				Debug.Log("    drawing a northeast edge.");
 				if(sprayNum() < (editorUserS.spray_prob)) 
 					current_hex = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
 			}
@@ -568,7 +561,7 @@ public class editorHexManagerS : MonoBehaviour {
 			{
 				x += 0;
 				z -= 1;
-				debug("    drawing a southeast edge.");
+				Debug.Log("    drawing a southeast edge.");
 				if(sprayNum() < (editorUserS.spray_prob)) 
 					current_hex = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
 			}
@@ -578,7 +571,7 @@ public class editorHexManagerS : MonoBehaviour {
 			{
 				x -= 1;
 				z += 0;
-				debug("    drawing a south edge.");
+				Debug.Log("    drawing a south edge.");
 				if(sprayNum() < (editorUserS.spray_prob)) 
 					current_hex  = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
 			}
@@ -588,7 +581,7 @@ public class editorHexManagerS : MonoBehaviour {
 			{
 				x -= 1;
 				z += 1;
-				debug("    drawing a southwest edge.");
+				Debug.Log("    drawing a southwest edge.");
 				if(sprayNum() < (editorUserS.spray_prob)) 
 					current_hex  = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
 			}
@@ -598,7 +591,7 @@ public class editorHexManagerS : MonoBehaviour {
 			{
 				x -= 0;
 				z += 1;
-				debug("    drawing a northwest edge.");
+				Debug.Log("    drawing a northwest edge.");
 				if(sprayNum() < (editorUserS.spray_prob)) 
 					current_hex  = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
 			}
@@ -608,7 +601,7 @@ public class editorHexManagerS : MonoBehaviour {
 			{
 				x += 1;
 				z += 0;
-				debug("    drawing a north edge.");
+				Debug.Log("    drawing a north edge.");
 				if(sprayNum() < (editorUserS.spray_prob)) 
 					current_hex  = BrushHex(overwrite, clicked_hex_type, 1, editorUserS.CoordsGameTo3D(x, z), draw_hex_type, x, z);
 			}

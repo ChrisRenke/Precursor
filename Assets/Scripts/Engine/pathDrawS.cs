@@ -61,7 +61,7 @@ public class pathDrawS : MonoBehaviour {
 	
 	public static PathDisplay getPathLine(Path path)
 	{
-			Debug.Log("drawPath numba J");
+//			Debug.Log("drawPath numba J");
 //			Debug.Log("awkward length " + 	path.getPathLength());
 		
 		float usable_ap = mech.current_ap;
@@ -119,7 +119,7 @@ public class pathDrawS : MonoBehaviour {
 				
 				
 				
-				Debug.Log(path_spots[i] + " | " + path_pos.traversal_cost);
+//				Debug.Log(path_spots[i] + " | " + path_pos.traversal_cost);
 				i++;
 			}
 			 

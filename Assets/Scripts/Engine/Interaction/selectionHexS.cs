@@ -167,14 +167,12 @@ public class selectionHexS : Entity {
 		{
 			mech.attackEnemy(x, z);
 			Debug.LogWarning("ATTACKING TARGET @ " + x + "," + z);
-			mech.allowSelectionHexesDraw();
 		}
 //		else
 //		{
 ////			mech.moveToHex(x, z, action_cost, occupier);
 //		}
 		
-		mech.destroySelectionHexes();
 	}
 	
 		
