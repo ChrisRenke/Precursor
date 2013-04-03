@@ -107,13 +107,13 @@ public class UpgradeMenuS : MonoBehaviour {
 	    int window_size_height  = screen_size_y - screen_size_y /8; 
 
 	    //Layout start
-	    GUI.BeginGroup(new Rect(window_size_x, window_size_y, window_size_width, window_size_height));
+	    GUI.BeginGroup(new Rect(0, 0, screen_size_x, screen_size_y));
 
 	    //The Menu background box
-	    GUI.Box(new Rect(0, 0, window_size_width, window_size_height), "");
+	    GUI.Box(new Rect(screen_size_x /4 - screen_size_x /16, screen_size_y /14, window_size_width, window_size_height), "");
 
 	    //Game resume button (close upgrade menu)
-	    if(GUI.Button(new Rect(window_size_width - window_size_width/12, window_size_height/20, window_size_width/20, window_size_height/20), "X", default_button_style)) {
+	    if(GUI.Button(new Rect(window_size_x + window_size_width - window_size_width/12, window_size_y + window_size_height/20, window_size_width/20, window_size_height/20), "X", default_button_style)) {
 		    //resume the game
 		    Time.timeScale = 1;
 		    inPlayMenuS script =  GetComponent<inPlayMenuS>();
@@ -124,11 +124,13 @@ public class UpgradeMenuS : MonoBehaviour {
 	    }
 		
 		//continue button variables
-		int continue_button_x_left = window_size_width - window_size_width/10;
-		int continue_button_x_right = window_size_width/50;
-		int continue_button_y = window_size_height/2;
+		int continue_button_x_right = window_size_x + window_size_width - window_size_width/10;
+		int continue_button_x_left = window_size_x - window_size_width/22;
+		int continue_button_y = window_size_y + window_size_height/2;
 		int continue_button_width = window_size_width/8;
 		int continue_button_height = window_size_height/10;
+		int label_window_size_width  = window_size_width; 
+	    int label_window_size_height  = window_size_width; 
 		
 		//Var for base upgrade
 		bool base_upgrade_occured = false;
@@ -137,76 +139,76 @@ public class UpgradeMenuS : MonoBehaviour {
 		switch(menu_choice){
 			case Menu.BaseUpgrade1:
 				//Next button
-				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "Next" , default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "Next" , default_button_style)) {
 					menu_choice = Menu.BaseUpgrade2;
 	    		}
 				
 				//draw part labels
-				part_labels(window_size_width, window_size_height, ref parts_count_for_wall_upgrades);	
+				part_labels(label_window_size_width, label_window_size_height, ref parts_count_for_wall_upgrades);	
 			
 				break;
 	
 			case Menu.BaseUpgrade2:
 			    //Next button
-				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "Next" ,default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "Next" ,default_button_style)) {
 					menu_choice = Menu.BaseUpgrade3;
 	    		}
 				//Back button
-				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "Back" ,default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "Back" ,default_button_style)) {
 					menu_choice = Menu.BaseUpgrade1;
 	    		}
 			
 				//draw part labels
-				part_labels(window_size_width, window_size_height,  ref parts_count_for_struc_upgrades);	
+				part_labels(label_window_size_width, label_window_size_height,  ref parts_count_for_struc_upgrades);	
 			
 				break;
 			
 			case Menu.BaseUpgrade3:
 			    //Back button
-				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "Back" ,default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "Back" ,default_button_style)) {
 					menu_choice = Menu.BaseUpgrade2;
 	    		}
 				
 				//draw part labels
-				part_labels(window_size_width, window_size_height, ref parts_count_for_weapon_upgrades);	
+				part_labels(label_window_size_width, label_window_size_height, ref parts_count_for_weapon_upgrades);	
 			
 				break;
 			
 			case Menu.MechUpgrade1:
 				//Next button
-				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "Next" ,default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "Next" ,default_button_style)) {
 					menu_choice = Menu.MechUpgrade2;
 	    		}
 			
 				//draw part labels
-				part_labels(window_size_width, window_size_height,  ref parts_count_for_mobile_upgrades);	
+				part_labels(label_window_size_width, label_window_size_height,  ref parts_count_for_mobile_upgrades);	
 			
 				break;
 			
 			case Menu.MechUpgrade2:
 				//Next button
-				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "Next" ,default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "Next" ,default_button_style)) {
 					menu_choice = Menu.MechUpgrade3;
 	    		}
 				//Back button
-				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "Back" ,default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "Back" ,default_button_style)) {
 					menu_choice = Menu.MechUpgrade1;
 	    		}
 				
 				//draw part labels
-				part_labels(window_size_width, window_size_height, ref parts_count_for_gun_upgrades);	
+				part_labels(label_window_size_width, label_window_size_height, ref parts_count_for_gun_upgrades);	
 			
 			
 				break;
 			
 			case Menu.MechUpgrade3:
 				//Back button
-				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "Back" ,default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "Back" ,default_button_style)) {
 					menu_choice = Menu.MechUpgrade2;
 	    		}
 			
 				//draw part labels
-				part_labels(window_size_width, window_size_height, ref parts_count_for_other_upgrades);	
+				part_labels(label_window_size_width, label_window_size_height, ref parts_count_for_other_upgrades);	
 			
 				break;
 			
@@ -227,12 +229,12 @@ public class UpgradeMenuS : MonoBehaviour {
 		getDescriptions();
 		
 	    //Upgrade Menu buttons
-	    int button_x_start  = window_size_width/9 + window_size_x/26; 
-	    int button_y_start  = window_size_height/4 + window_size_height/35; 
+	    int button_x_start  = window_size_x + window_size_width/9 + window_size_x/26; 
+	    int button_y_start  = window_size_y + window_size_height/4 + window_size_height/35; 
 		int button_size_width = window_size_width/7; 
 	    int button_size_height = window_size_height/6; 
-	    int button_spacing = button_size_height/4 - button_size_height/25; 
-		int label_x_start  = window_size_width/3 + window_size_width/13; 
+	    int button_spacing = button_size_height/4 - button_size_height/40; 
+		int label_x_start  = window_size_x + window_size_width/3 + window_size_width/13; 
 		int label_width  = button_size_width + button_size_width/2 - button_size_width/20;
 		
 	    //upgrade button 0
@@ -425,13 +427,17 @@ public class UpgradeMenuS : MonoBehaviour {
 	//draw part count for each button
 	private void part_labels (int window_size_width, int window_size_height, ref int[,] parts_array){
 		//part count variables
-		int part_x_start  = window_size_width/2 + (window_size_width/29) * 5; 
+		int part_x_start  = window_size_width - (window_size_width/12); 
+		int part_x_adjust = part_x_start + (window_size_width/9);
 	    int part_y_start  = window_size_height/6 + window_size_height/12; 
-		int part_size_width  = window_size_width/6; 
+		int part_size_width  = window_size_width/4; 
 	    int part_size_height  = window_size_height/8; 
-	    int part_spacing  = part_size_height/4; 
-		int part_shift  = part_y_start + window_size_height/15 + window_size_height/7; 
-		int part_shift_one  = part_shift + part_shift/3 + part_shift/8; 
+	    int part_spacing  = part_size_height/5; 
+		int part_shift  = part_y_start + part_size_height + part_spacing * 2;
+		int part_y_adjust = part_y_start + part_spacing * 3; 
+		int part_y_adjust_one = part_shift + part_spacing * 3; 
+		int part_shift_one  = part_shift + part_shift/3 + part_shift/20; 
+		int part_shift_adjust = part_shift_one + part_spacing * 3;
 		int row1 = 0;
 		int row2 = 1;
 		int row3 = 2;
@@ -443,19 +449,19 @@ public class UpgradeMenuS : MonoBehaviour {
 			GUI.Label(new Rect(part_x_start, part_y_start, part_size_width, part_size_height), "" + parts_array[row1,0], text_style_parts_not_in_inventory);
 		}
 		if(entityMechS.getPartCount(Part.Gear) 	>= parts_array[row1,1]){
-			GUI.Label(new Rect(part_x_start, part_y_start + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row1,1], text_style_parts_have_in_inventory);
+			GUI.Label(new Rect(part_x_start, part_y_adjust, part_size_width, part_size_height), "" + parts_array[row1,1], text_style_parts_have_in_inventory);
 		}else{
-			GUI.Label(new Rect(part_x_start, part_y_start + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row1,1], text_style_parts_not_in_inventory);
+			GUI.Label(new Rect(part_x_start, part_y_adjust, part_size_width, part_size_height), "" + parts_array[row1,1], text_style_parts_not_in_inventory);
 		}
 		if(entityMechS.getPartCount(Part.Plate) 	>= parts_array[row1,2]){
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_y_start, part_size_width, part_size_height), "" + parts_array[row1,2], text_style_parts_have_in_inventory);
+			GUI.Label(new Rect(part_x_adjust, part_y_start, part_size_width, part_size_height), "" + parts_array[row1,2], text_style_parts_have_in_inventory);
 		}else{
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_y_start, part_size_width, part_size_height), "" + parts_array[row1,2], text_style_parts_not_in_inventory);
+			GUI.Label(new Rect(part_x_adjust, part_y_start, part_size_width, part_size_height), "" + parts_array[row1,2], text_style_parts_not_in_inventory);
 		}
 		if(entityMechS.getPartCount(Part.Strut) 	>= parts_array[row1,3]){
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_y_start + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row1,3], text_style_parts_have_in_inventory);
+			GUI.Label(new Rect(part_x_adjust, part_y_adjust, part_size_width, part_size_height), "" + parts_array[row1,3], text_style_parts_have_in_inventory);
 		}else{
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_y_start + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row1,3], text_style_parts_not_in_inventory);
+			GUI.Label(new Rect(part_x_adjust, part_y_adjust, part_size_width, part_size_height), "" + parts_array[row1,3], text_style_parts_not_in_inventory);
 		}
 		//second button labels
 		if(showButton(1)){
@@ -465,25 +471,25 @@ public class UpgradeMenuS : MonoBehaviour {
 				GUI.Label(new Rect(part_x_start, part_shift, part_size_width, part_size_height), "" + parts_array[row2,0], text_style_parts_not_in_inventory);
 			}
 			if(entityMechS.getPartCount(Part.Gear) 	>= parts_array[row2,1]){
-				GUI.Label(new Rect(part_x_start, part_shift + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row2,1], text_style_parts_have_in_inventory);
+				GUI.Label(new Rect(part_x_start, part_y_adjust_one, part_size_width, part_size_height), "" + parts_array[row2,1], text_style_parts_have_in_inventory);
 			}else{
-				GUI.Label(new Rect(part_x_start, part_shift + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row2,1], text_style_parts_not_in_inventory);
+				GUI.Label(new Rect(part_x_start, part_y_adjust_one, part_size_width, part_size_height), "" + parts_array[row2,1], text_style_parts_not_in_inventory);
 			}
 			if(entityMechS.getPartCount(Part.Plate) 	>= parts_array[row2,2]){
-				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift, part_size_width, part_size_height), "" + parts_array[row2,2], text_style_parts_have_in_inventory);
+				GUI.Label(new Rect(part_x_adjust, part_shift, part_size_width, part_size_height), "" + parts_array[row2,2], text_style_parts_have_in_inventory);
 			}else{
-				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift, part_size_width, part_size_height), "" + parts_array[row2,2], text_style_parts_not_in_inventory);
+				GUI.Label(new Rect(part_x_adjust, part_shift, part_size_width, part_size_height), "" + parts_array[row2,2], text_style_parts_not_in_inventory);
 			}
 			if(entityMechS.getPartCount(Part.Strut) 	>= parts_array[row2,3]){
-				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row2,3], text_style_parts_have_in_inventory);
+				GUI.Label(new Rect(part_x_adjust, part_y_adjust_one, part_size_width, part_size_height), "" + parts_array[row2,3], text_style_parts_have_in_inventory);
 			}else{
-				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row2,3], text_style_parts_not_in_inventory);
+				GUI.Label(new Rect(part_x_adjust, part_y_adjust_one, part_size_width, part_size_height), "" + parts_array[row2,3], text_style_parts_not_in_inventory);
 			}
 		}else{
 			GUI.Label(new Rect(part_x_start, part_shift, part_size_width, part_size_height), "0", text_style_grey);
-			GUI.Label(new Rect(part_x_start, part_shift + part_spacing * 3, part_size_width, part_size_height), "0", text_style_grey);
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift, part_size_width, part_size_height), "0", text_style_grey);
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift + part_spacing * 3, part_size_width, part_size_height), "0", text_style_grey);
+			GUI.Label(new Rect(part_x_start, part_y_adjust_one, part_size_width, part_size_height), "0", text_style_grey);
+			GUI.Label(new Rect(part_x_adjust, part_shift, part_size_width, part_size_height), "0", text_style_grey);
+			GUI.Label(new Rect(part_x_adjust, part_y_adjust_one, part_size_width, part_size_height), "0", text_style_grey);
 		}
 		
 		//third button labels
@@ -494,25 +500,25 @@ public class UpgradeMenuS : MonoBehaviour {
 				GUI.Label(new Rect(part_x_start, part_shift_one, part_size_width, part_size_height), "" + parts_array[row3,0], text_style_parts_not_in_inventory);
 			}
 			if(entityMechS.getPartCount(Part.Gear) 	>= parts_array[row3,1]){
-				GUI.Label(new Rect(part_x_start, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row3,1], text_style_parts_have_in_inventory);
+				GUI.Label(new Rect(part_x_start, part_shift_adjust, part_size_width, part_size_height), "" + parts_array[row3,1], text_style_parts_have_in_inventory);
 			}else{
-				GUI.Label(new Rect(part_x_start, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row3,1], text_style_parts_not_in_inventory);
+				GUI.Label(new Rect(part_x_start, part_shift_adjust, part_size_width, part_size_height), "" + parts_array[row3,1], text_style_parts_not_in_inventory);
 			}
 			if(entityMechS.getPartCount(Part.Plate) 	>= parts_array[row3,2]){
-				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one, part_size_width, part_size_height), "" + parts_array[row3,2], text_style_parts_have_in_inventory);
+				GUI.Label(new Rect(part_x_adjust, part_shift_one, part_size_width, part_size_height), "" + parts_array[row3,2], text_style_parts_have_in_inventory);
 			}else{
-				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one, part_size_width, part_size_height), "" + parts_array[row3,2], text_style_parts_not_in_inventory);
+				GUI.Label(new Rect(part_x_adjust, part_shift_one, part_size_width, part_size_height), "" + parts_array[row3,2], text_style_parts_not_in_inventory);
 			}
 			if(entityMechS.getPartCount(Part.Strut) 	>= parts_array[row3,3]){
-				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row3,3], text_style_parts_have_in_inventory);
+				GUI.Label(new Rect(part_x_adjust, part_shift_adjust, part_size_width, part_size_height), "" + parts_array[row3,3], text_style_parts_have_in_inventory);
 			}else{
-				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row3,3], text_style_parts_not_in_inventory);
+				GUI.Label(new Rect(part_x_adjust, part_shift_adjust, part_size_width, part_size_height), "" + parts_array[row3,3], text_style_parts_not_in_inventory);
 			}
 		}else{
 			GUI.Label(new Rect(part_x_start, part_shift_one, part_size_width, part_size_height), "0", text_style_grey);
-			GUI.Label(new Rect(part_x_start, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "0", text_style_grey);
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one, part_size_width, part_size_height), "0", text_style_grey);
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "0", text_style_grey);
+			GUI.Label(new Rect(part_x_start, part_shift_adjust, part_size_width, part_size_height), "0", text_style_grey);
+			GUI.Label(new Rect(part_x_adjust, part_shift_one, part_size_width, part_size_height), "0", text_style_grey);
+			GUI.Label(new Rect(part_x_adjust, part_shift_adjust, part_size_width, part_size_height), "0", text_style_grey);
 		}
 		
 	}

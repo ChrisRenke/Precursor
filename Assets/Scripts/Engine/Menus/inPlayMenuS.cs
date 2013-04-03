@@ -148,9 +148,9 @@ public class inPlayMenuS : MonoBehaviour {
 		 }
 		
 		//Base Button
-		if(entityMechS.moving_on_path){
+		if(!entityMechS.moving_on_path){
 			entityBaseS script_base =  entityManagerS.getBase();
-			if(script_base.mechNextToBase(mech.x,mech.z)){
+			if(true || script_base.mechNextToBase(mech.x,mech.z)){
 				 if(GUI.Button(new Rect(((button_size_width/5) + (button_x_start/2)),((button_y_start*5) + (screen_size_y/11)), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", base_button_style)) {
 				    //disable enemy health bars
 					disableEnemyHealthBars();
