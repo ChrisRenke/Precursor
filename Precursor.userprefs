@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Engine\Menus\inPlayMenuS.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Engine\Menus\UpgradeMenuS.cs">
     <Files>
-      <File FileName="Assets\Scripts\Engine\Menus\inPlayMenuS.cs" Line="100" Column="29" />
+      <File FileName="Assets\Scripts\Engine\Menus\inPlayMenuS.cs" Line="12" Column="25" />
+      <File FileName="Assets\Scripts\Engine\Menus\UpgradeMenuS.cs" Line="656" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
