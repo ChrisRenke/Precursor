@@ -943,7 +943,7 @@ public class UpgradeMenuS : MonoBehaviour {
 	    int window_size_height  = screen_size_y - screen_size_y /8; 
 
 	    //Layout start
-	    GUI.BeginGroup(new Rect(window_size_x, window_size_y, window_size_width, window_size_height));
+	    GUI.BeginGroup(new Rect(0, 0, window_size_width, window_size_height));
 		
 		//The Menu background box
 	    GUI.Box(new Rect(0, 0, window_size_width, window_size_height), "");

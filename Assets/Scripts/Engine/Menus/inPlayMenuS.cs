@@ -114,7 +114,7 @@ public class inPlayMenuS : MonoBehaviour {
 		GUI.Label(new Rect((screen_size_x/2 - (screen_size_x/25)), screen_size_y - screen_size_y/10, (t_size_width), (t_size_width)), mech.getCurrentAP() + "/" + mech.getMaxAP(),  gui_normal_text);
 	
 		
-		 //Objective  Button
+		 //Objective Button
 		 if(GUI.Button(new Rect((((button_size_width/6)*3) + (button_x_start/3)), ((button_y_start*5) + (screen_size_y/11)),(button_size_height-(button_size_height/3)), (button_size_width/6)), "", objective_button_style)) {
 			//disable enemy health bars
 			disableEnemyHealthBars();
