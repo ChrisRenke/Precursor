@@ -103,7 +103,19 @@ public class entityMechS : Combatable, IMove {
 		travel_path_en = travel_path.GetEnumerator();
 		travel_path_en.MoveNext();
 		moving_on_path = true;
-		
+	}
+	
+	//return true if upgrade can be applied
+	public bool applyUpgrade(int cost){
+		if( current_ap >= cost){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public void applyAPCost(int cost){
+		current_ap -= cost;
 	}
 	
 	

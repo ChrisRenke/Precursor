@@ -6,14 +6,15 @@ using System.Collections.Generic;
 public class entityBaseS : Combatable {
 	
 	//variables
-	BaseUpgrade health_level = BaseUpgrade.None;
-	BaseUpgrade structure_level = BaseUpgrade.None;
-	BaseUpgrade defense_level = BaseUpgrade.None;
-	BaseUpgrade ap_cost_level = BaseUpgrade.None;
+	BaseUpgrade health_level = BaseUpgrade.Level0;
+	BaseUpgrade structure_level = BaseUpgrade.Level0;
+	BaseUpgrade defense_level = BaseUpgrade.Level0;
+	BaseUpgrade wall_level = BaseUpgrade.Level0;
 	private int heal_amount = 5;
 	private int heal_cost = 10;
 	private bool  can_not_heal;
 	private bool  can_not_attack;
+	public static bool show_health_bar = true;
 	
 	
 	public static List<HexData> adjacent_visible_hexes;
@@ -113,12 +114,20 @@ public class entityBaseS : Combatable {
 		
 	}
 	
-	
 	void OnGUI()
 	{
+		//hp bar variables
+		int width_denominator = 18;
+		int width_numerator = 5;
+		int denominator_hp = width_denominator * max_hp;
+		int multiple_hp = denominator_hp/width_denominator;
+		int numerator_hp = width_numerator * multiple_hp;
+		int difference_hp = max_hp - numerator_hp;	
+			
 		Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
-		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y+30, 200, 15), current_hp + "/" + max_hp + " HP", enginePlayerS.hover_text);
-		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
+		if(show_health_bar){
+			GUI.Button(new Rect(((Screen.width/2)),(((Screen.height/6)*5) + (Screen.height/8)), (((numerator_hp - (max_hp - current_hp - difference_hp)) * (width_numerator * Screen.height))/denominator_hp) , (Screen.width/40)), current_hp + "/" + max_hp + " HP", enginePlayerS.hp_bar_for_base);
+		}
 	}
 	
 	#region implemented abstract members of Combatable
@@ -146,46 +155,18 @@ public class entityBaseS : Combatable {
 	
 	//Player calls this method to change bases upgrade level
 	//Assumption: entityMech will take care of whether upgrade is allowed	
-	public bool upgradeBase(BaseUpgrade upgrade){
-		//increase health, walls(armour), attack/range cost, and reduce ap
-		//Upgrades can only be applied once
-		switch(upgrade){
-//				case BaseUpgrade.Health1:
-//					if(health_level != upgrade && health_level < upgrade){
-//						health_level = BaseUpgrade.Health1;
-//						max_hp += 10;
-//						current_hp = max_hp; //when upgrade happens base health gets refilled
-//						return true;
-//					}else{
-//						Debug.Log ("Base Already has this health upgrade, can't downgrade");
-//						return false;
-//					}
-//				case BaseUpgrade.Health2:
-//					if(health_level != upgrade && health_level < upgrade){
-//						health_level = BaseUpgrade.Health2;
-//						max_hp += 15;
-//						current_hp = max_hp; //when upgrade happens base health gets refilled
-//						return true;
-//					}else{
-//						Debug.Log ("Base Already has this health upgrade, can't downgrade");
-//						return false;
-//					}
-//			
-//				case BaseUpgrade.Health3:
-//					if(health_level != upgrade && health_level < upgrade){
-//						health_level = BaseUpgrade.Health3;
-//						max_hp += 20;
-//						current_hp = max_hp; //when upgrade happens base health gets refilled
-//						return true;
-//					}else{
-//						Debug.Log ("Base Already has this health upgrade, can't downgrade");
-//						return false;
-//					}
-//			
-				case BaseUpgrade.Structure1:
+	public bool upgradeBase(BaseCategories category, BaseUpgrade upgrade){
+	//increase health, walls(armour), attack/range cost, and reduce ap
+	//Upgrades can only be applied once
+	switch(category){
+
+		case BaseCategories.Structure:
+		{
+			switch(upgrade)
+			{
+				case BaseUpgrade.Level1:
 					if(structure_level != upgrade && structure_level < upgrade){
-						structure_level = BaseUpgrade.Structure1;
-						base_armor += 1;
+						structure_level = BaseUpgrade.Level1;
 						max_hp += 15;
 						return true;
 					}else{
@@ -193,10 +174,9 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 			
-				case BaseUpgrade.Structure2:
+				case BaseUpgrade.Level2:
 					if(structure_level != upgrade && structure_level < upgrade){
-						structure_level = BaseUpgrade.Structure2;
-						base_armor += 1;
+						structure_level = BaseUpgrade.Level2;
 						max_hp += 20;
 						return true;
 					}else{
@@ -204,20 +184,25 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 					
-				case BaseUpgrade.Structure3:
+				case BaseUpgrade.Level3:
 					if(structure_level != upgrade && structure_level < upgrade){
-						structure_level = BaseUpgrade.Structure3;
-						base_armor += 1;
+						structure_level = BaseUpgrade.Level3;
 						max_hp += 25;
 						return true;
 					}else{
 						Debug.Log ("Base Already has this structure upgrade, can't downgrade");
 						return false;
 					}
-					 
-				case BaseUpgrade.Defenses1:
+			}
+				break;
+		}
+		case BaseCategories.Defense:
+		{
+			switch(upgrade)
+			{
+				case BaseUpgrade.Level1:
 					if(defense_level != upgrade && defense_level < upgrade){
-						defense_level = BaseUpgrade.Defenses1;
+						defense_level = BaseUpgrade.Level1;
 						attack_range  += 1;
 						attack_damage += 1;
 						return true;
@@ -226,9 +211,9 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 	
-				case BaseUpgrade.Defenses2:
+				case BaseUpgrade.Level2:
 					if(defense_level != upgrade && defense_level < upgrade){
-						defense_level = BaseUpgrade.Defenses2;
+						defense_level = BaseUpgrade.Level2;
 						attack_range  += 1;
 						attack_damage += 2;
 						return true;
@@ -237,9 +222,9 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 					
-				case BaseUpgrade.Defenses3:
+				case BaseUpgrade.Level3:
 					if(defense_level != upgrade && defense_level < upgrade){
-						defense_level = BaseUpgrade.Defenses3;
+						defense_level = BaseUpgrade.Level3;
 						attack_range  += 0;
 						attack_damage += 3;
 					return true;
@@ -247,10 +232,18 @@ public class entityBaseS : Combatable {
 						Debug.Log ("Base Already has this defense upgrade, can't downgrade");
 						return false;
 					}
-	
-				case BaseUpgrade.AP1:
-					if(ap_cost_level != upgrade && ap_cost_level < upgrade){
-						ap_cost_level = BaseUpgrade.AP1;
+				
+			}
+				break;
+		}
+		case BaseCategories.Walls:
+		{
+			switch(upgrade)
+			{
+			case BaseUpgrade.Level1:
+					if(wall_level != upgrade && wall_level < upgrade){
+						wall_level = BaseUpgrade.Level1;
+						base_armor += 1;
 						max_ap   += 5;
 						return true;
 					}else{
@@ -258,9 +251,10 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 	
-				case BaseUpgrade.AP2:
-					if(ap_cost_level != upgrade && ap_cost_level < upgrade){
-						ap_cost_level = BaseUpgrade.AP2;
+				case BaseUpgrade.Level2:
+					if(wall_level != upgrade && wall_level < upgrade){
+						wall_level = BaseUpgrade.Level2;
+						base_armor += 1;
 						max_ap   += 5;
 						return true;
 					}else{
@@ -268,21 +262,25 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 					
-				case BaseUpgrade.AP3:
-					if(ap_cost_level != upgrade && ap_cost_level < upgrade){
-						ap_cost_level = BaseUpgrade.AP3;
+				case BaseUpgrade.Level3:
+					if(wall_level != upgrade && wall_level < upgrade){
+						wall_level = BaseUpgrade.Level3;
 						max_ap   += 5;
+						base_armor += 1;
 						return true;
 					}else{
 						Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
 						return false;
 					}
+			}
+				break;
+		}
 				
 				default:
 					//Nothing get's updated
 					return false;
 		}
-	
+		return false;
 	}
 	
 	//heal self when it's base turn only if no enemy next to base
@@ -303,7 +301,7 @@ public class entityBaseS : Combatable {
 		int low_health = 9999;
 		entityEnemyS final_weak_enemy = null;
 		//get all hexes in attack range
-		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z, attack_range)){
+		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z,attack_range)){
 				//check to see if enemy is at hex
 				entityEnemyS weak_enemy = entityManagerS.getEnemyAt(h.x, h.z);
 				if(weak_enemy != null){
@@ -321,6 +319,19 @@ public class entityBaseS : Combatable {
 		}
 		
 		return final_weak_enemy;
+		
+	}
+	
+	//return script of weakest enemy, this method seems slow, may adjust later
+	public bool mechNextToBase(int m_x, int m_z){
+		//get all hexes in attack range
+		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z)){
+			//check to see if enemy is at hex
+			if(m_x == h.x && m_z == h.z){
+				return true;
+			}
+		}
+		return false;
 		
 	}
 

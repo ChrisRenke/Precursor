@@ -28,6 +28,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	public bool is_this_enemies_turn;
 	
+	public static bool show_health_bar = true;
+	
 	
 	int t = 0; //test
 	
@@ -52,9 +54,19 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	void OnGUI()
 	{
-		Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
-		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y+30, 200, 15), current_hp + "/" + max_hp + " HP", enginePlayerS.hover_text);
-		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
+		//hp bar variables
+		int width_denominator = 1;
+		int width_numerator = 75;
+		int denominator_hp = width_denominator * max_hp;
+		int multiple_hp = denominator_hp/width_denominator;
+		int numerator_hp = width_numerator * multiple_hp;
+		int difference_hp = max_hp - numerator_hp;		
+		
+		//script variable used to check whether menu screen is on
+		if(hexManagerS.getHex(x,z).vision_state == Vision.Live && show_health_bar){
+			Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
+			GUI.Button(new Rect(screen_pos.x - 35, Screen.height - screen_pos.y+40, (((numerator_hp - (max_hp - current_hp - difference_hp)) * (width_numerator))/denominator_hp), 10), current_hp + "/" + max_hp + " HP", enginePlayerS.hp_bar_for_enemy);
+		}
 	}
 	
 		//Extract hexes from path and put hexes into a List 

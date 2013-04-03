@@ -8,9 +8,10 @@ public class UpgradeMenuS : MonoBehaviour {
 	public GUISkin healthMenuSkin;
 	public GUISkin objectiveMenuSkin;
 
-	//styles for text
+	//Styles for text
 	public GUIStyle text_style_parts_not_in_inventory;
 	public GUIStyle text_style_parts_have_in_inventory;
+	public GUIStyle text_style_grey;
 
 	//Styles for buttons
 	//mech mobile styles
@@ -23,8 +24,8 @@ public class UpgradeMenuS : MonoBehaviour {
 	public GUIStyle gun_upgrade_style3;
 	//mech other styles
 	public GUIStyle goggles_upgrade_style;
-	public GUIStyle other_upgrade_style1;
-	public GUIStyle other_upgrade_style2;
+	public GUIStyle teleport_upgrade_style;
+	public GUIStyle other_upgrade_style;
 	//base wall styles
 	public GUIStyle wall_upgrade_style;
 	public GUIStyle wall_upgrade_style2;
@@ -33,7 +34,7 @@ public class UpgradeMenuS : MonoBehaviour {
 	public GUIStyle structure_upgrade_style;
 	public GUIStyle structure_upgrade_style2;
 	public GUIStyle structure_upgrade_style3;
-	//base weapon styles
+	//base weapon styles (defense)
 	public GUIStyle weapon_upgrade_style;
 	public GUIStyle weapon_upgrade_style2;
 	public GUIStyle weapon_upgrade_style3;
@@ -44,9 +45,12 @@ public class UpgradeMenuS : MonoBehaviour {
 	public GUIStyle strut_button_style;
 	//check mark button
 	public GUIStyle check_mark_style;
-	//default button style, blank backboard
+	//default button style, blank backboard and blackout button style
 	public GUIStyle default_button_style;
-	public GUIStyle health_menu_style;
+	public GUIStyle button_blackout_style;
+	
+	//hp bars
+	public GUIStyle hp_bar;
 
 	//Window size
 	private int screen_size_x;
@@ -63,10 +67,20 @@ public class UpgradeMenuS : MonoBehaviour {
 	//Base Upgrades part array requirements
 	private int[,] parts_count_for_wall_upgrades = new int[3,4] 	{ {2,0,0,1}, {4,0,0,2}, {4,0,0,3} }; //Row 0 = wall upgrade 1, Row 1 = wall upgrade 2, Row 2 = wall upgrade 3
 	private int[,] parts_count_for_struc_upgrades = new int[3,4] 	{ {1,1,1,1}, {2,2,2,2}, {4,4,4,4} }; //Row 0 = structure upgrade 1, Row 1 = structure upgrade 2, Row 2 = structure upgrade 3
-	private int[,] parts_count_for_weapon_upgrades = new int[3,4] 	{ {2,0,0,3}, {2,0,2,3}, {3,1,3,3} }; //Row 0 = weapon upgrade 1, Row 1 = weapon upgrade 2, Row 2 = weapon upgrade 3
+	private int[,] parts_count_for_weapon_upgrades = new int[3,4] 	{ {2,0,0,3}, {2,0,2,3}, {3,1,3,3} }; //Row 0 = defense upgrade 1, Row 1 = defense upgrade 2, Row 2 = defense upgrade 3
 	
 	private bool [,] show_check_boxes_mech_menu = new bool[3,3] {{false, false, false}, {false, false, false}, {false, false, false}}; //Row 0 = mobile_upgrades/Row 2 = gun_upgrades/ Row 3 = other_upgrades and each column corresponds to 3 buttons on screen menu
 	private bool [,] show_check_boxes_base_menu = new bool[3,3] {{false, false, false}, {false, false, false}, {false, false, false}}; //Row 0 = wall upgrades/ row 2 = struc upgrades/ row 3 = weapon upgrades
+	
+	//Hold the descriptions for each button
+	string description_button_one = "";
+	string description_button_two = "";
+	string description_button_three = "";
+	
+	//AP cost for base upgrade/mech upgrades/health upgrades/transport upgrade
+	int ap_cost_base = 2;
+	int ap_cost_mech = 2;
+	int ap_cost_health = 1;
 	
 	private static entityMechS mech;
 
@@ -95,10 +109,8 @@ public class UpgradeMenuS : MonoBehaviour {
 	    //Layout start
 	    GUI.BeginGroup(new Rect(window_size_x, window_size_y, window_size_width, window_size_height));
 
-
 	    //The Menu background box
 	    GUI.Box(new Rect(0, 0, window_size_width, window_size_height), "");
-
 
 	    //Game resume button (close upgrade menu)
 	    if(GUI.Button(new Rect(window_size_width - window_size_width/12, window_size_height/20, window_size_width/20, window_size_height/20), "X", default_button_style)) {
@@ -112,11 +124,11 @@ public class UpgradeMenuS : MonoBehaviour {
 	    }
 		
 		//continue button variables
-		int continue_button_x_left = window_size_width - window_size_width/12;
-		int continue_button_x_right = window_size_width/60;
+		int continue_button_x_left = window_size_width - window_size_width/10;
+		int continue_button_x_right = window_size_width/50;
 		int continue_button_y = window_size_height/2;
-		int continue_button_width = window_size_width/15;
-		int continue_button_height = window_size_height/20;
+		int continue_button_width = window_size_width/8;
+		int continue_button_height = window_size_height/10;
 		
 		//Var for base upgrade
 		bool base_upgrade_occured = false;
@@ -196,7 +208,6 @@ public class UpgradeMenuS : MonoBehaviour {
 				//draw part labels
 				part_labels(window_size_width, window_size_height, ref parts_count_for_other_upgrades);	
 			
-			
 				break;
 			
 			default:
@@ -211,44 +222,149 @@ public class UpgradeMenuS : MonoBehaviour {
 		//    	//Application.LoadLevel(0); //go to Main menu, we don't have one
 		//    }
 
-
+		
+		//set button descriptions
+		getDescriptions();
+		
 	    //Upgrade Menu buttons
-	    int label_x_start  = window_size_width/2; 
 	    int button_x_start  = window_size_width/9 + window_size_x/26; 
-	    int button_y_start  = window_size_height/4 + window_size_height/36; 
-		int button_size_width = window_size_width/6; 
+	    int button_y_start  = window_size_height/4 + window_size_height/35; 
+		int button_size_width = window_size_width/7; 
 	    int button_size_height = window_size_height/6; 
-	    int button_spacing = button_size_height/4 - button_size_height/30; 
+	    int button_spacing = button_size_height/4 - button_size_height/25; 
+		int label_x_start  = window_size_width/3 + window_size_width/13; 
+		int label_width  = button_size_width + button_size_width/2 - button_size_width/20;
 		
 	    //upgrade button 0
 	    if(GUI.Button(new Rect(button_x_start, button_y_start, button_size_width, button_size_height), "" ,button_one_style)) {
-			canApplyUpgrade(0);
+			if(((menu_choice == Menu.BaseUpgrade1 || menu_choice == Menu.BaseUpgrade2 || menu_choice == Menu.BaseUpgrade3) && mech.applyUpgrade(ap_cost_base)) 
+				|| ((menu_choice == Menu.MechUpgrade1 || menu_choice == Menu.MechUpgrade2 || menu_choice == Menu.MechUpgrade3) && mech.applyUpgrade(ap_cost_mech))){
+				canApplyUpgrade(0);
+			}else{
+				print ("not enough ap");
+			}
 	    }
+		//Description of button
+	    GUI.Label(new Rect(label_x_start, button_y_start, label_width, button_size_height), description_button_one);
 
 	    //upgrade button 1
-	    if(GUI.Button(new Rect(button_x_start, button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height), "", button_two_style)) {
-	    	canApplyUpgrade(1);
-	    }
+		if(showButton(1)){
+			if(GUI.Button(new Rect(button_x_start, button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height), "", button_two_style)) {
+	    		if(((menu_choice == Menu.BaseUpgrade1 || menu_choice == Menu.BaseUpgrade2 || menu_choice == Menu.BaseUpgrade3) && mech.applyUpgrade(ap_cost_base)) 
+				|| ((menu_choice == Menu.MechUpgrade1 || menu_choice == Menu.MechUpgrade2 || menu_choice == Menu.MechUpgrade3) && mech.applyUpgrade(ap_cost_mech))){
+					canApplyUpgrade(1);
+				}else{
+					print ("not enough ap");	
+				}
+	    	}
+			//Description of button
+			GUI.Label(new Rect(label_x_start, button_y_start + (button_spacing) + (button_size_height), label_width, button_size_height), description_button_two);
+	    	
+		}else{
+			//Show blackout button
+			GUI.Button(new Rect(button_x_start, button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height), "", button_blackout_style);
+		}
 
 	    //upgrade button 2
-	    if(GUI.Button(new Rect(button_x_start, button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "", button_three_style)) {
-	    	canApplyUpgrade(2);
+		if(showButton(2)){
+	    	if(GUI.Button(new Rect(button_x_start, button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "", button_three_style)) {
+	    		if(((menu_choice == Menu.BaseUpgrade1 || menu_choice == Menu.BaseUpgrade2 || menu_choice == Menu.BaseUpgrade3) && mech.applyUpgrade(ap_cost_base)) 
+				|| ((menu_choice == Menu.MechUpgrade1 || menu_choice == Menu.MechUpgrade2 || menu_choice == Menu.MechUpgrade3) && mech.applyUpgrade(ap_cost_mech))){
+					canApplyUpgrade(2);
+				}else{
+					print ("not enough ap");
+				}
+	    	}
+			//Description of button
+	    	GUI.Label(new Rect(label_x_start, button_y_start + (2 * button_spacing) + (2 * button_size_height), label_width, button_size_height), description_button_three);
+		}else{
+			//Show blackout button
+			GUI.Button(new Rect(button_x_start, button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "", button_blackout_style);
 	    }
 		
 		showCheckBoxes(button_x_start + button_x_start/4, button_y_start, button_size_width/2, button_size_height, button_spacing);
-
-		//Logo Pictures to show which upgrade has occured, 3 dots or something that will be highlighted when upgrade has ben applied
-	    GUI.Label(new Rect(label_x_start, button_y_start, button_size_width, button_size_height), "Description 1");
-	    GUI.Label(new Rect(label_x_start, button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height), "Description 2");
-	    GUI.Label(new Rect(label_x_start, button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "Description 3");
-
 
 	    //layout end
 	    GUI.EndGroup();
 
 	}
 	
-	//if upgrade has occured show the correct check for that button
+	//Get descriptions for buttons based on menu choice
+	private void getDescriptions(){
+		switch(menu_choice){
+			case Menu.BaseUpgrade1:
+				description_button_one = "Defense Wall: Bricks and mud. Bare foundation of a good fort.";
+				description_button_two = "Defensive Wall Mark 2: Bricks. Mud and more mud. Solid in protecting lands from intruders.";
+				description_button_three = "Defensive Wall Mark 3: The ultimate wall. Forget bricks, we have shields! Fresh feeling of security.";
+				break;
+	
+			case Menu.BaseUpgrade2:
+			    description_button_one = "Reconstruction 1";
+				description_button_two = "Structure Upgrade 2";
+				description_button_three = "Structure Upgrade 3";
+				break;
+			
+			case Menu.BaseUpgrade3:
+			    description_button_one = "Defense Upgrade 1";
+				description_button_two = "Defense Upgrade 2";
+				description_button_three = "Defense Upgrade 3";
+				break;
+			
+			case Menu.MechUpgrade1:
+				description_button_one = "Water Upgrade";
+				description_button_two = "Mountain Upgrade";
+				description_button_three = "Leg Upgrade";
+				break;
+			
+			case Menu.MechUpgrade2:
+				description_button_one = "Gun Upgrade 1";
+				description_button_two = "Gun Upgrade 2";
+				description_button_three = "Gun Upgrade 3";
+				break;
+			
+			case Menu.MechUpgrade3:
+				description_button_one = "Armour Upgrade";
+				description_button_two = "Teleport Upgrade";
+				description_button_three = "Scavange Upgrade";
+				break;
+			
+			default:
+				description_button_one = "?";
+				description_button_two = "?";
+				description_button_three = "?";
+				break;
+		}
+	}
+	
+	//Show base buttons based on what levels of upgrades have been unlocked for base menu upgrades
+	private bool showButton(int button_number){
+		if(menu_choice == Menu.MechUpgrade1 || menu_choice == Menu.MechUpgrade2 || menu_choice == Menu.MechUpgrade3){
+			return true;
+		}else{
+			if(menu_choice == Menu.BaseUpgrade1){
+				if((button_number == 1 && show_check_boxes_base_menu[0,0] == true) || (button_number == 2 && show_check_boxes_base_menu[0,1] == true)){
+					return true;
+				}else{
+					return false;
+				}
+			}else if(menu_choice == Menu.BaseUpgrade2){
+				if((button_number == 1 && show_check_boxes_base_menu[1,0] == true) || (button_number == 2 && show_check_boxes_base_menu[1,1] == true)){
+					return true;
+				}else{
+					return false;
+				}
+			}else{
+				if((button_number == 1 && show_check_boxes_base_menu[2,0] == true) || (button_number == 2 && show_check_boxes_base_menu[2,1] == true)){
+					return true;
+				}else{
+					return false;
+				}
+			}
+		}
+		
+	}
+	
+	//if upgrade has occured show the check box for that button if upgrade was taken
 	private void showCheckBoxes(int button_x_start, int button_y_start, int button_size_width, int button_size_height, int button_spacing){
 		bool use_base_check_boxes = false;
 		bool[,] check_box_array;
@@ -306,6 +422,7 @@ public class UpgradeMenuS : MonoBehaviour {
 		
 	}
 	
+	//draw part count for each button
 	private void part_labels (int window_size_width, int window_size_height, ref int[,] parts_array){
 		//part count variables
 		int part_x_start  = window_size_width/2 + (window_size_width/29) * 5; 
@@ -319,6 +436,7 @@ public class UpgradeMenuS : MonoBehaviour {
 		int row2 = 1;
 		int row3 = 2;
 		
+		//first button labels
 		if(entityMechS.getPartCount(Part.Piston) 	>= parts_array[row1,0]){
 			GUI.Label(new Rect(part_x_start, part_y_start, part_size_width, part_size_height), "" + parts_array[row1,0], text_style_parts_have_in_inventory);
 		}else{
@@ -339,84 +457,103 @@ public class UpgradeMenuS : MonoBehaviour {
 		}else{
 			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_y_start + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row1,3], text_style_parts_not_in_inventory);
 		}
+		//second button labels
+		if(showButton(1)){
+			if(entityMechS.getPartCount(Part.Piston) 	>= parts_array[row2,0]){
+				GUI.Label(new Rect(part_x_start, part_shift, part_size_width, part_size_height), "" + parts_array[row2,0], text_style_parts_have_in_inventory);
+			}else{
+				GUI.Label(new Rect(part_x_start, part_shift, part_size_width, part_size_height), "" + parts_array[row2,0], text_style_parts_not_in_inventory);
+			}
+			if(entityMechS.getPartCount(Part.Gear) 	>= parts_array[row2,1]){
+				GUI.Label(new Rect(part_x_start, part_shift + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row2,1], text_style_parts_have_in_inventory);
+			}else{
+				GUI.Label(new Rect(part_x_start, part_shift + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row2,1], text_style_parts_not_in_inventory);
+			}
+			if(entityMechS.getPartCount(Part.Plate) 	>= parts_array[row2,2]){
+				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift, part_size_width, part_size_height), "" + parts_array[row2,2], text_style_parts_have_in_inventory);
+			}else{
+				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift, part_size_width, part_size_height), "" + parts_array[row2,2], text_style_parts_not_in_inventory);
+			}
+			if(entityMechS.getPartCount(Part.Strut) 	>= parts_array[row2,3]){
+				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row2,3], text_style_parts_have_in_inventory);
+			}else{
+				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row2,3], text_style_parts_not_in_inventory);
+			}
+		}else{
+			GUI.Label(new Rect(part_x_start, part_shift, part_size_width, part_size_height), "0", text_style_grey);
+			GUI.Label(new Rect(part_x_start, part_shift + part_spacing * 3, part_size_width, part_size_height), "0", text_style_grey);
+			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift, part_size_width, part_size_height), "0", text_style_grey);
+			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift + part_spacing * 3, part_size_width, part_size_height), "0", text_style_grey);
+		}
 		
-		if(entityMechS.getPartCount(Part.Piston) 	>= parts_array[row2,0]){
-			GUI.Label(new Rect(part_x_start, part_shift, part_size_width, part_size_height), "" + parts_array[row2,0], text_style_parts_have_in_inventory);
+		//third button labels
+		if(showButton(2)){
+			if(entityMechS.getPartCount(Part.Piston) 	>= parts_array[row3,0]){
+				GUI.Label(new Rect(part_x_start, part_shift_one, part_size_width, part_size_height), "" + parts_array[row3,0], text_style_parts_have_in_inventory);
+			}else{
+				GUI.Label(new Rect(part_x_start, part_shift_one, part_size_width, part_size_height), "" + parts_array[row3,0], text_style_parts_not_in_inventory);
+			}
+			if(entityMechS.getPartCount(Part.Gear) 	>= parts_array[row3,1]){
+				GUI.Label(new Rect(part_x_start, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row3,1], text_style_parts_have_in_inventory);
+			}else{
+				GUI.Label(new Rect(part_x_start, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row3,1], text_style_parts_not_in_inventory);
+			}
+			if(entityMechS.getPartCount(Part.Plate) 	>= parts_array[row3,2]){
+				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one, part_size_width, part_size_height), "" + parts_array[row3,2], text_style_parts_have_in_inventory);
+			}else{
+				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one, part_size_width, part_size_height), "" + parts_array[row3,2], text_style_parts_not_in_inventory);
+			}
+			if(entityMechS.getPartCount(Part.Strut) 	>= parts_array[row3,3]){
+				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row3,3], text_style_parts_have_in_inventory);
+			}else{
+				GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row3,3], text_style_parts_not_in_inventory);
+			}
 		}else{
-			GUI.Label(new Rect(part_x_start, part_shift, part_size_width, part_size_height), "" + parts_array[row2,0], text_style_parts_not_in_inventory);
-		}
-		if(entityMechS.getPartCount(Part.Gear) 	>= parts_array[row2,1]){
-			GUI.Label(new Rect(part_x_start, part_shift + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row2,1], text_style_parts_have_in_inventory);
-		}else{
-			GUI.Label(new Rect(part_x_start, part_shift + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row2,1], text_style_parts_not_in_inventory);
-		}
-		if(entityMechS.getPartCount(Part.Plate) 	>= parts_array[row2,2]){
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift, part_size_width, part_size_height), "" + parts_array[row2,2], text_style_parts_have_in_inventory);
-		}else{
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift, part_size_width, part_size_height), "" + parts_array[row2,2], text_style_parts_not_in_inventory);
-		}
-		if(entityMechS.getPartCount(Part.Strut) 	>= parts_array[row2,3]){
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row2,3], text_style_parts_have_in_inventory);
-		}else{
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row2,3], text_style_parts_not_in_inventory);
-		}
-		
-		if(entityMechS.getPartCount(Part.Piston) 	>= parts_array[row3,0]){
-			GUI.Label(new Rect(part_x_start, part_shift_one, part_size_width, part_size_height), "" + parts_array[row3,0], text_style_parts_have_in_inventory);
-		}else{
-			GUI.Label(new Rect(part_x_start, part_shift_one, part_size_width, part_size_height), "" + parts_array[row3,0], text_style_parts_not_in_inventory);
-		}
-		if(entityMechS.getPartCount(Part.Gear) 	>= parts_array[row3,1]){
-			GUI.Label(new Rect(part_x_start, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row3,1], text_style_parts_have_in_inventory);
-		}else{
-			GUI.Label(new Rect(part_x_start, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row3,1], text_style_parts_not_in_inventory);
-		}
-		if(entityMechS.getPartCount(Part.Plate) 	>= parts_array[row3,2]){
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one, part_size_width, part_size_height), "" + parts_array[row3,2], text_style_parts_have_in_inventory);
-		}else{
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one, part_size_width, part_size_height), "" + parts_array[row3,2], text_style_parts_not_in_inventory);
-		}
-		if(entityMechS.getPartCount(Part.Strut) 	>= parts_array[row3,3]){
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row3,3], text_style_parts_have_in_inventory);
-		}else{
-			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "" + parts_array[row3,3], text_style_parts_not_in_inventory);
+			GUI.Label(new Rect(part_x_start, part_shift_one, part_size_width, part_size_height), "0", text_style_grey);
+			GUI.Label(new Rect(part_x_start, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "0", text_style_grey);
+			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one, part_size_width, part_size_height), "0", text_style_grey);
+			GUI.Label(new Rect(part_x_start + (window_size_width/29) * 3, part_shift_one + part_spacing * 3, part_size_width, part_size_height), "0", text_style_grey);
 		}
 		
 	}
 
 
-		//see if an upgrade can be applied
+	//see if an upgrade can be applied
 	private void canApplyUpgrade(int button_style_number){
 		//find the button style number and then menu that was chosen and see if upgrade can be applied
+		
 		switch(button_style_number){
 			case 0:
 				switch(menu_choice){
 						case Menu.BaseUpgrade1:
 							//see if we can apply upgrade
-		    				if(part_check_for_base(button_style_number, ref parts_count_for_wall_upgrades, BaseUpgrade.AP1)){
+		    				if(show_check_boxes_base_menu[0,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_wall_upgrades, BaseCategories.Walls, BaseUpgrade.Level1)){
 								//upgrade was successful, TODO: change look of base
 								//show check box for button
 								show_check_boxes_base_menu[0,button_style_number] = true;
+								mech.applyAPCost(ap_cost_base);	
 							}else
 								print ("no good!");
 							break;
 				
 						case Menu.BaseUpgrade2:
 							//see if we can apply upgrade
-		    				if(part_check_for_base(button_style_number, ref parts_count_for_struc_upgrades, BaseUpgrade.Structure1)){
+		    				if(show_check_boxes_base_menu[1,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_struc_upgrades, BaseCategories.Structure, BaseUpgrade.Level1)){
 								//upgrade was successful, TODO: change look of base
 								//show check box for button
 								show_check_boxes_base_menu[1,button_style_number] = true;
+								mech.applyAPCost(ap_cost_base);
 							}else
 								print ("no good!");
 							break;
 				
 						case Menu.BaseUpgrade3:
 							//see if we can apply upgrade
-		    				if(part_check_for_base(button_style_number, ref parts_count_for_weapon_upgrades, BaseUpgrade.Defenses1)){
+		    				if(show_check_boxes_base_menu[2,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_weapon_upgrades, BaseCategories.Defense, BaseUpgrade.Level1)){
 								//upgrade was successful, TODO: change look of base
 								//show check box for button
 								show_check_boxes_base_menu[2,button_style_number] = true;
+								mech.applyAPCost(ap_cost_base);
 							}else
 								print ("no good!");
 							break;
@@ -424,36 +561,39 @@ public class UpgradeMenuS : MonoBehaviour {
 
 						case Menu.MechUpgrade1:
 							//see if we can apply upgrade water
-		    				if(part_check(button_style_number, ref parts_count_for_mobile_upgrades)){
+		    				if(show_check_boxes_mech_menu[0,button_style_number] == false && part_check(button_style_number, ref parts_count_for_mobile_upgrades)){
 								//show check box for button
 								show_check_boxes_mech_menu[0,button_style_number] = true;
 								mech.upgrade_traverse_water = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
+								mech.applyAPCost(ap_cost_mech);
 							}else
 								print ("no good!");  
 							break;
 				
 						case Menu.MechUpgrade2:
 							//see if we can apply upgrade legs
-		    				if(part_check(button_style_number, ref parts_count_for_gun_upgrades)){
+		    				if(show_check_boxes_mech_menu[1,button_style_number] == false && part_check(button_style_number, ref parts_count_for_gun_upgrades)){
 								//show check box for button
 								show_check_boxes_mech_menu[1,button_style_number] = true;
 								mech.upgrade_weapon_range = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
+								mech.applyAPCost(ap_cost_mech);
 							}else
 								print ("no good!");  
 							break;
 				
 						case Menu.MechUpgrade3:
 							//see if we can apply upgrade legs
-		    				if(part_check(button_style_number, ref parts_count_for_other_upgrades)){
+		    				if(show_check_boxes_mech_menu[2,button_style_number] == false && part_check(button_style_number, ref parts_count_for_other_upgrades)){
 								//show check box for button
 								show_check_boxes_mech_menu[2,button_style_number] = true;
 								mech.upgrade_armor_1 = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
+								mech.applyAPCost(ap_cost_mech);
 							}else
 								print ("no good!");  
 							break;
@@ -470,30 +610,33 @@ public class UpgradeMenuS : MonoBehaviour {
 				switch(menu_choice){
 						case Menu.BaseUpgrade1:
 							//see if we can apply upgrade
-		    				if(part_check_for_base(button_style_number, ref parts_count_for_wall_upgrades, BaseUpgrade.AP2)){
+		    				if(show_check_boxes_base_menu[0,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_wall_upgrades, BaseCategories.Walls, BaseUpgrade.Level2)){
 								//upgrade was successful, TODO: change look of base
 								//show check box for button
 								show_check_boxes_base_menu[0,button_style_number] = true;
+								mech.applyAPCost(ap_cost_base);
 							}else
 								print ("no good!");
 							break;
 				
 						case Menu.BaseUpgrade2:
 							//see if we can apply upgrade
-		    				if(part_check_for_base(button_style_number, ref parts_count_for_struc_upgrades, BaseUpgrade.Structure2)){
+		    				if(show_check_boxes_base_menu[1,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_struc_upgrades, BaseCategories.Structure,BaseUpgrade.Level2)){
 								//upgrade was successful, TODO: change look of base
 								//show check box for button
 								show_check_boxes_base_menu[1,button_style_number] = true;
+								mech.applyAPCost(ap_cost_base);
 							}else
 								print ("no good!");
 							break;
 				
 						case Menu.BaseUpgrade3:
 							//see if we can apply upgrade
-		    				if(part_check_for_base(button_style_number, ref parts_count_for_weapon_upgrades, BaseUpgrade.Defenses2)){
+		    				if(show_check_boxes_base_menu[2,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_weapon_upgrades, BaseCategories.Defense, BaseUpgrade.Level2)){
 								//upgrade was successful, TODO: change look of base
 								//show check box for button
 								show_check_boxes_base_menu[2,button_style_number] = true;
+								mech.applyAPCost(ap_cost_base);
 							}else
 								print ("no good!");
 							break;
@@ -501,36 +644,41 @@ public class UpgradeMenuS : MonoBehaviour {
 
 						case Menu.MechUpgrade1:
 							//see if we can apply upgrade mountain
-		    				if(part_check(button_style_number, ref parts_count_for_mobile_upgrades)){
+		    				if(show_check_boxes_mech_menu[0,button_style_number] == false && part_check(button_style_number, ref parts_count_for_mobile_upgrades)){
 								//show check box for button
 								show_check_boxes_mech_menu[0,button_style_number] = true;
 								mech.upgrade_traverse_mountain = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
+								mech.applyAPCost(ap_cost_mech);
 							}else
 								print ("no good!");  
 							break;
 				
 						case Menu.MechUpgrade2:
 							//see if we can apply upgrade legs
-		    				if(part_check(button_style_number, ref parts_count_for_gun_upgrades)){
+		    				if(show_check_boxes_mech_menu[1,button_style_number] == false && part_check(button_style_number, ref parts_count_for_gun_upgrades)){
 								//show check box for button
 								show_check_boxes_mech_menu[1,button_style_number] = true;
 								mech.upgrade_weapon_damage = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
+								mech.applyAPCost(ap_cost_mech);
 							}else
 								print ("no good!");  
 							break;
 				
 						case Menu.MechUpgrade3:
 							//see if we can apply upgrade legs
-		    				if(part_check(button_style_number, ref parts_count_for_other_upgrades)){
+		    				if(show_check_boxes_mech_menu[2,button_style_number] == false && part_check(button_style_number, ref parts_count_for_other_upgrades)){
 								//show check box for button
+								inPlayMenuS script =  GetComponent<inPlayMenuS>(); //enable transport button
+								script.enable_transport_button = true;
 								show_check_boxes_mech_menu[2,button_style_number] = true;
 								mech.upgrade_armor_2 = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
+								mech.applyAPCost(ap_cost_mech);
 							}else
 								print ("no good!");
 							break;
@@ -548,55 +696,60 @@ public class UpgradeMenuS : MonoBehaviour {
 				switch(menu_choice){
 						case Menu.BaseUpgrade1:
 							//see if we can apply upgrade
-		    				if(part_check_for_base(button_style_number, ref parts_count_for_wall_upgrades, BaseUpgrade.AP3)){
+		    				if(show_check_boxes_base_menu[0,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_wall_upgrades, BaseCategories.Walls, BaseUpgrade.Level3)){
 								//upgrade was successful, TODO: change look of base
 								//show check box for button
 								show_check_boxes_base_menu[0,button_style_number] = true;
+								mech.applyAPCost(ap_cost_base);
 							}else
 								print ("no good!");
 							break;
 				
 						case Menu.BaseUpgrade2:
 							//see if we can apply upgrade
-		    				if(part_check_for_base(button_style_number, ref parts_count_for_struc_upgrades, BaseUpgrade.Structure3)){
+		    				if(show_check_boxes_base_menu[1,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_struc_upgrades, BaseCategories.Structure, BaseUpgrade.Level3)){
 								//upgrade was successful, TODO: change look of base
 								//show check box for button
 								show_check_boxes_base_menu[1,button_style_number] = true;
+								mech.applyAPCost(ap_cost_base);
 							}else
 								print ("no good!");
 							break;
 				
 						case Menu.BaseUpgrade3:
 							//see if we can apply upgrade
-		    				if(part_check_for_base(button_style_number, ref parts_count_for_weapon_upgrades, BaseUpgrade.Defenses3)){
+		    				if(show_check_boxes_base_menu[2,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_weapon_upgrades, BaseCategories.Defense, BaseUpgrade.Level3)){
 								//upgrade was successful, TODO: change look of base
 								//show check box for button
 								show_check_boxes_base_menu[2,button_style_number] = true;
+								mech.applyAPCost(ap_cost_base);
 							}else
 								print ("no good!");
 							break;
 
 
 						case Menu.MechUpgrade1:
-							//see if we can apply upgrade legs
-		    				if(part_check(button_style_number, ref parts_count_for_mobile_upgrades)){
+							//see if we can apply
+		    				if(show_check_boxes_mech_menu[0,button_style_number] == false && part_check(button_style_number, ref parts_count_for_mobile_upgrades)){
 								//show check box for button
 								show_check_boxes_mech_menu[0,button_style_number] = true;
 								mech.upgrade_traverse_cost = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
+								mech.applyAPCost(ap_cost_mech);
 							}else
 								print ("no good!");  
 							break;
 				
 						case Menu.MechUpgrade2:
-							//see if we can apply upgrade legs
-		    				if(part_check(button_style_number, ref parts_count_for_gun_upgrades)){
+							//see if we can apply 
+		    				if(show_check_boxes_mech_menu[1,button_style_number] == false && part_check(button_style_number, ref parts_count_for_gun_upgrades)){
 								show_check_boxes_mech_menu[1,button_style_number] = true;
 								//show check box for button
 								mech.upgrade_weapon_cost = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
+								mech.applyAPCost(ap_cost_mech);
 							}else
 								print ("no good!");  
 
@@ -605,12 +758,13 @@ public class UpgradeMenuS : MonoBehaviour {
 				
 						case Menu.MechUpgrade3:
 							//see if we can apply upgrade legs
-		    				if(part_check(button_style_number, ref parts_count_for_other_upgrades)){
+		    				if(show_check_boxes_mech_menu[2,button_style_number] == false && part_check(button_style_number, ref parts_count_for_other_upgrades)){
 								//show check box for button
 								show_check_boxes_mech_menu[2,button_style_number] = true;
 								mech.upgrade_armor_3 = true;
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
+								mech.applyAPCost(ap_cost_mech);
 							}else
 								print ("no good!");
 							break;
@@ -648,7 +802,7 @@ public class UpgradeMenuS : MonoBehaviour {
 	}
 	
 	//check to see if player has enough parts to do the base upgrade
-	private bool part_check_for_base(int row_number, ref int [,] parts_array, BaseUpgrade upgrade_type){
+	private bool part_check_for_base(int row_number, ref int [,] parts_array,BaseCategories category, BaseUpgrade upgrade_type){
 		if(
 			(entityMechS.getPartCount(Part.Piston) 	>= parts_array[row_number,0]) &&
 			(entityMechS.getPartCount(Part.Gear)	>= parts_array[row_number,1]) &&
@@ -657,7 +811,7 @@ public class UpgradeMenuS : MonoBehaviour {
 		{
 			//get base and check to see if this upgrade can be applied or already has been applied
 			entityBaseS base_s = entityManagerS.getBase();
-			if(base_s.upgradeBase(upgrade_type)){
+			if(base_s.upgradeBase(category, upgrade_type)){
 				entityMechS.adjustPartCount(Part.Piston,	-parts_array[row_number,0]);
 				entityMechS.adjustPartCount(Part.Gear, 		-parts_array[row_number,1]);
 				entityMechS.adjustPartCount(Part.Plate,	 	-parts_array[row_number,2]);
@@ -668,6 +822,7 @@ public class UpgradeMenuS : MonoBehaviour {
 		return false;
 	}
 	
+	//Health Menu
 	private void healthMenu() {
 		GUI.skin = healthMenuSkin;
 		int window_size_x  = screen_size_x /4 - screen_size_x /16; 
@@ -679,7 +834,7 @@ public class UpgradeMenuS : MonoBehaviour {
 	    GUI.BeginGroup(new Rect(window_size_x, window_size_y, window_size_width, window_size_height));
 		
 		//The Menu background box
-	    GUI.Box(new Rect(0, 0, window_size_width, window_size_height), "", health_menu_style);
+	    GUI.Box(new Rect(0, 0, window_size_width, window_size_height), "");
 		
 		int label_x_start  = window_size_width/5;
 		int button_x_start  = window_size_width/7 + window_size_width/75; 
@@ -690,7 +845,7 @@ public class UpgradeMenuS : MonoBehaviour {
 		
 	    //Game resume button (close upgrade menu)
 	    if(GUI.Button(new Rect(window_size_width - window_size_width/12, window_size_height/20, window_size_width/20, window_size_height/20), "X", default_button_style)) {
-		    //resume the game
+			//resume the game
 		    Time.timeScale = 1;
 		    inPlayMenuS script =  GetComponent<inPlayMenuS>();
     		script.enabled = true;
@@ -701,33 +856,53 @@ public class UpgradeMenuS : MonoBehaviour {
 		
 		//regenerate button 0
 	    if(GUI.Button(new Rect(button_x_start, button_y_start, button_size_width, button_size_height), "" , piston_button_style)) {
-			if(entityMechS.getPartCount(Part.Piston) > 0 && mech.current_hp < mech.getMaxHP()){	
-				entityMechS.adjustPartCount(Part.Piston,	-1);
-				mech.current_hp ++;
+			if(mech.applyUpgrade(ap_cost_health)){
+				if(entityMechS.getPartCount(Part.Piston) > 0 && mech.current_hp < mech.getMaxHP()){	
+					entityMechS.adjustPartCount(Part.Piston,	-1);
+					mech.applyAPCost(ap_cost_health);
+					mech.current_hp ++;
+				}	
+			}else{
+				print ("not enough ap");
 			}
-	    }
+		}
 		
 		//regenerate button 1
 	    if(GUI.Button(new Rect(button_x_start + (button_spacing) + (button_size_width), button_y_start, button_size_width, button_size_height), "" ,gear_button_style)) {
-			if(entityMechS.getPartCount(Part.Gear) > 0 && mech.current_hp < mech.getMaxHP()){
-				entityMechS.adjustPartCount(Part.Gear, 		-1);
-				mech.current_hp ++;
+			if(mech.applyUpgrade(ap_cost_health)){
+				if(entityMechS.getPartCount(Part.Gear) > 0 && mech.current_hp < mech.getMaxHP()){
+					entityMechS.adjustPartCount(Part.Gear, 		-1);
+					mech.current_hp ++;
+					mech.applyAPCost(ap_cost_health);
+				}
+			}else{
+				print ("not enough ap");
 			}
 	    }
 		
 		//regenerate button 2
 	    if(GUI.Button(new Rect(button_x_start + (2 * button_spacing) + (2 * button_size_width), button_y_start, button_size_width, button_size_height), "" ,plate_button_style)) {
-			if(entityMechS.getPartCount(Part.Plate) > 0 && mech.current_hp < mech.getMaxHP()){
-				entityMechS.adjustPartCount(Part.Plate,	 	-1);
-				mech.current_hp ++;
+			if(mech.applyUpgrade(ap_cost_health)){
+				if(entityMechS.getPartCount(Part.Plate) > 0 && mech.current_hp < mech.getMaxHP()){
+					entityMechS.adjustPartCount(Part.Plate,	 	-1);
+					mech.current_hp ++;
+					mech.applyAPCost(ap_cost_health);
+				}
+			}else{
+				print ("not enough ap");
 			}
 	    }
 		
 		//regenerate button 3
 	    if(GUI.Button(new Rect(button_x_start + (3 * button_spacing) + (3 * button_size_width), button_y_start, button_size_width, button_size_height), "" ,strut_button_style)) {
-			if(entityMechS.getPartCount(Part.Strut) > 0 && mech.current_hp < mech.getMaxHP()){
-				entityMechS.adjustPartCount(Part.Strut, 	-1);
-				mech.current_hp ++;
+			if(mech.applyUpgrade(ap_cost_health)){	
+				if(entityMechS.getPartCount(Part.Strut) > 0 && mech.current_hp < mech.getMaxHP()){
+					entityMechS.adjustPartCount(Part.Strut, 	-1);
+					mech.current_hp ++;
+					mech.applyAPCost(ap_cost_health);
+				}
+			}else{
+				print ("not enough ap");
 			}
 	    }
 		
@@ -737,11 +912,23 @@ public class UpgradeMenuS : MonoBehaviour {
 	    GUI.Label(new Rect(label_x_start + (2 * button_spacing) + (2 * button_size_width), button_y_start + (button_size_height), button_size_width, button_size_height), "" + entityMechS.getPartCount(Part.Plate));
 		GUI.Label(new Rect(label_x_start + (3 * button_spacing) + (3 * button_size_width), button_y_start + (button_size_height), button_size_width, button_size_height), "" + entityMechS.getPartCount(Part.Strut));
 		
-		GUI.Label(new Rect(label_x_start + (2 * button_spacing) + (button_size_width), button_y_start + (button_size_height * 3), button_size_width, button_size_height), "Current HP = " + mech.current_hp);
+		GUI.Label(new Rect(label_x_start + (2 * button_spacing) + (button_size_width), button_y_start + (button_size_height * 3), button_size_width * 2, button_size_height), "Current HP = " + mech.current_hp);
 		
+		//hp bar variables
+		int width_denominator = 18;
+		int width_numerator = 5;
+		int denominator_hp = width_denominator * mech.getMaxHP();
+		int multiple_hp = denominator_hp/width_denominator;
+		int numerator_hp = width_numerator * multiple_hp;
+		int difference_hp = mech.getMaxHP() - numerator_hp;
+		
+		//HP bar Button
+		GUI.Button(new Rect(label_x_start + (button_spacing) + (button_size_width) - label_x_start/20,button_y_start + (button_size_height * 3) - button_y_start/6, (((numerator_hp - (mech.getMaxHP() - mech.getCurrentHP() - difference_hp)) * (screen_size_y * width_numerator))/denominator_hp), (screen_size_x/80)), mech.getCurrentHP() + "/" + mech.getMaxHP() + "HP", hp_bar);
+				
 		GUI.EndGroup();
 	}
 	
+	//Objective Menu 
 	private void objectiveMenu() {
 		GUI.skin = objectiveMenuSkin;
 		int window_size_x  = screen_size_x /4 - screen_size_x /16; 
@@ -764,7 +951,7 @@ public class UpgradeMenuS : MonoBehaviour {
 		
 	    //Game resume button (close upgrade menu)
 	    if(GUI.Button(new Rect(window_size_width - window_size_width/12, window_size_height/20, window_size_width/20, window_size_height/20), "X", default_button_style)) {
-		    //resume the game
+			//resume the game
 		    Time.timeScale = 1;
 		    inPlayMenuS script =  GetComponent<inPlayMenuS>();
     		script.enabled = true;
@@ -774,19 +961,19 @@ public class UpgradeMenuS : MonoBehaviour {
 	    }
 		
 		//objective button 0
-	    if(GUI.Button(new Rect(button_x_start, button_y_start, button_size_width, button_size_height), "objective" )) {
+	    if(GUI.Button(new Rect(button_x_start, button_y_start, button_size_width, button_size_height), "Load" )) {
 	    }
 		
 		//objective button 1
-	    if(GUI.Button(new Rect(button_x_start , button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height), "objective" )) {
+	    if(GUI.Button(new Rect(button_x_start , button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height), "Save" )) {
 	    }
 		
 		//objective button 2
-	    if(GUI.Button(new Rect(button_x_start, button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "objective" )) {
+	    if(GUI.Button(new Rect(button_x_start, button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "Objective" )) {
 	    }
 		
 		//objective button 3
-	    if(GUI.Button(new Rect(button_x_start, button_y_start + (3 * button_spacing) + (3 * button_size_height), button_size_width, button_size_height), "objective" )) {
+	    if(GUI.Button(new Rect(button_x_start, button_y_start + (3 * button_spacing) + (3 * button_size_height), button_size_width, button_size_height), "Quit" )) {
 	    }
 		
 		GUI.EndGroup();
@@ -803,7 +990,7 @@ public class UpgradeMenuS : MonoBehaviour {
 
 	    //Game resume button (close upgrade menu)
 	    if(GUI.Button(new Rect(0, 0, window_size_width, window_size_height), "", default_button_style)) {
-		    //resume the game
+			//resume the game
 		    Time.timeScale = 1;
 		    inPlayMenuS script =  GetComponent<inPlayMenuS>();
     		script.enabled = true;
@@ -858,7 +1045,7 @@ public class UpgradeMenuS : MonoBehaviour {
 			
 				case Menu.MechUpgrade3:
 					//run the upgrade menu script other
-    				theUpgradeMenu(goggles_upgrade_style,other_upgrade_style1,other_upgrade_style2);
+    				theUpgradeMenu(goggles_upgrade_style,teleport_upgrade_style,other_upgrade_style);
 					break;	
 			
 				case Menu.HealthUpgrade:
@@ -876,7 +1063,6 @@ public class UpgradeMenuS : MonoBehaviour {
 					defaultMenu();
 					break;
 		}
-
 
 	}
 }
