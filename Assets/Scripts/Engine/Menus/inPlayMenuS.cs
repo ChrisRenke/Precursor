@@ -64,8 +64,8 @@ public class inPlayMenuS : MonoBehaviour {
 		int button_size = button_size_height/2; 
 		 
 		//Backboards
-  		GUI.DrawTexture(new Rect((screen_size_x/3), ((button_y_start/4)-(button_y_start*10)), (button_size_height*6), (button_size_width*8)), top_menu_backboard, ScaleMode.ScaleToFit, true);
-		GUI.DrawTexture(new Rect(0, (button_y_start/80), (button_size_height*4), (button_size_width*6)), upgrade_backboard, ScaleMode.ScaleToFit, true);
+  		GUI.DrawTexture(new Rect((screen_size_x/3), ((button_y_start/4)-(button_y_start*5.40F)), (button_size_height*5), (button_size_width*4)), top_menu_backboard, ScaleMode.ScaleToFit, true);
+		GUI.DrawTexture(new Rect((-screen_size_x/17), ((button_y_start/6)+(button_y_start)), (button_size_height*3.6F), (button_size_width*3.5F)), upgrade_backboard, ScaleMode.ScaleToFit, true);
   		GUI.DrawTexture(new Rect(((button_x_start *6) + screen_size_x/15), (screen_size_y/4), (button_size_height *3), (button_size_width*3)), parts_backboard, ScaleMode.ScaleToFit, true);		
 		//GUI.DrawTexture(new Rect((button_x_start*3), ((screen_size_y/2) + (screen_size_y/4)), (button_size_height *5), (screen_size_x/7)), hp_backboard, ScaleMode.ScaleToFit, true);
 		

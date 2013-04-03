@@ -124,11 +124,11 @@ public class UpgradeMenuS : MonoBehaviour {
 	    }
 		
 		//continue button variables
-		int continue_button_x_right = window_size_x + window_size_width - window_size_width/10;
-		int continue_button_x_left = window_size_x - window_size_width/22;
+		int continue_button_x_right = window_size_x + window_size_width - window_size_width/20;
+		int continue_button_x_left = window_size_x - window_size_width/8;
 		int continue_button_y = window_size_y + window_size_height/2;
-		int continue_button_width = window_size_width/8;
-		int continue_button_height = window_size_height/10;
+		int continue_button_width = window_size_width/6;
+		int continue_button_height = window_size_height/8;
 		int label_window_size_width  = window_size_width; 
 	    int label_window_size_height  = window_size_width; 
 		
@@ -295,37 +295,37 @@ public class UpgradeMenuS : MonoBehaviour {
 	private void getDescriptions(){
 		switch(menu_choice){
 			case Menu.BaseUpgrade1:
-				description_button_one = "Defense Wall: Bricks and mud. Bare foundation of a good fort. +Defense";
-				description_button_two = "Defense Wall Ver2: Bricks. More mud. Solid in protecting lands";
-				description_button_three = "Defense Wall Ver3: Forget bricks, we have shields! Fresh feeling of security.";
+				description_button_one = "Defense Wall: Bricks and mud. oundation of a good fort. +Defense";
+				description_button_two = "Defense Wall Ver2: Bricks. More mud. Solid in protecting lands. +Defense";
+				description_button_three = "Defense Wall Ver3: Forget bricks, we have shields! Comes with a fresh feeling of security. +Defense";
 				break;
 	
 			case Menu.BaseUpgrade2:
-			    description_button_one = "Reconstruction 1: ";
-				description_button_two = "Structure Upgrade 2";
-				description_button_three = "Structure Upgrade 3";
+			    description_button_one = "Reconstruction: Expansion of the town. Bigger is better!";
+				description_button_two = "Reconstruction Ver2: Technology improvements allow for even MORE expansion of the town.";
+				description_button_three = "Reconstruction Ver3: Advancement through resources and profit = the best town there is!";
 				break;
 			
 			case Menu.BaseUpgrade3:
-			    description_button_one = "Defense Upgrade 1";
-				description_button_two = "Defense Upgrade 2";
-				description_button_three = "Defense Upgrade 3";
+			    description_button_one = "Offense Enhancements: Protection via combat at the same time.";
+				description_button_two = "Offense Enhancements Ver2: Bigger and more fire power. What more can you ask for?";
+				description_button_three = "Offense Enhancements Ver3: The best defense is the best offense.";
 				break;
 			
 			case Menu.MechUpgrade1:
-				description_button_one = "Aquatic Fins:";
-				description_button_two = "Climbing Claws: allows for mountain traversal ";
-				description_button_three = "Leg Enhancements";
+				description_button_one = "Aquatic Fins: Flexible fins that allow for the mech to swim across the seas. +water traversal";
+				description_button_two = "Climbing Claws: Claws sharpened to grip across rough rocks. +mountain traversal";
+				description_button_three = "Leg Enhancements: Improved leg warmers for longer lasting trips! +improve movement";
 				break;
 			
 			case Menu.MechUpgrade2:
-				description_button_one = "Cannon Blaster: Fire +increases damage";
-				description_button_two = "Gun Upgrade 2";
-				description_button_three = "Gun Upgrade 3";
+				description_button_one = "Cannon Blaster: Fire power  +increases damage";
+				description_button_two = "Cannon Blaster Ver2: Fire power  +increases damage";
+				description_button_three = "Cannon Blaster Ver3: Fire power  +increases damage";
 				break;
 			
 			case Menu.MechUpgrade3:
-				description_button_one = "Armor Plating: ";
+				description_button_one = "Armor Plating: Defense on the go!";
 				description_button_two = "Teleport Upgrade";
 				description_button_three = "Scavenge Upgrade";
 				break;
