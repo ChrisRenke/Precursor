@@ -293,13 +293,13 @@ public class UpgradeMenuS : MonoBehaviour {
 	private void getDescriptions(){
 		switch(menu_choice){
 			case Menu.BaseUpgrade1:
-				description_button_one = "Defense Wall: Bricks and mud. Bare foundation of a good fort.";
-				description_button_two = "Defensive Wall Mark 2: Bricks. Mud and more mud. Solid in protecting lands from intruders.";
-				description_button_three = "Defensive Wall Mark 3: The ultimate wall. Forget bricks, we have shields! Fresh feeling of security.";
+				description_button_one = "Defense Wall: Bricks and mud. Bare foundation of a good fort. +Defense";
+				description_button_two = "Defense Wall Ver2: Bricks. More mud. Solid in protecting lands";
+				description_button_three = "Defense Wall Ver3: Forget bricks, we have shields! Fresh feeling of security.";
 				break;
 	
 			case Menu.BaseUpgrade2:
-			    description_button_one = "Reconstruction 1";
+			    description_button_one = "Reconstruction 1: ";
 				description_button_two = "Structure Upgrade 2";
 				description_button_three = "Structure Upgrade 3";
 				break;
@@ -311,21 +311,21 @@ public class UpgradeMenuS : MonoBehaviour {
 				break;
 			
 			case Menu.MechUpgrade1:
-				description_button_one = "Water Upgrade";
-				description_button_two = "Mountain Upgrade";
-				description_button_three = "Leg Upgrade";
+				description_button_one = "Aquatic Fins:";
+				description_button_two = "Climbing Claws: allows for mountain traversal ";
+				description_button_three = "Leg Enhancements";
 				break;
 			
 			case Menu.MechUpgrade2:
-				description_button_one = "Gun Upgrade 1";
+				description_button_one = "Cannon Blaster: Fire +increases damage";
 				description_button_two = "Gun Upgrade 2";
 				description_button_three = "Gun Upgrade 3";
 				break;
 			
 			case Menu.MechUpgrade3:
-				description_button_one = "Armour Upgrade";
+				description_button_one = "Armor Plating: ";
 				description_button_two = "Teleport Upgrade";
-				description_button_three = "Scavange Upgrade";
+				description_button_three = "Scavenge Upgrade";
 				break;
 			
 			default:
