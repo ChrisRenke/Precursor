@@ -4,20 +4,21 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class entityBaseS : Combatable {
-	
+	 
 	//variables 
 	public BaseUpgrade structure_level = BaseUpgrade.Level0;
 	public BaseUpgrade defense_level = BaseUpgrade.Level0;
-	public BaseUpgrade wall_level = BaseUpgrade.Level0;
+	public BaseUpgrade wall_level = BaseUpgrade.Level0; 
 	private int heal_amount = 5;
 	private int heal_cost = 10;
 	private bool  can_not_heal;
-	private bool  can_not_attack;
-	
+	private bool  can_not_attack; 
 	
 	public Renderer walls;
 	public Renderer def;
 	public Renderer struc;
+	 
+	public static bool show_health_bar = true; 
 	
 	public static List<HexData> adjacent_visible_hexes;
 	//Use this for initialization
@@ -188,12 +189,21 @@ public class entityBaseS : Combatable {
 		
 	}
 	
-	
 	void OnGUI()
 	{
+		//hp bar variables
+		int width_denominator = 18;
+		int width_numerator = 5;
+		int denominator_hp = width_denominator * max_hp;
+		int multiple_hp = denominator_hp/width_denominator;
+		int numerator_hp = width_numerator * multiple_hp;
+		int difference_hp = max_hp - numerator_hp;	
+			
 		Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
-		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y+30, 200, 15), current_hp + "/" + max_hp + " HP", enginePlayerS.hover_text);
-		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
+		if(show_health_bar){
+			GUI.Button(new Rect(((Screen.width/2)),(((Screen.height/6)*5) + (Screen.height/8)), (((numerator_hp - (max_hp - current_hp - difference_hp)) * (width_numerator * Screen.height))/denominator_hp) , (Screen.width/40)), current_hp + "/" + max_hp + " HP", enginePlayerS.hp_bar_for_base);
+			
+		}
 	}
 	
 	#region implemented abstract members of Combatable
@@ -221,10 +231,10 @@ public class entityBaseS : Combatable {
 	
 	//Player calls this method to change bases upgrade level
 	//Assumption: entityMech will take care of whether upgrade is allowed	
-	public bool upgradeBase(BaseCategories category, BaseUpgrade upgrade){
+	public bool upgradeBase(BaseCategories category, BaseUpgrade upgrade){ 
 		//increase health, walls(armour), attack/range cost, and reduce ap
 		//Upgrades can only be applied once
-		switch(category){
+		switch(category){ 
 
 		case BaseCategories.Structure:
 		{
@@ -367,7 +377,7 @@ public class entityBaseS : Combatable {
 		int low_health = 9999;
 		entityEnemyS final_weak_enemy = null;
 		//get all hexes in attack range
-		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z, attack_range)){
+		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z,attack_range)){
 				//check to see if enemy is at hex
 				entityEnemyS weak_enemy = entityManagerS.getEnemyAt(h.x, h.z);
 				if(weak_enemy != null){
@@ -385,6 +395,19 @@ public class entityBaseS : Combatable {
 		}
 		
 		return final_weak_enemy;
+		
+	}
+	
+	//return script of weakest enemy, this method seems slow, may adjust later
+	public bool mechNextToBase(int m_x, int m_z){
+		//get all hexes in attack range
+		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z)){
+			//check to see if enemy is at hex
+			if(m_x == h.x && m_z == h.z){
+				return true;
+			}
+		}
+		return false;
 		
 	}
 

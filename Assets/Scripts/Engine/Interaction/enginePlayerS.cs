@@ -8,6 +8,12 @@ public class enginePlayerS : MonoBehaviour {
 	public int 									minZoom 	= 25;
 	 
 	public static GUIStyle						hover_text;
+	public static GUIStyle						hp_bar_for_enemy;
+	public static GUIStyle						hp_bar_for_base;
+	public GUIStyle								hp_bar;
+	public GUIStyle								hp_bar_base;
+	public static Texture								hp_backboard;
+	public Texture								hp_backboard_test;	
 	public GUIStyle								selection_hover;
 	
 	
@@ -69,6 +75,9 @@ public class enginePlayerS : MonoBehaviour {
 		gui_bold_text_static = gui_bold_text;
 		gui_norm_text_static = gui_norm_text;
 		hover_text 		= selection_hover;
+		hp_bar_for_enemy = hp_bar;
+		hp_bar_for_base = hp_bar_base;
+		hp_backboard = hp_backboard_test;
 		action_images = new Dictionary<Action, Texture>();
 		action_images.Add(Action.Repair, icon_repair);
 		action_images.Add(Action.Traverse, icon_traverse);
@@ -329,7 +338,7 @@ public class enginePlayerS : MonoBehaviour {
 			display_text, 
 			enginePlayerS.hover_text);
 		
-//			 	 GUI.Label(new Rect(gui_spacing * 1 + 0 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Gear].ToString(),    gui_norm_text);
+//	 GUI.Label(new Rect(gui_spacing * 1 + 0 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Gear].ToString(),    gui_norm_text);
 //	 GUI.Label(new Rect(gui_spacing * 2 + 1 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Piston].ToString(), gui_norm_text);
 //	 GUI.Label(new Rect(gui_spacing * 3 + 2 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Plate].ToString(),  gui_norm_text);
 //	 GUI.Label(new Rect(gui_spacing * 4 + 3 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Strut].ToString(),  gui_norm_text);

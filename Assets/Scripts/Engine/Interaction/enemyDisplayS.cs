@@ -116,13 +116,11 @@ public class enemyDisplayS : MonoBehaviour {
 	
 	void setMaterial()
 	{
-	    renderer.material = facing_walks[owner.facing_direction];
+	    renderer.material = facing_walks[owner.facing_direction]; 
 		setToStanding(colCount,rowCount,rowNumber,colNumber,totalCells,fps);
 		
 		if(hexManagerS.getHex(owner.x, owner.z).vision_state != Vision.Live)
-			renderer.enabled = false;
-//	  		renderer.material.SetColor ("_Color", Color.red);
-//		else
+			renderer.enabled = false; 
 	}
 //	
 //	void OnMouseOver()

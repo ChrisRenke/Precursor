@@ -33,14 +33,13 @@ public class gameManagerS : MonoBehaviour {
 	void Update () {
 	
 		//if the player still has actions 
-		if(current_turn == Turn.Player || current_turn == Turn.Base)
+		if(current_turn == Turn.Player || current_turn == Turn.Base) 
 		{  
 			if(!rebuilt_enemy_lcoations)
 			{
 				entityManagerS.getMech().updateAttackableEnemies();
 				rebuilt_enemy_lcoations = true;
-			}
-			
+			} 
 		}
 		else if(current_turn == Turn.Enemy)
 		{ 
@@ -78,10 +77,12 @@ public class gameManagerS : MonoBehaviour {
 	
 	
 	void OnGUI()
-	{
-	    GUI.Label(new Rect(Screen.width - 30 - 180, 30, 180, 30), current_turn == Turn.Player ? "Player Turn | Round " + current_round: "Enemy Turn | Round " + current_round,  enginePlayerS.gui_norm_text_static);
-//		GUI.Label(new Rect(Screen.width - 30 - 180, 30, 180, 30), current_turn == Turn.Player ? "Player Turn" : "Enemy Turn",  enginePlayerS.gui_norm_text_static);
-    
+	{ 
+		if(entityBaseS.show_health_bar){
+	    	GUI.Label(new Rect(Screen.width/2 - Screen.width/7 + Screen.width/30, 10, Screen.width/15, 30), current_turn.ToString() + " turn",  enginePlayerS.gui_norm_text_static);
+    		GUI.Label(new Rect(Screen.width/2 - Screen.width/10 + Screen.width/6 + Screen.width/42, 10, Screen.width/15, 30), "Round " + current_round.ToString() , enginePlayerS.gui_norm_text_static); //+ current_round.ToString() + ""
+		}
+		 
 //		if(GUI.Button(new Rect(Screen.width - 30 - 180, 70, 180, 30), "Force Player Turn"))
 //		{
 //			current_turn = Turn.Player;
@@ -91,10 +92,10 @@ public class gameManagerS : MonoBehaviour {
 //					entityManagerS.getMech().allowSelectionHexesDraw();
 //		}
 		
-		if(GUI.Button(new Rect(Screen.width - 30 - 180, 70, 180, 30), "End Turn"))
-		{
-			endPlayerTurn();
-		}
+//		if(GUI.Button(new Rect(Screen.width - 30 - 180, 70, 180, 30), "End Turn"))
+//		{
+//			endPlayerTurn();
+//		}
 		
 //		if(GUI.Button(new Rect(gui_spacing, gui_spacing + 40  + gui_spacing , 180, 40), "End Turn"))
 //		{
@@ -107,18 +108,7 @@ public class gameManagerS : MonoBehaviour {
 	}
 	
 	public static void endPlayerTurn()
-	{
-//<<<<<<< HEAD
-//		current_turn = Turn.Enemy;
-////		entityManagerS.getMech().current_ap =  entityManagerS.getMech().max_ap;
-//=======
-////		current_turn = Turn.Enemy;
-//		entityManagerS.getMech().current_ap =  entityManagerS.getMech().max_ap;
-//		entityManagerS.getMech().destroySelectionHexes();
-//		entityManagerS.getMech().allowSelectionHexesDraw();
-//		enemy_enumerator = entityManagerS.getEnemies().GetEnumerator();
-		
-		
+	{ 
 		current_turn = Turn.Base;
 		entityManagerS.getMech().current_ap =  0;  
 	}

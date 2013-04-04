@@ -14,18 +14,12 @@ public enum Action       { Repair, UpgradeMech, UpgradeBase, Scavenge, Attack, T
 public enum Vision       { Live, Visited, Unvisted }; 
 public enum MouseState   { Idle, Over, Click } 
 public enum editor_entity { Mech, Enemy, Town, Spawn, Factory, Outpost, Junkyard };
-
-//<<<<<<< HEAD
+ 
 public enum BaseUpgrade { Level0, Level1, Level2, Level3}
-public enum BaseCategories  { Structure, Walls, Defense }; 
-//public enum BaseUpgrade  { None, Structure1, Structure2, Structure3, Defenses1, Defenses2, Defenses3,  }; 
-//=======
-//public enum UpgradeState { Unupgraded, Level1, Level2, Level3}
-//public enum BaseUpgrade  { Structure, Walls, Defense }; 
-//public enum BaseUpgrade  { None, Structure1, Structure2, Structure3, Defenses1, Defenses2, Defenses3, AP1, AP2, AP3 }; 
-public enum Menu  {Default , Objective, BaseUpgrade, MechUpgrade, HealthUpgrade, TransportUpgrade}; 
-//>>>>>>> 0ce6bdd033c7b802b4dbc22aeb3efe0ea19173f8
-//Vector3.f
+public enum BaseCategories  { Structure, Walls, Defense };  
+//public enum Menu  {Default , Objective, BaseUpgrade, MechUpgrade, HealthUpgrade, TransportUpgrade};  
+public enum Menu  {Default , Objective, BaseUpgrade1, BaseUpgrade2, BaseUpgrade3, MechUpgrade1, MechUpgrade2, MechUpgrade3, HealthUpgrade}; 
+  
 
 //public struct Orientation{
 //	public static readonly Vector3 North     = new Vector3(-12.5F, 261.25F, 306.5F);
