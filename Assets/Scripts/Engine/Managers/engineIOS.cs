@@ -56,6 +56,10 @@ public class engineIOS : MonoBehaviour {
 		Turn current_turn   = getTurnR(level_lines[index++]);
 		int current_ap 		= getIntR(level_lines[index++]);    //VERSION
 		
+		gameManagerS.current_turn = current_turn;
+		gameManagerS.current_level = (Level)version;
+		gameManagerS.current_round = round;
+		
 		
 		int total_count, game_count, border_count;
 		hexManagerS.x_max = getIntR(level_lines[index++]);
@@ -219,24 +223,12 @@ public class engineIOS : MonoBehaviour {
 			}
 			
 			
-					enginePlayerS.setMech();
-					inPlayMenuS.setMech();
-					UpgradeMenuS.setMech();
-		}
-//		
-//		Component[] meshFilters = GetComponentsInChildren<MeshFilter>();
-//        CombineInstance[] combine = new CombineInstance[meshFilters.length];
-//        int i = 0;
-//        while (i < meshFilters.length) {
-//            combine[i].mesh = meshFilters[i].sharedMesh;
-//            combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
-//            meshFilters[i].gameObject.active = false;
-//            i++;
-//        }
-//        transform.GetComponent<MeshFilter>().mesh = new Mesh();
-//        transform.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
-//        transform.gameObject.active = true;
-		 
+		} 
+
+		entityManagerS.getMech().current_ap = current_ap; 
+				enginePlayerS.setMech();
+		inPlayMenuS.setMech();
+		UpgradeMenuS.setMech();
 		hexManagerS.setNodePresenseOnHexes();
 		entityManagerS.buildEnemySpawnCounts();
 		return true;

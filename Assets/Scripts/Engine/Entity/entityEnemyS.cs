@@ -31,8 +31,9 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	public static bool show_health_bar = true;
 	
 	
-		
 	
+		
+	Vector3 center_top;
 	
 	int t = 0; //test
 	
@@ -53,6 +54,13 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		current_ap = 8;
 		max_ap = 8;
 		last_move = hexManagerS.getHex(x,z); //last move = current position  
+		
+		
+//        while (i < vertices.Length) {
+//			print (vertices[i].z);
+////            vertices[i] += Vector3.up * Time.deltaTime;
+//            i++;
+//        } 
 	}
 	public static Transform child_fire;  
 	
@@ -74,12 +82,13 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	void OnGUI()
 	{ 
-		if(hexManagerS.getHex(x,z).vision_state == Vision.Live)
-		{
-			Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
-			GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y+30, 200, 15), current_hp + "/" + max_hp + " HP", enginePlayerS.hover_text);
-			GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
-		}
+//		if(hexManagerS.getHex(x,z).vision_state == Vision.Live)
+//		{
+//			
+////			Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
+////			GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y+30, 200, 15), current_hp + "/" + max_hp + " HP", enginePlayerS.hover_text);
+////			GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
+//		}
 		//hp bar variables
 		int width_denominator = 1;
 		int width_numerator = 75;
@@ -88,10 +97,33 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		int numerator_hp = width_numerator * multiple_hp;
 		int difference_hp = max_hp - numerator_hp;		
 		
+		
+        Mesh mesh = GetComponent<MeshFilter>().mesh;
+        Vector3[] vertices = mesh.vertices;
+        int i = 0;
+		Vector3 max = vertices[1] + transform.position;
+		Vector3 min = vertices[3]+ transform.position;
+		center_top = new Vector3((max.x + min.x)/2, max.y+5, max.z);
+		
 		//script variable used to check whether menu screen is on
 		if(hexManagerS.getHex(x,z).vision_state == Vision.Live && show_health_bar){
-			Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
-			GUI.Button(new Rect(screen_pos.x - 35, Screen.height - screen_pos.y+40, (((numerator_hp - (max_hp - current_hp - difference_hp)) * (width_numerator))/denominator_hp), 10), current_hp + "/" + max_hp + " HP", enginePlayerS.hp_bar_for_enemy);
+			Vector3 center_top_ss = Camera.main.WorldToScreenPoint (center_top);
+//			Vector3 center_top_ss = Camera.main.WorldToScreenPoint (transform.position + new Vector3(0,0,1.3F));
+//			 
+//			
+			print ((int)73*((float)current_hp/(float)max_hp));
+			print ((float)current_hp/(float)max_hp);
+			print ( current_hp + " / " + max_hp);
+//			
+			GUI.DrawTexture(new Rect(center_top_ss.x - 43, Screen.height - center_top_ss.y, 83, 18), enginePlayerS.chris_hp_bg); 
+			
+			GUI.BeginGroup (new Rect (center_top_ss.x - 37, Screen.height - center_top_ss.y+4, (int)(73*((float)current_hp/(float)max_hp)), 10));
+				GUI.DrawTexture(new Rect (0, 0, 73, 10), enginePlayerS.chris_hp, ScaleMode.StretchToFill);
+			GUI.EndGroup (); 
+		 	
+			GUI.Label(new Rect(center_top_ss.x - 39, Screen.height - center_top_ss.y+4, 75, 10),  current_hp + "/" +  max_hp,  enginePlayerS.hp_bar_for_enemy);
+//			
+//			 current_hp + "/" + max_hp + " HP",
  
 		}
 	}
@@ -711,17 +743,28 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		}
 	}
 	
+	
+	IEnumerator DelayStuff(float delay)
+	{
+	    yield return new WaitForSeconds(delay); 
+	}
+ 
+ 
+	
 	public override int attackTarget (Combatable target)
 	{
 		//subtract ap cost from total
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z);
 		current_ap -= attack_cost;
+		entityManagerS.sm.playGunNormal();
 		
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY " + target.GetInstanceID());
 		if(target != null)
 			return target.acceptDamage(attack_damage);
 		
 		//Debug.Log ("ERROR: didn't pick a combatable target");
+		
+		StartCoroutine(DelayStuff(.8f));
 		return 0; //nothing to damage if we get here
 	}	
 	

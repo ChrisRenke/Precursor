@@ -219,8 +219,11 @@ public class engineHexS : MonoBehaviour {
 				if(path_display != null)
 					path_display.destroySelf();
 				
-				path_from_mech = entityManagerS.getMech().getPathFromMechTo(hexManagerS.getHex (hex_data.x, hex_data.z));
-				path_display = pathDrawS.getPathLine(path_from_mech);
+				if(entityManagerS.canTraverseHex(hex_data))
+				{
+					path_from_mech = entityManagerS.getMech().getPathFromMechTo(hexManagerS.getHex (hex_data.x, hex_data.z));
+					path_display = pathDrawS.getPathLine(path_from_mech);
+				}
 				mech_location_when_path_made = mech_hex;
 				can_attack_hex = false;
 			}
@@ -308,7 +311,7 @@ public class engineHexS : MonoBehaviour {
 	//SetSpriteAnimation
 	public void SetVisiual(){
 		   
-		frame_index = (((9 - (int) hex_data.hex_type) * 3 ) - 1 ) - UnityEngine.Random.Range(0,3);  //pick a random variant
+		frame_index = (((9 - (int) hex_data.hex_type) * 3 ) - 1 ) - (int)UnityEngine.Random.Range(0,2.99999999999999F);  //pick a random variant
 		
 //		print ("HEX TYPE: " +  hex_data.hex_type + " | FINDEX: " + frame_index);
 	    

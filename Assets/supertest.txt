@@ -1,7 +1,7 @@
 LEVEL{
 	EDITOR VER   = 7
 	Level Name   = supertest
-	Level Ver    = 0
+	Level Ver    = 2
 	Round        = 1
 	Turn         = Player
 	Current_ap   = 18	

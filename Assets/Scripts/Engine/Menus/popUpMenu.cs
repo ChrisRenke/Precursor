@@ -5,6 +5,10 @@ public class popUpMenu : MonoBehaviour {
 	private bool activate = false; //objective menu
 	public bool upgrade_popup = true;
 	public bool custom_popup = false;
+	public bool game_over_popup = false;
+	
+	public bool load_level_popup = false;
+	public string level_name;
 	
 	//Pick a menu
 	public int level_choice = 0;
@@ -68,6 +72,13 @@ public class popUpMenu : MonoBehaviour {
 		
 		if(custom_popup)
 			customPopUpBox(custom_text,ref custom_rect,backboard);
+		
+		if(game_over_popup)
+			gameOverPopup(custom_text,ref custom_rect,backboard);
+		
+		if(load_level_popup)
+			loadLevelPopup(custom_text,ref custom_rect,backboard);
+		
 	}
 	
 	private void objectiveMenu() {
@@ -179,20 +190,41 @@ public class popUpMenu : MonoBehaviour {
 	
 	public void customPopUpBox(string text, ref Rect rec, GUIStyle style){
 		//The Pop Up box
+		
+		Debug.Log("Showing popup");
 		if(GUI.Button(rec, text, style)){
 			custom_popup = false;
 		}
 	}
 	
+	public void gameOverPopup(string text, ref Rect rec, GUIStyle style){
+		//The Pop Up box
+		
+		Debug.Log("Showing popup");
+		if(GUI.Button(rec, text, style)){
+			Application.LoadLevel("MainMenu"); 
+		}
+	}
+		
+	
+	public void loadLevelPopup(string text, ref Rect rec, GUIStyle style){
+		//The Pop Up box
+		
+		Debug.Log("Showing popup");
+		if(GUI.Button(rec, text, style)){
+			Application.LoadLevel(level_name); 
+		}
+	}
+		
+	
 	//Get descriptions for buttons based on level choice
 	private void getDescriptions(){
-		switch(level_choice){
+		switch((int)gameManagerS.current_level){
 			case 0:
 				title = "OBJECTIVES";
-				objective_text_zero = "Each objective can be two lines in length \n" +
-					"total of seven";
-				objective_text_one = "";
-				objective_text_two = "";
+				objective_text_zero = "Learn the basics of movement.";
+				objective_text_one = "Learn to scavenge parts.";
+				objective_text_two = "Construct a wall upgrade for the town";
 				objective_text_three = "";
 				objective_text_four = "";
 				objective_text_five = "";
@@ -202,8 +234,8 @@ public class popUpMenu : MonoBehaviour {
 	
 			case 1:
 			    title = "OBJECTIVES";
-				objective_text_zero = "...";
-				objective_text_one = "....";
+				objective_text_zero = "Kill all three enemies on the map.";
+				objective_text_one = "Construct a Climbing Hooks to reach the last enemy.";
 				objective_text_two = "";
 				objective_text_three = "";
 				objective_text_four = "";
@@ -213,7 +245,7 @@ public class popUpMenu : MonoBehaviour {
 			
 			case 2:
 			    title = "OBJECTIVES";
-				objective_text_zero = "...";
+				objective_text_zero = "You and your base survive 40 rounds!";
 				objective_text_one = "....";
 				objective_text_two = "....";
 				objective_text_three = "";

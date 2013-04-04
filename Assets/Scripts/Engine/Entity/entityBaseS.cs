@@ -147,7 +147,7 @@ public class entityBaseS : Combatable {
 				}else{
 					//Check to see if base can heal
 					int temp = current_hp;
-					if(heal()){ 
+					if(current_hp < max_hp && heal()){ 
 						int heal_points = healhp(heal_amount);
 						if(heal_points == temp){
 							//Debug.Log ("no healing occurred");
@@ -189,22 +189,21 @@ public class entityBaseS : Combatable {
 		
 	}
 	
-	void OnGUI()
-	{
-		//hp bar variables
-		int width_denominator = 18;
-		int width_numerator = 5;
-		int denominator_hp = width_denominator * max_hp;
-		int multiple_hp = denominator_hp/width_denominator;
-		int numerator_hp = width_numerator * multiple_hp;
-		int difference_hp = max_hp - numerator_hp;	
-			
-		Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
-		if(show_health_bar){
-			GUI.Button(new Rect(((Screen.width/2)),(((Screen.height/6)*5) + (Screen.height/8)), (((numerator_hp - (max_hp - current_hp - difference_hp)) * (width_numerator * Screen.height))/denominator_hp) , (Screen.width/40)), current_hp + "/" + max_hp + " HP", enginePlayerS.hp_bar_for_base);
-			
-		}
-	}
+//	void OnGUI()
+//	{
+//		//hp bar variables
+//		int width_denominator = 18;
+//		int width_numerator = 5;
+//		int denominator_hp = width_denominator * max_hp;
+//		int multiple_hp = denominator_hp/width_denominator;
+//		int numerator_hp = width_numerator * multiple_hp;
+//		int difference_hp = max_hp - numerator_hp;	
+//			
+////		Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
+////		if(show_health_bar){
+////			GUI.Button(new Rect(((Screen.width/2)),(((Screen.height/6)*5) + (Screen.height/8)), (((numerator_hp - (max_hp - current_hp - difference_hp)) * (width_numerator * Screen.height))/denominator_hp) , (Screen.width/40)), current_hp + "/" + max_hp + " HP", enginePlayerS.hp_bar_for_base);
+////		}
+//	}
 	
 	#region implemented abstract members of Combatable
 	public override int attackTarget (Combatable target)

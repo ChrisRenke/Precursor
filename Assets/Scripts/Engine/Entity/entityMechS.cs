@@ -172,7 +172,11 @@ public class entityMechS : Combatable, IMove {
 		
 			
 		if(checkIfDead())
+		{
+			Debug.Log("HOLY SHIT YOU'RE DEAD!!!");
 			onDeath();
+			
+		}
 		
 		
 		if((float)current_hp/(float)max_hp < .5F )
@@ -336,7 +340,7 @@ public class entityMechS : Combatable, IMove {
 			//increase random part count by two, twice
 			for(int i =0; i < 2; i++)
 			{
-				int ind = UnityEngine.Random.Range(0, 3);
+				int ind = (int) UnityEngine.Random.Range(0, 3.999999999999F);
 				part_count[(Part) ind] += num_of_each_type;
 				entityManagerS.createPartEffect(x,z,(Part) ind);
 			}
@@ -550,6 +554,7 @@ public class entityMechS : Combatable, IMove {
 	 */
 	public override int attackTarget(Combatable target){
 		Debug.Log ("Hit");
+		
 //		int range  = upgrade_weapon_range ? weapon_upgrade_range : weapon_base_range;
 		int damage = upgrade_weapon_damage ? weapon_upgrade_damage : weapon_base_damage;
 		int cost   = upgrade_weapon_cost ? weapon_upgrade_cost : weapon_base_cost;
@@ -584,7 +589,8 @@ public class entityMechS : Combatable, IMove {
  
 	public override bool onDeath()
 	{
-		Application.Quit();
+//		Application.Quit();
+		gameManagerS.gameOver();
 		return true;
 	}
 	

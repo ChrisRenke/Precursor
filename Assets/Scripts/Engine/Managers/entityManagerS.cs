@@ -33,6 +33,13 @@ public class entityManagerS : MonoBehaviour {
 	public GameObject particle_piston;
 	public GameObject particle_strut;
 	
+	public GameObject particle_deathenemy;
+	public static GameObject particle_deathenemy_s;
+	public static GameObject particle_heal_s;
+	public static GameObject 	particle_tele_s;
+	public   GameObject particle_heal;
+	public   GameObject 	particle_tele;
+	
 	public static Dictionary<EntityE, GameObject> entity_dict = new Dictionary<EntityE, GameObject>();
 	public static Dictionary<Part, GameObject> part_dict = new Dictionary<Part, GameObject>();
 	public static Dictionary<Node, GameObject> node_dict = new Dictionary<Node, GameObject>();
@@ -45,6 +52,10 @@ public class entityManagerS : MonoBehaviour {
 		resource_node_list  = new List<entityNodeS>(); 
 		spawn_list   		= new List<entitySpawnS>();
 		spawnid_to_enemiesactive = new Dictionary<int, int>();
+
+		particle_deathenemy_s = particle_deathenemy;
+		particle_heal_s = particle_heal;
+		particle_tele_s = particle_tele;
 		
 		entity_dict = new Dictionary<EntityE, GameObject>();
 		entity_dict.Add(EntityE.Base, base_entity);
@@ -154,8 +165,24 @@ public class entityManagerS : MonoBehaviour {
 		Instantiate(part_dict[part_type], CoordsGameTo3DEntiy(x, z) + new Vector3(0,2F, 0), Quaternion.identity);
 	}
 	
+	public static void createDeathEffect(int x, int z)
+	{
+		Instantiate( particle_deathenemy_s, CoordsGameTo3DEntiy(x, z) + new Vector3(0,-2F, 0), Quaternion.identity);
+	}
+	
+	public static void createHealEffect(int x, int z)
+	{
+		Instantiate( particle_heal_s, CoordsGameTo3DEntiy(x, z) + new Vector3(0,-2F, 0), Quaternion.identity);
+	}
+	
+	public static void createTeleEffect(int x, int z)
+	{
+		Instantiate( particle_tele_s, CoordsGameTo3DEntiy(x, z) + new Vector3(0,-2F, 0), Quaternion.identity);
+	}
+	
 	public static void purgeEnemy(entityEnemyS dead_enemy)
 	{
+		createDeathEffect(dead_enemy.x, dead_enemy.z);
 		sm.playExplodeEnemy();
 		enemy_list.Remove(dead_enemy);
 		spawnid_to_enemiesactive[dead_enemy.spawner_owner]--;
@@ -363,6 +390,11 @@ public class entityManagerS : MonoBehaviour {
 	{
 		if(entity_type == EntityE.Spawn)
 			return (GameObject) Instantiate(entity_dict[entity_type], CoordsGameTo3DSpawnEntiy(x, z), Quaternion.identity);
+		if(entity_type == EntityE.Base)
+			return (GameObject) Instantiate(entity_dict[entity_type], CoordsGameTo3DSpawnEntiy(x, z) - new Vector3(0, 1F, 0), Quaternion.identity);
+		else
+		if(entity_type == EntityE.Player)
+			return (GameObject) Instantiate(entity_dict[entity_type], CoordsGameTo3DSpawnEntiy(x, z) + new Vector3(0, 1F, 0), Quaternion.identity);
 		else
 			return (GameObject) Instantiate(entity_dict[entity_type], CoordsGameTo3DEntiy(x, z), Quaternion.identity);
 	}

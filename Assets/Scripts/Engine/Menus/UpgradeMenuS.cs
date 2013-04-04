@@ -64,13 +64,13 @@ public class UpgradeMenuS : MonoBehaviour {
 
 	//Part count for upgrades: Column 0 = Piston / Column 1 = Gear / Column 2 = Plate / Column 3 = Strut
 	//Mech Upgrades part array requirements
-	private int[,] parts_count_for_mobile_upgrades = new int[3,4] 	{ {0,5,2,0}, {2,2,0,0}, {3,0,0,3} }; //Row 0 = water upgrade, Row 1 = mountan upgrade, Row 2 = leg upgrade
-	private int[,] parts_count_for_gun_upgrades = new int[3,4] 		{ {1,1,3,0}, {1,2,4,0}, {2,2,4,0} }; //Row 0 = gun upgrade range , Row 1 = gun upgrade damage, Row 2 = gun upgrade cost
-	private int[,] parts_count_for_other_upgrades = new int[3,4] 	{ {1,4,0,5}, {0,6,0,9}, {2,2,2,2} }; //Row 0 =  armour upgrade 1, Row 1 = armour upgrade 2 (teleport base upgrade?), Row 2 = armour upgrade 3 (other upgrade?)
+	private int[,] parts_count_for_mobile_upgrades = new int[3,4] 	{ {1,0,4,3}, {3,4,0,1}, {3,2,0,3} }; //Row 0 = water upgrade, Row 1 = mountan upgrade, Row 2 = leg upgrade
+	private int[,] parts_count_for_gun_upgrades = new int[3,4] 		{ {1,2,3,2}, {2,1,2,3}, {1,3,2,1} }; //Row 0 = gun upgrade range , Row 1 = gun upgrade damage, Row 2 = gun upgrade cost
+	private int[,] parts_count_for_other_upgrades = new int[3,4] 	{ {1,0,5,2}, {2,6,2,3}, {2,2,2,2} }; //Row 0 =  armour upgrade 1, Row 1 = armour upgrade 2 (teleport base upgrade?), Row 2 = armour upgrade 3 (other upgrade?)
 	//Base Upgrades part array requirements
-	private int[,] parts_count_for_wall_upgrades = new int[3,4] 	{ {2,0,0,1}, {4,0,0,2}, {4,0,0,3} }; //Row 0 = wall upgrade 1, Row 1 = wall upgrade 2, Row 2 = wall upgrade 3
-	private int[,] parts_count_for_struc_upgrades = new int[3,4] 	{ {1,1,1,1}, {2,2,2,2}, {4,4,4,4} }; //Row 0 = structure upgrade 1, Row 1 = structure upgrade 2, Row 2 = structure upgrade 3
-	private int[,] parts_count_for_weapon_upgrades = new int[3,4] 	{ {2,0,0,3}, {2,0,2,3}, {3,1,3,3} }; //Row 0 = defense upgrade 1, Row 1 = defense upgrade 2, Row 2 = defense upgrade 3
+	private int[,] parts_count_for_wall_upgrades = new int[3,4] 	{ {0,3,4,3}, {0,4,5,4}, {0,5,6,5} }; //Row 0 = wall upgrade 1, Row 1 = wall upgrade 2, Row 2 = wall upgrade 3
+	private int[,] parts_count_for_struc_upgrades = new int[3,4] 	{ {2,3,1,1}, {3,2,2,2}, {4,4,4,4} }; //Row 0 = structure upgrade 1, Row 1 = structure upgrade 2, Row 2 = structure upgrade 3
+	private int[,] parts_count_for_weapon_upgrades = new int[3,4] 	{ {4,1,2,3}, {4,0,4,2}, {4,1,4,3} }; //Row 0 = defense upgrade 1, Row 1 = defense upgrade 2, Row 2 = defense upgrade 3
 	
 	private bool [,] show_check_boxes_mech_menu = new bool[3,3] {{false, false, false}, {false, false, false}, {false, false, false}}; //Row 0 = mobile_upgrades/Row 2 = gun_upgrades/ Row 3 = other_upgrades and each column corresponds to 3 buttons on screen menu
 	private bool [,] show_check_boxes_base_menu = new bool[3,3] {{false, false, false}, {false, false, false}, {false, false, false}}; //Row 0 = wall upgrades/ row 2 = struc upgrades/ row 3 = weapon upgrades
@@ -297,72 +297,52 @@ public class UpgradeMenuS : MonoBehaviour {
 switch(menu_choice){
 
 	case Menu.BaseUpgrade1:
-	
-	description_button_one = "Defense Wall: Bricks and mud. Foundation of a good fort.";
-	
-	description_button_two = "Defense Wall Ver2: Bricks. More mud. Solid in protecting lands.";
-	
-	description_button_three = "Defense Wall Ver3: Forget bricks, we have shields!";
-	
+		description_button_one = "Scrap Wall\n\nReduces effeciveness of enemy attacks.\n\n+1 armor";
+		description_button_two = "Reinforced Barracade\n\nFurther decreased enemy attack penetration.\n\n+1 armor";
+		description_button_three =  "Security Bunker\n\nSeriously decreased enemy attack usefulness.\n\n+1 armor";
 	break;
 	
 	 
 	
 	case Menu.BaseUpgrade2:
-	
-	    description_button_one = "Construction: Expansion of the town. Bigger is better!";
-	
-	description_button_two = "Construction Ver2: Technology improvements = MORE expansion of the town.";
-	
-	description_button_three = "Construction Ver3: Advancement in resources = Fresh feeling of security.";
-	
+	    description_button_one = "City Planning\n\nGrow the town infrastructure.\n\n+10 HP";
+		description_button_two = "Vertical Spires\n\nMakin' room for more folks.\n\n+15 HP"; 
+		description_button_three = "Steampunk Arcology\n\nNo need to ever leave!\n\n+20 HP";
 	break;
 	
 	 
 	
 	case Menu.BaseUpgrade3:
-	
-	    description_button_one = "Offense Enhancements: Protection via combat at the same time.";
-	
-	description_button_two = "Offense Enhancements Ver2: Bigger and more fire power. What more can you ask for?";
-	
-	description_button_three = "Offense Enhancements Ver3: The best defense is the best offense.";
-	
+	    description_button_one = "Enhanced Rifling\nIncreases range of cannons.\n+1 attack range";
+		description_button_two = "Howitzer Emplacements\nIncreases damage of cannons.\n+2 attack damage";
+		description_button_three = "Ubiquitous Annihilator\nIt hurts. A lot.\n+1 attack range & damage";
 	break;
 	
 	 
 	
 	case Menu.MechUpgrade1:
-	
-	description_button_one = "Aquatic Fins: Flexible fins that allow for the mech to swim across the seas.";
-	
-	description_button_two = "Climbing Claws: Claws sharpened to grip across rough rocks.";
-	
-	description_button_three = "Leg Enhancements: reduce the cost of movement -1AP movement cost";
-	
+		description_button_one = "Aquatic Fins\n\nFunctional and stylish.\n\nAllows water traversal";
+		description_button_two = "Climbing Claws\n\nMakes molehills from mountains.\n\nAllows mountain traversal";
+		description_button_three = "Reengineered Legs\n\nStrong, better, faster.\n\n-1 AP traversal cost";
 	break;
 	
 	 
 	
 	case Menu.MechUpgrade2:
 	
-	description_button_one = "Cannon Blaster: more fire power +2 damage";
-	
-	description_button_two = "Sight Goggles: Improved range +1 range";
-	
-	description_button_three = "Blaster: -1AP attack cost";
+		description_button_one = "Magnum Barrel\n\nBigger bullets too.\n\n+2 damage"; 
+		description_button_two = "Firing Optics\n\nA steampunk scope.\n\n+1 attack range"; 
+		description_button_three = "Internal Revolver\n\nThe inside are what count.\n\n-1AP attack cost";
 	
 	break;
 	
 	 
 	
 	case Menu.MechUpgrade3:
-	
-	description_button_one = "Armor Plating: Defense on the go! Reduce incoming damage by 2";
-	
-	description_button_two = "Teleport back to Base: Cost 14AP to go back to town";
-	
-	description_button_three = "Scavenge Upgrade: Gives 2 more resources per scavenge";
+		
+		description_button_one = "Brass Armor\n\nDefense on the go!\n\n+2 armor"; 
+		description_button_two = "Mobile Recall\n\nTeleport to town.\n\n14 AP warp to town"; 
+		description_button_three = "Persistant Scavenger\n\nOne mans trash...\n\n+2 resources per scavenge";
 	
 	break;
 	
@@ -574,6 +554,7 @@ switch(menu_choice){
 		//find the button style number and then menu that was chosen and see if upgrade can be applied
 		//get popup menu
 		popUpMenu script_popup =  GetComponent<popUpMenu>();
+		
 		switch(button_style_number){
 			case 0:
 				switch(menu_choice){
@@ -741,6 +722,8 @@ switch(menu_choice){
 							}
 						
 						break;
+				
+				
 
 						case Menu.MechUpgrade1:
 							//see if we can apply upgrade mountain
@@ -857,7 +840,9 @@ switch(menu_choice){
 								script_popup.upgrade_popup = true;	
 							}
 							break;
-
+				
+				
+				
 
 						case Menu.MechUpgrade1:
 							//see if we can apply

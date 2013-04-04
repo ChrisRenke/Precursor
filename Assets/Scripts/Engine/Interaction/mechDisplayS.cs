@@ -203,6 +203,14 @@ public class mechDisplayS : MonoBehaviour {
 		{
 //			if(previous_facing != owner.facing_direction)
 				setToStanding(colCount,rowCount,rowNumber,colNumber,totalCells,fps);
+			
+			armor.enabled = owner.upgrade_armor;
+			legs.enabled = owner.upgrade_traverse_cost;
+			mountain.enabled = owner.upgrade_traverse_mountain;
+			water.enabled = owner.upgrade_traverse_water;
+			gunrange.enabled = owner.upgrade_weapon_range;
+			gunsize.enabled = owner.upgrade_weapon_damage;
+			
 //			previous_facing = owner.facing_direction;
 //		    Vector2 offset = new Vector2(0,0);
 //		    renderer.material.SetTextureOffset ("_MainTex", offset);

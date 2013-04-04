@@ -19,11 +19,13 @@ public class enginePlayerS : MonoBehaviour {
 	
 	
 	public GUIStyle								gui_norm_text; 
+	public GUIStyle								gui_norm_text_black;
 	public GUIStyle								gui_bold_text;
 	
 	public GUIStyle								gui_upgrade_button;
 	
 	public static GUIStyle								gui_norm_text_static; 
+	public static GUIStyle								gui_norm_text_black_static; 
 	public static GUIStyle								gui_bold_text_static;
 	
 	public float								vSensitivity = 1.0F; 
@@ -44,6 +46,12 @@ public class enginePlayerS : MonoBehaviour {
 	public Texture icon_attack;
 	public Texture icon_upgrade;
 	public Texture icon_end;
+	
+	
+	public Texture chris_hp_bg_in;
+	public Texture chris_hp_in; 
+	public static Texture chris_hp_bg;
+	public static Texture chris_hp; 
 	
 	public Color easy;
 	public Color medium;
@@ -74,6 +82,7 @@ public class enginePlayerS : MonoBehaviour {
 		maincam 		= GameObject.FindGameObjectWithTag("MainCamera");
 		gui_bold_text_static = gui_bold_text;
 		gui_norm_text_static = gui_norm_text;
+		gui_norm_text_black_static = gui_norm_text_black;
 		hover_text 		= selection_hover;
 		hp_bar_for_enemy = hp_bar;
 		hp_bar_for_base = hp_bar_base;
@@ -86,6 +95,10 @@ public class enginePlayerS : MonoBehaviour {
 		action_images.Add(Action.UpgradeBase, icon_upgrade);
 		action_images.Add(Action.UpgradeMech, icon_upgrade);
 		action_images.Add(Action.End, icon_end);
+		
+		
+		chris_hp_bg = chris_hp_bg_in;
+			chris_hp = chris_hp_in;
 		
 		easy_color = easy;
 		medium_color = medium;
@@ -343,9 +356,9 @@ public class enginePlayerS : MonoBehaviour {
 //	 GUI.Label(new Rect(gui_spacing * 3 + 2 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Plate].ToString(),  gui_norm_text);
 //	 GUI.Label(new Rect(gui_spacing * 4 + 3 * gui_element_size, Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_text_element_size), entityMechS.part_count[Part.Strut].ToString(),  gui_norm_text);
 	    
-	 GUI.Label(new Rect(Screen.width - (1 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), "AP",  gui_norm_text);
-	 GUI.Label(new Rect(Screen.width - (2 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), "HP",  gui_norm_text);
-			
+//	 GUI.Label(new Rect(Screen.width - (1 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), "AP",  gui_norm_text);
+//	 GUI.Label(new Rect(Screen.width - (2 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing + gui_element_size), gui_element_size, gui_element_size), "HP",  gui_norm_text);
+//			
 //	 GUI.Label(new Rect(Screen.width - (1 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_element_size), mech.getCurrentAP() + "/" + mech.getMaxAP(),  gui_norm_text);
 //	 GUI.Label(new Rect(Screen.width - (2 * (gui_spacing + gui_element_size)), Screen.height - (gui_spacing * 2 + gui_element_size + gui_text_element_size - 10), gui_element_size, gui_element_size), mech.getCurrentHP() + "/" + mech.getMaxHP(),  gui_norm_text);
 //MOVED GUI BUTTON DISPLAYS TO : UPDATE SCRIPT, it's attached to the camera   

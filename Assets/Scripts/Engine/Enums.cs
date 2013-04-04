@@ -14,7 +14,9 @@ public enum Action       { Repair, UpgradeMech, UpgradeBase, Scavenge, Attack, T
 public enum Vision       { Live, Visited, Unvisted }; 
 public enum MouseState   { Idle, Over, Click } 
 public enum editor_entity { Mech, Enemy, Town, Spawn, Factory, Outpost, Junkyard };
- 
+public enum Level        {Level0,Level1,Level2} ;
+
+
 public enum BaseUpgrade { Level0, Level1, Level2, Level3}
 public enum BaseCategories  { Structure, Walls, Defense };  
 //public enum Menu  {Default , Objective, BaseUpgrade, MechUpgrade, HealthUpgrade, TransportUpgrade};  

@@ -68,7 +68,7 @@ public class enemyDisplayS : MonoBehaviour {
 	    // Calculate index
 	    int index  = (int)(Time.time * fps);
 	    // Repeat when exhausting all cells
-	    index = index % totalCells;
+	    index = 18 - index % totalCells;
 	 
 	    // Size of every cell
 	    float sizeX = 1.0f / colCount;

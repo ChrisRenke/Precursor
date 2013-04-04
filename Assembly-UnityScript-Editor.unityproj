@@ -50,6 +50,8 @@
      <None Include="Assets\Vectrosity\Shaders\Unlit .shader" />
      <None Include="Assets\yourtextfile.txt" />
      <None Include="Assets\supertestbs.txt" />
+     <None Include="Assets\Level_Files\level_00_Donkey_Island.txt" />
+     <None Include="Assets\Level_Files\level_00.txt" />
      <None Include="Assets\Vectrosity\Shaders\UnlitAlpha.shader" />
      <None Include="Assets\Level_Files\save_test_2.txt" />
      <None Include="Assets\Level_Files\save_test_3.txt" />
@@ -63,6 +65,8 @@
      <None Include="Assets\supertest.txt" />
      <None Include="Assets\Level_Files\save_test_1.txt" />
      <None Include="Assets\Level_Files\yoyoyo.txt" />
+     <None Include="Assets\Level_Files\level_01.txt" />
+     <None Include="Assets\Level_Files\level_02.txt" />
      <None Include="Assets\Vectrosity\Shaders\DepthMask.shader" />
      <None Include="Assets\Materials\texture.shader" />
      <None Include="Assets\untitled level.txt" />
