@@ -17,6 +17,7 @@ public class inPlayMenuS : MonoBehaviour {
 	public Texture parts_backboard;
 	public Texture top_menu_backboard;
 	public Texture upgrade_backboard;
+	//public Texture hp_backboard;
 	public Texture default_button_backboard;
 	
 	//Custom styles for buttons
@@ -67,7 +68,7 @@ public class inPlayMenuS : MonoBehaviour {
   		GUI.DrawTexture(new Rect((screen_size_x/3), ((button_y_start/4)-(button_y_start*5.40F)), (button_size_height*5), (button_size_width*4)), top_menu_backboard, ScaleMode.ScaleToFit, true);
 		GUI.DrawTexture(new Rect((-screen_size_x/17), ((button_y_start/6)+(button_y_start)), (button_size_height*3.6F), (button_size_width*3.5F)), upgrade_backboard, ScaleMode.ScaleToFit, true);
   		GUI.DrawTexture(new Rect(((button_x_start *6) + screen_size_x/15), (screen_size_y/4), (button_size_height *3), (button_size_width*3)), parts_backboard, ScaleMode.ScaleToFit, true);		
-		//GUI.DrawTexture(new Rect((button_x_start*3), ((screen_size_y/2) + (screen_size_y/4)), (button_size_height *5), (screen_size_x/7)), hp_backboard, ScaleMode.ScaleToFit, true);
+		//GUI.DrawTexture(new Rect(((button_x_start*2)+ screen_size_x/20), ((screen_size_y/2) + (screen_size_y/3.5F)), (button_size_height *6), (screen_size_x/6)), hp_backboard, ScaleMode.ScaleToFit, true);
 		
 		//End Turn Button
 		if(GUI.Button(new Rect((screen_size_x/2 - (screen_size_x/13)),0, (button_size_height *2), (button_size_width/7)), "", end_turn_button_style)) {
@@ -148,9 +149,9 @@ public class inPlayMenuS : MonoBehaviour {
 		 }
 		
 		//Base Button
-		if(!entityMechS.moving_on_path){
+		if(entityMechS.moving_on_path){
 			entityBaseS script_base =  entityManagerS.getBase();
-			if(true || script_base.mechNextToBase(mech.x,mech.z)){
+			if(script_base.mechNextToBase(mech.x,mech.z)){
 				 if(GUI.Button(new Rect(((button_size_width/5) + (button_x_start/2)),((button_y_start*5) + (screen_size_y/11)), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", base_button_style)) {
 				    //disable enemy health bars
 					disableEnemyHealthBars();

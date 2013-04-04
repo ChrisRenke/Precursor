@@ -62,8 +62,11 @@ public class gameManagerS : MonoBehaviour {
 	
 	void OnGUI()
 	{
-	    GUI.Label(new Rect(Screen.width/2 - Screen.width/7 + Screen.width/40, 10, Screen.width/15, 30), current_turn == Turn.Player ? "Player Turn" : "Enemy Turn",  enginePlayerS.gui_norm_text_static);
-    
+	    GUI.Label(new Rect(Screen.width/2 - Screen.width/7 + Screen.width/40, 10, Screen.width/15, 30), current_turn.ToString(),  enginePlayerS.gui_norm_text_static);
+    	GUI.Label(new Rect(Screen.width/2 - Screen.width/10 + Screen.width/40, 10, Screen.width/15, 30), current_round.ToString(), enginePlayerS.gui_norm_text_static);
+
+		
+		
 //		if(GUI.Button(new Rect(Screen.width - 30 - 180, 70, 180, 30), "Force Player Turn"))
 //		{
 //			current_turn = Turn.Player;

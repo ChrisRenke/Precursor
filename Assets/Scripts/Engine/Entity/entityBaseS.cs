@@ -15,8 +15,7 @@ public class entityBaseS : Combatable {
 	private bool  can_not_heal;
 	private bool  can_not_attack;
 	public static bool show_health_bar = true;
-	
-	
+		
 	public static List<HexData> adjacent_visible_hexes;
 	//Use this for initialization
 	void Start () {
@@ -126,7 +125,9 @@ public class entityBaseS : Combatable {
 			
 		Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
 		if(show_health_bar){
+			GUI.DrawTexture(new Rect(((Screen.width/8*2)+ Screen.width/20), ((Screen.height/2) + (Screen.height/3.5F)), (Screen.height/9 *6.25F), (Screen.width/6)), enginePlayerS.hp_backboard, ScaleMode.ScaleToFit, true);
 			GUI.Button(new Rect(((Screen.width/2)),(((Screen.height/6)*5) + (Screen.height/8)), (((numerator_hp - (max_hp - current_hp - difference_hp)) * (width_numerator * Screen.height))/denominator_hp) , (Screen.width/40)), current_hp + "/" + max_hp + " HP", enginePlayerS.hp_bar_for_base);
+			
 		}
 	}
 	
