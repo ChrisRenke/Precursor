@@ -12,6 +12,7 @@ public class engineHexS : MonoBehaviour {
 	private PathDisplay path_display;
 	private Path path_from_mech;
 	private HexData mech_location_when_path_made = new HexData(-10,-10, true);
+	public bool can_attack_hex = false;
 	
 	public bool node_occupier = false;
 	
@@ -191,9 +192,25 @@ public class engineHexS : MonoBehaviour {
 				enginePlayerS.setRoute(null, "", hex_data);
 				
 				return;
-			}
+			} 
 			
-//			if()
+//			if(!mech_location_when_path_made.Equals(mech_hex))
+//			{
+//				can_attack_hex = false;
+//			}
+			
+			if(can_attack_hex)
+			{  
+				genTextString(SelectLevel.Attack, entityManagerS.getMech().getAttackAPCost());
+				enginePlayerS.setRoute(null, display_text, hex_data);
+				if(entityManagerS.getMech().current_ap >= entityManagerS.getMech().getAttackAPCost()){
+					border.SetColor(enginePlayerS.attack_color);
+				}
+				else
+					border.SetColor(enginePlayerS.disable_color);
+					
+				return;
+			} 
 			
 			
 			//if the path is no longer starting from where the player mechu currently is...
@@ -205,8 +222,8 @@ public class engineHexS : MonoBehaviour {
 				path_from_mech = entityManagerS.getMech().getPathFromMechTo(hexManagerS.getHex (hex_data.x, hex_data.z));
 				path_display = pathDrawS.getPathLine(path_from_mech);
 				mech_location_when_path_made = mech_hex;
+				can_attack_hex = false;
 			}
-			
 			
 			//if the mech could possibly walk here
 			if(path_display != null && entityManagerS.getMech().canTraverse(hex_data))
@@ -229,12 +246,22 @@ public class engineHexS : MonoBehaviour {
 		if(mech_hex.Equals(hex_data))
 		{
 			//if the mech is on this hex, and this hex has a node as well
-			if(node_occupier && entityManagerS.getMech().current_ap > entityManagerS.getMech().getScavengeAPCost())
+			if(node_occupier && entityManagerS.getMech().current_ap >= entityManagerS.getMech().getScavengeAPCost())
 			{
 				entityManagerS.getMech().scavengeParts(node_data.node_type, node_data.node_level, node_data.x, node_data.z);
 				node_data = entityManagerS.getNodeInfoAt(hex_data.x, hex_data.z);
 			}
 			return;
+		}
+		else 
+		//if your're selecting an enemy within range
+		if(can_attack_hex)
+		{ 
+			if(entityManagerS.getMech().current_ap >= entityManagerS.getMech().getAttackAPCost())
+			{
+				entityManagerS.getMech().attackEnemy(hex_data.x, hex_data.z);
+				return;
+			}
 		}
 		else
 		if(path_from_mech != null && entityManagerS.getMech().canTraverse(hex_data))

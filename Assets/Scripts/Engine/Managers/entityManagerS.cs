@@ -20,6 +20,8 @@ public class entityManagerS : MonoBehaviour {
 	public static int					enemy_starting_hp = 15;
 	public static int					enemy_max_hp      = 15;
 	
+	public static soundManagerS         sm;
+	
 	public GameObject base_entity;
 	public GameObject player_entity;
 	public GameObject enemy_entity;
@@ -59,7 +61,7 @@ public class entityManagerS : MonoBehaviour {
 		part_dict.Add(Part.Piston, particle_piston);
 		part_dict.Add(Part.Strut, particle_strut);
 		
-		
+		sm = GameObject.Find("soundManager").GetComponent<soundManagerS>();
 		spawn_points 		= new List<entityNodeS>();
 		
 	}
@@ -155,12 +157,82 @@ public class entityManagerS : MonoBehaviour {
 	
 	public static void purgeEnemy(entityEnemyS dead_enemy)
 	{
+		sm.playExplodeEnemy();
 		enemy_list.Remove(dead_enemy);
 		spawnid_to_enemiesactive[dead_enemy.spawner_owner]--;
+		hexManagerS.getHex(dead_enemy.x, dead_enemy.z).hex_script.can_attack_hex = false;
 		DestroyImmediate(dead_enemy.gameObject);
 		
 	}
 	 
+	public static List<HexData> getEnemyLocationsInRange(HexData center, int sight_range)
+	{ 
+		List<HexData> hexes_in_range = new List<HexData>();
+		
+		//get the hex standing on
+		HexData current_hex = center;  
+		
+		//enter loop for surrounding hexes
+		for(int ring = 1; ring <= sight_range; ring++)
+		{
+			 
+			//draw the first "northeast" edge hex 
+			current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+			if(entityManagerS.getEnemyAt(current_hex.x, current_hex.z))
+				hexes_in_range.Add(current_hex); 
+			
+			//draw the "northeast" portion
+			for(int edge_hexes_drawn = 1; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{ 
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthEast);// = AddHexSE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
+				if(entityManagerS.getEnemyAt(current_hex.x, current_hex.z))
+					hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "southeast" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.South);
+				if(entityManagerS.getEnemyAt(current_hex.x, current_hex.z))
+					hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "south" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthWest);
+				if(entityManagerS.getEnemyAt(current_hex.x, current_hex.z))
+					hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "southwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthWest);
+				if(entityManagerS.getEnemyAt(current_hex.x, current_hex.z))
+					hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "northwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.North);
+				if(entityManagerS.getEnemyAt(current_hex.x, current_hex.z))
+					hexes_in_range.Add(current_hex); 
+			}
+			
+			//draw the "north" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+				if(entityManagerS.getEnemyAt(current_hex.x, current_hex.z))
+					hexes_in_range.Add(current_hex); 
+			}
+		}
+		
+//		Debug.LogWarning("hexes_in_range size = " + hexes_in_range.Count);
+		return hexes_in_range;
+	}
 	
 	public static void updateEntityFoWStates()
 	{
@@ -528,7 +600,7 @@ public class entityManagerS : MonoBehaviour {
 		foreach(entitySpawnS spawn in spawn_list)
 		{
 //			if(spawnid_to_enemiesactive.ContainsKey()spawn.spawner_id_number])
-			Debug.Log("Current Max: " + spawn.getMaxEnemyCountForThisRound(gameManagerS.current_round) + " | deployed: " + spawnid_to_enemiesactive[spawn.spawner_id_number]);
+//			Debug.Log("Current Max: " + spawn.getMaxEnemyCountForThisRound(gameManagerS.current_round) + " | deployed: " + spawnid_to_enemiesactive[spawn.spawner_id_number]);
 			if(spawn.getMaxEnemyCountForThisRound(gameManagerS.current_round) > spawnid_to_enemiesactive[spawn.spawner_id_number])
 			{
 				//if there are no enemies ontop of the spawn and hte player isn't on top of the spawn
@@ -538,12 +610,12 @@ public class entityManagerS : MonoBehaviour {
 					instantiateEnemy(spawn.x, spawn.z, enemy_starting_hp, enemy_max_hp, spawn.spawner_id_number,
 						spawn.spawned_enemies_know_base_location, spawn.spawned_enemies_know_mech_location);
 					
-					Debug.LogWarning("SPAWNED AN ENEMY FROM SPAWNERID " + spawn.spawner_id_number);
+//					Debug.LogWarning("SPAWNED AN ENEMY FROM SPAWNERID " + spawn.spawner_id_number);
 				}
-				Debug.LogWarning("FAILED TO SPAWN @ SPAWNERID " + spawn.spawner_id_number +", SOMETHING IN WAY");
+//				Debug.LogWarning("FAILED TO SPAWN @ SPAWNERID " + spawn.spawner_id_number +", SOMETHING IN WAY");
 				
 			}
-			Debug.LogWarning("FAILED TO SPAWN @ SPAWNERID " + spawn.spawner_id_number +", MAX OF " + spawn.getMaxEnemyCountForThisRound(gameManagerS.current_round) + " ALREADY REACHED");
+//			Debug.LogWarning("FAILED TO SPAWN @ SPAWNERID " + spawn.spawner_id_number +", MAX OF " + spawn.getMaxEnemyCountForThisRound(gameManagerS.current_round) + " ALREADY REACHED");
 				
 		}
 		return true;

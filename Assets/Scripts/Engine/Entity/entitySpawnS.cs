@@ -71,7 +71,7 @@ public class entitySpawnS : Entity {
 		int totalCells  = 2;
 		int frame_index = 0;
 		
-		frame_index = UnityEngine.Random.Range(0,1);
+		frame_index = (int) UnityEngine.Random.Range(0F,1.9999999F);
 			
 		// Size of every cell
 	    float sizeX = 1.0f / colCount;

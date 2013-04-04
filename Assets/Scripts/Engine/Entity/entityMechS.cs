@@ -9,38 +9,35 @@ public class entityMechS : Combatable, IMove {
 	public bool upgrade_traverse_mountain 	= false;
 	public bool upgrade_traverse_cost 		= false;
 	
-	public bool upgrade_armor = false;
+	public bool upgrade_armor 	 = false;
 	public bool upgrade_scavenge = false;
 	public bool upgrade_teleport = false;
 	
 	public bool upgrade_weapon_range  = false;
 	public bool upgrade_weapon_damage = false;
 	public bool upgrade_weapon_cost   = false;
+	 
+	public readonly int  traverse_upgrade_cost  		= -1;
+	public readonly int  traverse_standard_cost 		=  2;
+	public readonly int  traverse_slow_cost     		=  4;
+	public readonly int  traverse_mountain_cost	 	=  5;
+	public readonly int  traverse_water_cost    		=  5;
 	
-	
-	public int  traverse_upgrade_cost  		= -1;
-	public int  traverse_standard_cost 		=  2;
-	public int  traverse_slow_cost     		=  4;
-	public int  traverse_mountain_cost	 	=  5;
-	public int  traverse_water_cost    		=  5;
-	
-	public int scavenge_base_cost           =  3;
-	
-	public int repair_base_cost             =  1;
-	
-	public int upgrade_base_cost            =  1;
+	public readonly int scavenge_base_cost           =  3;
+	public readonly int repair_base_cost             =  1;
+	public readonly int upgrade_base_cost            =  1;
 		  
-	public int weapon_base_damage = 3;
-	public int weapon_base_range  = 1;
-	public int weapon_base_cost   = 4; 
+	public readonly int weapon_base_damage	 = 4;
+	public readonly int weapon_upgrade_damage = 6;
 	
-	public int weapon_upgrade_range  = 3;
-	public int weapon_upgrade_cost   = 3;
-	public int weapon_upgrade_damage = 5;
+	public readonly int weapon_base_range 	 = 2;
+	public readonly int weapon_upgrade_range  = 3;
 	
-	public int armor_upgrade = 2; 
+	public readonly int weapon_base_cost  	 = 5; 
+	public readonly int weapon_upgrade_cost   = 4;
 	
-	
+	public readonly int armor_upgrade = 2; 
+	 
 	public List<HexData> adjacent_visible_hexes;
 	public List<HexData> previous_adjacent_visible_hexes;
 	
@@ -134,108 +131,18 @@ public class entityMechS : Combatable, IMove {
 			if(moving_on_path && !lerp_move)
 			{
 				
-				if(travel_path_en.MoveNext())
-				{
-					moveToHex(travel_path_en.Current, 
-						entityManagerS.isNodeAt(travel_path_en.Current.x, travel_path_en.Current.z));
+				if(travel_path_en.MoveNext() && travel_path_en.Current.traversal_cost <= current_ap)
+				{ 	
+					moveToHex(travel_path_en.Current, entityManagerS.isNodeAt(travel_path_en.Current.x, travel_path_en.Current.z));
 				
 					enginePlayerS.popFrontOfRoute();	
 				}
+				else{ 
+					moving_on_path = false;
+				}
 				
 			}
-//			else
-//			if(!instantiated_selection_meshes_already)
-//			{
-////				Debug.Log("BEGIN INSTANTIATING SELECTION MESHES");
-////				foreach(HexData ath in getAdjacentTraversableHexes())
-////				{
-////					
-////					Debug.Log("making a mesh for selection");
-////					selection_hexes.Add(InstantiateSelectionHex(ath.x, ath.z));
-////					selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
-////					hex_select.direction_from_center = ath.direction_from_central_hex;
-////					
-////					hex_select.x = ath.x;
-////					hex_select.z = ath.z;
-////					
-////					if(ath.traversal_cost <= 2)
-////					{
-////						hex_select.select_level = SelectLevel.Easy; 
-////					}
-////					else if(ath.traversal_cost <= 4)
-////					{
-////						hex_select.select_level = SelectLevel.Medium;
-////					}
-////					else
-////					{
-////						hex_select.select_level = SelectLevel.Hard; 
-////					}
-////					
-////					hex_select.occupier      = ath.added_occupier;
-////					if( ath.added_occupier == EntityE.Node)
-////					{
-////						hex_select.node_data = entityManagerS.getNodeInfoAt(ath.x, ath.z);
-////					}
-////					hex_select.hex_type      = ath.hex_type;
-////					hex_select.action_cost = ath.traversal_cost;
-////					hex_select.genTextString();
-////					
-////				}
-//				
-//			
-//				
-////				//if we're on a resource node and we have enough ap to scavenge, then build a seclection hex for right here
-////				if(entityManagerS.isEntityPos(x, z, EntityE.Node) && current_ap >= scavenge_base_cost)
-////				{
-////					NodeData nd = entityManagerS.getNodeInfoAt(x, z);
-////					
-////					//if the node isn't already empty
-////					if(nd.node_level != NodeLevel.Empty)
-////					{
-////						selection_hexes.Add(InstantiateSelectionHex(x, z));
-////						selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
-////						
-////						hex_select.x = x;
-////						hex_select.z = z;
-////						hex_select.direction_from_center = Facing.NorthWest;
-////						hex_select.occupier      = EntityE.Node;
-////						hex_select.hex_type      = hexManagerS.getHex(x, z).hex_type;
-////						hex_select.action_cost   = scavenge_base_cost;
-////						hex_select.select_level  = SelectLevel.Scavenge;
-////						hex_select.node_data     = nd;
-////						hex_select.genTextString();
-////					}
-////					
-////				}
-//				
-//				//check for adjacent enemies
-//				if( current_ap >= getAttackAPCost())
-//				{
-//					foreach(HexData auh in getAdjacentUntraversableHexes())
-//					{
-//						entityEnemyS enemy = entityManagerS.getEnemyAt(auh.x, auh.z);
-//						if(enemy != null)
-//						{
-//							print ("adjacnet enemy!!!!!!!!!!!!!!!!!!!!!!");
-//							selection_hexes.Add(InstantiateSelectionHex(auh.x, auh.z));
-//							selectionHexS hex_select = selection_hexes[selection_hexes.Count-1].GetComponent<selectionHexS>();
-//							hex_select.x = auh.x;
-//							hex_select.z = auh.z;
-//							hex_select.direction_from_center = auh.direction_from_central_hex;
-//							hex_select.occupier      = EntityE.Enemy;
-//							hex_select.hex_type      = hexManagerS.getHex(x, z).hex_type;
-//							hex_select.action_cost   = getAttackAPCost();
-//							hex_select.select_level  = SelectLevel.Attack; 
-//							hex_select.genTextString();
-//							
-//						}
-//						
-//					}
-//				}
-//				
-//				instantiated_selection_meshes_already = true;
-//				Debug.Log("END INSTANTIATING SELECTION MESHES");
-//			}
+
 		}
 		
 		if(lerp_move)
@@ -293,6 +200,12 @@ public class entityMechS : Combatable, IMove {
 	
 	public int attackEnemy(int att_x, int att_z)
 	{
+		
+		if(upgrade_weapon_damage)
+			entityManagerS.sm.playGunBigl();
+		else
+			entityManagerS.sm.playGunNormal();
+		
 		Debug.LogWarning("ABOUT TO ATTCK ENTITY ON - "+ att_x + "," + att_z);
 		entityEnemyS target = entityManagerS.getEnemyAt(att_x, att_z);
 		current_ap -= getAttackAPCost();
@@ -304,12 +217,13 @@ public class entityMechS : Combatable, IMove {
 		return 0; //nothing to damage if we get here			
 	}
 	
-	
-	public int getScavengeAPCost()
-	{
-		return  scavenge_base_cost;
+	public int getAttackDamage(){
+		return upgrade_weapon_damage ? weapon_upgrade_damage : weapon_base_damage;
 	}
 	
+	public int getScavengeAPCost(){
+		return  scavenge_base_cost;
+	}
 	
 	public bool scavengeParts(Node node_type, NodeLevel resource_level, int x, int z)
 	{
@@ -320,6 +234,7 @@ public class entityMechS : Combatable, IMove {
 		if(resource_level == NodeLevel.Empty)
 			return false;
 		
+		entityManagerS.sm.playScavenge();
 		int num_of_each_type = (int) resource_level;
 		
 		if(upgrade_scavenge)
@@ -358,6 +273,38 @@ public class entityMechS : Combatable, IMove {
 		return true;
 	}
 	
+	
+//	public void attackMech(int x, int z)
+//	{
+//		
+//		entityEnemyS enemy_to_attack = entityManagerS.getEnemyAt(x,z);
+//		enemy_to_attack.acceptDamage(getAttackDamage());
+//		//TODO ADD HOOKS FOR SOUNDS 
+//	}
+	
+	List<HexData> attackable_hexes;
+	public void updateAttackableEnemies()
+	{
+		//invalidate the previous hexes
+		if(attackable_hexes != null)
+		{	
+			foreach(HexData hex in attackable_hexes)
+			{
+				hex.hex_script.can_attack_hex = false; 
+			} 
+		}
+		
+		//now update the current ones
+		Debug.Log("Updating attackable enemies iasdfasdkjflasdjflkasjd fkasjdlf kajsdlfkaj slkfjalsn range " +  getAttackRange() + "...");
+		attackable_hexes = entityManagerS.getEnemyLocationsInRange(hexManagerS.getHex(x,z), getAttackRange());
+		
+		foreach(HexData hex in attackable_hexes)
+		{
+			hex.hex_script.can_attack_hex = true;
+			Debug.LogWarning("Enemy at hex :" + hex.x + "," + hex.z);
+		} 
+	}
+	
 	public void updateFoWStates()
 	{
 //		adjacent_visible_hexes
@@ -381,8 +328,9 @@ public class entityMechS : Combatable, IMove {
 			    if(!adjacent_visible_hexes.Contains(prev_hex) && !entityBaseS.adjacent_visible_hexes.Contains(prev_hex))
 				{
 					hexManagerS.updateHexVisionState(prev_hex, Vision.Visited);
-					if(prev_hex.hex_script != null)
+					if(prev_hex.hex_script != null){
 						prev_hex.hex_script.updateFoWState();
+					}
 					previously_live_now_visited_hexes.Add(prev_hex);
 				}	
 			}
@@ -393,11 +341,13 @@ public class entityMechS : Combatable, IMove {
 	
 	public void moveToHex(HexData location, bool _standing_on_top_of_node)
 	{
-		current_ap -= location.traversal_cost; 
+		current_ap -= location.traversal_cost;
 		setLocation(location.x, location.z);	
 		moveInWorld(location.x, location.z, 6F);
+		entityManagerS.sm.playMechWalk();
 		setFacingDirection(location.direction_from_central_hex);
 		updateFoWStates();
+		updateAttackableEnemies();
 		is_standing_on_node = _standing_on_top_of_node;
 	}
 
@@ -483,6 +433,12 @@ public class entityMechS : Combatable, IMove {
 	public int getAttackAPCost()
 	{
 		return upgrade_weapon_cost ? weapon_upgrade_cost : weapon_base_cost;
+	}
+	
+	public int getAttackRange()
+	{
+		Debug.LogWarning(weapon_base_range + " weapon_base_range");
+		return upgrade_weapon_range ? weapon_upgrade_range : weapon_base_range;
 	}
 	
 	public int getTraverseAPCost(Hex hex_type)

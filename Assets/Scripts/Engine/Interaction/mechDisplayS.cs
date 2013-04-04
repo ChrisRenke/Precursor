@@ -70,12 +70,17 @@ public class mechDisplayS : MonoBehaviour {
 	public Material water_sw;
 	public Material water_nw;
 	
-//	public Material fin_walk_n;
-//	public Material fin_walk_ne;
-//	public Material fin_walk_se;
-//	public Material fin_walk_s;
-//	public Material fin_walk_sw;
-//	public Material fin_walk_nw;
+	
+	Renderer water;
+	Renderer mountain;
+	Renderer legs;
+	Renderer gunsize;
+	Renderer gunrange;
+	Renderer armor;
+	Renderer basic;
+	
+	private Facing previous_facing = Facing.North;
+	 
 	
 	public bool is_walking = false;
 	
@@ -87,12 +92,22 @@ public class mechDisplayS : MonoBehaviour {
 	private Dictionary<Facing, Material> facing_gunsize;
 	private Dictionary<Facing, Material> facing_gunrange;
 	
+	Vector2 size;
 //	private bool draw_mode = false; 
 	
 	
 	void Awake()
 	{ 
 		facing_basic = new Dictionary<Facing, Material>();
+		
+		facing_armor = new Dictionary<Facing, Material>();
+		facing_legs = new Dictionary<Facing, Material>();
+		facing_gunrange = new Dictionary<Facing, Material>();
+		facing_gunsize = new Dictionary<Facing, Material>();
+		facing_water = new Dictionary<Facing, Material>();
+		facing_mountain = new Dictionary<Facing, Material>();
+		
+		
 		facing_basic.Add (Facing.North, basic_n);
 		facing_basic.Add (Facing.SouthEast, basic_se);
 		facing_basic.Add (Facing.NorthWest, basic_nw);
@@ -141,6 +156,37 @@ public class mechDisplayS : MonoBehaviour {
 		facing_water.Add (Facing.NorthEast, water_ne);
 		facing_water.Add (Facing.South, water_s);
 		facing_water.Add (Facing.SouthWest, water_sw);
+		
+		
+		
+		water 		= transform.FindChild("upgradeWater").renderer;
+		mountain	= transform.FindChild("upgradeMountain").renderer;
+		legs 		= transform.FindChild("upgradeLegs").renderer;
+		gunsize 	= transform.FindChild("upgradeGunSize").renderer;
+		gunrange 	= transform.FindChild("upgradeGunRange").renderer;
+		armor 		= transform.FindChild("upgradeArmor").renderer;
+		basic 		= transform.renderer;  	 
+		
+		
+		
+	    float sizeX = 1.0f / colCount;
+	    float sizeY = 1.0f / rowCount;
+	    size =  new Vector2(sizeX,sizeY);
+		
+	    basic.material.SetTextureScale  ("_MainTex", size);
+	    water.material.SetTextureScale  ("_MainTex", size);
+	    mountain.material.SetTextureScale  ("_MainTex", size);
+	    legs.material.SetTextureScale  ("_MainTex", size);
+	    gunsize.material.SetTextureScale  ("_MainTex", size);
+	    gunrange.material.SetTextureScale  ("_MainTex", size);
+	    armor.material.SetTextureScale  ("_MainTex", size);
+		
+		water.enabled = false;
+		mountain.enabled = false;
+		legs.enabled = false;
+		gunrange.enabled = false;
+		gunsize.enabled = false;
+		armor.enabled = false;
 	}
 	
 	
@@ -155,9 +201,11 @@ public class mechDisplayS : MonoBehaviour {
 		}
 		else
 		{
-			
-		    Vector2 offset = new Vector2(0,0);
-		    renderer.material.SetTextureOffset ("_MainTex", offset);
+//			if(previous_facing != owner.facing_direction)
+				setToStanding(colCount,rowCount,rowNumber,colNumber,totalCells,fps);
+//			previous_facing = owner.facing_direction;
+//		    Vector2 offset = new Vector2(0,0);
+//		    renderer.material.SetTextureOffset ("_MainTex", offset);
 		}
 	} 
  
@@ -167,12 +215,8 @@ public class mechDisplayS : MonoBehaviour {
 	    // Calculate index
 	    int index  = (int)(Time.time * fps);
 	    // Repeat when exhausting all cells
-	    index = index % totalCells;
-	 
-	    // Size of every cell
-	    float sizeX = 1.0f / colCount;
-	    float sizeY = 1.0f / rowCount;
-	    Vector2 size =  new Vector2(sizeX,sizeY);
+	    index = totalCells - index % totalCells;
+	  
 	 
 	    // split into horizontal and vertical index
 	    var uIndex = index % colCount;
@@ -182,11 +226,18 @@ public class mechDisplayS : MonoBehaviour {
 	    // v coordinate is the bottom of the image in opengl so we need to invert.
 	    float offsetX = (uIndex+colNumber) * size.x;
 	    float offsetY = (1.0f - size.y) - (vIndex + rowNumber) * size.y;
-	    Vector2 offset = new Vector2(offsetX,offsetY);
-	 
-	    renderer.material.SetTextureOffset ("_MainTex", offset);
-	    renderer.material.SetTextureScale  ("_MainTex", size);
+	    Vector2 offset = new Vector2(offsetX,offsetY); 
+		
+	    basic.material.SetTextureOffset  ("_MainTex", offset);
+	    water.material.SetTextureOffset  ("_MainTex", offset);
+	    mountain.material.SetTextureOffset  ("_MainTex", offset);
+	    legs.material.SetTextureOffset  ("_MainTex", offset);
+	    gunsize.material.SetTextureOffset  ("_MainTex", offset);
+	    gunrange.material.SetTextureOffset  ("_MainTex", offset);
+	    armor.material.SetTextureOffset  ("_MainTex", offset);
 	}
+	
+	
 	
 	void setToStanding(int colCount ,int rowCount ,int rowNumber ,int colNumber,int totalCells,int fps ){
 	 
@@ -194,12 +245,7 @@ public class mechDisplayS : MonoBehaviour {
 //	    int index  = (int)(Time.time * fps);
 	    // Repeat when exhausting all cells
 	    int index =  17;
-	 
-	    // Size of every cell
-	    float sizeX = 1.0f / colCount;
-	    float sizeY = 1.0f / rowCount;
-	    Vector2 size =  new Vector2(sizeX,sizeY);
-	 
+	  
 	    // split into horizontal and vertical index
 	    var uIndex = index % colCount;
 	    var vIndex = index / colCount;
@@ -210,8 +256,13 @@ public class mechDisplayS : MonoBehaviour {
 	    float offsetY = (1.0f - size.y) - (vIndex + rowNumber) * size.y;
 	    Vector2 offset = new Vector2(offsetX,offsetY);
 	 
-	    renderer.material.SetTextureOffset ("_MainTex", offset);
-	    renderer.material.SetTextureScale  ("_MainTex", size);
+	    basic.material.SetTextureOffset  ("_MainTex", offset);
+	    water.material.SetTextureOffset  ("_MainTex", offset);
+	    mountain.material.SetTextureOffset  ("_MainTex", offset);
+	    legs.material.SetTextureOffset  ("_MainTex", offset);
+	    gunsize.material.SetTextureOffset  ("_MainTex", offset);
+	    gunrange.material.SetTextureOffset  ("_MainTex", offset);
+	    armor.material.SetTextureOffset  ("_MainTex", offset);
 	}
 	
 	
@@ -222,8 +273,14 @@ public class mechDisplayS : MonoBehaviour {
  
 	void setFacing()
 	{
-	    renderer.material = facing_basic[owner.facing_direction];
-		setToStanding(colCount,rowCount,rowNumber,colNumber,totalCells,fps);
+	    basic.material = facing_basic[owner.facing_direction];
+	    armor.material = facing_armor[owner.facing_direction];
+	    legs.material = facing_legs[owner.facing_direction];
+	    gunsize.material = facing_gunsize[owner.facing_direction];
+	    gunrange.material = facing_gunrange[owner.facing_direction];
+	    water.material = facing_water[owner.facing_direction];
+	    mountain.material = facing_mountain[owner.facing_direction];
+		
 		
 	}
 }

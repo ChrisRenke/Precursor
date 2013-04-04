@@ -13,6 +13,7 @@ public class gameManagerS : MonoBehaviour {
 	public static List<entityEnemyS>.Enumerator	enemy_enumerator;
 	public static bool 	  					enemy_currently_acting = false;
 	
+	public static bool rebuilt_enemy_lcoations = false;
 	public static bool spawned_enemies_this_round = false;
 	
 	void Awake()
@@ -34,6 +35,11 @@ public class gameManagerS : MonoBehaviour {
 		//if the player still has actions 
 		if(current_turn == Turn.Player || current_turn == Turn.Base)
 		{  
+			if(!rebuilt_enemy_lcoations)
+			{
+				entityManagerS.getMech().updateAttackableEnemies();
+				rebuilt_enemy_lcoations = true;
+			}
 			
 		}
 		else if(current_turn == Turn.Enemy)
@@ -62,6 +68,7 @@ public class gameManagerS : MonoBehaviour {
 						current_turn = Turn.Player;
 						spawned_enemies_this_round = false;
 						entityManagerS.getMech().current_ap = entityManagerS.getMech().max_ap;
+						entityManagerS.getMech().updateAttackableEnemies();
 						current_round++;
 					}
 				}

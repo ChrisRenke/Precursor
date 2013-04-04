@@ -48,7 +48,7 @@ public abstract class  Combatable : Entity{
 	public int max_ap;
 	
 	public int attack_cost   = 5;
-	public int attack_range  = 1;
+	public int attack_range  = 2;
 	public int attack_damage = 5;
 	
 	public int sight_range = 3;
@@ -145,6 +145,7 @@ public abstract class  Combatable : Entity{
 	 */
 	public int healhp(int amount_to_heal)
 	{
+		entityManagerS.sm.playHeal();
 		current_hp += amount_to_heal;
 		current_hp = current_hp > max_hp ? max_hp : current_hp;
 		return current_hp;

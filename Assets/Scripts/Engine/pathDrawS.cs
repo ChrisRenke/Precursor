@@ -15,7 +15,8 @@ public class pathDrawS : MonoBehaviour {
 	static VectorLine player_route;
 	// Use this for initialization
 	void Start () { 
-		mech = GameObject.FindWithTag("player_mech").GetComponent<entityMechS>();
+//		mech = GameObject.FindWithTag("player_mech").GetComponent<entityMechS>();
+		mech = entityManagerS.getMech();
 	}
 	// Update is called once per frame
 	void Update () {
