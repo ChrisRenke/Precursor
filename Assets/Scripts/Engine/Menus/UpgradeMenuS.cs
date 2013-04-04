@@ -12,6 +12,7 @@ public class UpgradeMenuS : MonoBehaviour {
 	public GUIStyle text_style_parts_not_in_inventory;
 	public GUIStyle text_style_parts_have_in_inventory;
 	public GUIStyle text_style_grey;
+	public GUIStyle title_style;
 
 	//Styles for buttons
 	//mech mobile styles
@@ -47,6 +48,8 @@ public class UpgradeMenuS : MonoBehaviour {
 	public GUIStyle check_mark_style;
 	//default button style, blank backboard and blackout button style
 	public GUIStyle default_button_style;
+	public GUIStyle left_style;
+	public GUIStyle right_style;
 	public GUIStyle button_blackout_style;
 	
 	//hp bars
@@ -126,11 +129,11 @@ public class UpgradeMenuS : MonoBehaviour {
 	    }
 		
 		//continue button variables
-		int continue_button_x_right = window_size_x + window_size_width - window_size_width/10;
-		int continue_button_x_left = window_size_x - window_size_width/22;
+		int continue_button_x_right = window_size_x + window_size_width - window_size_width/20;
+		int continue_button_x_left = window_size_x - window_size_width/8;
 		int continue_button_y = window_size_y + window_size_height/2;
-		int continue_button_width = window_size_width/8;
-		int continue_button_height = window_size_height/10;
+		int continue_button_width = window_size_width/6;
+		int continue_button_height = window_size_height/8;
 		int label_window_size_width  = window_size_width; 
 	    int label_window_size_height  = window_size_width; 
 		
@@ -141,7 +144,7 @@ public class UpgradeMenuS : MonoBehaviour {
 		switch(menu_choice){
 			case Menu.BaseUpgrade1:
 				//Next button
-				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "Next" , default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "" , right_style)) {
 					menu_choice = Menu.BaseUpgrade2;
 	    		}
 				
@@ -152,11 +155,11 @@ public class UpgradeMenuS : MonoBehaviour {
 	
 			case Menu.BaseUpgrade2:
 			    //Next button
-				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "Next" ,default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "" ,right_style)) {
 					menu_choice = Menu.BaseUpgrade3;
 	    		}
 				//Back button
-				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "Back" ,default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "" ,left_style)) {
 					menu_choice = Menu.BaseUpgrade1;
 	    		}
 			
@@ -167,7 +170,7 @@ public class UpgradeMenuS : MonoBehaviour {
 			
 			case Menu.BaseUpgrade3:
 			    //Back button
-				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "Back" ,default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "" ,left_style)) {
 					menu_choice = Menu.BaseUpgrade2;
 	    		}
 				
@@ -178,7 +181,7 @@ public class UpgradeMenuS : MonoBehaviour {
 			
 			case Menu.MechUpgrade1:
 				//Next button
-				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "Next" ,default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "" ,right_style)) {
 					menu_choice = Menu.MechUpgrade2;
 	    		}
 			
@@ -189,11 +192,11 @@ public class UpgradeMenuS : MonoBehaviour {
 			
 			case Menu.MechUpgrade2:
 				//Next button
-				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "Next" ,default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_right, continue_button_y, continue_button_width, continue_button_height), "" ,right_style)) {
 					menu_choice = Menu.MechUpgrade3;
 	    		}
 				//Back button
-				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "Back" ,default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "" ,left_style)) {
 					menu_choice = Menu.MechUpgrade1;
 	    		}
 				
@@ -205,7 +208,7 @@ public class UpgradeMenuS : MonoBehaviour {
 			
 			case Menu.MechUpgrade3:
 				//Back button
-				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "Back" ,default_button_style)) {
+				if(GUI.Button(new Rect(continue_button_x_left, continue_button_y, continue_button_width, continue_button_height), "" ,left_style)) {
 					menu_choice = Menu.MechUpgrade2;
 	    		}
 			
@@ -217,13 +220,6 @@ public class UpgradeMenuS : MonoBehaviour {
 				//not on the correct menu
 				break;
 		}
-
-
-	    //Exit button (Go to Main Menu)
-		//    if(GUI.Button(new Rect(0, 0, window_size_width/20, window_size_height/20), "Exit")) {
-		//    	//TODO:
-		//    	//Application.LoadLevel(0); //go to Main menu, we don't have one
-		//    }
 
 		
 		//set button descriptions
@@ -297,50 +293,95 @@ public class UpgradeMenuS : MonoBehaviour {
 	
 	//Get descriptions for buttons based on menu choice
 	private void getDescriptions(){
-		switch(menu_choice){
-			case Menu.BaseUpgrade1:
-				description_button_one = "Defense Wall: Bricks and mud. Bare foundation of a good fort.";
-				description_button_two = "Defensive Wall Mark 2: Bricks. Mud and more mud. Solid in protecting lands from intruders.";
-				description_button_three = "Defensive Wall Mark 3: The ultimate wall. Forget bricks, we have shields! Fresh feeling of security.";
-				break;
+
+switch(menu_choice){
+
+	case Menu.BaseUpgrade1:
 	
-			case Menu.BaseUpgrade2:
-			    description_button_one = "Reconstruction 1";
-				description_button_two = "Structure Upgrade 2";
-				description_button_three = "Structure Upgrade 3";
-				break;
-			
-			case Menu.BaseUpgrade3:
-			    description_button_one = "Defense Upgrade 1";
-				description_button_two = "Defense Upgrade 2";
-				description_button_three = "Defense Upgrade 3";
-				break;
-			
-			case Menu.MechUpgrade1:
-				description_button_one = "Water Upgrade";
-				description_button_two = "Mountain Upgrade";
-				description_button_three = "Leg Upgrade";
-				break;
-			
-			case Menu.MechUpgrade2:
-				description_button_one = "Gun Upgrade 1";
-				description_button_two = "Gun Upgrade 2";
-				description_button_three = "Gun Upgrade 3";
-				break;
-			
-			case Menu.MechUpgrade3:
-				description_button_one = "Armour Upgrade";
-				description_button_two = "Teleport Upgrade";
-				description_button_three = "Scavange Upgrade";
-				break;
-			
-			default:
-				description_button_one = "?";
-				description_button_two = "?";
-				description_button_three = "?";
-				break;
-		}
+	description_button_one = "Defense Wall: Bricks and mud. Foundation of a good fort.";
+	
+	description_button_two = "Defense Wall Ver2: Bricks. More mud. Solid in protecting lands.";
+	
+	description_button_three = "Defense Wall Ver3: Forget bricks, we have shields!";
+	
+	break;
+	
+	 
+	
+	case Menu.BaseUpgrade2:
+	
+	    description_button_one = "Construction: Expansion of the town. Bigger is better!";
+	
+	description_button_two = "Construction Ver2: Technology improvements = MORE expansion of the town.";
+	
+	description_button_three = "Construction Ver3: Advancement in resources = Fresh feeling of security.";
+	
+	break;
+	
+	 
+	
+	case Menu.BaseUpgrade3:
+	
+	    description_button_one = "Offense Enhancements: Protection via combat at the same time.";
+	
+	description_button_two = "Offense Enhancements Ver2: Bigger and more fire power. What more can you ask for?";
+	
+	description_button_three = "Offense Enhancements Ver3: The best defense is the best offense.";
+	
+	break;
+	
+	 
+	
+	case Menu.MechUpgrade1:
+	
+	description_button_one = "Aquatic Fins: Flexible fins that allow for the mech to swim across the seas.";
+	
+	description_button_two = "Climbing Claws: Claws sharpened to grip across rough rocks.";
+	
+	description_button_three = "Leg Enhancements: reduce the cost of movement -1AP movement cost";
+	
+	break;
+	
+	 
+	
+	case Menu.MechUpgrade2:
+	
+	description_button_one = "Cannon Blaster: more fire power +2 damage";
+	
+	description_button_two = "Sight Goggles: Improved range +1 range";
+	
+	description_button_three = "Blaster: -1AP attack cost";
+	
+	break;
+	
+	 
+	
+	case Menu.MechUpgrade3:
+	
+	description_button_one = "Armor Plating: Defense on the go! Reduce incoming damage by 2";
+	
+	description_button_two = "Teleport back to Base: Cost 14AP to go back to town";
+	
+	description_button_three = "Scavenge Upgrade: Gives 2 more resources per scavenge";
+	
+	break;
+	
+	 
+	
+	default:
+	
+	description_button_one = "?";
+	
+	description_button_two = "?";
+	
+	description_button_three = "?";
+	
+	break;
+	
 	}
+
+}
+
 	
 	//Show base buttons based on what levels of upgrades have been unlocked for base menu upgrades
 	private bool showButton(int button_number){
@@ -408,7 +449,7 @@ public class UpgradeMenuS : MonoBehaviour {
 			check_box_array = show_check_boxes_mech_menu;
 		}
 		
-		button_x_start = button_x_start + button_size_width*2 - button_size_width/6;
+		button_x_start = button_x_start + button_size_width;
 		button_y_start = button_y_start + button_size_height/6;
 		//base menu 
 		if(check_box_array[index,0] == true){
@@ -1081,7 +1122,7 @@ public class UpgradeMenuS : MonoBehaviour {
 	}
 	
 	//Objective Menu 
-	private void objectiveMenu() {
+	private void mainMenu() {
 		GUI.skin = objectiveMenuSkin;
 		int window_size_x  = screen_size_x /4 - screen_size_x /16; 
 	    int window_size_y  = screen_size_y /14; 
@@ -1089,17 +1130,17 @@ public class UpgradeMenuS : MonoBehaviour {
 	    int window_size_height  = screen_size_y - screen_size_y /8; 
 
 	    //Layout start
-	    GUI.BeginGroup(new Rect(0, 0, window_size_width, window_size_height));
+	    GUI.BeginGroup(new Rect(window_size_x, window_size_y, window_size_width, window_size_height));
 		
 		//The Menu background box
 	    GUI.Box(new Rect(0, 0, window_size_width, window_size_height), "");
 		
-		int label_x_start  = window_size_width/12; 
-	    int button_x_start  = window_size_width/11; 
-	    int button_y_start  = window_size_height/10 + window_size_height/15; 
-		int button_size_width  = window_size_width - window_size_width/6 - window_size_width/40; 
-	    int button_size_height  = window_size_height/8; 
-	    int button_spacing  = button_size_height/2; 
+		int label_x_start  = window_size_width/3; 
+	    int button_x_start  = window_size_width/3 + window_size_width/4; 
+	    int button_y_start  = window_size_height/2 - window_size_width/10; 
+		int button_size_width  = window_size_width/2 - window_size_width/4 - window_size_width/40; 
+	    int button_size_height = window_size_height/12; 
+	    int button_spacing  = button_size_height/5; 
 		
 	    //Game resume button (close upgrade menu)
 	    if(GUI.Button(new Rect(window_size_width - window_size_width/12, window_size_height/20, window_size_width/20, window_size_height/20), "X", default_button_style)) {
@@ -1112,21 +1153,23 @@ public class UpgradeMenuS : MonoBehaviour {
     		script2.enabled = false;
 	    }
 		
-		//objective button 0
-	    if(GUI.Button(new Rect(button_x_start, button_y_start, button_size_width, button_size_height), "Load" )) {
+		//Load
+	    if(GUI.Button(new Rect(button_x_start, button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height), "Load" )) {
+			//Application.LoadLevel(0);
 	    }
 		
-		//objective button 1
-	    if(GUI.Button(new Rect(button_x_start , button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height), "Save" )) {
+		//Save
+	    if(GUI.Button(new Rect(button_x_start , button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "Save" )) {
 	    }
 		
-		//objective button 2
-	    if(GUI.Button(new Rect(button_x_start, button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "Objective" )) {
-	    }
-		
-		//objective button 3
+		//Quit
 	    if(GUI.Button(new Rect(button_x_start, button_y_start + (3 * button_spacing) + (3 * button_size_height), button_size_width, button_size_height), "Quit" )) {
+			Application.LoadLevel(0);
 	    }
+		
+//		//not present at the moment...
+//	    if(GUI.Button(new Rect(button_x_start, button_y_start + (3 * button_spacing) + (3 * button_size_height), button_size_width, button_size_height), "" )) {
+//	    }
 		
 		GUI.EndGroup();
 	}
@@ -1206,8 +1249,7 @@ public class UpgradeMenuS : MonoBehaviour {
 			   		break;
 
 				case Menu.Objective:
-					//TODO:
-			        objectiveMenu();
+			        mainMenu();
 					break;
 			
 				default:

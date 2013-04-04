@@ -17,6 +17,7 @@ public class inPlayMenuS : MonoBehaviour {
 	public Texture parts_backboard;
 	public Texture top_menu_backboard;
 	public Texture upgrade_backboard;
+	public GUIStyle hp_backboard;
 	public Texture default_button_backboard;
 	
 	//Custom styles for buttons
@@ -64,13 +65,13 @@ public class inPlayMenuS : MonoBehaviour {
 		int button_size = button_size_height/2; 
 		 
 		//Backboards
-  		GUI.DrawTexture(new Rect((screen_size_x/3), ((button_y_start/4)-(button_y_start*13)-(button_y_start/4)), (button_size_height*6), (button_size_width*8)), top_menu_backboard, ScaleMode.ScaleToFit, true);
-		GUI.DrawTexture(new Rect(0, (button_y_start/8), (button_size_height*8), (button_size_width*4)), upgrade_backboard, ScaleMode.ScaleToFit, true);
+  		GUI.DrawTexture(new Rect((screen_size_x/3), ((button_y_start/4)-(button_y_start*5.40F)), (button_size_height*5), (button_size_width*4)), top_menu_backboard, ScaleMode.ScaleToFit, true);
+		GUI.DrawTexture(new Rect((-screen_size_x/17), ((button_y_start/6)+(button_y_start)), (button_size_height*3.6F), (button_size_width*3.5F)), upgrade_backboard, ScaleMode.ScaleToFit, true);
   		GUI.DrawTexture(new Rect(((button_x_start *6) + screen_size_x/15), (screen_size_y/4), (button_size_height *3), (button_size_width*3)), parts_backboard, ScaleMode.ScaleToFit, true);		
-		//GUI.DrawTexture(new Rect((button_x_start*3), ((screen_size_y/2) + (screen_size_y/4)), (button_size_height *5), (screen_size_x/7)), hp_backboard, ScaleMode.ScaleToFit, true);
+		//GUI.DrawTexture(new Rect(((button_x_start*2)+ screen_size_x/20), ((screen_size_y/2) + (screen_size_y/3.5F)), (button_size_height *6), (screen_size_x/6)), hp_backboard, ScaleMode.ScaleToFit, true);
 		
 		//End Turn Button
-		if(GUI.Button(new Rect((screen_size_x/2 - (screen_size_x/13)),0, (button_size_height *2), (button_size_width/7)), "", end_turn_button_style)) {
+		if(GUI.Button(new Rect((screen_size_x/2 - (screen_size_x/13)) + 8,0, (button_size_height *2), (button_size_width/7)), "", end_turn_button_style)) {
 			gameManagerS.endPlayerTurn();
 		}
 		
@@ -102,28 +103,17 @@ public class inPlayMenuS : MonoBehaviour {
 		int numerator_ap = width_numerator_ap * multiple_ap;
 		int difference_ap = mech.getMaxAP() - numerator_ap;
 		
-		//HP & AP Button
-		if(GUI.Button(new Rect((screen_size_x/3),((button_y_start*5) + (screen_size_y/8)), (((numerator_hp - (mech.getMaxHP() - mech.getCurrentHP() - difference_hp)) * (screen_size_y * width_numerator))/denominator_hp), (screen_size_x/40)), mech.getCurrentHP() + "/" + mech.getMaxHP() + "HP", hp_bar)) {
-		}
+		//GUI.Box(new Rect((screen_size_x/3.05F),((button_y_start*4.95F) + (screen_size_y/20)), (button_size_height*5.05F), (button_size_width/3.05F)), "", hp_backboard);
 		
-		if(GUI.Button(new Rect((screen_size_x/3),((button_y_start*5) + (screen_size_y/14)), (((numerator_ap - (mech.getMaxAP() - mech.getCurrentAP() - difference_ap)) * (screen_size_y * width_numerator_ap))/denominator_ap), (screen_size_x/40)), mech.getCurrentAP() + "/" + mech.getMaxAP() + "AP", ap_bar)) {
-		}
+		//HP & AP Button
+		GUI.Box(new Rect((screen_size_x/3),((button_y_start*5) + (screen_size_y/8)), (((numerator_hp - (mech.getMaxHP() - mech.getCurrentHP() - difference_hp)) * (screen_size_y * width_numerator))/denominator_hp), (screen_size_x/40)), mech.getCurrentHP() + "/" + mech.getMaxHP() + "HP", hp_bar);
+		
+		GUI.Box(new Rect((screen_size_x/3),((button_y_start*5) + (screen_size_y/15)), (((numerator_ap - (mech.getMaxAP() - mech.getCurrentAP() - difference_ap)) * (screen_size_y * width_numerator_ap))/denominator_ap), (screen_size_x/40)), mech.getCurrentAP() + "/" + mech.getMaxAP() + "AP", ap_bar);
+		
 		
 		//HP and AP bar text
 		GUI.Label(new Rect((screen_size_x/2- (screen_size_x/8)), screen_size_y - screen_size_y/22, (t_size_width), (t_size_width)), mech.getCurrentHP() + "/" + mech.getMaxHP(),  gui_normal_text);
 		GUI.Label(new Rect((screen_size_x/2 - (screen_size_x/25)), screen_size_y - screen_size_y/10, (t_size_width), (t_size_width)), mech.getCurrentAP() + "/" + mech.getMaxAP(),  gui_normal_text);
-	
-		
-		 //Objective Button
-		 if(GUI.Button(new Rect((((button_size_width/6)*3) + (button_x_start/3)), ((button_y_start*5) + (screen_size_y/11)),(button_size_height-(button_size_height/3)), (button_size_width/6)), "", objective_button_style)) {
-			//disable enemy health bars
-			disableEnemyHealthBars();
-			//pause the game
-		    Time.timeScale = 0;
-		    //show the pause menu
-			script.menu_choice = Menu.Objective;
-		    script.enabled = true;
-		 }
 		 	
 		 //Mech Button  
 		 if(GUI.Button(new Rect((button_x_start/10),((button_y_start*5) + (screen_size_y/11)), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", mech_button_style)) {
@@ -147,23 +137,23 @@ public class inPlayMenuS : MonoBehaviour {
 		    script.enabled = true;
 		 }
 		
-			//Base Button
-			entityBaseS script_base =  entityManagerS.getBase();
-			if(GUI.Button(new Rect(((button_size_width/5) + (button_x_start/2)),((button_y_start*5) + (screen_size_y/11)), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", base_button_style)) {  
-				if(mech.lerp_move && script_base.mechNextToBase(mech.x,mech.z)){
-				 	//disable enemy health bars
-					disableEnemyHealthBars();
-					//pause the game
-				    Time.timeScale = 0;
-				    //show the pause menu
-					script.menu_choice = Menu.BaseUpgrade1;
-				    script.enabled = true;
+		//Base Button
+		entityBaseS script_base =  entityManagerS.getBase();
+		if(GUI.Button(new Rect(((button_size_width/5) + (button_x_start/2)),((button_y_start*5) + (screen_size_y/11)), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", base_button_style)) {  
+			if(script_base.mechNextToBase(mech.x,mech.z)){
+			 	//disable enemy health bars
+				disableEnemyHealthBars();
+				//pause the game
+			    Time.timeScale = 0;
+			    //show the pause menu
+				script.menu_choice = Menu.BaseUpgrade1;
+			    script.enabled = true;
 				}else{
 					//get popup menu
-					popUpMenu script_popup =  GetComponent<popUpMenu>();
-					script_popup.custom_rect = new Rect(screen_size_x /2 - screen_size_x /9 - screen_size_x /25, screen_size_y/2 - screen_size_y/10, screen_size_x - (screen_size_x /2 + screen_size_x /5), screen_size_y/4);
-					script_popup.custom_text = "You can't upgrade the base, \n you are to far away"; //not enough ap	
-					script_popup.custom_popup = true;
+				popUpMenu script_popup =  GetComponent<popUpMenu>();
+				script_popup.custom_rect = new Rect(screen_size_x /2 - screen_size_x /9 - screen_size_x /25, screen_size_y/2 - screen_size_y/10, screen_size_x - (screen_size_x /2 + screen_size_x /5), screen_size_y/4);
+				script_popup.custom_text = "You can't upgrade the base, \n you are too far away"; //not enough ap	
+				script_popup.custom_popup = true;
 			}
 		}
 		 
@@ -188,15 +178,15 @@ public class inPlayMenuS : MonoBehaviour {
 		}
 		
 		//Objective Button
-		 if(GUI.Button(new Rect((((button_size_width/5)*3) + (button_x_start/2)), ((button_y_start*5) + (screen_size_y/11)), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", objective_button_style)) {
+	 	if(GUI.Button(new Rect((((button_size_width/5)*3) + (button_x_start/2)), ((button_y_start*5) + (screen_size_y/11)), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", objective_button_style)) {
 			//disable enemy health bars
 			disableEnemyHealthBars();
 			//pause the game
-		    Time.timeScale = 0;
-		    //show the pause menu
+	    	Time.timeScale = 0;
+	    	//show the pause menu
 			script.menu_choice = Menu.Objective;
-		    script.enabled = true;
-		 }
+	    	script.enabled = true;
+	 	}
 	}
 	
 	private void disableEnemyHealthBars(){

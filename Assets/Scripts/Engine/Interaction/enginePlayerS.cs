@@ -12,6 +12,8 @@ public class enginePlayerS : MonoBehaviour {
 	public static GUIStyle						hp_bar_for_base;
 	public GUIStyle								hp_bar;
 	public GUIStyle								hp_bar_base;
+	public static Texture								hp_backboard;
+	public Texture								hp_backboard_test;	
 	public GUIStyle								selection_hover;
 	
 	
@@ -72,6 +74,7 @@ public class enginePlayerS : MonoBehaviour {
 		hover_text 		= selection_hover;
 		hp_bar_for_enemy = hp_bar;
 		hp_bar_for_base = hp_bar_base;
+		hp_backboard = hp_backboard_test;
 		action_images = new Dictionary<Action, Texture>();
 		action_images.Add(Action.Repair, icon_repair);
 		action_images.Add(Action.Traverse, icon_traverse);
