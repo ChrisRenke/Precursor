@@ -100,7 +100,9 @@ public class UpgradeMenuS : MonoBehaviour {
 
 
 	private void theUpgradeMenu(GUIStyle button_one_style, GUIStyle button_two_style, GUIStyle button_three_style) {
-	    GUI.skin = newSkin;
+		GUI.skin = newSkin;
+		//get popup menu
+		popUpMenu script_popup =  GetComponent<popUpMenu>();
 		int window_size_x  = screen_size_x /4 - screen_size_x /16; 
 	    int window_size_y  = screen_size_y /14; 
 		int window_size_width  = screen_size_x - (screen_size_x /3 + screen_size_x /20); 
@@ -211,7 +213,6 @@ public class UpgradeMenuS : MonoBehaviour {
 				part_labels(label_window_size_width, label_window_size_height, ref parts_count_for_other_upgrades);	
 			
 				break;
-			
 			default:
 				//not on the correct menu
 				break;
@@ -243,7 +244,8 @@ public class UpgradeMenuS : MonoBehaviour {
 				|| ((menu_choice == Menu.MechUpgrade1 || menu_choice == Menu.MechUpgrade2 || menu_choice == Menu.MechUpgrade3) && mech.applyUpgrade(ap_cost_mech))){
 				canApplyUpgrade(0);
 			}else{
-				print ("not enough ap");
+				script_popup.text_number_choice = 0; //not enough ap
+				script_popup.upgrade_popup = true;
 			}
 	    }
 		//Description of button
@@ -256,7 +258,8 @@ public class UpgradeMenuS : MonoBehaviour {
 				|| ((menu_choice == Menu.MechUpgrade1 || menu_choice == Menu.MechUpgrade2 || menu_choice == Menu.MechUpgrade3) && mech.applyUpgrade(ap_cost_mech))){
 					canApplyUpgrade(1);
 				}else{
-					print ("not enough ap");	
+					script_popup.text_number_choice = 0; //not enough ap	
+					script_popup.upgrade_popup = true;
 				}
 	    	}
 			//Description of button
@@ -274,7 +277,8 @@ public class UpgradeMenuS : MonoBehaviour {
 				|| ((menu_choice == Menu.MechUpgrade1 || menu_choice == Menu.MechUpgrade2 || menu_choice == Menu.MechUpgrade3) && mech.applyUpgrade(ap_cost_mech))){
 					canApplyUpgrade(2);
 				}else{
-					print ("not enough ap");
+					script_popup.text_number_choice = 0; //not enough ap
+					script_popup.upgrade_popup = true;
 				}
 	    	}
 			//Description of button
@@ -527,7 +531,8 @@ public class UpgradeMenuS : MonoBehaviour {
 	//see if an upgrade can be applied
 	private void canApplyUpgrade(int button_style_number){
 		//find the button style number and then menu that was chosen and see if upgrade can be applied
-		
+		//get popup menu
+		popUpMenu script_popup =  GetComponent<popUpMenu>();
 		switch(button_style_number){
 			case 0:
 				switch(menu_choice){
@@ -538,9 +543,15 @@ public class UpgradeMenuS : MonoBehaviour {
 								//show check box for button
 								show_check_boxes_base_menu[0,button_style_number] = true;
 								mech.applyAPCost(ap_cost_base);	
-							}else
-								print ("no good!");
-							break;
+							}else{
+								if(!show_check_boxes_base_menu[0,button_style_number])
+									script_popup.text_number_choice = 2; //already done
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
+						break;
 				
 						case Menu.BaseUpgrade2:
 							//see if we can apply upgrade
@@ -549,9 +560,15 @@ public class UpgradeMenuS : MonoBehaviour {
 								//show check box for button
 								show_check_boxes_base_menu[1,button_style_number] = true;
 								mech.applyAPCost(ap_cost_base);
-							}else
-								print ("no good!");
-							break;
+							}else{
+								if(!show_check_boxes_base_menu[1,button_style_number])
+									script_popup.text_number_choice = 2; //already done
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
+						break;
 				
 						case Menu.BaseUpgrade3:
 							//see if we can apply upgrade
@@ -560,9 +577,15 @@ public class UpgradeMenuS : MonoBehaviour {
 								//show check box for button
 								show_check_boxes_base_menu[2,button_style_number] = true;
 								mech.applyAPCost(ap_cost_base);
-							}else
-								print ("no good!");
-							break;
+							}else{
+								if(!show_check_boxes_base_menu[2,button_style_number])
+									script_popup.text_number_choice = 2; //already done
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
+						break;
 
 
 						case Menu.MechUpgrade1:
@@ -574,9 +597,15 @@ public class UpgradeMenuS : MonoBehaviour {
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
 								mech.applyAPCost(ap_cost_mech);
-							}else
-								print ("no good!");  
-							break;
+							}else{
+								if(!show_check_boxes_mech_menu[0,button_style_number])
+									script_popup.text_number_choice = 2; //already done
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
+						break;
 				
 						case Menu.MechUpgrade2:
 							//see if we can apply upgrade legs
@@ -587,9 +616,15 @@ public class UpgradeMenuS : MonoBehaviour {
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
 								mech.applyAPCost(ap_cost_mech);
-							}else
-								print ("no good!");  
-							break;
+							}else{
+								if(!show_check_boxes_mech_menu[0,button_style_number])
+									script_popup.text_number_choice = 2; //already done
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
+						break;
 				
 						case Menu.MechUpgrade3:
 							//see if we can apply upgrade legs
@@ -600,9 +635,15 @@ public class UpgradeMenuS : MonoBehaviour {
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
 								mech.applyAPCost(ap_cost_mech);
-							}else
-								print ("no good!");  
-							break;
+							}else{
+								if(!show_check_boxes_mech_menu[0,button_style_number])
+									script_popup.text_number_choice = 2; //already done
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
+						break;
 
 						default:
 							//see if we can apply upgrade
@@ -621,9 +662,15 @@ public class UpgradeMenuS : MonoBehaviour {
 								//show check box for button
 								show_check_boxes_base_menu[0,button_style_number] = true;
 								mech.applyAPCost(ap_cost_base);
-							}else
-								print ("no good!");
-							break;
+							}else{
+								if(!show_check_boxes_base_menu[0,button_style_number])
+									script_popup.text_number_choice = 2; //already done
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
+						break;
 				
 						case Menu.BaseUpgrade2:
 							//see if we can apply upgrade
@@ -632,9 +679,15 @@ public class UpgradeMenuS : MonoBehaviour {
 								//show check box for button
 								show_check_boxes_base_menu[1,button_style_number] = true;
 								mech.applyAPCost(ap_cost_base);
-							}else
-								print ("no good!");
-							break;
+							}else{
+								if(!show_check_boxes_base_menu[1,button_style_number])
+									script_popup.text_number_choice = 2; //already done
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
+						break;
 				
 						case Menu.BaseUpgrade3:
 							//see if we can apply upgrade
@@ -643,10 +696,16 @@ public class UpgradeMenuS : MonoBehaviour {
 								//show check box for button
 								show_check_boxes_base_menu[2,button_style_number] = true;
 								mech.applyAPCost(ap_cost_base);
-							}else
-								print ("no good!");
-							break;
-
+							}else{
+								if(!show_check_boxes_base_menu[2,button_style_number])
+									script_popup.text_number_choice = 2; //already done
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
+						
+						break;
 
 						case Menu.MechUpgrade1:
 							//see if we can apply upgrade mountain
@@ -657,8 +716,14 @@ public class UpgradeMenuS : MonoBehaviour {
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
 								mech.applyAPCost(ap_cost_mech);
-							}else
-								print ("no good!");  
+							}else{
+								if(show_check_boxes_mech_menu[0,button_style_number])
+									script_popup.text_number_choice = 2; //missing parts
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
 							break;
 				
 						case Menu.MechUpgrade2:
@@ -670,8 +735,14 @@ public class UpgradeMenuS : MonoBehaviour {
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
 								mech.applyAPCost(ap_cost_mech);
-							}else
-								print ("no good!");  
+							}else{
+								if(show_check_boxes_mech_menu[1,button_style_number])
+									script_popup.text_number_choice = 2; //missing parts
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
 							break;
 				
 						case Menu.MechUpgrade3:
@@ -685,14 +756,21 @@ public class UpgradeMenuS : MonoBehaviour {
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
 								mech.applyAPCost(ap_cost_mech);
-							}else
-								print ("no good!");
+							}else{
+								if(show_check_boxes_mech_menu[2,button_style_number])
+									script_popup.text_number_choice = 2; //missing parts
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
 							break;
 
 
 						default:
 							//see if we can apply upgrade
-								print ("no good!");
+								script_popup.text_number_choice = 1; //missing parts
+								script_popup.upgrade_popup = true;
 							break;
 				}
 			break;
@@ -707,8 +785,14 @@ public class UpgradeMenuS : MonoBehaviour {
 								//show check box for button
 								show_check_boxes_base_menu[0,button_style_number] = true;
 								mech.applyAPCost(ap_cost_base);
-							}else
-								print ("no good!");
+							}else{
+								if(!show_check_boxes_base_menu[0,button_style_number])
+									script_popup.text_number_choice = 2; //already done
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
 							break;
 				
 						case Menu.BaseUpgrade2:
@@ -718,8 +802,14 @@ public class UpgradeMenuS : MonoBehaviour {
 								//show check box for button
 								show_check_boxes_base_menu[1,button_style_number] = true;
 								mech.applyAPCost(ap_cost_base);
-							}else
-								print ("no good!");
+							}else{
+								if(!show_check_boxes_base_menu[1,button_style_number])
+									script_popup.text_number_choice = 2; //already done
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
 							break;
 				
 						case Menu.BaseUpgrade3:
@@ -729,8 +819,14 @@ public class UpgradeMenuS : MonoBehaviour {
 								//show check box for button
 								show_check_boxes_base_menu[2,button_style_number] = true;
 								mech.applyAPCost(ap_cost_base);
-							}else
-								print ("no good!");
+							}else{
+								if(!show_check_boxes_base_menu[2,button_style_number])
+									script_popup.text_number_choice = 2; //already done
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
 							break;
 
 
@@ -743,8 +839,14 @@ public class UpgradeMenuS : MonoBehaviour {
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
 								mech.applyAPCost(ap_cost_mech);
-							}else
-								print ("no good!");  
+							}else{
+								if(show_check_boxes_mech_menu[0,button_style_number])
+									script_popup.text_number_choice = 2; //missing parts
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
 							break;
 				
 						case Menu.MechUpgrade2:
@@ -756,10 +858,14 @@ public class UpgradeMenuS : MonoBehaviour {
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
 								mech.applyAPCost(ap_cost_mech);
-							}else
-								print ("no good!");  
-
-
+							}else{
+								if(show_check_boxes_mech_menu[1,button_style_number])
+									script_popup.text_number_choice = 2; //missing parts
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
 							break;
 				
 						case Menu.MechUpgrade3:
@@ -771,8 +877,14 @@ public class UpgradeMenuS : MonoBehaviour {
 								mech.destroySelectionHexes();
 								mech.allowSelectionHexesDraw();
 								mech.applyAPCost(ap_cost_mech);
-							}else
-								print ("no good!");
+							}else{
+								if(show_check_boxes_mech_menu[2,button_style_number])
+									script_popup.text_number_choice = 2; //missing parts
+								else
+									script_popup.text_number_choice = 1; //missing parts
+								
+								script_popup.upgrade_popup = true;	
+							}
 							break;
 
 
@@ -831,6 +943,8 @@ public class UpgradeMenuS : MonoBehaviour {
 	//Health Menu
 	private void healthMenu() {
 		GUI.skin = healthMenuSkin;
+		//get popup menu
+		popUpMenu script_popup =  GetComponent<popUpMenu>();
 		int window_size_x  = screen_size_x /4 - screen_size_x /16; 
 	    int window_size_y  = screen_size_y /14; 
 		int window_size_width  = screen_size_x - (screen_size_x /3 + screen_size_x /20); 
@@ -867,9 +981,17 @@ public class UpgradeMenuS : MonoBehaviour {
 					entityMechS.adjustPartCount(Part.Piston,	-1);
 					mech.applyAPCost(ap_cost_health);
 					mech.current_hp ++;
-				}	
+				}else{
+					if(mech.current_hp == mech.getMaxHP())
+						script_popup.text_number_choice = 3;
+					else
+						script_popup.text_number_choice = 4;
+				
+				script_popup.upgrade_popup = true;
+				}
 			}else{
-				print ("not enough ap");
+				script_popup.text_number_choice = 0;
+				script_popup.upgrade_popup = true;
 			}
 		}
 		
@@ -880,11 +1002,19 @@ public class UpgradeMenuS : MonoBehaviour {
 					entityMechS.adjustPartCount(Part.Gear, 		-1);
 					mech.current_hp ++;
 					mech.applyAPCost(ap_cost_health);
+				}else{
+					if(mech.current_hp == mech.getMaxHP())
+						script_popup.text_number_choice = 3;
+					else
+						script_popup.text_number_choice = 4;
+				
+				script_popup.upgrade_popup = true;
 				}
 			}else{
-				print ("not enough ap");
+				script_popup.text_number_choice = 0;
+				script_popup.upgrade_popup = true;
 			}
-	    }
+		}
 		
 		//regenerate button 2
 	    if(GUI.Button(new Rect(button_x_start + (2 * button_spacing) + (2 * button_size_width), button_y_start, button_size_width, button_size_height), "" ,plate_button_style)) {
@@ -893,11 +1023,19 @@ public class UpgradeMenuS : MonoBehaviour {
 					entityMechS.adjustPartCount(Part.Plate,	 	-1);
 					mech.current_hp ++;
 					mech.applyAPCost(ap_cost_health);
+				}else{
+					if(mech.current_hp == mech.getMaxHP())
+						script_popup.text_number_choice = 3;
+					else
+						script_popup.text_number_choice = 4;
+				
+				script_popup.upgrade_popup = true;
 				}
 			}else{
-				print ("not enough ap");
+				script_popup.text_number_choice = 0;
+				script_popup.upgrade_popup = true;
 			}
-	    }
+		}
 		
 		//regenerate button 3
 	    if(GUI.Button(new Rect(button_x_start + (3 * button_spacing) + (3 * button_size_width), button_y_start, button_size_width, button_size_height), "" ,strut_button_style)) {
@@ -906,11 +1044,19 @@ public class UpgradeMenuS : MonoBehaviour {
 					entityMechS.adjustPartCount(Part.Strut, 	-1);
 					mech.current_hp ++;
 					mech.applyAPCost(ap_cost_health);
+				}else{
+					if(mech.current_hp == mech.getMaxHP())
+						script_popup.text_number_choice = 3;
+					else
+						script_popup.text_number_choice = 4;
+				
+				script_popup.upgrade_popup = true;
 				}
 			}else{
-				print ("not enough ap");
+				script_popup.text_number_choice = 0;
+				script_popup.upgrade_popup = true;
 			}
-	    }
+		}
 		
 		//Logo Pictures to show which upgrade has occured, 3 dots or something that will be highlighted when upgrade has ben applied
 	    GUI.Label(new Rect(label_x_start, button_y_start + (button_size_height), button_size_width, button_size_height), "" + entityMechS.getPartCount(Part.Piston));

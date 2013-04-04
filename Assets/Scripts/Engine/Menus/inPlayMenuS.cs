@@ -147,37 +147,44 @@ public class inPlayMenuS : MonoBehaviour {
 		    script.enabled = true;
 		 }
 		
-		//Base Button
-		if(!entityMechS.moving_on_path){
+			//Base Button
 			entityBaseS script_base =  entityManagerS.getBase();
-			if(true || script_base.mechNextToBase(mech.x,mech.z)){
-				 if(GUI.Button(new Rect(((button_size_width/5) + (button_x_start/2)),((button_y_start*5) + (screen_size_y/11)), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", base_button_style)) {
-				    //disable enemy health bars
+			if(GUI.Button(new Rect(((button_size_width/5) + (button_x_start/2)),((button_y_start*5) + (screen_size_y/11)), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", base_button_style)) {  
+				if(mech.lerp_move && script_base.mechNextToBase(mech.x,mech.z)){
+				 	//disable enemy health bars
 					disableEnemyHealthBars();
 					//pause the game
 				    Time.timeScale = 0;
 				    //show the pause menu
 					script.menu_choice = Menu.BaseUpgrade1;
 				    script.enabled = true;
-				 }
-			}else{
-				//"Can't upgrade, you are not by the base"
+				}else{
+					//get popup menu
+					popUpMenu script_popup =  GetComponent<popUpMenu>();
+					script_popup.custom_rect = new Rect(screen_size_x /2 - screen_size_x /9 - screen_size_x /25, screen_size_y/2 - screen_size_y/10, screen_size_x - (screen_size_x /2 + screen_size_x /5), screen_size_y/4);
+					script_popup.custom_text = "You can't upgrade the base, \n you are to far away"; //not enough ap	
+					script_popup.custom_popup = true;
 			}
 		}
 		 
 		//Transport button
-		if(enable_transport_button){
-			 if(GUI.Button(new Rect((((button_size_width/5)*2) + (button_x_start/2)), ((button_y_start*5) + (screen_size_y/11)), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", transport_button_style)) {
-			    if(mech.applyUpgrade(ap_cost_transport)){
+		if(GUI.Button(new Rect((((button_size_width/5)*2) + (button_x_start/2)), ((button_y_start*5) + (screen_size_y/11)), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", transport_button_style)) {
+			popUpMenu script_popup =  GetComponent<popUpMenu>();
+			if(enable_transport_button){
+			 	if(mech.applyUpgrade(ap_cost_transport)){
 					mech.applyAPCost(ap_cost_transport);
 					//TODO: add code for transporting mech
 				}else{
-					print ("not enough ap");
+					script_popup.custom_rect = new Rect(screen_size_x /2 - screen_size_x /9 - screen_size_x /25, screen_size_y/2 - screen_size_y/10, screen_size_x - (screen_size_x /2 + screen_size_x /5), screen_size_y/4);
+					script_popup.custom_text = "You don't have enough ap /n to transport"; //not enough ap	
+					script_popup.custom_popup = true;
 				}
-			 }	
-		}
-		else{
-			GUI.Button(new Rect((((button_size_width/5)*2) + (button_x_start/2)), ((button_y_start*5) + (screen_size_y/11)), ((button_size_height)-(button_size_height/5)), (button_size_width/5)), "", default_button_style_transport);
+			 }else{
+				
+					script_popup.custom_rect = new Rect(screen_size_x /2 - screen_size_x /9 - screen_size_x /25, screen_size_y/2 - screen_size_y/10, screen_size_x - (screen_size_x /2 + screen_size_x /5), screen_size_y/4);
+					script_popup.custom_text = "You haven't gotten this upgrade yet"; //not enough ap	
+					script_popup.custom_popup = true;
+			}
 		}
 		
 		//Objective Button

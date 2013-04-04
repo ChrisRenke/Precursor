@@ -2,7 +2,14 @@ using UnityEngine;
 using System.Collections;
 
 public class popUpMenu : MonoBehaviour {
-	private bool activate = false;
+	private bool activate = false; //objective menu
+	public bool upgrade_popup = true;
+	public bool custom_popup = false;
+	
+	//Pick a menu
+	public int level_choice = 0;
+	public int text_number_choice = 0;
+	
 	//styles
 	public GUIStyle backboard;
 	public GUIStyle objective_button_style;
@@ -20,12 +27,21 @@ public class popUpMenu : MonoBehaviour {
 	string objective_text_five = "";
 	string objective_text_six = "";
 	
-	//Pick a menu
-	public int level_choice = 0;
+	//custom variables
+	public string custom_text = "";
+	public Rect custom_rect = new Rect(0,0,0,0);
 		
 	//Window size
 	private int screen_size_x;
 	private int screen_size_y;
+	
+	void Start(){
+		upgrade_popup = false;
+		text_number_choice = 0;
+		level_choice = 0;
+		activate = false;
+		custom_popup = false;
+	}
 	
 	//Update is called once per frame
 	void Update () {
@@ -35,14 +51,23 @@ public class popUpMenu : MonoBehaviour {
 	    if(Input.GetKey("o")) {
 			activate = true; //turn on pop up menu if o is hit				
 	    }
+		
 	}
 	
 	void OnGUI(){
-		
-		if (activate) { //display objective menu if objective hit.
-	        //GUI.Box(/*Rect, "Pop up box", style*/);
+		//display objective menu if objective hit
+		if (activate)
 			objectiveMenu();
+		
+		if(upgrade_popup){
+			upgradePopUpBox(text_number_choice);
+		    UpgradeMenuS script2 =  GetComponent<UpgradeMenuS>();
+			if(script2.enabled == false || script2.menu_choice == Menu.Objective)
+				upgrade_popup = false;
 		}
+		
+		if(custom_popup)
+			customPopUpBox(custom_text,ref custom_rect,backboard);
 	}
 	
 	private void objectiveMenu() {
@@ -52,13 +77,9 @@ public class popUpMenu : MonoBehaviour {
 	    int window_size_height  = screen_size_y - screen_size_y /8; 
 
 	    //The Menu background box
-		GUI.Box(new Rect(screen_size_x /4 - screen_size_x /16, screen_size_y /14, window_size_width, window_size_height), "", backboard);
-	
-		//Game resume button (close upgrade menu)
-	    if(GUI.Button(new Rect(window_size_x + window_size_width - window_size_width/12, window_size_y + window_size_height/20, window_size_width/20, window_size_height/20), "X", x_button_style)) {;
-		    //disable pop up menu
-		    activate = false;
-	    }
+		if(GUI.Button(new Rect(screen_size_x /4 - screen_size_x /16, screen_size_y /14, window_size_width, window_size_height), "", backboard)){
+			activate = false;
+		}
 		
 		int label_x_start  = window_size_x + window_size_width/11;
 		int label_width = window_size_width/15;
@@ -110,6 +131,57 @@ public class popUpMenu : MonoBehaviour {
 	    if(GUI.Button(new Rect(button_x_start, button_y_start + (6 * button_spacing) + (6 * button_size_height), button_size_width, button_size_height), objective_text_six, objective_button_style)){}
 			if(!objective_text_six.Equals(""))
 			GUI.Button(new Rect(label_x_start, button_y_start + (6 * button_spacing) + (6 * button_size_height), label_width, label_height), "", star_button_style);
+	}
+	
+	public void upgradePopUpBox(int text_choice){
+		switch(text_choice){
+			case 0:
+				custom_text = "You don't have enough ap";
+	
+				break;
+	
+			case 1:
+				custom_text = "Your missing parts \n for this upgrade";
+			
+				break;
+			
+			case 2:
+				custom_text = "You already have this upgrade";
+			
+				break;
+			
+			case 3:
+				custom_text = "Your health is full";
+			
+				break;
+			
+			case 4:
+				custom_text = "You don't have enough of this \n resource to regenerate your health";
+			
+				break;
+			
+			default:
+				//use custom text			
+				break;
+		}
+		
+		int window_size_x  = screen_size_x /2 - screen_size_x /9 - screen_size_x /25; 
+	    int window_size_y  = screen_size_y/2 - screen_size_y/10; 
+		int window_size_width  = screen_size_x - (screen_size_x /2 + screen_size_x /5); 
+	    int window_size_height  = screen_size_y/4; 
+
+	    //The Pop Up box
+		if(GUI.Button(new Rect(window_size_x, window_size_y, window_size_width, window_size_height), custom_text, backboard)){
+			upgrade_popup = false;
+		}
+		
+	}
+	
+	public void customPopUpBox(string text, ref Rect rec, GUIStyle style){
+		//The Pop Up box
+		if(GUI.Button(rec, text, style)){
+			custom_popup = false;
+		}
 	}
 	
 	//Get descriptions for buttons based on level choice
