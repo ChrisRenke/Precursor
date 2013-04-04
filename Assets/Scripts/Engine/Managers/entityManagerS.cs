@@ -100,7 +100,6 @@ public class entityManagerS : MonoBehaviour {
 			}
 		}
 		return false;
-		
 	}
 	
 	

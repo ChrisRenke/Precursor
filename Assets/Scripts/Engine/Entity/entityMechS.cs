@@ -53,7 +53,8 @@ public class entityMechS : Combatable, IMove {
 	public int starting_ap = 18;
 	public int starting_ap_max = 18;
 	 
-	
+	public ParticleSystem fire;
+		
 	public static Dictionary<Part, int> part_count;
 	
 	public static int getPartCount(Part part_query)
@@ -65,9 +66,27 @@ public class entityMechS : Combatable, IMove {
 		part_count[part_query] += delta;	
 	}
 	
+	public Transform child_fire;
+	ParticleSystem[] fire_pses;
 	void Awake()
 	{
- 
+// 		child_fire = gameObject.transform.FindChild("fire");//.GetComponentsInChildren<ParticleSystem>();
+//		gameObject.particleSystem.enableEmission = false;
+//		child_fire.particleSystem.enableEmission = false; 
+//		child_fire.transform.FindChild("InnerCore").particleSystem.enableEmission = false;
+//		child_fire.transform.FindChild("Smoke").particleSystem.enableEmission = false;
+//		child_fire.transform.FindChild("OuterCore").particleSystem.enableEmission = false;
+//		child_fire.transform.FindChild("InnerCore").GetComponent<ParticleSystem>().enableEmission = false;
+//		child_fire.transform.FindChild("OuterCore").GetComponent<ParticleSystem>().enableEmission = false;
+//		child_fire.transform.FindChild("Smoke").GetComponent<ParticleSystem>().enableEmission = false;
+//		fire_pses = child_fire.GetComponentsInChildren<ParticleSystem>();
+		
+//		foreach(ParticleSystem ps in fire_pses)
+//		{ 
+//			Debug.LogWarning("FIRE PARTICLE FOUND");
+//			ps.enableEmission = false;
+//			Debug.LogWarning("FIRE PARTICLE TURNED OFF"); 
+//		}
 		part_count = new Dictionary<Part, int>();
 		part_count.Add(Part.Gear, 0);
 		part_count.Add(Part.Plate, 0);

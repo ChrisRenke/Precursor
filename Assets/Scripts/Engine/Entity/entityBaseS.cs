@@ -145,7 +145,7 @@ public class entityBaseS : Combatable {
 						}
 						
 					}else{
-						//Debug.Log ("no enemies in range, can't attack");
+						//Debasug.Log ("no enemies in range, can't attack");
 						can_not_attack = true;
 					}
 				}
