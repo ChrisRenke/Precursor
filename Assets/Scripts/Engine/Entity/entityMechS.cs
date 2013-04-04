@@ -66,27 +66,16 @@ public class entityMechS : Combatable, IMove {
 		part_count[part_query] += delta;	
 	}
 	
-	public Transform child_fire;
-	ParticleSystem[] fire_pses;
+	public static Transform child_fire; 
+	public static Transform child_shots; 
+	
 	void Awake()
 	{
-// 		child_fire = gameObject.transform.FindChild("fire");//.GetComponentsInChildren<ParticleSystem>();
-//		gameObject.particleSystem.enableEmission = false;
-//		child_fire.particleSystem.enableEmission = false; 
-//		child_fire.transform.FindChild("InnerCore").particleSystem.enableEmission = false;
-//		child_fire.transform.FindChild("Smoke").particleSystem.enableEmission = false;
-//		child_fire.transform.FindChild("OuterCore").particleSystem.enableEmission = false;
-//		child_fire.transform.FindChild("InnerCore").GetComponent<ParticleSystem>().enableEmission = false;
-//		child_fire.transform.FindChild("OuterCore").GetComponent<ParticleSystem>().enableEmission = false;
-//		child_fire.transform.FindChild("Smoke").GetComponent<ParticleSystem>().enableEmission = false;
-//		fire_pses = child_fire.GetComponentsInChildren<ParticleSystem>();
+ 		child_shots = gameObject.transform.GetChild(1);//.GetComponentsInChildren<ParticleSystem>();
+ 		child_fire = gameObject.transform.GetChild(0);//.GetComponentsInChildren<ParticleSystem>();
+//		Debug.Log(child_fire.name); //gets the fire child 
+		turnOffFire();
 		
-//		foreach(ParticleSystem ps in fire_pses)
-//		{ 
-//			Debug.LogWarning("FIRE PARTICLE FOUND");
-//			ps.enableEmission = false;
-//			Debug.LogWarning("FIRE PARTICLE TURNED OFF"); 
-//		}
 		part_count = new Dictionary<Part, int>();
 		part_count.Add(Part.Gear, 0);
 		part_count.Add(Part.Plate, 0);
@@ -115,6 +104,45 @@ public class entityMechS : Combatable, IMove {
 //	}
 	
 	
+ 		//.GetComponentsInChildren<ParticleSystem>();
+	
+	public static void shootEffect(Facing face_direction){  
+		switch(face_direction){ 
+			case Facing.North:
+				child_shots.GetChild(0).transform.GetChild(0).particleSystem.enableEmission = true; 
+				break;
+			case Facing.NorthEast:
+				child_shots.GetChild(1).transform.GetChild(0).particleSystem.enableEmission = true; 
+				break;
+			case Facing.NorthWest:
+				child_shots.GetChild(2).transform.GetChild(0).particleSystem.enableEmission = true; 
+				break;
+			case Facing.South:
+				child_shots.GetChild(3).transform.GetChild(0).particleSystem.enableEmission = true; 
+				break;
+			case Facing.SouthEast:
+				child_shots.GetChild(4).transform.GetChild(0).particleSystem.enableEmission = true; 
+				break;
+			case Facing.SouthWest:
+				child_shots.GetChild(5).transform.GetChild(0).particleSystem.enableEmission = true; 
+				break;
+		} 
+	}
+	
+	public static void turnOnFire(){
+		
+		child_fire.transform.GetChild(0).particleEmitter.emit = true; 
+		child_fire.transform.GetChild(1).particleEmitter.emit = true; 
+		child_fire.transform.GetChild(2).particleEmitter.emit = true; 
+	}
+	
+	public static void turnOffFire(){
+		
+		child_fire.transform.GetChild(0).particleEmitter.emit = false; 
+		child_fire.transform.GetChild(1).particleEmitter.emit = false; 
+		child_fire.transform.GetChild(2).particleEmitter.emit = false; 
+	}
+	
 	public static void moveToHexViaPath(Path _travel_path)
 	{
 		travel_path = _travel_path.getTraverseOrderList();
@@ -124,6 +152,7 @@ public class entityMechS : Combatable, IMove {
 		
 	}
 	
+	public bool onFire = false;
 	
 	 
 	//Update is called once per frame
@@ -132,6 +161,20 @@ public class entityMechS : Combatable, IMove {
 			
 		if(checkIfDead())
 			onDeath();
+		
+		
+		if((float)current_hp/(float)max_hp < .5F )
+		{
+			if(!onFire)
+				turnOnFire(); 
+			onFire = true;
+		}
+		else{
+			if(onFire)
+				turnOffFire();
+			onFire = false;
+		}
+		
 		
 		if(gameManagerS.current_turn == Turn.Player && current_ap <= 0 && !lerp_move)
 		{
@@ -219,6 +262,7 @@ public class entityMechS : Combatable, IMove {
 	
 	public int attackEnemy(int att_x, int att_z)
 	{
+		shootEffect(facing_direction);
 		
 		if(upgrade_weapon_damage)
 			entityManagerS.sm.playGunBigl();

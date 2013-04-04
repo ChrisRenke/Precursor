@@ -22,7 +22,9 @@ public class entityBaseS : Combatable {
 	public static List<HexData> adjacent_visible_hexes;
 	//Use this for initialization
 	void Start () {
-		
+ 		child_fire = gameObject.transform.GetChild(3);//.GetComponentsInChildren<ParticleSystem>();
+		Debug.Log("BASE CHILD SELECTED = " + child_fire.name);
+		turnOffFire();
 		def = transform.FindChild("entityBaseDefense").renderer;
 		walls = transform.FindChild("entityBaseWalls").renderer;
 		struc = transform.FindChild("entityBaseStructure").renderer;
@@ -63,6 +65,21 @@ public class entityBaseS : Combatable {
 	public int colNumber   = 4; //Zero Indexed
 	public int totalCells  = 12;
 	
+	public static Transform child_fire;  
+	
+	public static void turnOnFire(){
+		
+		child_fire.transform.GetChild(0).particleEmitter.emit = true; 
+		child_fire.transform.GetChild(1).particleEmitter.emit = true; 
+		child_fire.transform.GetChild(2).particleEmitter.emit = true; 
+	}
+	
+	public static void turnOffFire(){
+		
+		child_fire.transform.GetChild(0).particleEmitter.emit = false; 
+		child_fire.transform.GetChild(1).particleEmitter.emit = false; 
+		child_fire.transform.GetChild(2).particleEmitter.emit = false; 
+	}
 	
 	void visualDisplay()
 	{
@@ -88,9 +105,25 @@ public class entityBaseS : Combatable {
 	
 	}
 	
+	public bool onFire = false;
 	// Update is called once per frame
 	void Update () {
-			visualDisplay();
+		visualDisplay();
+		
+		
+		if((float)current_hp/(float)max_hp < .5F )
+		{
+			if(!onFire)
+				turnOnFire(); 
+			onFire = true;
+		}
+		else{
+			if(onFire)
+				turnOffFire();
+			onFire = false;
+		}
+		
+		
 		if(checkIfDead()){
 			print (this.GetInstanceID() + " is DEAD!!");
 			onDeath();

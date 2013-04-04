@@ -29,10 +29,16 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	public bool is_this_enemies_turn;
 	
 	
+		
+	
+	
 	int t = 0; //test
 	
 	//Use this for initialization
 	void Start () {
+ 		child_fire = gameObject.transform.GetChild(0);//.GetComponentsInChildren<ParticleSystem>();
+//		Debug.Log(child_fire.name); //gets the fire child 
+		turnOffFire();
 		path_to_base = new List<HexData>();
 		path_to_mech = new List<HexData>();
 		path_to_opponent = new List<HexData>();
@@ -46,6 +52,23 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		max_ap = 8;
 		last_move = hexManagerS.getHex(x,z); //last move = current position  
 	}
+	public static Transform child_fire;  
+	
+	public static void turnOnFire(){
+		
+		child_fire.transform.GetChild(0).particleEmitter.emit = true; 
+		child_fire.transform.GetChild(1).particleEmitter.emit = true; 
+		child_fire.transform.GetChild(2).particleEmitter.emit = true; 
+	}
+	
+	public static void turnOffFire(){
+		
+		child_fire.transform.GetChild(0).particleEmitter.emit = false; 
+		child_fire.transform.GetChild(1).particleEmitter.emit = false; 
+		child_fire.transform.GetChild(2).particleEmitter.emit = false; 
+	}
+	
+	public bool onFire = false;
 	
 	void OnGUI()
 	{
@@ -94,6 +117,12 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		if(t==0){
 			//Debug.Log ("enemies on board: " + entityManagerS.enemy_list.Count);
 			t=1;
+		}
+		
+		if(!onFire && (float)current_hp/(float)max_hp < .5F )
+		{
+			turnOnFire();
+			onFire = true;
 		}
 		 
 		if(checkIfDead()){
