@@ -53,6 +53,9 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		
 		current_ap = 8;
 		max_ap = 8;
+		attack_cost = 4;
+		attack_range = 2;
+		attack_damage = 4;
 		last_move = hexManagerS.getHex(x,z); //last move = current position  
 		
 		
@@ -109,15 +112,9 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		if(hexManagerS.getHex(x,z).vision_state == Vision.Live && show_health_bar){
 			Vector3 center_top_ss = Camera.main.WorldToScreenPoint (center_top);
 //			Vector3 center_top_ss = Camera.main.WorldToScreenPoint (transform.position + new Vector3(0,0,1.3F));
-//			 
-//			
-			print ((int)73*((float)current_hp/(float)max_hp));
-			print ((float)current_hp/(float)max_hp);
-			print ( current_hp + " / " + max_hp);
-//			
-			GUI.DrawTexture(new Rect(center_top_ss.x - 43, Screen.height - center_top_ss.y, 83, 18), enginePlayerS.chris_hp_bg); 
 			
-			GUI.BeginGroup (new Rect (center_top_ss.x - 37, Screen.height - center_top_ss.y+4, (int)(73*((float)current_hp/(float)max_hp)), 10));
+			GUI.DrawTexture(new Rect(center_top_ss.x - 43, Screen.height - center_top_ss.y, 83, 18), enginePlayerS.chris_hp_bg); 
+			GUI.BeginGroup (new Rect (center_top_ss.x - 38, Screen.height - center_top_ss.y+4, (int)(73*((float)current_hp/(float)max_hp)), 10));
 				GUI.DrawTexture(new Rect (0, 0, 73, 10), enginePlayerS.chris_hp, ScaleMode.StretchToFill);
 			GUI.EndGroup (); 
 		 	
@@ -743,13 +740,13 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		}
 	}
 	
-	
-	IEnumerator DelayStuff(float delay)
-	{
-	    yield return new WaitForSeconds(delay); 
-	}
- 
- 
+//	
+//	IEnumerator DelayStuff(float delay)
+//	{
+//	    yield return new WaitForSeconds(delay); 
+//	}
+// 
+// 
 	
 	public override int attackTarget (Combatable target)
 	{
@@ -760,11 +757,12 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY " + target.GetInstanceID());
 		if(target != null)
-			return target.acceptDamage(attack_damage);
-		
+			 target.acceptDamage(attack_damage);
+		 gameManagerS.waiting_after_shot = true;
+		gameManagerS.time_after_shot_start = Time.time;
 		//Debug.Log ("ERROR: didn't pick a combatable target");
 		
-		StartCoroutine(DelayStuff(.8f));
+//		StartCoroutine(DelayStuff(.8f));
 		return 0; //nothing to damage if we get here
 	}	
 	

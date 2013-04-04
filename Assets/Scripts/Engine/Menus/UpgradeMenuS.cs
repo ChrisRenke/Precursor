@@ -81,8 +81,8 @@ public class UpgradeMenuS : MonoBehaviour {
 	string description_button_three = "";
 	
 	//AP cost for base upgrade/mech upgrades/health upgrades/transport upgrade
-	int ap_cost_base = 2;
-	int ap_cost_mech = 2;
+	int ap_cost_base = 3;
+	int ap_cost_mech = 3;
 	int ap_cost_health = 1;
 	
 	private static entityMechS mech;
@@ -632,7 +632,7 @@ switch(menu_choice){
 		    				if(show_check_boxes_mech_menu[1,button_style_number] == false && part_check(button_style_number, ref parts_count_for_gun_upgrades)){
 								//show check box for button
 								show_check_boxes_mech_menu[1,button_style_number] = true;
-								mech.upgrade_weapon_range = true; 
+								mech.upgrade_weapon_damage = true; 
 								mech.applyAPCost(ap_cost_mech);
 							}else{
 								if(!show_check_boxes_mech_menu[0,button_style_number])
@@ -667,6 +667,14 @@ switch(menu_choice){
 							break;
 				}
 			break;
+			
+			
+			
+			
+			
+			
+			
+			
 
 
 			case 1:
@@ -747,7 +755,7 @@ switch(menu_choice){
 		    				if(show_check_boxes_mech_menu[1,button_style_number] == false && part_check(button_style_number, ref parts_count_for_gun_upgrades)){
 								//show check box for button
 								show_check_boxes_mech_menu[1,button_style_number] = true;
-								mech.upgrade_weapon_damage = true; 
+								mech.upgrade_weapon_range = true; 
 								mech.applyAPCost(ap_cost_mech);
 							}else{
 								if(show_check_boxes_mech_menu[1,button_style_number])
@@ -986,9 +994,9 @@ switch(menu_choice){
 	    if(GUI.Button(new Rect(button_x_start, button_y_start, button_size_width, button_size_height), "" , piston_button_style)) {
 			if(mech.applyUpgrade(ap_cost_health)){
 				if(entityMechS.getPartCount(Part.Piston) > 0 && mech.current_hp < mech.getMaxHP()){	
-					entityMechS.adjustPartCount(Part.Piston,	-1);
+					entityMechS.adjustPartCount(Part.Piston,	-1); 
+					mech.healhp(2);
 					mech.applyAPCost(ap_cost_health);
-					mech.current_hp ++;
 				}else{
 					if(mech.current_hp == mech.getMaxHP())
 						script_popup.text_number_choice = 3;
@@ -1008,7 +1016,7 @@ switch(menu_choice){
 			if(mech.applyUpgrade(ap_cost_health)){
 				if(entityMechS.getPartCount(Part.Gear) > 0 && mech.current_hp < mech.getMaxHP()){
 					entityMechS.adjustPartCount(Part.Gear, 		-1);
-					mech.current_hp ++;
+					mech.healhp(2);
 					mech.applyAPCost(ap_cost_health);
 				}else{
 					if(mech.current_hp == mech.getMaxHP())
@@ -1029,7 +1037,7 @@ switch(menu_choice){
 			if(mech.applyUpgrade(ap_cost_health)){
 				if(entityMechS.getPartCount(Part.Plate) > 0 && mech.current_hp < mech.getMaxHP()){
 					entityMechS.adjustPartCount(Part.Plate,	 	-1);
-					mech.current_hp ++;
+					mech.healhp(2);
 					mech.applyAPCost(ap_cost_health);
 				}else{
 					if(mech.current_hp == mech.getMaxHP())
@@ -1050,7 +1058,7 @@ switch(menu_choice){
 			if(mech.applyUpgrade(ap_cost_health)){	
 				if(entityMechS.getPartCount(Part.Strut) > 0 && mech.current_hp < mech.getMaxHP()){
 					entityMechS.adjustPartCount(Part.Strut, 	-1);
-					mech.current_hp ++;
+					mech.healhp(2);
 					mech.applyAPCost(ap_cost_health);
 				}else{
 					if(mech.current_hp == mech.getMaxHP())
@@ -1067,13 +1075,11 @@ switch(menu_choice){
 		}
 		
 		//Logo Pictures to show which upgrade has occured, 3 dots or something that will be highlighted when upgrade has ben applied
-	    GUI.Label(new Rect(label_x_start, button_y_start + (button_size_height), button_size_width, button_size_height), "" + entityMechS.getPartCount(Part.Piston));
-	    GUI.Label(new Rect(label_x_start + (button_spacing) + (button_size_width), button_y_start + (button_size_height), button_size_width, button_size_height), "" + entityMechS.getPartCount(Part.Gear));
-	    GUI.Label(new Rect(label_x_start + (2 * button_spacing) + (2 * button_size_width), button_y_start + (button_size_height), button_size_width, button_size_height), "" + entityMechS.getPartCount(Part.Plate));
-		GUI.Label(new Rect(label_x_start + (3 * button_spacing) + (3 * button_size_width), button_y_start + (button_size_height), button_size_width, button_size_height), "" + entityMechS.getPartCount(Part.Strut));
-		
-		GUI.Label(new Rect(label_x_start + (2 * button_spacing) + (button_size_width), button_y_start + (button_size_height * 3), button_size_width * 2, button_size_height), "Current HP = " + mech.current_hp);
-		
+	    GUI.Label(new Rect(label_x_start- 34, button_y_start + (button_size_height), button_size_width, 40), "" + entityMechS.getPartCount(Part.Piston), enginePlayerS.gui_bold_text_static);
+	    GUI.Label(new Rect(label_x_start + (button_spacing) + (button_size_width) - 34, button_y_start + (button_size_height), button_size_width, 40), "" + entityMechS.getPartCount(Part.Gear),enginePlayerS.gui_bold_text_static);
+	    GUI.Label(new Rect(label_x_start + (2 * button_spacing) + (2 * button_size_width) - 34, button_y_start + (button_size_height), button_size_width, 40), "" + entityMechS.getPartCount(Part.Plate),enginePlayerS.gui_bold_text_static);
+		GUI.Label(new Rect(label_x_start + (3 * button_spacing) + (3 * button_size_width) - 34, button_y_start + (button_size_height), button_size_width, 40), "" + entityMechS.getPartCount(Part.Strut),enginePlayerS.gui_bold_text_static);
+		 
 		//hp bar variables
 		int width_denominator = 18;
 		int width_numerator = 5;
@@ -1083,8 +1089,19 @@ switch(menu_choice){
 		int difference_hp = mech.getMaxHP() - numerator_hp;
 		
 		//HP bar Button
-		GUI.Button(new Rect(label_x_start + (button_spacing) + (button_size_width) - label_x_start/20,button_y_start + (button_size_height * 3) - button_y_start/6, (((numerator_hp - (mech.getMaxHP() - mech.getCurrentHP() - difference_hp)) * (screen_size_y * width_numerator))/denominator_hp), (screen_size_x/80)), mech.getCurrentHP() + "/" + mech.getMaxHP() + "HP", hp_bar);
-				
+		
+		    GUI.DrawTexture(new Rect (label_x_start + (button_spacing) + (button_size_width) - label_x_start/20 - 6,
+			button_y_start + (button_size_height * 3) - button_y_start/6+2,
+			218,
+			36 ), 
+			inPlayMenuS.chris_hp_mech_bg_s, ScaleMode.StretchToFill);
+			GUI.BeginGroup (new Rect (label_x_start + (button_spacing) + (button_size_width) - label_x_start/20,button_y_start + (button_size_height * 3) - button_y_start/6, (int)210*(float)entityManagerS.getMech().current_hp/(float)entityManagerS.getMech().max_hp, 24));
+			GUI.DrawTexture(new Rect (0,0, 210, 24), inPlayMenuS.chris_hp_mech_s, ScaleMode.StretchToFill);
+			GUI.EndGroup (); 
+		 	GUI.Label(new Rect(label_x_start + (button_spacing) + (button_size_width) - label_x_start/20,button_y_start + (button_size_height * 3) - button_y_start/6, 210, 24), entityManagerS.getMech().current_hp + "/" + entityManagerS.getMech().max_hp,  enginePlayerS.gui_norm_text_static);
+		
+		
+		 
 		GUI.EndGroup();
 	}
 	
@@ -1118,20 +1135,30 @@ switch(menu_choice){
 		    //disable pause menu
 		    UpgradeMenuS script2 =  GetComponent<UpgradeMenuS>();
     		script2.enabled = false;
+			menu_choice = Menu.Objective; 
 	    }
 		
 		//Load
-	    if(GUI.Button(new Rect(button_x_start, button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height), "Load" )) {
-			//Application.LoadLevel(0);
+	    if(GUI.Button(new Rect(button_x_start, button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height), "Restart" )) {
+			Application.LoadLevel(PlayerPrefs.GetString("CONTINUE","Level0"));
 	    }
 		
-		//Save
-	    if(GUI.Button(new Rect(button_x_start , button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "Save" )) {
+		//Objectives
+	    if(GUI.Button(new Rect(button_x_start , button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "Objectives" )) {
+		    Time.timeScale = 1;
+		    inPlayMenuS script =  GetComponent<inPlayMenuS>();
+    		script.enabled = true;
+		    UpgradeMenuS script2 =  GetComponent<UpgradeMenuS>();
+    		script2.enabled = false; 
+			
+			popUpMenu script_popup =  GetComponent<popUpMenu>();
+			script_popup.activateMenu();
+//			popUpMenu
 	    }
 		
 		//Quit
 	    if(GUI.Button(new Rect(button_x_start, button_y_start + (3 * button_spacing) + (3 * button_size_height), button_size_width, button_size_height), "Quit" )) {
-			Application.LoadLevel(0);
+			Application.LoadLevel("MainMenu");
 	    }
 		
 //		//not present at the moment...

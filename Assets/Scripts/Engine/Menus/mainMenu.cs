@@ -34,12 +34,13 @@ public class mainMenu : MonoBehaviour {
 		
 		//Continue
 	    if(GUI.Button(new Rect(button_x_start, button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height), "Continue")) {
-			Application.LoadLevel("Level1");
+			Application.LoadLevel(PlayerPrefs.GetString("CONTINUE"));
 	    }
 		
 		//New Game
 	    if(GUI.Button(new Rect(button_x_start, button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "New Game")) {
-			Application.LoadLevel("Level1");
+			PlayerPrefs.SetString("CONTINUE","Level0");
+			Application.LoadLevel("Level0");
 	    } 
 		
 		//Quit

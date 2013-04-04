@@ -29,13 +29,21 @@ public class soundManagerS : MonoBehaviour {
 	
 	public AudioClip  upgrade_base_1;
 	public AudioClip  upgrade_base_2;
-	
+	void Awake()
+	{
+		
+//		DontDestroyOnLoad(transform.gameObject);
+	}
 	// Use this for initialization
 	void Start () {
 		audio.volume = 1F;
 		audio.priority = 128;
 		audio.ignoreListenerVolume = true;
 		audio.rolloffMode = UnityEngine.AudioRolloffMode.Linear;
+//		if(audio = null)
+//		{
+//			audio = new AudioSource();
+//		}
 	}
 	
 	public void playSpawn(){ 
@@ -92,6 +100,9 @@ public class soundManagerS : MonoBehaviour {
 		audio.PlayOneShot(button_press);
 	}
 	public void playMechWalk(){
+		
+		if(audio == null)
+			UnityEngine.AudioSource.Instantiate(gameObject);
 		audio.PlayOneShot(mech_walk);
 	}
 	public void playExplodeEnemy(){

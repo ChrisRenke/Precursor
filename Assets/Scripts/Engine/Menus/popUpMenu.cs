@@ -39,6 +39,8 @@ public class popUpMenu : MonoBehaviour {
 	private int screen_size_x;
 	private int screen_size_y;
 	
+	public Texture chris_parts;
+	
 	void Start(){
 		upgrade_popup = false;
 		text_number_choice = 0;
@@ -56,6 +58,11 @@ public class popUpMenu : MonoBehaviour {
 			activate = true; //turn on pop up menu if o is hit				
 	    }
 		
+	}
+	
+	public void activateMenu()
+	{
+		activate = true;
 	}
 	
 	void OnGUI(){
@@ -78,6 +85,15 @@ public class popUpMenu : MonoBehaviour {
 		
 		if(load_level_popup)
 			loadLevelPopup(custom_text,ref custom_rect,backboard);
+		
+		
+		GUI.DrawTexture(new Rect(screen_size_x - 245, screen_size_y - 104, 245, 104 ), chris_parts, ScaleMode.StretchToFill);
+		GUI.Label(new Rect(screen_size_x - 233, screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Piston].ToString(), enginePlayerS.gui_norm_text_black_static);
+	 	GUI.Label(new Rect(screen_size_x - 173, screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Gear].ToString(),   enginePlayerS.gui_norm_text_black_static);
+	 	GUI.Label(new Rect(screen_size_x - 112, screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Plate].ToString(),  enginePlayerS.gui_norm_text_black_static);
+	 	GUI.Label(new Rect(screen_size_x - 52 , screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Strut].ToString(),  enginePlayerS.gui_norm_text_black_static);
+			
+			
 		
 	}
 	
@@ -202,7 +218,7 @@ public class popUpMenu : MonoBehaviour {
 		
 		Debug.Log("Showing popup");
 		if(GUI.Button(rec, text, style)){
-			Application.LoadLevel("MainMenu"); 
+			Application.LoadLevel("leveltoMenu"); 
 		}
 	}
 		
@@ -246,8 +262,8 @@ public class popUpMenu : MonoBehaviour {
 			case 2:
 			    title = "OBJECTIVES";
 				objective_text_zero = "You and your base survive 40 rounds!";
-				objective_text_one = "....";
-				objective_text_two = "....";
+				objective_text_one = "";
+				objective_text_two = "";
 				objective_text_three = "";
 				objective_text_four = "";
 				objective_text_five = "";

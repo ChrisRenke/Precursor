@@ -289,9 +289,17 @@ public class entityMechS : Combatable, IMove {
 		entityEnemyS target = entityManagerS.getEnemyAt(att_x, att_z);
 		current_ap -= getAttackAPCost();
 		
+		int enemy_hp_left = 15;
 		Debug.LogWarning("ABOUT TO ATTCK ENTITY "+ target.GetInstanceID());
 		if(target != null)
-			return target.acceptDamage(attack_damage);
+			enemy_hp_left = target.acceptDamage(attack_damage);
+		
+		if(enemy_hp_left <= 0)
+		{
+			int ind = (int) UnityEngine.Random.Range(0, 3.999999999999F);
+			part_count[(Part) ind] += 1;
+			entityManagerS.createPartEffect(att_x,att_z,(Part) ind);
+		}
 		
 		return 0; //nothing to damage if we get here			
 	}
@@ -425,6 +433,17 @@ public class entityMechS : Combatable, IMove {
 		moveInWorld(location.x, location.z, 6F);
 		entityManagerS.sm.playMechWalk();
 		setFacingDirection(location.direction_from_central_hex);
+		updateFoWStates();
+		updateAttackableEnemies();
+		is_standing_on_node = _standing_on_top_of_node;
+	}
+	
+	public void transportToHex(HexData location, bool _standing_on_top_of_node)
+	{
+		setLocation(location.x, location.z);	
+		moveInWorld(location.x, location.z, 6F);
+		entityManagerS.sm.playMechWalk();
+		//setFacingDirection(location.direction_from_central_hex);
 		updateFoWStates();
 		updateAttackableEnemies();
 		is_standing_on_node = _standing_on_top_of_node;

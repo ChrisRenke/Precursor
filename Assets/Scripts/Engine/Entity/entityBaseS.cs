@@ -9,8 +9,8 @@ public class entityBaseS : Combatable {
 	public BaseUpgrade structure_level = BaseUpgrade.Level0;
 	public BaseUpgrade defense_level = BaseUpgrade.Level0;
 	public BaseUpgrade wall_level = BaseUpgrade.Level0; 
-	private int heal_amount = 5;
-	private int heal_cost = 10;
+	private int heal_amount = 2;
+	private int heal_cost = 3;
 	private bool  can_not_heal;
 	private bool  can_not_attack; 
 	
@@ -38,7 +38,7 @@ public class entityBaseS : Combatable {
 		
 		base_armor = 0;
 		attack_cost   = 5;
-		attack_range  = 1;
+		attack_range  = 2;
 		attack_damage = 5;
 		
 		can_not_heal = false;
@@ -123,8 +123,7 @@ public class entityBaseS : Combatable {
 				turnOffFire();
 			onFire = false;
 		}
-		
-		
+		 
 		if(checkIfDead()){
 			print (this.GetInstanceID() + " is DEAD!!");
 			onDeath();
@@ -132,55 +131,68 @@ public class entityBaseS : Combatable {
 		
 			if(gameManagerS.current_turn == Turn.Base)
 			{
-				
-//				//Debug.Log("BASE TURN NOW");
-//				print ("BASE hp = " + current_hp);
-//				print ("BASE Ap = " + current_ap);
-				
-				//check ap
-				if(current_ap <= 0 || (can_not_heal && can_not_attack))
+				if(!waiting_after_shot)
 				{
-					//Debug.Log("Ran out of Ap or can't make a move");
-					gameManagerS.endBaseTurn();
-					can_not_heal = false;
-					can_not_attack = false;
-				}else{
-					//Check to see if base can heal
-					int temp = current_hp;
-					if(current_hp < max_hp && heal()){ 
-						int heal_points = healhp(heal_amount);
-						if(heal_points == temp){
-							//Debug.Log ("no healing occurred");
-							can_not_heal = true;
-						}else{
-							if(current_ap - heal_cost < 0){
-								//Debug.Log ("not enough ap to heal");
+					
+	//				//Debug.Log("BASE TURN NOW");
+	//				print ("BASE hp = " + current_hp);
+	//				print ("BASE Ap = " + current_ap);
+					
+					//check ap
+					if(current_ap <= 0 || (can_not_heal && can_not_attack))
+					{
+						//Debug.Log("Ran out of Ap or can't make a move");
+						gameManagerS.endBaseTurn();
+						can_not_heal = false;
+						can_not_attack = false;
+					}
+					else
+					{
+						//Check to see if base can heal
+						int temp = current_hp;
+						if(current_hp < max_hp && canHeal()){ 
+							int heal_points = healhp(heal_amount);
+							if(heal_points == temp){
+								//Debug.Log ("no healing occurred");
 								can_not_heal = true;
 							}else{
-								//Debug.Log ("healing occured");
-								current_ap -= heal_cost;
+								if(current_ap - heal_cost < 0){
+									//Debug.Log ("not enough ap to heal");
+									can_not_heal = true;
+								}else{
+									//Debug.Log ("healing occured");
+									current_ap -= heal_cost;
+								}
 							}
-						}
-					}else{
-						//Debug.Log ("can't heal, under attack");
-						can_not_heal = true;
-					}
-					
-					//Check to see if base can attack
-					entityEnemyS enemy_s = getWeakestEnemy();
-					if(enemy_s != null){	
-						if(current_ap - attack_cost < 0){
-							//Debug.Log ("Can't attack, not enough ap, so END TURN");
-							can_not_attack = true;
 						}else{
-							//current_ap -= attack_cost;
-							int damage_done = attackTarget (enemy_s);
-							//Debug.Log ("ATTACK opponent, damage done = " + damage_done);
+							//Debug.Log ("can't heal, under attack");
+							can_not_heal = true;
 						}
 						
-					}else{
-						//Debasug.Log ("no enemies in range, can't attack");
-						can_not_attack = true;
+						//Check to see if base can attack
+						entityEnemyS enemy_s = getWeakestEnemy();
+						if(enemy_s != null){	
+							if(current_ap - attack_cost < 0){
+								//Debug.Log ("Can't attack, not enough ap, so END TURN");
+								can_not_attack = true;
+							}else{
+								//current_ap -= attack_cost;
+								int damage_done = attackTarget (enemy_s);
+								//Debug.Log ("ATTACK opponent, damage done = " + damage_done);
+							}
+							
+						}else{
+							//Debasug.Log ("no enemies in range, can't attack");
+							can_not_attack = true;
+						}
+					}
+						
+				}
+				else
+				{
+					if(time_after_shot_start + .8F < Time.time)
+					{
+						waiting_after_shot = false;
 					}
 				}
 			}
@@ -188,6 +200,9 @@ public class entityBaseS : Combatable {
 		}
 		
 	}
+	
+	float time_after_shot_start;
+	bool waiting_after_shot = false;
 	
 //	void OnGUI()
 //	{
@@ -210,11 +225,16 @@ public class entityBaseS : Combatable {
 	{
 		//subtract ap cost from total
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z);
+		entityManagerS.sm.playGunBigl();
 		current_ap -= attack_cost;
 		
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY " + target.GetInstanceID());
 		if(target != null)
-			return target.acceptDamage(attack_damage);
+			 target.acceptDamage(attack_damage);
+		
+		
+		 gameManagerS.waiting_after_shot = true;
+		gameManagerS.time_after_shot_start = Time.time;
 		
 		//Debug.Log ("ERROR: didn't pick a combatable target");
 		return 0; //nothing to damage if we get here
@@ -224,7 +244,7 @@ public class entityBaseS : Combatable {
 	
 	public override bool onDeath()
 	{
-		Application.Quit();
+		gameManagerS.gameOver();
 		return true;
 	}
 	
@@ -242,7 +262,7 @@ public class entityBaseS : Combatable {
 				case BaseUpgrade.Level1:
 					if(structure_level != upgrade && structure_level < upgrade){
 						structure_level = BaseUpgrade.Level1;
-						max_hp += 15;
+						max_hp += 10;
 						return true;
 					}else{
 						//Debug.Log ("Base Already has this structure upgrade, can't downgrade");
@@ -252,7 +272,7 @@ public class entityBaseS : Combatable {
 				case BaseUpgrade.Level2:
 					if(structure_level != upgrade && structure_level < upgrade){
 						structure_level = BaseUpgrade.Level2;
-						max_hp += 20;
+						max_hp += 15;
 						return true;
 					}else{
 						//Debug.Log ("Base Already has this structure upgrade, can't downgrade");
@@ -262,7 +282,7 @@ public class entityBaseS : Combatable {
 				case BaseUpgrade.Level3:
 					if(structure_level != upgrade && structure_level < upgrade){
 						structure_level = BaseUpgrade.Level3;
-						max_hp += 25;
+						max_hp += 20;
 						return true;
 					}else{
 						//Debug.Log ("Base Already has this structure upgrade, can't downgrade");
@@ -278,8 +298,7 @@ public class entityBaseS : Combatable {
 				case BaseUpgrade.Level1:
 					if(defense_level != upgrade && defense_level < upgrade){
 						defense_level = BaseUpgrade.Level1;
-						attack_range  += 1;
-						attack_damage += 1;
+						attack_range  += 1; 
 						return true;
 					}else{
 						//Debug.Log ("Base Already has this defense upgrade, can't downgrade");
@@ -288,8 +307,7 @@ public class entityBaseS : Combatable {
 	
 				case BaseUpgrade.Level2:
 					if(defense_level != upgrade && defense_level < upgrade){
-						defense_level = BaseUpgrade.Level2;
-						attack_range  += 1;
+						defense_level = BaseUpgrade.Level2; 
 						attack_damage += 2;
 						return true;
 					}else{
@@ -300,8 +318,8 @@ public class entityBaseS : Combatable {
 				case BaseUpgrade.Level3:
 					if(defense_level != upgrade && defense_level < upgrade){
 						defense_level = BaseUpgrade.Level3;
-						attack_range  += 0;
-						attack_damage += 3;
+						attack_range  += 1;
+						attack_damage += 1;
 					return true;
 					}else{
 						//Debug.Log ("Base Already has this defense upgrade, can't downgrade");
@@ -319,7 +337,7 @@ public class entityBaseS : Combatable {
 					if(wall_level != upgrade && wall_level < upgrade){
 						wall_level = BaseUpgrade.Level1;
 						base_armor += 1;
-						max_ap   += 5;
+						max_ap   += 2;
 						return true;
 					}else{
 						//Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
@@ -330,7 +348,7 @@ public class entityBaseS : Combatable {
 					if(wall_level != upgrade && wall_level < upgrade){
 						wall_level = BaseUpgrade.Level2;
 						base_armor += 1;
-						max_ap   += 5;
+						max_ap   += 3;
 						return true;
 					}else{
 						//Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
@@ -340,7 +358,7 @@ public class entityBaseS : Combatable {
 				case BaseUpgrade.Level3:
 					if(wall_level != upgrade && wall_level < upgrade){
 						wall_level = BaseUpgrade.Level3;
-						max_ap   += 5;
+						max_ap   += 3;
 						base_armor += 1;
 						return true;
 					}else{
@@ -358,18 +376,30 @@ public class entityBaseS : Combatable {
 		return false;
 	}
 	
+	private int health_last_turn = 100; 
+	
 	//heal self when it's base turn only if no enemy next to base
-	bool heal(){
+	bool canHeal(){
 			//Get adjacent hexes
-			HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
-			
-			//See if any of the adjacent_hexes are an enemy
-			for(int i = 0; i < adjacent_hexes.Length; i++)
-				if(entityManagerS.getEnemyAt(adjacent_hexes[i].x, adjacent_hexes[i].z) != null)
-					return false; 
-			
-			return true;
+		if(health_last_turn > current_hp)
+		{
+			health_last_turn = current_hp;
+			return false;
+		}
+	
+			health_last_turn = current_hp;
+		return true;
 	}
+//		
+//		
+//			HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
+//			
+//			//See if any of the adjacent_hexes are an enemy
+//			for(int i = 0; i < adjacent_hexes.Length; i++)
+//				if(entityManagerS.getEnemyAt(adjacent_hexes[i].x, adjacent_hexes[i].z) != null)
+//					return false; 
+//			
+//			return true;
 	
 	//return script of weakest enemy, this method seems slow, may adjust later
 	entityEnemyS getWeakestEnemy(){
@@ -409,5 +439,21 @@ public class entityBaseS : Combatable {
 		return false;
 		
 	}
+	
+	public bool transportMechToBase(){
+		//get all hexes in attack range
+		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z)){
+			//check to see if enemy is at hex
+			if(!entityManagerS.isEntityPos(h,EntityE.Enemy)){
+				entityMechS script_mech = entityManagerS.getMech();
+				script_mech.transportToHex(h,false);
+				return true;
+			}
+		}
+		return false;
+		
+	}
+	
+	
 
 }

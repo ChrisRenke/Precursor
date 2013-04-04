@@ -20,7 +20,6 @@ public class inPlayMenuS : MonoBehaviour {
 	public Texture default_button_backboard;
 	public GUIStyle hp_backboard;
 	
-	public Texture chris_parts;
 	public Texture chris_top;
 	public Texture chris_ap_bg;
 	public Texture chris_ap;
@@ -29,6 +28,8 @@ public class inPlayMenuS : MonoBehaviour {
 	public Texture chris_hp_mech_bg;
 	public Texture chris_hp_mech; 
 	
+	public static Texture chris_hp_mech_bg_s;
+	public static Texture chris_hp_mech_s; 
 	//Custom styles for buttons
 	public GUIStyle end_turn_button_style;
 	public GUIStyle objective_button_style;
@@ -61,6 +62,8 @@ public class inPlayMenuS : MonoBehaviour {
 	void Awake()
 	{
 		popup =  GetComponent<popUpMenu>();
+		chris_hp_mech_bg_s = chris_hp_mech_bg;
+		chris_hp_mech_s = chris_hp_mech;
 	}
 	void OnGUI(){
 		//Menu for upgrades
@@ -75,7 +78,6 @@ public class inPlayMenuS : MonoBehaviour {
 		
 		GUI.DrawTexture(new Rect(424, 0, 432, 42), chris_top, ScaleMode.StretchToFill);
 		
-		GUI.DrawTexture(new Rect(screen_size_x - 245, screen_size_y - 104, 245, 104 ), chris_parts, ScaleMode.StretchToFill); 
 		 
 		GUI.BeginGroup (new Rect (420, screen_size_y - 75, (int)440*(float)entityManagerS.getMech().current_ap/(float)entityManagerS.getMech().max_ap,24));
 		GUI.DrawTexture(new Rect (0, 0, 440, 24), chris_ap, ScaleMode.StretchToFill);
@@ -96,10 +98,10 @@ public class inPlayMenuS : MonoBehaviour {
 		GUI.Label(new Rect(698, 0, 151, 27), "Round " + gameManagerS.current_round.ToString() , enginePlayerS.gui_norm_text_static); //+ current_round.ToString() + ""
 	
 	
-	 	GUI.Label(new Rect(screen_size_x - 233, screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Piston].ToString(), enginePlayerS.gui_norm_text_black_static);
-	 	GUI.Label(new Rect(screen_size_x - 173, screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Gear].ToString(),   enginePlayerS.gui_norm_text_black_static);
-	 	GUI.Label(new Rect(screen_size_x - 112, screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Plate].ToString(),  enginePlayerS.gui_norm_text_black_static);
-	 	GUI.Label(new Rect(screen_size_x - 52 , screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Strut].ToString(),  enginePlayerS.gui_norm_text_black_static);
+	 	//GUI.Label(new Rect(screen_size_x - 233, screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Piston].ToString(), enginePlayerS.gui_norm_text_black_static);
+	 	//GUI.Label(new Rect(screen_size_x - 173, screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Gear].ToString(),   enginePlayerS.gui_norm_text_black_static);
+	 	//GUI.Label(new Rect(screen_size_x - 112, screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Plate].ToString(),  enginePlayerS.gui_norm_text_black_static);
+	 	//GUI.Label(new Rect(screen_size_x - 52 , screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Strut].ToString(),  enginePlayerS.gui_norm_text_black_static);
 //		GUI.DrawTexture(new Rect(screen_size_x - 245, screen_size_y - 104, 245, 104 ), chris_parts, ScaleMode.StretchToFill); 
 		 
 		//End Turn Button
@@ -164,11 +166,18 @@ public class inPlayMenuS : MonoBehaviour {
 			popUpMenu script_popup =  popup;
 			if(enable_transport_button){
 			 	if(mech.applyUpgrade(ap_cost_transport)){
-					mech.applyAPCost(ap_cost_transport);
-					//TODO: add code for transporting mech
+					if(script_base.transportMechToBase()){ //check to see if mech can move to base
+						
+						mech.applyAPCost(ap_cost_transport);
+						//move mech
+					}else{
+						script_popup.custom_rect = new Rect(screen_size_x /2 - screen_size_x /9 - screen_size_x /25, screen_size_y/2 - screen_size_y/10, screen_size_x - (screen_size_x /2 + screen_size_x /5), screen_size_y/4);
+						script_popup.custom_text = "Can't move to base too \n many enemies blocking the way"; //not enough ap	
+						script_popup.custom_popup = true;
+					}
 				}else{
 					script_popup.custom_rect = new Rect(screen_size_x /2 - screen_size_x /9 - screen_size_x /25, screen_size_y/2 - screen_size_y/10, screen_size_x - (screen_size_x /2 + screen_size_x /5), screen_size_y/4);
-					script_popup.custom_text = "You don't have enough ap /n to transport"; //not enough ap	
+					script_popup.custom_text = "You don't have enough ap to transport"; //not enough ap	
 					script_popup.custom_popup = true;
 				}
 			 }else{

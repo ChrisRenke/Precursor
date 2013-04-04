@@ -77,6 +77,11 @@ public class entityManagerS : MonoBehaviour {
 		
 	}
 	
+//	public static void setSM()
+//	{
+//		
+//	}
+	
 	public static void updateNodeLevel(int x, int z, NodeLevel previous_level)
 	{
 		foreach(entityNodeS node in resource_node_list)
@@ -391,7 +396,7 @@ public class entityManagerS : MonoBehaviour {
 		if(entity_type == EntityE.Spawn)
 			return (GameObject) Instantiate(entity_dict[entity_type], CoordsGameTo3DSpawnEntiy(x, z), Quaternion.identity);
 		if(entity_type == EntityE.Base)
-			return (GameObject) Instantiate(entity_dict[entity_type], CoordsGameTo3DSpawnEntiy(x, z) - new Vector3(0, 1F, 0), Quaternion.identity);
+			return (GameObject) Instantiate(entity_dict[entity_type], CoordsGameTo3DSpawnEntiy(x, z) - new Vector3(0, -2F, 0), Quaternion.identity);
 		else
 		if(entity_type == EntityE.Player)
 			return (GameObject) Instantiate(entity_dict[entity_type], CoordsGameTo3DSpawnEntiy(x, z) + new Vector3(0, 1F, 0), Quaternion.identity);
@@ -410,6 +415,7 @@ public class entityManagerS : MonoBehaviour {
 	public static bool instantiateBase(int x, int z, int town_current_hp, int town_max_hp, BaseUpgrade town_wall_level,
 					BaseUpgrade town_defense_level, BaseUpgrade town_structure_level)
 	{
+		sm = GameObject.Find("soundManager").GetComponent<soundManagerS>();
 		bool is_first_base = base_s == null;
 		print (is_first_base + " base make");
 		

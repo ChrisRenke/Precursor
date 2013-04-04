@@ -172,7 +172,7 @@ public class editorIOS : MonoBehaviour {
 		FileInfo filer = new FileInfo(Application.dataPath + "/" + level_name + ".txt");
 		if(filer != null && filer.Exists)
 		{
-		   reader = filer.OpenText();  // returns StreamReader
+		   reader  = null;//= filer.OpenText();  // returns StreamReader
 		} 
 		else
 		{

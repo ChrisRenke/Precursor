@@ -122,11 +122,11 @@ public abstract class  Combatable : Entity{
 		adjusted_damage = adjusted_damage > 0 ? adjusted_damage : 1;
 		current_hp -= adjusted_damage;
 		
-		
+		int hp_remaning = current_hp; 
 		if(checkIfDead())
 			onDeath();
 			
-		return adjusted_damage;
+		return hp_remaning;
 	}
 	
 	/**

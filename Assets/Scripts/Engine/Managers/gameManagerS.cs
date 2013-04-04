@@ -30,15 +30,17 @@ public class gameManagerS : MonoBehaviour {
 	}
 	 
 	public bool posted_this_round = false;
-	
+	public static float time_after_shot_start = 0F;
+	public static bool waiting_after_shot = false;
 	void postMessageLevel2()
 	{
 		switch(current_round){
 		case 1:
 			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = "Oh donkies in heaven! There's a lot" +
-				"\nof unruly wild mech's about. Help keep our town alive for " +
-				"\n40 rounds and I'll make it worth your while!"; //not enough ap	
+			inPlayMenuS.popup.custom_text = "Oh donkies in heaven! There are a lot" +
+											"\nof unruly wild mech's about. Help keep" +
+											 "\nour town alive for 40 rounds " +
+											"\nand I'll make it worth your while!"; //not enough ap	
 			inPlayMenuS.popup.custom_popup = true;   
 			break;
 		case 5:
@@ -46,6 +48,14 @@ public class gameManagerS : MonoBehaviour {
 			inPlayMenuS.popup.custom_text = "If you get low on HP, check out" +
 											"\nthe repair menu.  You can convert\n"
 											+"one part into 2 HP. Not a bad deal."; //not enough ap	
+			inPlayMenuS.popup.custom_popup = true;   
+			break;
+		case 6:
+			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+			inPlayMenuS.popup.custom_text = "As for reparing the town," +
+			"\nwe'll handle that when we're not" +
+			"\nin combat; you just have to keep" +
+			"\nyourself in good repair."; //not enough ap	
 			inPlayMenuS.popup.custom_popup = true;   
 			break;
 		case 7:
@@ -66,27 +76,30 @@ public class gameManagerS : MonoBehaviour {
 		case 1:
 			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
 			inPlayMenuS.popup.custom_text = "Alrighty then, on to the basics of combat." +
-				"\nJust go exploring a bit, I'm sure you'll find some trouble." ; //not enough ap	
+				"\nJust go exploring a bit, " +
+				"\nI'm sure you'll find some trouble." ; //not enough ap	
 			inPlayMenuS.popup.custom_popup = true;   
 			break;
 		case 4:
 			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
 			inPlayMenuS.popup.custom_text = "When you see an enemy, you can attack him from" +
-				"\nup to two hexes away, so no need to get toooo close." ; //not enough ap	
+				"\nup to two hexes away, so " +
+				"\nno need to get toooo close." ; //not enough ap	
 			inPlayMenuS.popup.custom_popup = true;   
 			break;
 		case 6:
 			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
 			inPlayMenuS.popup.custom_text = "I heard there were three of these punks" +
-				"\nroaming about.  Take 'em all down and I'll give" +
-				"\nya your next map." ; //not enough ap	
+				"\nroaming about. Take 'em all down" +
+				 "\nand I'll give ya your next map." ; //not enough ap	
 			inPlayMenuS.popup.custom_popup = true;   
 			break;
 		case 8:
 			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
 			inPlayMenuS.popup.custom_text = "So apparently the 3rd baddie is " +
 				"\n in a little bit of a mountain valley." +
-				"\nYou're gonna need to get Climbing Claws to cross into it." ; //not enough ap	
+				"\nYou're gonna need to get Climbin"
+				+"\nClaws to cross into it." ; //not enough ap	
 			inPlayMenuS.popup.custom_popup = true;   
 			break;
 		case 9:
@@ -116,9 +129,9 @@ public class gameManagerS : MonoBehaviour {
 		case 2:
 			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
 			inPlayMenuS.popup.custom_text = 
-				"Nifty, seems you figured out that ya can't" +
-				"\ncross mountains on your own, you'd need some" +
-				"\nupgrades to do that; same for water too."+
+				"Use WASD to move the camera around,"+
+				"\npress - + to zoom in and out,"+
+				"\nand click on stuff to do actions!"+
 					
 				"\n\nWhy don't you head for some old scrap structures" +
 				 "\nin the area. That cataclsym that shook" +
@@ -158,7 +171,7 @@ public class gameManagerS : MonoBehaviour {
 			inPlayMenuS.popup.custom_text = 
 				"You'll need 4 plates, 3 gears, and 3 struts" +
 				 "\nto upgrade our little stone wall!" +
-				 "\nKeep on scavengin!" +
+				 "\nKeep on scavenging!" +
 				 "\nWhen you're ready, just come over to the base.";
 			inPlayMenuS.popup.custom_popup = true;
 			break;
@@ -231,7 +244,7 @@ public class gameManagerS : MonoBehaviour {
 		checkVictoryConditions();
 	
 		//if the player still has actions 
-		if(current_turn == Turn.Player || current_turn == Turn.Base) 
+		if(current_turn == Turn.Player) 
 		{  
 			if(!rebuilt_enemy_lcoations)
 			{
@@ -239,6 +252,10 @@ public class gameManagerS : MonoBehaviour {
 				rebuilt_enemy_lcoations = true;
 			} 
 		}
+		else if(current_turn == Turn.Base)
+		{
+		
+		}			
 		else if(current_turn == Turn.Enemy)
 		{ 
 			if(!spawned_enemies_this_round)
@@ -251,23 +268,34 @@ public class gameManagerS : MonoBehaviour {
 				 				
 				if(!enemy_currently_acting)
 				{
-					
-					if(enemy_enumerator.MoveNext())
-			 		{
-						entityEnemyS current_enemy = enemy_enumerator.Current;
-						current_enemy.is_this_enemies_turn = true;
-						enemy_currently_acting = true;
-					}
-					else //if there are no more enemies to move, then its the players turn again
+					if(!waiting_after_shot)
 					{
-						foreach(entityEnemyS current_enemy in entityManagerS.enemy_list)
-							current_enemy.current_ap = current_enemy.max_ap;
-						current_turn = Turn.Player;
-						spawned_enemies_this_round = false;
-						posted_this_round = false;
-						entityManagerS.getMech().current_ap = entityManagerS.getMech().max_ap;
-						entityManagerS.getMech().updateAttackableEnemies();
-						current_round++;
+					
+						if(enemy_enumerator.MoveNext())
+				 		{
+							entityEnemyS current_enemy = enemy_enumerator.Current;
+							current_enemy.is_this_enemies_turn = true;
+							enemy_currently_acting = true;
+						}
+						else //if there are no more enemies to move, then its the players turn again
+						{
+							foreach(entityEnemyS current_enemy in entityManagerS.enemy_list)
+								current_enemy.current_ap = current_enemy.max_ap;
+							current_turn = Turn.Player;
+							spawned_enemies_this_round = false;
+							posted_this_round = false;
+							entityManagerS.getMech().current_ap = entityManagerS.getMech().max_ap;
+							entityManagerS.getMech().updateAttackableEnemies();
+							current_round++;
+						}	
+						
+					}
+					else
+					{
+						if(time_after_shot_start + .8F < Time.time)
+						{
+							waiting_after_shot = false;
+						}
 					}
 				}
 			}
@@ -290,7 +318,8 @@ public class gameManagerS : MonoBehaviour {
 	{
 		inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216,   210, 432,  200);
 		inPlayMenuS.popup.custom_text = "You've got the hang of the base!\nNow onto the fightin' enemies."; //not enough ap	 
-		inPlayMenuS.popup.level_name = "Level1"; 
+		inPlayMenuS.popup.level_name = "levelto1"; 
+		PlayerPrefs.SetString("CONTINUE","levelto1");
 		inPlayMenuS.popup.load_level_popup = true;
 	}
 	 
@@ -298,7 +327,8 @@ public class gameManagerS : MonoBehaviour {
 	{
 		inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216,   210, 432,  200);
 		inPlayMenuS.popup.custom_text = "Alrighty, now you can kill baddies and upgrade\nyour mech & our town. Onto a real challenge!"; //not enough ap	
-		inPlayMenuS.popup.level_name = "Level2"; 
+		inPlayMenuS.popup.level_name = "levelto2"; 
+		PlayerPrefs.SetString("CONTINUE","levelto2");
 		inPlayMenuS.popup.load_level_popup = true; 
 		
 	}
@@ -307,6 +337,7 @@ public class gameManagerS : MonoBehaviour {
 	{
 		inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
 		inPlayMenuS.popup.custom_text = "Awesome! You've defended the lands!\nNow to an early retirement for donkey farming!"; //not enough ap	
+		PlayerPrefs.SetString("CONTINUE","levelto2");
 		inPlayMenuS.popup.game_over_popup = true; 
 	}
 	
