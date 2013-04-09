@@ -164,7 +164,7 @@ public struct UpgradeEntry{
 		this.description = description; 
 		this.gear_cost = gear_cost;
 		this.piston_cost = piston_cost;
-		this.plate_cost = titleplate_cost;
+		this.plate_cost = plate_cost;
 		this.strut_cost = strut_cost;
 		this.ap_cost = ap_cost;
 		this.thumbnail = thumbnail;

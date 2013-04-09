@@ -647,7 +647,7 @@ public class entityMechS : Combatable, IMove {
 		List<UpgradeEntry> combat_upgrades = new List<UpgradeEntry>();
 		List<UpgradeEntry> scavenge_upgrades = new List<UpgradeEntry>();
 		List<UpgradeEntry> utility_upgrades = new List<UpgradeEntry>();
-		 																					 			 gear pis plt stru
+//		 																					 			 gear pis plt stru
 		movement_upgrades.Add (new UpgradeEntry("Aquatic Fins", 		"Allows Water hex traversal for 5 AP",		1,	5,	1,	1,	2, upgrade_menu_entry_fins));
 		movement_upgrades.Add (new UpgradeEntry("Mountaineering Claws",	"Allows Mountain hex traversal for 5 AP",	2,	4,	0,	2,	2, upgrade_menu_entry_legs));
 		movement_upgrades.Add (new UpgradeEntry("Marsh Stabilizers",	"Reduces Marsh hex traversal by 1 AP",		0,	1,	4,	4,	2, upgrade_menu_entry_mountains));
@@ -656,26 +656,26 @@ public class entityMechS : Combatable, IMove {
 			
 		combat_upgrades.Add (new UpgradeEntry("Howizter Bore",			"Increases attack damage by 2",				0,	1,	4,	3,	2, upgrade_menu_entry_gundamage));
 		combat_upgrades.Add (new UpgradeEntry("Efficient Reload", 		"Reduces attack cost by 2 AP",				0,	1,	4,	3,	2, upgrade_menu_entry_guncost));
-		combat_upgrades.Add (new UpgradeEntry("Targeting Optics", 		"Increases attack range by 1",				0,	1,	4,	3,	2, upgrade_menu_entry_gundrange));
-		combat_upgrades.Add (new UpgradeEntry("Gilded Armor", 			"Reduces damage recieved by 2",				0,	1,	4,	3,	2, upgrade_menu_entry_fins));
-		combat_upgrades.Add (new UpgradeEntry("Reactive Manuever", 		"Gives 35% change to dodge attacks",		0,	1,	4,	3,	2, upgrade_menu_entry_fins));
+		combat_upgrades.Add (new UpgradeEntry("Targeting Optics", 		"Increases attack range by 1",				0,	1,	4,	3,	2, upgrade_menu_entry_gunrange));
+		combat_upgrades.Add (new UpgradeEntry("Gilded Armor", 			"Reduces damage recieved by 2",				0,	1,	4,	3,	2, upgrade_menu_entry_armor));
+		combat_upgrades.Add (new UpgradeEntry("Reactive Manuever", 		"Gives 35% change to dodge attacks",		0,	1,	4,	3,	2, upgrade_menu_entry_dodge));
 			
 		
-		scavenge_upgrades.Add (new UpgradeEntry("",		"Increases attack damage by 2",				0,	1,	4,	3,	2, upgrade_menu_entry_gundamage));
-		scavenge_upgrades.Add (new UpgradeEntry("Efficient Reload", 	"Reduces attack cost by 2 AP",				0,	1,	4,	3,	2, upgrade_menu_entry_guncost));
-		scavenge_upgrades.Add (new UpgradeEntry("Targeting Optics", 	"Increases attack range by 1",				0,	1,	4,	3,	2, upgrade_menu_entry_gundrange));
-		scavenge_upgrades.Add (new UpgradeEntry("Gilded Armor", 		"Reduces damage recieved by 2",				0,	1,	4,	3,	2, upgrade_menu_entry_fins));
-		scavenge_upgrades.Add (new UpgradeEntry("Reactive Manuever", 	"Gives 35% change to dodge attacks",		0,	1,	4,	3,	2, upgrade_menu_entry_fins));
+//		scavenge_upgrades.Add (new UpgradeEntry("",		"Increases attack damage by 2",				0,	1,	4,	3,	2, upgrade_menu_entry_gundamage));
+//		scavenge_upgrades.Add (new UpgradeEntry("Efficient Reload", 	"Reduces attack cost by 2 AP",				0,	1,	4,	3,	2, upgrade_menu_entry_guncost));
+//		scavenge_upgrades.Add (new UpgradeEntry("Targeting Optics", 	"Increases attack range by 1",				0,	1,	4,	3,	2, upgrade_menu_entry_gundrange));
+//		scavenge_upgrades.Add (new UpgradeEntry("Gilded Armor", 		"Reduces damage recieved by 2",				0,	1,	4,	3,	2, upgrade_menu_entry_fins));
+//		scavenge_upgrades.Add (new UpgradeEntry("Reactive Manuever", 	"Gives 35% change to dodge attacks",		0,	1,	4,	3,	2, upgrade_menu_entry_fins));
 		
 		// Column 0 = Piston / Column 1 = Gear / Column 2 = Plate / Column 3 = Strut
 																//		   P G Pl S
-		private int[,] parts_count_for_mobile_upgrades = new int[3,4] 	{ {1,0,4, 3}, {3,4,0,1}, {3,2,0,3} }; //Row 0 = water upgrade, Row 1 = mountan upgrade, Row 2 = leg upgrade
-	private int[,] parts_count_for_gun_upgrades = new int[3,4] 		{ {1,2,3,2}, {2,1,2,3}, {1,3,2,1} }; //Row 0 = gun upgrade range , Row 1 = gun upgrade damage, Row 2 = gun upgrade cost
-	private int[,] parts_count_for_other_upgrades = new int[3,4] 	{ {1,0,5,2}, {2,6,2,3}, {2,2,2,2} }; //Row 0 =  armour upgrade 1, Row 1 = armour upgrade 2 (teleport base upgrade?), Row 2 = armour upgrade 3 (other upgrade?)
-	//Base Upgrades part array requirements
-	private int[,] parts_count_for_wall_upgrades = new int[3,4] 	{ {0,3,4,3}, {0,4,5,4}, {0,5,6,5} }; //Row 0 = wall upgrade 1, Row 1 = wall upgrade 2, Row 2 = wall upgrade 3
-	private int[,] parts_count_for_struc_upgrades = new int[3,4] 	{ {2,3,1,1}, {3,2,2,2}, {4,4,4,4} }; //Row 0 = structure upgrade 1, Row 1 = structure upgrade 2, Row 2 = structure upgrade 3
-	private int[,] parts_count_for_weapon_upgrades = new int[3,4] 	{ {4,1,2,3}, {4,0,4,2}, {4,1,4,3} }; //Row 0 = defense upgrade 1, Row 1 = defense upgrade 2, Row 2 = defense upgrade 3
+//		private int[,] parts_count_for_mobile_upgrades = new int[3,4] 	{ {1,0,4, 3}, {3,4,0,1}, {3,2,0,3} }; //Row 0 = water upgrade, Row 1 = mountan upgrade, Row 2 = leg upgrade
+//	private int[,] parts_count_for_gun_upgrades = new int[3,4] 		{ {1,2,3,2}, {2,1,2,3}, {1,3,2,1} }; //Row 0 = gun upgrade range , Row 1 = gun upgrade damage, Row 2 = gun upgrade cost
+//	private int[,] parts_count_for_other_upgrades = new int[3,4] 	{ {1,0,5,2}, {2,6,2,3}, {2,2,2,2} }; //Row 0 =  armour upgrade 1, Row 1 = armour upgrade 2 (teleport base upgrade?), Row 2 = armour upgrade 3 (other upgrade?)
+//	//Base Upgrades part array requirements
+//	private int[,] parts_count_for_wall_upgrades = new int[3,4] 	{ {0,3,4,3}, {0,4,5,4}, {0,5,6,5} }; //Row 0 = wall upgrade 1, Row 1 = wall upgrade 2, Row 2 = wall upgrade 3
+//	private int[,] parts_count_for_struc_upgrades = new int[3,4] 	{ {2,3,1,1}, {3,2,2,2}, {4,4,4,4} }; //Row 0 = structure upgrade 1, Row 1 = structure upgrade 2, Row 2 = structure upgrade 3
+//	private int[,] parts_count_for_weapon_upgrades = new int[3,4] 	{ {4,1,2,3}, {4,0,4,2}, {4,1,4,3} }; //Row 0 = defense upgrade 1, Row 1 = defense upgrade 2, Row 2 = defense upgrade 3
 //	
 //		
 //		
@@ -689,5 +689,6 @@ public class entityMechS : Combatable, IMove {
 		Water		Gun Cost	Extra part scavenge	Vision Range
 		Mountain	Gun Range	Chance from empty	AP Pool
 		Marsh		Armor		Scavenge cost less	Heal 3
-					Dodge Chance					Rest Heal/*
+					Dodge Chance					Rest Heal*/
 }
+

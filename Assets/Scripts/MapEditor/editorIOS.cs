@@ -10,9 +10,9 @@ public class editorIOS : MonoBehaviour {
 	
 	
 	public static string       level_name = "untitled level";  
-	public static int 			version; 
-	public static int          level_editor_format_version = 7;
-	public static string 		LAST_EDITED  = "LASTEDITED";
+	public static string	   level_number = "0"; 
+	public static int          level_editor_format_version = 8;
+	public static string 	   LAST_EDITED  = "LASTEDITED";
 	private static String      key_list_key = "LEVELKEYS";
 	
 	private	static string[] stringSeparators = new string[] {" = "};  
@@ -43,7 +43,8 @@ public class editorIOS : MonoBehaviour {
 			 Load();
 		}
 		
-		level_name = GUI.TextField(new Rect(Screen.width - 240, 70, 210, 30), level_name, 30);
+		level_number = GUI.TextField(new Rect(Screen.width - 50, 70, 20, 30), level_number, 30);
+		level_name = GUI.TextField(new Rect(Screen.width - 240, 70, 190, 30), level_name, 30);
 	}
 	
 	public void Save()
@@ -92,7 +93,7 @@ public class editorIOS : MonoBehaviour {
 		
         tw.WriteLine("\tEDITOR VER   = " + level_editor_format_version );
         tw.WriteLine("\tLevel Name   = " + level_name );
-        tw.WriteLine("\tLevel Ver    = " + version ); 
+        tw.WriteLine("\tLevel Number = " + level_number ); 
 		
         tw.WriteLine("\tRound Num    = " + "1" ); 
 		tw.WriteLine("\tTurn         = " + "Player");
@@ -225,7 +226,7 @@ public class editorIOS : MonoBehaviour {
 			return false;
 		}
 		level_name 		= getStringR(reader.ReadLine()); //NAME
-		version    		= getIntR(reader.ReadLine());    //VERSION
+		level_number	= getStringR(reader.ReadLine());    //VERSION
 		
 		getIntR(reader.ReadLine());
 		getStringR(reader.ReadLine());

@@ -34,83 +34,83 @@ public class gameManagerS : MonoBehaviour {
 	public static bool waiting_after_shot = false;
 	void postMessageLevel2()
 	{
-		switch(current_round){
-		case 1:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = "Oh donkies in heaven! There are a lot" +
-											"\nof unruly wild mech's about. Help keep" +
-											 "\nour town alive for 40 rounds " +
-											"\nand I'll make it worth your while!"; //not enough ap	
-			inPlayMenuS.popup.custom_popup = true;   
-			break;
-		case 5:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = "If you get low on HP, check out" +
-											"\nthe repair menu.  You can convert\n"
-											+"one part into 2 HP. Not a bad deal."; //not enough ap	
-			inPlayMenuS.popup.custom_popup = true;   
-			break;
-		case 6:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = "As for reparing the town," +
-			"\nwe'll handle that when we're not" +
-			"\nin combat; you just have to keep" +
-			"\nyourself in good repair."; //not enough ap	
-			inPlayMenuS.popup.custom_popup = true;   
-			break;
-		case 7:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = "Generally, you can upgrade our town to keep" +
-											"\nus strong enough to defend ourselves while\n"
-											+"you go around and collect more resources for" +
-												"\neither your or us!  Good luck!"; //not enough ap	
-			inPlayMenuS.popup.custom_popup = true;   
-			break;
-		}
+//		switch(current_round){
+//		case 1:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = "Oh donkies in heaven! There are a lot" +
+//											"\nof unruly wild mech's about. Help keep" +
+//											 "\nour town alive for 40 rounds " +
+//											"\nand I'll make it worth your while!"; //not enough ap	
+//			inPlayMenuS.popup.custom_popup = true;   
+//			break;
+//		case 5:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = "If you get low on HP, check out" +
+//											"\nthe repair menu.  You can convert\n"
+//											+"one part into 2 HP. Not a bad deal."; //not enough ap	
+//			inPlayMenuS.popup.custom_popup = true;   
+//			break;
+//		case 6:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = "As for reparing the town," +
+//			"\nwe'll handle that when we're not" +
+//			"\nin combat; you just have to keep" +
+//			"\nyourself in good repair."; //not enough ap	
+//			inPlayMenuS.popup.custom_popup = true;   
+//			break;
+//		case 7:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = "Generally, you can upgrade our town to keep" +
+//											"\nus strong enough to defend ourselves while\n"
+//											+"you go around and collect more resources for" +
+//												"\neither your or us!  Good luck!"; //not enough ap	
+//			inPlayMenuS.popup.custom_popup = true;   
+//			break;
+//		}
 		posted_this_round = true;
 	}
 	
 	void postMessageLevel1()
 	{
-		switch(current_round){
-		case 1:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = "Alrighty then, on to the basics of combat." +
-				"\nJust go exploring a bit, " +
-				"\nI'm sure you'll find some trouble." ; //not enough ap	
-			inPlayMenuS.popup.custom_popup = true;   
-			break;
-		case 4:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = "When you see an enemy, you can attack him from" +
-				"\nup to two hexes away, so " +
-				"\nno need to get toooo close." ; //not enough ap	
-			inPlayMenuS.popup.custom_popup = true;   
-			break;
-		case 6:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = "I heard there were three of these punks" +
-				"\nroaming about. Take 'em all down" +
-				 "\nand I'll give ya your next map." ; //not enough ap	
-			inPlayMenuS.popup.custom_popup = true;   
-			break;
-		case 8:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = "So apparently the 3rd baddie is " +
-				"\n in a little bit of a mountain valley." +
-				"\nYou're gonna need to get Climbin"
-				+"\nClaws to cross into it." ; //not enough ap	
-			inPlayMenuS.popup.custom_popup = true;   
-			break;
-		case 9:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = "Just scavenge up 3 pistons," +
-											"\n4 gears, and a strut then" +
-											"\nclick on the Mech Upgrade button" +
-											"\nin the bottom left." ; //not enough ap	
-			inPlayMenuS.popup.custom_popup = true;   
-			break;
-		}
+//		switch(current_round){
+//		case 1:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = "Alrighty then, on to the basics of combat." +
+//				"\nJust go exploring a bit, " +
+//				"\nI'm sure you'll find some trouble." ; //not enough ap	
+//			inPlayMenuS.popup.custom_popup = true;   
+//			break;
+//		case 4:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = "When you see an enemy, you can attack him from" +
+//				"\nup to two hexes away, so " +
+//				"\nno need to get toooo close." ; //not enough ap	
+//			inPlayMenuS.popup.custom_popup = true;   
+//			break;
+//		case 6:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = "I heard there were three of these punks" +
+//				"\nroaming about. Take 'em all down" +
+//				 "\nand I'll give ya your next map." ; //not enough ap	
+//			inPlayMenuS.popup.custom_popup = true;   
+//			break;
+//		case 8:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = "So apparently the 3rd baddie is " +
+//				"\n in a little bit of a mountain valley." +
+//				"\nYou're gonna need to get Climbin"
+//				+"\nClaws to cross into it." ; //not enough ap	
+//			inPlayMenuS.popup.custom_popup = true;   
+//			break;
+//		case 9:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = "Just scavenge up 3 pistons," +
+//											"\n4 gears, and a strut then" +
+//											"\nclick on the Mech Upgrade button" +
+//											"\nin the bottom left." ; //not enough ap	
+//			inPlayMenuS.popup.custom_popup = true;   
+//			break;
+//		}
 		posted_this_round = true;
 	}
 	
@@ -199,8 +199,7 @@ public class gameManagerS : MonoBehaviour {
 	
 	
 	void checkVictoryConditions()
-	{
-		
+	{ 
 		switch(current_level)
 		{
 			case Level.Level0: 
@@ -220,12 +219,8 @@ public class gameManagerS : MonoBehaviour {
 				{
 					beatLevel2();
 				}
-			break;
-			
-		
-		}
-		
-		
+			break; 
+		} 
 	}
 	
 	

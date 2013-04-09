@@ -198,7 +198,7 @@ public class editorEntityManagerS : MonoBehaviour {
 	public void LoadEntity(editor_entity ent_type, int x, int z)
 	{
 		Vector3 converted = editorUserS.CoordsGameTo3D(x, z);
-		Vector3 adjusted  = new Vector3(converted.x, converted.y + 1F, converted.z + .5F);
+		Vector3 adjusted  = new Vector3(converted.x, converted.y, converted.z + .5F);
 		AddEntity(adjusted, ent_type, x, z);
 	}
 	
