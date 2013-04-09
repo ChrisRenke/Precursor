@@ -1146,14 +1146,14 @@ switch(menu_choice){
 		//Objectives
 	    if(GUI.Button(new Rect(button_x_start , button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "Objectives" )) {
 		    Time.timeScale = 1;
-		    inPlayMenuS script =  GetComponent<inPlayMenuS>();
-    		script.enabled = true;
-		    UpgradeMenuS script2 =  GetComponent<UpgradeMenuS>();
-    		script2.enabled = false; 
-			
-			popUpMenu script_popup =  GetComponent<popUpMenu>();
-			script_popup.activateMenu();
-//			popUpMenu
+//		    inPlayMenuS script =  GetComponent<inPlayMenuS>();
+//    		script.enabled = true;
+//		    UpgradeMenuS script2 =  GetComponent<UpgradeMenuS>();
+//    		script2.enabled = false; 
+//			
+//			popUpMenu script_popup =  GetComponent<popUpMenu>();
+//			script_popup.activateMenu();
+			showObjectivesMenu();
 	    }
 		
 		//Quit
@@ -1167,7 +1167,27 @@ switch(menu_choice){
 		
 		GUI.EndGroup();
 	}
-
+	
+	public static inPlayMenuS inPlayMenuScript;
+	public static UpgradeMenuS UpgradeMenuScript;
+	public static popUpMenu popUpMenuScript;
+	
+	
+	void Awake()
+	{ 
+		
+		popUpMenuScript =  GetComponent<popUpMenu>();
+	    inPlayMenuScript =  GetComponent<inPlayMenuS>();
+		UpgradeMenuScript =  GetComponent<UpgradeMenuS>();
+	}
+	public static void showObjectivesMenu()
+	{ 
+	    Time.timeScale = 1;
+		inPlayMenuScript.enabled = true;
+		UpgradeMenuScript.enabled = false; 
+		popUpMenuScript.activateMenu();
+	}
+	
 	private void defaultMenu() {
 		int window_size_x  = screen_size_x /4 - screen_size_x /16; 
 	    int window_size_y  = screen_size_y /14; 

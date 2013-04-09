@@ -434,6 +434,8 @@ public class entityManagerS : MonoBehaviour {
 		base_s.structure_level = town_structure_level;
 		base_s.defense_level = town_defense_level;
 		
+		hexManagerS.getHex(x, z).hex_script.setAsTownHex();
+		enginePlayerS.setBase();
 		return is_first_base;
 	}
  
@@ -472,6 +474,8 @@ public class entityManagerS : MonoBehaviour {
 		mech_s.upgrade_weapon_cost = gun_cost;
 		mech_s.upgrade_weapon_damage = gun_damage;
 		mech_s.upgrade_weapon_range = gun_range;
+		
+		hexManagerS.getHex(x,z).hex_script.mech_is_here = true;
 		
 		return is_first_mech;
 	}

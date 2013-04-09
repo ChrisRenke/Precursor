@@ -17,6 +17,15 @@ public enum editor_entity { Mech, Enemy, Town, Spawn, Factory, Outpost, Junkyard
 public enum Level        {Level0,Level1,Level2} ;
 
 
+public enum MechUpgradeMode        { Movement, Combat, Scavenge, Utility };
+public enum BaseUpgradeMode        { Perimeter, Armament, Structure, Utility };
+public enum UpgradeItemChoice      { Choice0, Choice1, Choice2, Choice3, Choice4 }
+
+ 
+
+public enum UpgradeMenu   { Base, Mech }
+
+
 public enum BaseUpgrade { Level0, Level1, Level2, Level3}
 public enum BaseCategories  { Structure, Walls, Defense };  
 //public enum Menu  {Default , Objective, BaseUpgrade, MechUpgrade, HealthUpgrade, TransportUpgrade};  
@@ -115,12 +124,7 @@ public struct HexData{
 	}
 	
 } 
-
-
-
-
-
-
+ 
 public struct NodeData{
 	
 	public readonly int 	x;   	  //level x coord (NE / SW)
@@ -143,3 +147,26 @@ public struct NodeData{
 //	
 //	
 //}
+
+public struct UpgradeEntry{ 
+	public readonly string 	title;
+	public readonly string 	description;  
+	public readonly	int		gear_cost;
+	public readonly int		piston_cost;
+	public readonly int		plate_cost;
+	public readonly int		strut_cost;
+	public readonly int		ap_cost;
+	public readonly Texture thumbnail;
+	
+	public UpgradeEntry(string title, string description, int gear_cost, int piston_cost, int plate_cost, int strut_cost, int ap_cost, Texture thumbnail)
+	{
+		this.title = title;
+		this.description = description; 
+		this.gear_cost = gear_cost;
+		this.piston_cost = piston_cost;
+		this.plate_cost = titleplate_cost;
+		this.strut_cost = strut_cost;
+		this.ap_cost = ap_cost;
+		this.thumbnail = thumbnail;
+	}
+}

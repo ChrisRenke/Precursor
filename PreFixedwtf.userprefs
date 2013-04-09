@@ -1,28 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Engine/Managers/entityManagerS.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Engine/pathDrawS.cs">
     <Files>
-      <File FileName="Assets/Scripts/Engine/Menus/inPlayMenuS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Interaction/enginePlayerS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Menus/UpgradeMenuS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Entity/entityBaseS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Managers/gameManagerS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Interaction/enemyDisplayS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/pathDrawS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Managers/entityManagerS.cs" Line="418" Column="70" />
-      <File FileName="Assets/Scripts/Engine/Entity/entityMechS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Menus/popUpMenu.cs" Line="4" Column="41" />
-      <File FileName="Assets/Scripts/Engine/Entity/entityEnemyS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Interaction/mechDisplayS.cs" Line="1" Column="1" />
-      <File FileName="Assets/supertest.txt" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Interaction/enginePlayerS.cs" Line="569" Column="36" />
       <File FileName="Assets/Scripts/Engine/engineHexS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Menus/mainMenu.cs" Line="1" Column="1" />
-      <File FileName="Assets/Level_Files/alpha_1_level_02.txt" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MapEditor/editorIOS.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Engine/Managers/soundManagerS.cs" Line="104" Column="1" />
-      <File FileName="Assets/load1.cs" Line="8" Column="31" />
-      <File FileName="Assets/load2.cs" Line="8" Column="32" />
-      <File FileName="Assets/load0.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Menus/popUpMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Managers/hexManagerS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Menus/inPlayMenuS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Managers/entityManagerS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Enums.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/pathDrawS.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -34,10 +21,9 @@
                 <Node name="Engine" expanded="True">
                   <Node name="Entity" expanded="True" />
                   <Node name="Interaction" expanded="True" />
-                  <Node name="Managers" expanded="True">
-                    <Node name="entityManagerS.cs" selected="True" />
-                  </Node>
+                  <Node name="Managers" expanded="True" />
                   <Node name="Menus" expanded="True" />
+                  <Node name="pathDrawS.cs" selected="True" />
                 </Node>
                 <Node name="MapEditor" expanded="True" />
               </Node>

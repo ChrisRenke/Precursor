@@ -207,7 +207,6 @@ public class popUpMenu : MonoBehaviour {
 	public void customPopUpBox(string text, ref Rect rec, GUIStyle style){
 		//The Pop Up box
 		
-		Debug.Log("Showing popup");
 		if(GUI.Button(rec, text, style)){
 			custom_popup = false;
 		}

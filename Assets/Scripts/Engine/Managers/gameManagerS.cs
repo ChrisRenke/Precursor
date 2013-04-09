@@ -116,85 +116,85 @@ public class gameManagerS : MonoBehaviour {
 	
 	void postMessageLevel0()
 	{
-		switch(current_round){
-		case 1:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = "Oh Goodness! Thank the donkey you made it!!" +
-				"\nErm, thats slang around here..." +
-				"\nAnyways, try moving around the world a bit. " +
-				"\nMoving costs you AP, so watch your meter!" +
-				"\nBut don't worry, ya get all the turns ya need."; //not enough ap	
-			inPlayMenuS.popup.custom_popup = true;   
-			break;
-		case 2:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = 
-				"Use WASD to move the camera around,"+
-				"\npress - + to zoom in and out,"+
-				"\nand click on stuff to do actions!"+
-					
-				"\n\nWhy don't you head for some old scrap structures" +
-				 "\nin the area. That cataclsym that shook" +
-				 "\nloose your there mech also uncovered a" +
-				 "\nwhole lota these rusted ruins."; //not enough ap	//not enough ap	
-			inPlayMenuS.popup.custom_popup = true;
-			break; 
-		case 3:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = 
-				"Yep, that's right, just click on a ruin" +
-				 "\nto scavenge some parts!" +
-				 "\nYou can use them parts for fancy" +
-				 "\nnew upgrades for our town..." +
-				  "\n(and your mech too I s'pose)"; //not enough ap	
-			inPlayMenuS.popup.custom_popup = true;
-			break;
-		case 7:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = 
-				"How's about you build us a nice new wall?" +
-				 "\nI'll give ya a map to the next level..." +
-				 "\n...erm, 'island' that is...";
-			inPlayMenuS.popup.custom_popup = true;
-			break;
-		case 8:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = 
-				"Now's probably a good time to mention:" +
-				 "\nFactories give ya gears and pistons" +
-				 "\nOutposts give ya struts and plates" +
-				 "\nand Junkyards give ya whatever they want!";
-			inPlayMenuS.popup.custom_popup = true;
-			break;
-		case 10:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = 
-				"You'll need 4 plates, 3 gears, and 3 struts" +
-				 "\nto upgrade our little stone wall!" +
-				 "\nKeep on scavenging!" +
-				 "\nWhen you're ready, just come over to the base.";
-			inPlayMenuS.popup.custom_popup = true;
-			break;
-		case 11:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = 
-				"All's ya gots to do is just click the" +
-				"\n'Upgrade Town' button in the bottom left" +
-				"\nwhen you're standing next to the town!" +
-				"\nEasy as pie.";
-			inPlayMenuS.popup.custom_popup = true;
-			break;
-		case 20:
-			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-			inPlayMenuS.popup.custom_text = 
-				"We ain't got all day... " +
-				"\nNo wall equals no map to the next area!";
-			inPlayMenuS.popup.custom_popup = true;
-			break;
-		default:
-			break;
-		}
-		posted_this_round = true;
+//		switch(current_round){
+//		case 1:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = "Oh Goodness! Thank the donkey you made it!!" +
+//				"\nErm, thats slang around here..." +
+//				"\nAnyways, try moving around the world a bit. " +
+//				"\nMoving costs you AP, so watch your meter!" +
+//				"\nBut don't worry, ya get all the turns ya need."; //not enough ap	
+//			inPlayMenuS.popup.custom_popup = true;   
+//			break;
+//		case 2:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = 
+//				"Use WASD to move the camera around,"+
+//				"\npress - + to zoom in and out,"+
+//				"\nand click on stuff to do actions!"+
+//					
+//				"\n\nWhy don't you head for some old scrap structures" +
+//				 "\nin the area. That cataclsym that shook" +
+//				 "\nloose your there mech also uncovered a" +
+//				 "\nwhole lota these rusted ruins."; //not enough ap	//not enough ap	
+//			inPlayMenuS.popup.custom_popup = true;
+//			break; 
+//		case 3:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = 
+//				"Yep, that's right, just click on a ruin" +
+//				 "\nto scavenge some parts!" +
+//				 "\nYou can use them parts for fancy" +
+//				 "\nnew upgrades for our town..." +
+//				  "\n(and your mech too I s'pose)"; //not enough ap	
+//			inPlayMenuS.popup.custom_popup = true;
+//			break;
+//		case 7:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = 
+//				"How's about you build us a nice new wall?" +
+//				 "\nI'll give ya a map to the next level..." +
+//				 "\n...erm, 'island' that is...";
+//			inPlayMenuS.popup.custom_popup = true;
+//			break;
+//		case 8:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = 
+//				"Now's probably a good time to mention:" +
+//				 "\nFactories give ya gears and pistons" +
+//				 "\nOutposts give ya struts and plates" +
+//				 "\nand Junkyards give ya whatever they want!";
+//			inPlayMenuS.popup.custom_popup = true;
+//			break;
+//		case 10:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = 
+//				"You'll need 4 plates, 3 gears, and 3 struts" +
+//				 "\nto upgrade our little stone wall!" +
+//				 "\nKeep on scavenging!" +
+//				 "\nWhen you're ready, just come over to the base.";
+//			inPlayMenuS.popup.custom_popup = true;
+//			break;
+//		case 11:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = 
+//				"All's ya gots to do is just click the" +
+//				"\n'Upgrade Town' button in the bottom left" +
+//				"\nwhen you're standing next to the town!" +
+//				"\nEasy as pie.";
+//			inPlayMenuS.popup.custom_popup = true;
+//			break;
+//		case 20:
+//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
+//			inPlayMenuS.popup.custom_text = 
+//				"We ain't got all day... " +
+//				"\nNo wall equals no map to the next area!";
+//			inPlayMenuS.popup.custom_popup = true;
+//			break;
+//		default:
+//			break;
+//		}
+//		posted_this_round = true;
 	}
 	
 	
@@ -302,7 +302,10 @@ public class gameManagerS : MonoBehaviour {
 		}
 	}
 	
-	
+	public static void forcePlayerTurn(){
+		current_turn = Turn.Player;
+		entityManagerS.getMech().current_ap = entityManagerS.getMech().max_ap;
+	}
 	
 	
 	
@@ -318,8 +321,8 @@ public class gameManagerS : MonoBehaviour {
 	{
 		inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216,   210, 432,  200);
 		inPlayMenuS.popup.custom_text = "You've got the hang of the base!\nNow onto the fightin' enemies."; //not enough ap	 
-		inPlayMenuS.popup.level_name = "levelto1"; 
-		PlayerPrefs.SetString("CONTINUE","levelto1");
+		inPlayMenuS.popup.level_name = "Level1"; 
+		PlayerPrefs.SetString("CONTINUE","Level1");
 		inPlayMenuS.popup.load_level_popup = true;
 	}
 	 
@@ -328,7 +331,7 @@ public class gameManagerS : MonoBehaviour {
 		inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216,   210, 432,  200);
 		inPlayMenuS.popup.custom_text = "Alrighty, now you can kill baddies and upgrade\nyour mech & our town. Onto a real challenge!"; //not enough ap	
 		inPlayMenuS.popup.level_name = "levelto2"; 
-		PlayerPrefs.SetString("CONTINUE","levelto2");
+		PlayerPrefs.SetString("CONTINUE","Level2");
 		inPlayMenuS.popup.load_level_popup = true; 
 		
 	}
@@ -337,38 +340,12 @@ public class gameManagerS : MonoBehaviour {
 	{
 		inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
 		inPlayMenuS.popup.custom_text = "Awesome! You've defended the lands!\nNow to an early retirement for donkey farming!"; //not enough ap	
-		PlayerPrefs.SetString("CONTINUE","levelto2");
+		PlayerPrefs.SetString("CONTINUE","Level2");
 		inPlayMenuS.popup.game_over_popup = true; 
 	}
 	
 	void OnGUI()
-	{ 
-//		if(entityBaseS.show_health_bar){
-//	    	GUI.Label(new Rect(Screen.width/2 - Screen.width/7 + Screen.width/30, 10, Screen.width/15, 30), current_turn.ToString() + " turn",  enginePlayerS.gui_norm_text_static);
-//    		GUI.Label(new Rect(Screen.width/2 - Screen.width/10 + Screen.width/6 + Screen.width/42, 10, Screen.width/15, 30), "Round " + current_round.ToString() , enginePlayerS.gui_norm_text_static); //+ current_round.ToString() + ""
-//		}
-		 
-//		if(GUI.Button(new Rect(Screen.width - 30 - 180, 70, 180, 30), "Force Player Turn"))
-//		{
-//			current_turn = Turn.Player;
-//			entityManagerS.getMech().current_ap =  entityManagerS.getMech().max_ap;
-//			
-//					entityManagerS.getMech().destroySelectionHexes();
-//					entityManagerS.getMech().allowSelectionHexesDraw();
-//		}
-		
-//		if(GUI.Button(new Rect(Screen.width - 30 - 180, 70, 180, 30), "End Turn"))
-//		{
-//			endPlayerTurn();
-//		}
-		
-//		if(GUI.Button(new Rect(gui_spacing, gui_spacing + 40  + gui_spacing , 180, 40), "End Turn"))
-//		{
-//			mech.current_ap = 0;
-//			mech.destroySelectionHexes();
-//			mech.allowSelectionHexesDraw();
-//		}
-		
+	{  
 	
 	}
 	

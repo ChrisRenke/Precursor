@@ -221,6 +221,7 @@ public class hexManagerS : MonoBehaviour {
 			Debug.LogWarning("getHex(x,z,direction) returning bs perimeter hex");
 			return new HexData(x, z, true);
 		}
+		 
 		
 		switch(direction)
 		{

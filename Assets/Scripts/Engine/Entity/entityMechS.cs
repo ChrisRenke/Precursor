@@ -91,7 +91,8 @@ public class entityMechS : Combatable, IMove {
 	
 	//Use this for initialization
 	void Start () { 
-		
+		inPlayMenuS.displayObjectiveUpgradeMenu();
+		UpgradeMenuS.showObjectivesMenu();
 		updateFoWStates();
 	}
 	
@@ -428,6 +429,7 @@ public class entityMechS : Combatable, IMove {
 	
 	public void moveToHex(HexData location, bool _standing_on_top_of_node)
 	{
+		hexManagerS.getHex(x,z).hex_script.mech_is_here = false;
 		current_ap -= location.traversal_cost;
 		setLocation(location.x, location.z);	
 		moveInWorld(location.x, location.z, 6F);
@@ -436,6 +438,7 @@ public class entityMechS : Combatable, IMove {
 		updateFoWStates();
 		updateAttackableEnemies();
 		is_standing_on_node = _standing_on_top_of_node;
+		hexManagerS.getHex(x,z).hex_script.mech_is_here = true;
 	}
 	
 	public void transportToHex(HexData location, bool _standing_on_top_of_node)
@@ -613,4 +616,78 @@ public class entityMechS : Combatable, IMove {
 		return true;
 	}
 	
+	Dictionary<MechUpgradeMode, List<UpgradeEntry>> mech_upgrade_entries;
+	
+	public Texture upgrade_menu_entry_fins;
+	public Texture upgrade_menu_entry_legs;
+	public Texture upgrade_menu_entry_mountains;
+	public Texture upgrade_menu_entry_marsh;
+	
+	public Texture upgrade_menu_entry_gundamage;
+	public Texture upgrade_menu_entry_guncost;
+	public Texture upgrade_menu_entry_gunrange;
+	public Texture upgrade_menu_entry_armor;
+	public Texture upgrade_menu_entry_dodge;
+	
+	public Texture upgrade_menu_entry_killscavenge;
+	public Texture upgrade_menu_entry_extrapartsscavenge;
+	public Texture upgrade_menu_entry_emptyscavenge;
+	public Texture upgrade_menu_entry_costscavenge;
+	public Texture upgrade_menu_entry_recallbase;
+	
+	public Texture upgrade_menu_entry_visionrange;
+	public Texture upgrade_menu_entry_ap;
+	public Texture upgrade_menu_entry_healmore;
+	public Texture upgrade_menu_entry_healidle;
+	
+	private void createUpgradeMenuEntries()
+	{
+		mech_upgrade_entries = new Dictionary<MechUpgradeMode, List<UpgradeEntry>>(); 
+		List<UpgradeEntry> movement_upgrades = new List<UpgradeEntry>();
+		List<UpgradeEntry> combat_upgrades = new List<UpgradeEntry>();
+		List<UpgradeEntry> scavenge_upgrades = new List<UpgradeEntry>();
+		List<UpgradeEntry> utility_upgrades = new List<UpgradeEntry>();
+		 																					 			 gear pis plt stru
+		movement_upgrades.Add (new UpgradeEntry("Aquatic Fins", 		"Allows Water hex traversal for 5 AP",		1,	5,	1,	1,	2, upgrade_menu_entry_fins));
+		movement_upgrades.Add (new UpgradeEntry("Mountaineering Claws",	"Allows Mountain hex traversal for 5 AP",	2,	4,	0,	2,	2, upgrade_menu_entry_legs));
+		movement_upgrades.Add (new UpgradeEntry("Marsh Stabilizers",	"Reduces Marsh hex traversal by 1 AP",		0,	1,	4,	4,	2, upgrade_menu_entry_mountains));
+		movement_upgrades.Add (new UpgradeEntry("Re-engineered Frame",	"Reduces all hex traversal by 1 AP",		6,	3,	0,	3,	2, upgrade_menu_entry_marsh));
+			
+			
+		combat_upgrades.Add (new UpgradeEntry("Howizter Bore",			"Increases attack damage by 2",				0,	1,	4,	3,	2, upgrade_menu_entry_gundamage));
+		combat_upgrades.Add (new UpgradeEntry("Efficient Reload", 		"Reduces attack cost by 2 AP",				0,	1,	4,	3,	2, upgrade_menu_entry_guncost));
+		combat_upgrades.Add (new UpgradeEntry("Targeting Optics", 		"Increases attack range by 1",				0,	1,	4,	3,	2, upgrade_menu_entry_gundrange));
+		combat_upgrades.Add (new UpgradeEntry("Gilded Armor", 			"Reduces damage recieved by 2",				0,	1,	4,	3,	2, upgrade_menu_entry_fins));
+		combat_upgrades.Add (new UpgradeEntry("Reactive Manuever", 		"Gives 35% change to dodge attacks",		0,	1,	4,	3,	2, upgrade_menu_entry_fins));
+			
+		
+		scavenge_upgrades.Add (new UpgradeEntry("",		"Increases attack damage by 2",				0,	1,	4,	3,	2, upgrade_menu_entry_gundamage));
+		scavenge_upgrades.Add (new UpgradeEntry("Efficient Reload", 	"Reduces attack cost by 2 AP",				0,	1,	4,	3,	2, upgrade_menu_entry_guncost));
+		scavenge_upgrades.Add (new UpgradeEntry("Targeting Optics", 	"Increases attack range by 1",				0,	1,	4,	3,	2, upgrade_menu_entry_gundrange));
+		scavenge_upgrades.Add (new UpgradeEntry("Gilded Armor", 		"Reduces damage recieved by 2",				0,	1,	4,	3,	2, upgrade_menu_entry_fins));
+		scavenge_upgrades.Add (new UpgradeEntry("Reactive Manuever", 	"Gives 35% change to dodge attacks",		0,	1,	4,	3,	2, upgrade_menu_entry_fins));
+		
+		// Column 0 = Piston / Column 1 = Gear / Column 2 = Plate / Column 3 = Strut
+																//		   P G Pl S
+		private int[,] parts_count_for_mobile_upgrades = new int[3,4] 	{ {1,0,4, 3}, {3,4,0,1}, {3,2,0,3} }; //Row 0 = water upgrade, Row 1 = mountan upgrade, Row 2 = leg upgrade
+	private int[,] parts_count_for_gun_upgrades = new int[3,4] 		{ {1,2,3,2}, {2,1,2,3}, {1,3,2,1} }; //Row 0 = gun upgrade range , Row 1 = gun upgrade damage, Row 2 = gun upgrade cost
+	private int[,] parts_count_for_other_upgrades = new int[3,4] 	{ {1,0,5,2}, {2,6,2,3}, {2,2,2,2} }; //Row 0 =  armour upgrade 1, Row 1 = armour upgrade 2 (teleport base upgrade?), Row 2 = armour upgrade 3 (other upgrade?)
+	//Base Upgrades part array requirements
+	private int[,] parts_count_for_wall_upgrades = new int[3,4] 	{ {0,3,4,3}, {0,4,5,4}, {0,5,6,5} }; //Row 0 = wall upgrade 1, Row 1 = wall upgrade 2, Row 2 = wall upgrade 3
+	private int[,] parts_count_for_struc_upgrades = new int[3,4] 	{ {2,3,1,1}, {3,2,2,2}, {4,4,4,4} }; //Row 0 = structure upgrade 1, Row 1 = structure upgrade 2, Row 2 = structure upgrade 3
+	private int[,] parts_count_for_weapon_upgrades = new int[3,4] 	{ {4,1,2,3}, {4,0,4,2}, {4,1,4,3} }; //Row 0 = defense upgrade 1, Row 1 = defense upgrade 2, Row 2 = defense upgrade 3
+//	
+//		
+//		
+		
+	}
+	
+	
+	
+	/*Movement		Combat		Scavenge			Utility
+		Legs		Gun dmg		Kills for parts		Teleport Base
+		Water		Gun Cost	Extra part scavenge	Vision Range
+		Mountain	Gun Range	Chance from empty	AP Pool
+		Marsh		Armor		Scavenge cost less	Heal 3
+					Dodge Chance					Rest Heal/*
 }
