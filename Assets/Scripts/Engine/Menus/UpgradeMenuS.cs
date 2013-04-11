@@ -238,7 +238,7 @@ public class UpgradeMenuS : MonoBehaviour {
 	    if(GUI.Button(new Rect(button_x_start, button_y_start, button_size_width, button_size_height), "" ,button_one_style)) {
 			if(((menu_choice == Menu.BaseUpgrade1 || menu_choice == Menu.BaseUpgrade2 || menu_choice == Menu.BaseUpgrade3) && mech.applyUpgrade(ap_cost_base)) 
 				|| ((menu_choice == Menu.MechUpgrade1 || menu_choice == Menu.MechUpgrade2 || menu_choice == Menu.MechUpgrade3) && mech.applyUpgrade(ap_cost_mech))){
-				canApplyUpgrade(0);
+//				canApplyUpgrade(0);
 			}else{
 				script_popup.text_number_choice = 0; //not enough ap
 				script_popup.upgrade_popup = true;
@@ -252,7 +252,7 @@ public class UpgradeMenuS : MonoBehaviour {
 			if(GUI.Button(new Rect(button_x_start, button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height), "", button_two_style)) {
 	    		if(((menu_choice == Menu.BaseUpgrade1 || menu_choice == Menu.BaseUpgrade2 || menu_choice == Menu.BaseUpgrade3) && mech.applyUpgrade(ap_cost_base)) 
 				|| ((menu_choice == Menu.MechUpgrade1 || menu_choice == Menu.MechUpgrade2 || menu_choice == Menu.MechUpgrade3) && mech.applyUpgrade(ap_cost_mech))){
-					canApplyUpgrade(1);
+//					canApplyUpgrade(1);
 				}else{
 					script_popup.text_number_choice = 0; //not enough ap	
 					script_popup.upgrade_popup = true;
@@ -271,7 +271,7 @@ public class UpgradeMenuS : MonoBehaviour {
 	    	if(GUI.Button(new Rect(button_x_start, button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "", button_three_style)) {
 	    		if(((menu_choice == Menu.BaseUpgrade1 || menu_choice == Menu.BaseUpgrade2 || menu_choice == Menu.BaseUpgrade3) && mech.applyUpgrade(ap_cost_base)) 
 				|| ((menu_choice == Menu.MechUpgrade1 || menu_choice == Menu.MechUpgrade2 || menu_choice == Menu.MechUpgrade3) && mech.applyUpgrade(ap_cost_mech))){
-					canApplyUpgrade(2);
+//					canApplyUpgrade(2);
 				}else{
 					script_popup.text_number_choice = 0; //not enough ap
 					script_popup.upgrade_popup = true;
@@ -550,373 +550,373 @@ switch(menu_choice){
 
 
 	//see if an upgrade can be applied
-	private void canApplyUpgrade(int button_style_number){
-		//find the button style number and then menu that was chosen and see if upgrade can be applied
-		//get popup menu
-		popUpMenu script_popup =  GetComponent<popUpMenu>();
-		
-		switch(button_style_number){
-			case 0:
-				switch(menu_choice){
-						case Menu.BaseUpgrade1:
-							//see if we can apply upgrade
-		    				if(show_check_boxes_base_menu[0,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_wall_upgrades, BaseCategories.Walls, BaseUpgrade.Level1)){
-								//upgrade was successful, TODO: change look of base
-								//show check box for button
-								show_check_boxes_base_menu[0,button_style_number] = true;
-								mech.applyAPCost(ap_cost_base);	
-							}else{
-								if(!show_check_boxes_base_menu[0,button_style_number])
-									script_popup.text_number_choice = 2; //already done
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-						break;
-				
-						case Menu.BaseUpgrade2:
-							//see if we can apply upgrade
-		    				if(show_check_boxes_base_menu[1,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_struc_upgrades, BaseCategories.Structure, BaseUpgrade.Level1)){
-								//upgrade was successful, TODO: change look of base
-								//show check box for button
-								show_check_boxes_base_menu[1,button_style_number] = true;
-								mech.applyAPCost(ap_cost_base);
-							}else{
-								if(!show_check_boxes_base_menu[1,button_style_number])
-									script_popup.text_number_choice = 2; //already done
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-						break;
-				
-						case Menu.BaseUpgrade3:
-							//see if we can apply upgrade
-		    				if(show_check_boxes_base_menu[2,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_weapon_upgrades, BaseCategories.Defense, BaseUpgrade.Level1)){
-								//upgrade was successful, TODO: change look of base
-								//show check box for button
-								show_check_boxes_base_menu[2,button_style_number] = true;
-								mech.applyAPCost(ap_cost_base);
-							}else{
-								if(!show_check_boxes_base_menu[2,button_style_number])
-									script_popup.text_number_choice = 2; //already done
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-						break;
-
-
-						case Menu.MechUpgrade1:
-							//see if we can apply upgrade water
-		    				if(show_check_boxes_mech_menu[0,button_style_number] == false && part_check(button_style_number, ref parts_count_for_mobile_upgrades)){
-								//show check box for button
-								show_check_boxes_mech_menu[0,button_style_number] = true;
-								mech.upgrade_traverse_water = true; 
-								mech.applyAPCost(ap_cost_mech);
-							}else{
-								if(!show_check_boxes_mech_menu[0,button_style_number])
-									script_popup.text_number_choice = 2; //already done
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-						break;
-				
-						case Menu.MechUpgrade2:
-							//see if we can apply upgrade legs
-		    				if(show_check_boxes_mech_menu[1,button_style_number] == false && part_check(button_style_number, ref parts_count_for_gun_upgrades)){
-								//show check box for button
-								show_check_boxes_mech_menu[1,button_style_number] = true;
-								mech.upgrade_weapon_damage = true; 
-								mech.applyAPCost(ap_cost_mech);
-							}else{
-								if(!show_check_boxes_mech_menu[0,button_style_number])
-									script_popup.text_number_choice = 2; //already done
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-						break;
-				
-						case Menu.MechUpgrade3:
-							//see if we can apply upgrade legs
-		    				if(show_check_boxes_mech_menu[2,button_style_number] == false && part_check(button_style_number, ref parts_count_for_other_upgrades)){
-								//show check box for button
-								show_check_boxes_mech_menu[2,button_style_number] = true;
-								mech.upgrade_armor = true; 
-								mech.applyAPCost(ap_cost_mech);
-							}else{
-								if(!show_check_boxes_mech_menu[0,button_style_number])
-									script_popup.text_number_choice = 2; //already done
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-						break;
-
-						default:
-							//see if we can apply upgrade
-		    				print ("wrong menu");
-							break;
-				}
-			break;
-			
-			
-			
-			
-			
-			
-			
-			
-
-
-			case 1:
-				switch(menu_choice){
-						case Menu.BaseUpgrade1:
-							//see if we can apply upgrade
-		    				if(show_check_boxes_base_menu[0,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_wall_upgrades, BaseCategories.Walls, BaseUpgrade.Level2)){
-								//upgrade was successful, TODO: change look of base
-								//show check box for button
-								show_check_boxes_base_menu[0,button_style_number] = true;
-								mech.applyAPCost(ap_cost_base);
-							}else{
-								if(!show_check_boxes_base_menu[0,button_style_number])
-									script_popup.text_number_choice = 2; //already done
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-						break;
-				
-						case Menu.BaseUpgrade2:
-							//see if we can apply upgrade
-		    				if(show_check_boxes_base_menu[1,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_struc_upgrades, BaseCategories.Structure,BaseUpgrade.Level2)){
-								//upgrade was successful, TODO: change look of base
-								//show check box for button
-								show_check_boxes_base_menu[1,button_style_number] = true;
-								mech.applyAPCost(ap_cost_base);
-							}else{
-								if(!show_check_boxes_base_menu[1,button_style_number])
-									script_popup.text_number_choice = 2; //already done
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-						break;
-				
-						case Menu.BaseUpgrade3:
-							//see if we can apply upgrade
-		    				if(show_check_boxes_base_menu[2,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_weapon_upgrades, BaseCategories.Defense, BaseUpgrade.Level2)){
-								//upgrade was successful, TODO: change look of base
-								//show check box for button
-								show_check_boxes_base_menu[2,button_style_number] = true;
-								mech.applyAPCost(ap_cost_base);
-							}else{
-								if(!show_check_boxes_base_menu[2,button_style_number])
-									script_popup.text_number_choice = 2; //already done
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-						
-						break;
-				
-				
-
-						case Menu.MechUpgrade1:
-							//see if we can apply upgrade mountain
-		    				if(show_check_boxes_mech_menu[0,button_style_number] == false && part_check(button_style_number, ref parts_count_for_mobile_upgrades)){
-								//show check box for button
-								show_check_boxes_mech_menu[0,button_style_number] = true;
-								mech.upgrade_traverse_mountain = true; 
-								mech.applyAPCost(ap_cost_mech);
-							}else{
-								if(show_check_boxes_mech_menu[0,button_style_number])
-									script_popup.text_number_choice = 2; //missing parts
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-							break;
-				
-						case Menu.MechUpgrade2:
-							//see if we can apply upgrade legs
-		    				if(show_check_boxes_mech_menu[1,button_style_number] == false && part_check(button_style_number, ref parts_count_for_gun_upgrades)){
-								//show check box for button
-								show_check_boxes_mech_menu[1,button_style_number] = true;
-								mech.upgrade_weapon_range = true; 
-								mech.applyAPCost(ap_cost_mech);
-							}else{
-								if(show_check_boxes_mech_menu[1,button_style_number])
-									script_popup.text_number_choice = 2; //missing parts
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-							break;
-				
-						case Menu.MechUpgrade3:
-							//see if we can apply upgrade legs
-		    				if(show_check_boxes_mech_menu[2,button_style_number] == false && part_check(button_style_number, ref parts_count_for_other_upgrades)){
-								//show check box for button
-								inPlayMenuS script =  GetComponent<inPlayMenuS>(); //enable transport button
-								script.enable_transport_button = true;
-								show_check_boxes_mech_menu[2,button_style_number] = true;
-								mech.upgrade_teleport = true; 
-								mech.applyAPCost(ap_cost_mech);
-							}else{
-								if(show_check_boxes_mech_menu[2,button_style_number])
-									script_popup.text_number_choice = 2; //missing parts
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-							break;
-
-
-						default:
-							//see if we can apply upgrade
-								script_popup.text_number_choice = 1; //missing parts
-								script_popup.upgrade_popup = true;
-							break;
-				}
-			break;
-
-
-			case 2:
-				switch(menu_choice){
-						case Menu.BaseUpgrade1:
-							//see if we can apply upgrade
-		    				if(show_check_boxes_base_menu[0,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_wall_upgrades, BaseCategories.Walls, BaseUpgrade.Level3)){
-								//upgrade was successful, TODO: change look of base
-								//show check box for button
-								show_check_boxes_base_menu[0,button_style_number] = true;
-								mech.applyAPCost(ap_cost_base);
-							}else{
-								if(!show_check_boxes_base_menu[0,button_style_number])
-									script_popup.text_number_choice = 2; //already done
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-							break;
-				
-						case Menu.BaseUpgrade2:
-							//see if we can apply upgrade
-		    				if(show_check_boxes_base_menu[1,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_struc_upgrades, BaseCategories.Structure, BaseUpgrade.Level3)){
-								//upgrade was successful, TODO: change look of base
-								//show check box for button
-								show_check_boxes_base_menu[1,button_style_number] = true;
-								mech.applyAPCost(ap_cost_base);
-							}else{
-								if(!show_check_boxes_base_menu[1,button_style_number])
-									script_popup.text_number_choice = 2; //already done
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-							break;
-				
-						case Menu.BaseUpgrade3:
-							//see if we can apply upgrade 
-		    				if(show_check_boxes_base_menu[2,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_weapon_upgrades, BaseCategories.Defense, BaseUpgrade.Level3)){
-								//upgrade was successful, TODO: change look of base
-								//show check box for button
-								show_check_boxes_base_menu[2,button_style_number] = true;
-								mech.applyAPCost(ap_cost_base);
-							}else{
-								if(!show_check_boxes_base_menu[2,button_style_number])
-									script_popup.text_number_choice = 2; //already done
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-							break;
-				
-				
-				
-
-						case Menu.MechUpgrade1:
-							//see if we can apply
-		    				if(show_check_boxes_mech_menu[0,button_style_number] == false && part_check(button_style_number, ref parts_count_for_mobile_upgrades)){
-								//show check box for button
-								show_check_boxes_mech_menu[0,button_style_number] = true;
-								mech.upgrade_traverse_cost = true;
-								mech.applyAPCost(ap_cost_mech);
-							}else{
-								if(show_check_boxes_mech_menu[0,button_style_number])
-									script_popup.text_number_choice = 2; //missing parts
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							} 
-							break;
-				
-						case Menu.MechUpgrade2:
-							//see if we can apply 
-		    				if(show_check_boxes_mech_menu[1,button_style_number] == false && part_check(button_style_number, ref parts_count_for_gun_upgrades)){
-								show_check_boxes_mech_menu[1,button_style_number] = true;
-								//show check box for button
-								mech.upgrade_weapon_cost = true; 
-								mech.applyAPCost(ap_cost_mech);
-							}else{
-								if(show_check_boxes_mech_menu[1,button_style_number])
-									script_popup.text_number_choice = 2; //missing parts
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-							break;
-				
-						case Menu.MechUpgrade3:
-							//see if we can apply upgrade legs
-		    				if(show_check_boxes_mech_menu[2,button_style_number] == false && part_check(button_style_number, ref parts_count_for_other_upgrades)){
-								//show check box for button
-								show_check_boxes_mech_menu[2,button_style_number] = true;
-								mech.upgrade_teleport = true; 
-								mech.applyAPCost(ap_cost_mech);
-							}else{
-								if(show_check_boxes_mech_menu[2,button_style_number])
-									script_popup.text_number_choice = 2; //missing parts
-								else
-									script_popup.text_number_choice = 1; //missing parts
-								
-								script_popup.upgrade_popup = true;	
-							}
-							break;
-
-
-						default:
-							//see if we can apply upgrade
-		    				print ("wrong menu");
-							break;
-				}
-			break;
-
-
-			default:
-				//nothing to do
-				break;
-		}
-	}
+//	private void canApplyUpgrade(int button_style_number){
+//		//find the button style number and then menu that was chosen and see if upgrade can be applied
+//		//get popup menu
+//		popUpMenu script_popup =  GetComponent<popUpMenu>();
+//		
+//		switch(button_style_number){
+//			case 0:
+//				switch(menu_choice){
+//						case Menu.BaseUpgrade1:
+//							//see if we can apply upgrade
+//		    				if(show_check_boxes_base_menu[0,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_wall_upgrades, BaseCategories.Walls, BaseUpgrade.Level1)){
+//								//upgrade was successful, TODO: change look of base
+//								//show check box for button
+//								show_check_boxes_base_menu[0,button_style_number] = true;
+//								mech.applyAPCost(ap_cost_base);	
+//							}else{
+//								if(!show_check_boxes_base_menu[0,button_style_number])
+//									script_popup.text_number_choice = 2; //already done
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//						break;
+//				
+//						case Menu.BaseUpgrade2:
+//							//see if we can apply upgrade
+//		    				if(show_check_boxes_base_menu[1,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_struc_upgrades, BaseCategories.Structure, BaseUpgrade.Level1)){
+//								//upgrade was successful, TODO: change look of base
+//								//show check box for button
+//								show_check_boxes_base_menu[1,button_style_number] = true;
+//								mech.applyAPCost(ap_cost_base);
+//							}else{
+//								if(!show_check_boxes_base_menu[1,button_style_number])
+//									script_popup.text_number_choice = 2; //already done
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//						break;
+//				
+//						case Menu.BaseUpgrade3:
+//							//see if we can apply upgrade
+//		    				if(show_check_boxes_base_menu[2,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_weapon_upgrades, BaseCategories.Defense, BaseUpgrade.Level1)){
+//								//upgrade was successful, TODO: change look of base
+//								//show check box for button
+//								show_check_boxes_base_menu[2,button_style_number] = true;
+//								mech.applyAPCost(ap_cost_base);
+//							}else{
+//								if(!show_check_boxes_base_menu[2,button_style_number])
+//									script_popup.text_number_choice = 2; //already done
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//						break;
+//
+//
+//						case Menu.MechUpgrade1:
+//							//see if we can apply upgrade water
+//		    				if(show_check_boxes_mech_menu[0,button_style_number] == false && part_check(button_style_number, ref parts_count_for_mobile_upgrades)){
+//								//show check box for button
+//								show_check_boxes_mech_menu[0,button_style_number] = true;
+//								mech.upgrade_traverse_water = true; 
+//								mech.applyAPCost(ap_cost_mech);
+//							}else{
+//								if(!show_check_boxes_mech_menu[0,button_style_number])
+//									script_popup.text_number_choice = 2; //already done
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//						break;
+//				
+//						case Menu.MechUpgrade2:
+//							//see if we can apply upgrade legs
+//		    				if(show_check_boxes_mech_menu[1,button_style_number] == false && part_check(button_style_number, ref parts_count_for_gun_upgrades)){
+//								//show check box for button
+//								show_check_boxes_mech_menu[1,button_style_number] = true;
+//								mech.upgrade_weapon_damage = true; 
+//								mech.applyAPCost(ap_cost_mech);
+//							}else{
+//								if(!show_check_boxes_mech_menu[0,button_style_number])
+//									script_popup.text_number_choice = 2; //already done
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//						break;
+//				
+//						case Menu.MechUpgrade3:
+//							//see if we can apply upgrade legs
+//		    				if(show_check_boxes_mech_menu[2,button_style_number] == false && part_check(button_style_number, ref parts_count_for_other_upgrades)){
+//								//show check box for button
+//								show_check_boxes_mech_menu[2,button_style_number] = true;
+//								mech.upgrade_armor = true; 
+//								mech.applyAPCost(ap_cost_mech);
+//							}else{
+//								if(!show_check_boxes_mech_menu[0,button_style_number])
+//									script_popup.text_number_choice = 2; //already done
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//						break;
+//
+//						default:
+//							//see if we can apply upgrade
+//		    				print ("wrong menu");
+//							break;
+//				}
+//			break;
+//			
+//			
+//			
+//			
+//			
+//			
+//			
+//			
+//
+//
+//			case 1:
+//				switch(menu_choice){
+//						case Menu.BaseUpgrade1:
+//							//see if we can apply upgrade
+//		    				if(show_check_boxes_base_menu[0,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_wall_upgrades, BaseCategories.Walls, BaseUpgrade.Level2)){
+//								//upgrade was successful, TODO: change look of base
+//								//show check box for button
+//								show_check_boxes_base_menu[0,button_style_number] = true;
+//								mech.applyAPCost(ap_cost_base);
+//							}else{
+//								if(!show_check_boxes_base_menu[0,button_style_number])
+//									script_popup.text_number_choice = 2; //already done
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//						break;
+//				
+//						case Menu.BaseUpgrade2:
+//							//see if we can apply upgrade
+//		    				if(show_check_boxes_base_menu[1,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_struc_upgrades, BaseCategories.Structure,BaseUpgrade.Level2)){
+//								//upgrade was successful, TODO: change look of base
+//								//show check box for button
+//								show_check_boxes_base_menu[1,button_style_number] = true;
+//								mech.applyAPCost(ap_cost_base);
+//							}else{
+//								if(!show_check_boxes_base_menu[1,button_style_number])
+//									script_popup.text_number_choice = 2; //already done
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//						break;
+//				
+//						case Menu.BaseUpgrade3:
+//							//see if we can apply upgrade
+//		    				if(show_check_boxes_base_menu[2,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_weapon_upgrades, BaseCategories.Defense, BaseUpgrade.Level2)){
+//								//upgrade was successful, TODO: change look of base
+//								//show check box for button
+//								show_check_boxes_base_menu[2,button_style_number] = true;
+//								mech.applyAPCost(ap_cost_base);
+//							}else{
+//								if(!show_check_boxes_base_menu[2,button_style_number])
+//									script_popup.text_number_choice = 2; //already done
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//						
+//						break;
+//				
+//				
+//
+//						case Menu.MechUpgrade1:
+//							//see if we can apply upgrade mountain
+//		    				if(show_check_boxes_mech_menu[0,button_style_number] == false && part_check(button_style_number, ref parts_count_for_mobile_upgrades)){
+//								//show check box for button
+//								show_check_boxes_mech_menu[0,button_style_number] = true;
+//								mech.upgrade_traverse_mountain = true; 
+//								mech.applyAPCost(ap_cost_mech);
+//							}else{
+//								if(show_check_boxes_mech_menu[0,button_style_number])
+//									script_popup.text_number_choice = 2; //missing parts
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//							break;
+//				
+//						case Menu.MechUpgrade2:
+//							//see if we can apply upgrade legs
+//		    				if(show_check_boxes_mech_menu[1,button_style_number] == false && part_check(button_style_number, ref parts_count_for_gun_upgrades)){
+//								//show check box for button
+//								show_check_boxes_mech_menu[1,button_style_number] = true;
+//								mech.upgrade_weapon_range = true; 
+//								mech.applyAPCost(ap_cost_mech);
+//							}else{
+//								if(show_check_boxes_mech_menu[1,button_style_number])
+//									script_popup.text_number_choice = 2; //missing parts
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//							break;
+//				
+//						case Menu.MechUpgrade3:
+//							//see if we can apply upgrade legs
+//		    				if(show_check_boxes_mech_menu[2,button_style_number] == false && part_check(button_style_number, ref parts_count_for_other_upgrades)){
+//								//show check box for button
+//								inPlayMenuS script =  GetComponent<inPlayMenuS>(); //enable transport button
+//								script.enable_transport_button = true;
+//								show_check_boxes_mech_menu[2,button_style_number] = true;
+//								mech.upgrade_teleport = true; 
+//								mech.applyAPCost(ap_cost_mech);
+//							}else{
+//								if(show_check_boxes_mech_menu[2,button_style_number])
+//									script_popup.text_number_choice = 2; //missing parts
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//							break;
+//
+//
+//						default:
+//							//see if we can apply upgrade
+//								script_popup.text_number_choice = 1; //missing parts
+//								script_popup.upgrade_popup = true;
+//							break;
+//				}
+//			break;
+//
+//
+//			case 2:
+//				switch(menu_choice){
+//						case Menu.BaseUpgrade1:
+//							//see if we can apply upgrade
+//		    				if(show_check_boxes_base_menu[0,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_wall_upgrades, BaseCategories.Walls, BaseUpgrade.Level3)){
+//								//upgrade was successful, TODO: change look of base
+//								//show check box for button
+//								show_check_boxes_base_menu[0,button_style_number] = true;
+//								mech.applyAPCost(ap_cost_base);
+//							}else{
+//								if(!show_check_boxes_base_menu[0,button_style_number])
+//									script_popup.text_number_choice = 2; //already done
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//							break;
+//				
+//						case Menu.BaseUpgrade2:
+//							//see if we can apply upgrade
+//		    				if(show_check_boxes_base_menu[1,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_struc_upgrades, BaseCategories.Structure, BaseUpgrade.Level3)){
+//								//upgrade was successful, TODO: change look of base
+//								//show check box for button
+//								show_check_boxes_base_menu[1,button_style_number] = true;
+//								mech.applyAPCost(ap_cost_base);
+//							}else{
+//								if(!show_check_boxes_base_menu[1,button_style_number])
+//									script_popup.text_number_choice = 2; //already done
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//							break;
+//				
+//						case Menu.BaseUpgrade3:
+//							//see if we can apply upgrade 
+//		    				if(show_check_boxes_base_menu[2,button_style_number] == false && part_check_for_base(button_style_number, ref parts_count_for_weapon_upgrades, BaseCategories.Defense, BaseUpgrade.Level3)){
+//								//upgrade was successful, TODO: change look of base
+//								//show check box for button
+//								show_check_boxes_base_menu[2,button_style_number] = true;
+//								mech.applyAPCost(ap_cost_base);
+//							}else{
+//								if(!show_check_boxes_base_menu[2,button_style_number])
+//									script_popup.text_number_choice = 2; //already done
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//							break;
+//				
+//				
+//				
+//
+//						case Menu.MechUpgrade1:
+//							//see if we can apply
+//		    				if(show_check_boxes_mech_menu[0,button_style_number] == false && part_check(button_style_number, ref parts_count_for_mobile_upgrades)){
+//								//show check box for button
+//								show_check_boxes_mech_menu[0,button_style_number] = true;
+//								mech.upgrade_traverse_cost = true;
+//								mech.applyAPCost(ap_cost_mech);
+//							}else{
+//								if(show_check_boxes_mech_menu[0,button_style_number])
+//									script_popup.text_number_choice = 2; //missing parts
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							} 
+//							break;
+//				
+//						case Menu.MechUpgrade2:
+//							//see if we can apply 
+//		    				if(show_check_boxes_mech_menu[1,button_style_number] == false && part_check(button_style_number, ref parts_count_for_gun_upgrades)){
+//								show_check_boxes_mech_menu[1,button_style_number] = true;
+//								//show check box for button
+//								mech.upgrade_weapon_cost = true; 
+//								mech.applyAPCost(ap_cost_mech);
+//							}else{
+//								if(show_check_boxes_mech_menu[1,button_style_number])
+//									script_popup.text_number_choice = 2; //missing parts
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//							break;
+//				
+//						case Menu.MechUpgrade3:
+//							//see if we can apply upgrade legs
+//		    				if(show_check_boxes_mech_menu[2,button_style_number] == false && part_check(button_style_number, ref parts_count_for_other_upgrades)){
+//								//show check box for button
+//								show_check_boxes_mech_menu[2,button_style_number] = true;
+//								mech.upgrade_teleport = true; 
+//								mech.applyAPCost(ap_cost_mech);
+//							}else{
+//								if(show_check_boxes_mech_menu[2,button_style_number])
+//									script_popup.text_number_choice = 2; //missing parts
+//								else
+//									script_popup.text_number_choice = 1; //missing parts
+//								
+//								script_popup.upgrade_popup = true;	
+//							}
+//							break;
+//
+//
+//						default:
+//							//see if we can apply upgrade
+//		    				print ("wrong menu");
+//							break;
+//				}
+//			break;
+//
+//
+//			default:
+//				//nothing to do
+//				break;
+//		}
+//	}
 	
 	//check to see if player has enough parts to do the mech upgrade
 	private bool part_check(int row_number, ref int [,] parts_array){

@@ -463,17 +463,17 @@ public class entityManagerS : MonoBehaviour {
 		mech_s.current_hp = mech_current_hp;
 		mech_s.max_hp = mech_max_hp;
 		
-		mech_s.upgrade_armor = ex_armor;
-		mech_s.upgrade_teleport = ex_tele;
-		mech_s.upgrade_scavenge = ex_scav;
+		mech_s.upgrade_combat_armor = ex_armor;
+		mech_s.upgrade_util_recall = ex_tele;
+		mech_s.upgrade_scavenge_cost = ex_scav;
 		
-		mech_s.upgrade_traverse_cost = mobi_cost;
-		mech_s.upgrade_traverse_mountain = mobi_mntn;
-		mech_s.upgrade_traverse_water = mobi_water;
+		mech_s.upgrade_move_cost = mobi_cost;
+		mech_s.upgrade_move_mountain = mobi_mntn;
+		mech_s.upgrade_move_water = mobi_water;
 		
-		mech_s.upgrade_weapon_cost = gun_cost;
-		mech_s.upgrade_weapon_damage = gun_damage;
-		mech_s.upgrade_weapon_range = gun_range;
+		mech_s.upgrade_combat_cost = gun_cost;
+		mech_s.upgrade_combat_damage = gun_damage;
+		mech_s.upgrade_combat_range = gun_range;
 		
 		hexManagerS.getHex(x,z).hex_script.mech_is_here = true;
 		

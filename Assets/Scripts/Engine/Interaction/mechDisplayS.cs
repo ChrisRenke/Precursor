@@ -92,8 +92,7 @@ public class mechDisplayS : MonoBehaviour {
 	private Dictionary<Facing, Material> facing_gunsize;
 	private Dictionary<Facing, Material> facing_gunrange;
 	
-	Vector2 size;
-//	private bool draw_mode = false; 
+	Vector2 size; 
 	
 	
 	void Awake()
@@ -188,8 +187,7 @@ public class mechDisplayS : MonoBehaviour {
 		gunsize.enabled = false;
 		armor.enabled = false;
 	}
-	
-	
+	 
 	
 	//Update
 	void Update () {  
@@ -204,12 +202,12 @@ public class mechDisplayS : MonoBehaviour {
 //			if(previous_facing != owner.facing_direction)
 				setToStanding(colCount,rowCount,rowNumber,colNumber,totalCells,fps);
 			
-			armor.enabled = owner.upgrade_armor;
-			legs.enabled = owner.upgrade_traverse_cost;
-			mountain.enabled = owner.upgrade_traverse_mountain;
-			water.enabled = owner.upgrade_traverse_water;
-			gunrange.enabled = owner.upgrade_weapon_range;
-			gunsize.enabled = owner.upgrade_weapon_damage;
+				armor.enabled = owner.upgrade_combat_armor;
+				legs.enabled = owner.upgrade_move_cost;
+				mountain.enabled = owner.upgrade_move_mountain;
+				water.enabled = owner.upgrade_move_water;
+				gunrange.enabled = owner.upgrade_combat_range;
+				gunsize.enabled = owner.upgrade_combat_damage;
 			
 //			previous_facing = owner.facing_direction;
 //		    Vector2 offset = new Vector2(0,0);

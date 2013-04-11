@@ -5,39 +5,81 @@ using System.Collections.Generic;
 
 public class entityMechS : Combatable, IMove { 
 	 
-	public bool upgrade_traverse_water		= false;
-	public bool upgrade_traverse_mountain 	= false;
-	public bool upgrade_traverse_cost 		= false;
+//public enum MechUpgrade { Move_Water, Move_Mountain, Move_Marsh, Move_Legs, Combat_Damage, Combat_Cost, Combat_Range, Combat_Armor, Combat_Dodge, 
+//		Scavenge_Combat, Scavenge_Greed, Scavenge_Empty, Scavenge_Cost, Util_Recall, Util_Vision, Util_AP, Util_Heal, Util_Idle };
 	
-	public bool upgrade_armor 	 = false;
-	public bool upgrade_scavenge = false;
-	public bool upgrade_teleport = false;
+	public bool upgrade_move_water		= false;
+	public bool upgrade_move_mountain 	= false;
+	public bool upgrade_move_cost 		= false;
+	public bool upgrade_move_marsh 		= false;
 	
-	public bool upgrade_weapon_range  = false;
-	public bool upgrade_weapon_damage = false;
-	public bool upgrade_weapon_cost   = false;
+	public bool upgrade_combat_damage 	= false;
+	public bool upgrade_combat_cost     = false;
+	public bool upgrade_combat_range    = false;
+	public bool upgrade_combat_armor    = false;
+	public bool upgrade_combat_dodge    = false;
+	
+	public bool upgrade_scavenge_combat  = false;
+	public bool upgrade_scavenge_greed   = false;
+	public bool upgrade_scavenge_empty   = false;
+	public bool upgrade_scavenge_cost    = false;
+	
+	public bool upgrade_util_recall    = false;
+	public bool upgrade_util_vision    = false;
+	public bool upgrade_util_ap        = false;
+	public bool upgrade_util_parts     = false;
+	public bool upgrade_util_idle      = false;
+	  
+//	public bool upgrade_traverse_water		= false;
+//	public bool upgrade_traverse_mountain 	= false;
+//	public bool upgrade_traverse_cost 		= false;
+//	
+//	public bool upgrade_armor 	 = false;
+//	public bool upgrade_scavenge = false;
+//	public bool upgrade_teleport = false;
+//	
+//	public bool upgrade_weapon_range  = false;
+//	public bool upgrade_weapon_damage = false;
+//	public bool upgrade_weapon_cost   = false;
 	 
-	public readonly int  traverse_upgrade_cost  		= -1;
-	public readonly int  traverse_standard_cost 		=  2;
-	public readonly int  traverse_slow_cost     		=  4;
-	public readonly int  traverse_mountain_cost	 	=  5;
-	public readonly int  traverse_water_cost    		=  5;
+	public readonly int traverse_upgrade_cost  		= -1;
+	public readonly int traverse_upgrade_marsh  	= -1;
+	public readonly int traverse_standard_cost 		=  2;
+	public readonly int traverse_slow_cost     		=  4;
+	public readonly int traverse_mountain_cost		=  5;
+	public readonly int traverse_water_cost    		=  5;
 	
-	public readonly int scavenge_base_cost           =  3;
-	public readonly int repair_base_cost             =  1;
-	public readonly int upgrade_base_cost            =  1;
+	public readonly float combat_dodge_percent      = .3F;
+	
+	public readonly int util_recall_cost 			= 6;
+	
+	public readonly int scavenge_core_cost          =  3;
+	public readonly int scavenge_upgrade_cost     	=  2;
+	
+	public readonly int scavenge_upgrade_greed    	=  1;
+	public readonly float scavenge_empty_percent	= .3F;
+	
+	public readonly int repair_base_cost            =  1; 
 		  
-	public readonly int weapon_base_damage	 = 4;
-	public readonly int weapon_upgrade_damage = 6;
+	public readonly int weapon_core_damage	  		= 4;
+	public readonly int weapon_upgrade_damage 		= 6;
 	
-	public readonly int weapon_base_range 	 = 2;
-	public readonly int weapon_upgrade_range  = 3;
+	public readonly int weapon_core_range 	  		= 2;
+	public readonly int weapon_upgrade_range  		= 3;
 	
-	public readonly int weapon_base_cost  	 = 5; 
-	public readonly int weapon_upgrade_cost   = 4;
+	public readonly int weapon_core_cost  	  		= 5; 
+	public readonly int weapon_upgrade_cost   		= 4;
 	
-	public readonly int armor_upgrade = 2; 
+	public readonly int repair_core_heal			= 2;
+	
+	public readonly int idle_heal_restore			= 1;
+	
+	public readonly int vision_core_range			= 5;
+	public readonly int vision_upgrade_range		= 7;
+	
+	public readonly int armor_upgrade 				= 2; 
 	 
+	
 	public List<HexData> adjacent_visible_hexes;
 	public List<HexData> previous_adjacent_visible_hexes;
 	
@@ -46,8 +88,7 @@ public class entityMechS : Combatable, IMove {
 	public static IEnumerator<HexData> travel_path_en;
 	public static bool is_standing_on_node;
 	
-	
-	
+	 
 	public int starting_hp_max = 30;
 	
 	public int starting_ap = 18;
@@ -72,8 +113,7 @@ public class entityMechS : Combatable, IMove {
 	void Awake()
 	{
  		child_shots = gameObject.transform.GetChild(1);//.GetComponentsInChildren<ParticleSystem>();
- 		child_fire = gameObject.transform.GetChild(0);//.GetComponentsInChildren<ParticleSystem>();
-//		Debug.Log(child_fire.name); //gets the fire child 
+ 		child_fire = gameObject.transform.GetChild(0);//.GetComponentsInChildren<ParticleSystem>(); 
 		turnOffFire();
 		
 		part_count = new Dictionary<Part, int>();
@@ -86,6 +126,7 @@ public class entityMechS : Combatable, IMove {
 		
 		current_ap = starting_ap;
 		max_ap = starting_ap_max;
+		createUpgradeMenuEntries();
 		
 	}
 	
@@ -281,7 +322,7 @@ public class entityMechS : Combatable, IMove {
 	{
 		shootEffect(facing_direction);
 		
-		if(upgrade_weapon_damage)
+		if(upgrade_combat_damage)
 			entityManagerS.sm.playGunBigl();
 		else
 			entityManagerS.sm.playGunNormal();
@@ -295,7 +336,7 @@ public class entityMechS : Combatable, IMove {
 		if(target != null)
 			enemy_hp_left = target.acceptDamage(attack_damage);
 		
-		if(enemy_hp_left <= 0)
+		if(enemy_hp_left <= 0 && upgrade_scavenge_combat)
 		{
 			int ind = (int) UnityEngine.Random.Range(0, 3.999999999999F);
 			part_count[(Part) ind] += 1;
@@ -305,12 +346,17 @@ public class entityMechS : Combatable, IMove {
 		return 0; //nothing to damage if we get here			
 	}
 	
+	public int getRecallAPCost()
+	{
+		return util_recall_cost;
+	}
+	
 	public int getAttackDamage(){
-		return upgrade_weapon_damage ? weapon_upgrade_damage : weapon_base_damage;
+		return upgrade_combat_damage ? weapon_upgrade_damage : weapon_core_damage;
 	}
 	
 	public int getScavengeAPCost(){
-		return  scavenge_base_cost;
+		return  upgrade_scavenge_cost ? scavenge_upgrade_cost : scavenge_core_cost;
 	}
 	
 	public bool scavengeParts(Node node_type, NodeLevel resource_level, int x, int z)
@@ -325,7 +371,7 @@ public class entityMechS : Combatable, IMove {
 		entityManagerS.sm.playScavenge();
 		int num_of_each_type = (int) resource_level;
 		
-		if(upgrade_scavenge)
+		if(upgrade_scavenge_greed)
 			num_of_each_type++;
 		
 		if(node_type == Node.Factory)
@@ -507,10 +553,10 @@ public class entityMechS : Combatable, IMove {
 			return false;
 			
 		//account for upgrades here
-		if(hex.hex_type == Hex.Water && !upgrade_traverse_water)
+		if(hex.hex_type == Hex.Water && !upgrade_move_water)
 				return false;
 		
-		if(hex.hex_type == Hex.Mountain && !upgrade_traverse_mountain)
+		if(hex.hex_type == Hex.Mountain && !upgrade_move_mountain)
 				return false;
 		
 			
@@ -533,13 +579,12 @@ public class entityMechS : Combatable, IMove {
 	
 	public int getAttackAPCost()
 	{
-		return upgrade_weapon_cost ? weapon_upgrade_cost : weapon_base_cost;
+		return upgrade_combat_cost ? weapon_upgrade_cost : weapon_core_cost;
 	}
 	
 	public int getAttackRange()
-	{
-		Debug.LogWarning(weapon_base_range + " weapon_base_range");
-		return upgrade_weapon_range ? weapon_upgrade_range : weapon_base_range;
+	{ 
+		return upgrade_combat_range ? weapon_upgrade_range : weapon_core_range;
 	}
 	
 	public int getTraverseAPCost(Hex hex_type)
@@ -550,18 +595,19 @@ public class entityMechS : Combatable, IMove {
 		case Hex.Desert:
 		case Hex.Farmland:
 		case Hex.Grass:
-			return traverse_standard_cost + (upgrade_traverse_cost ? traverse_upgrade_cost : 0);
+			return traverse_standard_cost + (upgrade_move_cost ? traverse_upgrade_cost : 0);
 		
 		case Hex.Marsh:
+			return traverse_slow_cost + (upgrade_move_cost ? traverse_upgrade_cost : 0) +  (upgrade_move_marsh ? traverse_upgrade_marsh : 0);
 		case Hex.Hills:
 		case Hex.Forest:
-			return traverse_slow_cost + (upgrade_traverse_cost ? traverse_upgrade_cost : 0);
+			return traverse_slow_cost + (upgrade_move_cost ? traverse_upgrade_cost : 0);
 			
 		case Hex.Mountain:
-			return traverse_mountain_cost + (upgrade_traverse_cost ? traverse_upgrade_cost : 0);
+			return traverse_mountain_cost + (upgrade_move_cost ? traverse_upgrade_cost : 0);
 		
 		case Hex.Water:
-			return traverse_water_cost + (upgrade_traverse_cost ? traverse_upgrade_cost : 0);
+			return traverse_water_cost + (upgrade_move_cost ? traverse_upgrade_cost : 0);
 			
 		case Hex.Perimeter: 
 		default:
@@ -575,14 +621,9 @@ public class entityMechS : Combatable, IMove {
 	 *  @return  damage delt
 	 */
 	public override int attackTarget(Combatable target){
-		Debug.Log ("Hit");
-		
-//		int range  = upgrade_weapon_range ? weapon_upgrade_range : weapon_base_range;
-		int damage = upgrade_weapon_damage ? weapon_upgrade_damage : weapon_base_damage;
-		int cost   = upgrade_weapon_cost ? weapon_upgrade_cost : weapon_base_cost;
-		
-		current_ap -= cost;
-		return target.acceptDamage(damage);
+		Debug.Log ("Mech attacking target"); 
+		current_ap -= getAttackAPCost();
+		return target.acceptDamage(getAttackDamage());
 	}
 	
 		
@@ -616,7 +657,8 @@ public class entityMechS : Combatable, IMove {
 		return true;
 	}
 	
-	Dictionary<MechUpgradeMode, List<UpgradeEntry>> mech_upgrade_entries;
+	private Dictionary<MechUpgradeMode, List<UpgradeEntry>> mechupgrademode_entrieslists;
+	private Dictionary<MechUpgrade, UpgradeEntry> mechupgrade_to_entries;
 	
 	public Texture upgrade_menu_entry_fins;
 	public Texture upgrade_menu_entry_legs;
@@ -633,62 +675,254 @@ public class entityMechS : Combatable, IMove {
 	public Texture upgrade_menu_entry_extrapartsscavenge;
 	public Texture upgrade_menu_entry_emptyscavenge;
 	public Texture upgrade_menu_entry_costscavenge;
-	public Texture upgrade_menu_entry_recallbase;
 	
+	public Texture upgrade_menu_entry_recallbase;
 	public Texture upgrade_menu_entry_visionrange;
 	public Texture upgrade_menu_entry_ap;
-	public Texture upgrade_menu_entry_healmore;
+	public Texture upgrade_menu_entry_part_capacity;
 	public Texture upgrade_menu_entry_healidle;
 	
+	public List<UpgradeEntry> getUpgradeEntries(MechUpgradeMode mode)
+	{
+		return mechupgrademode_entrieslists[mode];
+	}
+	
+	public UpgradeEntry getUpgradeEntries(MechUpgrade  upgrade)
+	{
+		return mechupgrade_to_entries[upgrade];
+	}
+	
+//public enum MechUpgrade { Move_Water, Move_Mountain, Move_Marsh, Move_Legs, Combat_Damage, Combat_Cost, Combat_Range, Combat_Armor, Combat_Dodge, 
+//		Scavenge_Combat, Scavenge_Greed, Scavenge_Empty, Scavenge_Cost, Util_Recall, Util_Vision, Util_AP, Util_Heal, Util_Idle };
 	private void createUpgradeMenuEntries()
 	{
-		mech_upgrade_entries = new Dictionary<MechUpgradeMode, List<UpgradeEntry>>(); 
+		mechupgrademode_entrieslists = new Dictionary<MechUpgradeMode, List<UpgradeEntry>>(); 
+		mechupgrade_to_entries = new Dictionary<MechUpgrade, UpgradeEntry>();
+		
 		List<UpgradeEntry> movement_upgrades = new List<UpgradeEntry>();
 		List<UpgradeEntry> combat_upgrades = new List<UpgradeEntry>();
 		List<UpgradeEntry> scavenge_upgrades = new List<UpgradeEntry>();
 		List<UpgradeEntry> utility_upgrades = new List<UpgradeEntry>();
-//		 																					 			 gear pis plt stru
-		movement_upgrades.Add (new UpgradeEntry("Aquatic Fins", 		"Allows Water hex traversal for 5 AP",		1,	5,	1,	1,	2, upgrade_menu_entry_fins));
-		movement_upgrades.Add (new UpgradeEntry("Mountaineering Claws",	"Allows Mountain hex traversal for 5 AP",	2,	4,	0,	2,	2, upgrade_menu_entry_legs));
-		movement_upgrades.Add (new UpgradeEntry("Marsh Stabilizers",	"Reduces Marsh hex traversal by 1 AP",		0,	1,	4,	4,	2, upgrade_menu_entry_mountains));
-		movement_upgrades.Add (new UpgradeEntry("Re-engineered Frame",	"Reduces all hex traversal by 1 AP",		6,	3,	0,	3,	2, upgrade_menu_entry_marsh));
-			
-			
-		combat_upgrades.Add (new UpgradeEntry("Howizter Bore",			"Increases attack damage by 2",				0,	1,	4,	3,	2, upgrade_menu_entry_gundamage));
-		combat_upgrades.Add (new UpgradeEntry("Efficient Reload", 		"Reduces attack cost by 2 AP",				0,	1,	4,	3,	2, upgrade_menu_entry_guncost));
-		combat_upgrades.Add (new UpgradeEntry("Targeting Optics", 		"Increases attack range by 1",				0,	1,	4,	3,	2, upgrade_menu_entry_gunrange));
-		combat_upgrades.Add (new UpgradeEntry("Gilded Armor", 			"Reduces damage recieved by 2",				0,	1,	4,	3,	2, upgrade_menu_entry_armor));
-		combat_upgrades.Add (new UpgradeEntry("Reactive Manuever", 		"Gives 35% change to dodge attacks",		0,	1,	4,	3,	2, upgrade_menu_entry_dodge));
-			
+//		 																					 			 		gear pis plt stru
+		movement_upgrades.Add (new UpgradeEntry("Aquatic Fins", 		"Allows Water hex traversal (5 AP)",	1,	5,	1,	1,	2, upgrade_menu_entry_fins, MechUpgrade.Move_Water));
+		movement_upgrades.Add (new UpgradeEntry("Mountaineering Claws",	"Allows Mountain hex traversal (5 AP)",	2,	4,	0,	2,	2, upgrade_menu_entry_legs, MechUpgrade.Move_Mountain));
+		movement_upgrades.Add (new UpgradeEntry("Marsh Stabilizers",	"Reduces Marsh hex traversal by 1 AP",	0,	1,	4,	4,	2, upgrade_menu_entry_mountains, MechUpgrade.Move_Marsh));
+		movement_upgrades.Add (new UpgradeEntry("Re-engineered Frame",	"Reduces all hex traversal by 1 AP",	6,	3,	0,	3,	2, upgrade_menu_entry_marsh, MechUpgrade.Move_Legs));
+			 
+		combat_upgrades.Add (new UpgradeEntry("Howizter Bore",			"Increases attack damage by 2",			1,	2,	4,	2,	2, upgrade_menu_entry_gundamage, MechUpgrade.Combat_Damage));
+		combat_upgrades.Add (new UpgradeEntry("Efficient Reload", 		"Reduces attack cost by 2 AP",			2,	2,	0,	2,	2, upgrade_menu_entry_guncost, MechUpgrade.Combat_Cost));
+		combat_upgrades.Add (new UpgradeEntry("Targeting Optics", 		"Increases attack range by 1",			4,	1,	1,	2,	2, upgrade_menu_entry_gunrange, MechUpgrade.Combat_Range));
+		combat_upgrades.Add (new UpgradeEntry("Gilded Armor", 			"Reduces damage recieved by 2",			2,	0,	6,	0,	2, upgrade_menu_entry_armor, MechUpgrade.Combat_Armor));
+		combat_upgrades.Add (new UpgradeEntry("Reactive Manuever", 		"Gives 35% change to dodge attacks",	0,	4,	0,	4,	2, upgrade_menu_entry_dodge, MechUpgrade.Combat_Dodge));
+					 
+		scavenge_upgrades.Add (new UpgradeEntry("Combat Salvage",		"Gain one random part from kills",		2,	3,	0,	2,	2, upgrade_menu_entry_killscavenge, MechUpgrade.Scavenge_Combat));
+		scavenge_upgrades.Add (new UpgradeEntry("Greedy Gather", 		"Gain one extra part per scavenge",		0,	2,	1,	4,	2, upgrade_menu_entry_extrapartsscavenge, MechUpgrade.Scavenge_Greed));
+		scavenge_upgrades.Add (new UpgradeEntry("Probing Sensors", 		"15% change to scavenge empty nodes",	4,	2,	0,	0,	2, upgrade_menu_entry_emptyscavenge, MechUpgrade.Scavenge_Empty));
+		scavenge_upgrades.Add (new UpgradeEntry("Efficient Scavenge", 	"Reduceds cost of scavenge by 1",		2,	2,	2,	2,	2, upgrade_menu_entry_costscavenge, MechUpgrade.Scavenge_Cost));
+	  
+		utility_upgrades.Add (new UpgradeEntry("Town Recall",			"Click base to teleport home (6 AP)",	1,	4,	5,	0,	2, upgrade_menu_entry_recallbase, MechUpgrade.Util_Recall));
+		utility_upgrades.Add (new UpgradeEntry("Augemented Perception",	"Increase vision range by 2",			1,	2,	0,	3,	2, upgrade_menu_entry_visionrange, MechUpgrade.Util_Vision));
+		utility_upgrades.Add (new UpgradeEntry("Redline Reactor", 		"Increase max AP by 5",					3,	6,	2,	2,	2, upgrade_menu_entry_ap, MechUpgrade.Util_AP));
+		utility_upgrades.Add (new UpgradeEntry("Expanded Cargohold", 	"Increase part capacity to 16",			2,	2,	2,	2,	2, upgrade_menu_entry_part_capacity, MechUpgrade.Util_Parts));
+	 	utility_upgrades.Add (new UpgradeEntry("Idle Reconstruction", 	"Covert 3 AP into 1 HP at end of turn",	4,	0,	0,	4,	2, upgrade_menu_entry_healidle, MechUpgrade.Util_Idle));
+	 
+		mechupgrademode_entrieslists.Add(MechUpgradeMode.Combat, combat_upgrades);
+		mechupgrademode_entrieslists.Add(MechUpgradeMode.Movement, movement_upgrades);
+		mechupgrademode_entrieslists.Add(MechUpgradeMode.Scavenge, scavenge_upgrades);
+		mechupgrademode_entrieslists.Add(MechUpgradeMode.Utility, utility_upgrades); 
 		
-//		scavenge_upgrades.Add (new UpgradeEntry("",		"Increases attack damage by 2",				0,	1,	4,	3,	2, upgrade_menu_entry_gundamage));
-//		scavenge_upgrades.Add (new UpgradeEntry("Efficient Reload", 	"Reduces attack cost by 2 AP",				0,	1,	4,	3,	2, upgrade_menu_entry_guncost));
-//		scavenge_upgrades.Add (new UpgradeEntry("Targeting Optics", 	"Increases attack range by 1",				0,	1,	4,	3,	2, upgrade_menu_entry_gundrange));
-//		scavenge_upgrades.Add (new UpgradeEntry("Gilded Armor", 		"Reduces damage recieved by 2",				0,	1,	4,	3,	2, upgrade_menu_entry_fins));
-//		scavenge_upgrades.Add (new UpgradeEntry("Reactive Manuever", 	"Gives 35% change to dodge attacks",		0,	1,	4,	3,	2, upgrade_menu_entry_fins));
+		foreach(UpgradeEntry entry in movement_upgrades) 
+			mechupgrade_to_entries.Add(entry.upgrade_type, entry); 
 		
-		// Column 0 = Piston / Column 1 = Gear / Column 2 = Plate / Column 3 = Strut
-																//		   P G Pl S
-//		private int[,] parts_count_for_mobile_upgrades = new int[3,4] 	{ {1,0,4, 3}, {3,4,0,1}, {3,2,0,3} }; //Row 0 = water upgrade, Row 1 = mountan upgrade, Row 2 = leg upgrade
-//	private int[,] parts_count_for_gun_upgrades = new int[3,4] 		{ {1,2,3,2}, {2,1,2,3}, {1,3,2,1} }; //Row 0 = gun upgrade range , Row 1 = gun upgrade damage, Row 2 = gun upgrade cost
-//	private int[,] parts_count_for_other_upgrades = new int[3,4] 	{ {1,0,5,2}, {2,6,2,3}, {2,2,2,2} }; //Row 0 =  armour upgrade 1, Row 1 = armour upgrade 2 (teleport base upgrade?), Row 2 = armour upgrade 3 (other upgrade?)
-//	//Base Upgrades part array requirements
-//	private int[,] parts_count_for_wall_upgrades = new int[3,4] 	{ {0,3,4,3}, {0,4,5,4}, {0,5,6,5} }; //Row 0 = wall upgrade 1, Row 1 = wall upgrade 2, Row 2 = wall upgrade 3
-//	private int[,] parts_count_for_struc_upgrades = new int[3,4] 	{ {2,3,1,1}, {3,2,2,2}, {4,4,4,4} }; //Row 0 = structure upgrade 1, Row 1 = structure upgrade 2, Row 2 = structure upgrade 3
-//	private int[,] parts_count_for_weapon_upgrades = new int[3,4] 	{ {4,1,2,3}, {4,0,4,2}, {4,1,4,3} }; //Row 0 = defense upgrade 1, Row 1 = defense upgrade 2, Row 2 = defense upgrade 3
-//	
-//		
-//		
+		foreach(UpgradeEntry entry in combat_upgrades) 
+			mechupgrade_to_entries.Add(entry.upgrade_type, entry); 
 		
+		foreach(UpgradeEntry entry in scavenge_upgrades) 
+			mechupgrade_to_entries.Add(entry.upgrade_type, entry); 
+		
+		foreach(UpgradeEntry entry in utility_upgrades) 
+			mechupgrade_to_entries.Add(entry.upgrade_type, entry); 
+		
+		
+	} 
+	
+	private void subtractPartCosts(UpgradeEntry entry)
+	{
+		part_count[Part.Gear] -= entry.gear_cost;
+		part_count[Part.Plate] -= entry.plate_cost;
+		part_count[Part.Piston] -= entry.piston_cost;
+		part_count[Part.Strut] -= entry.strut_cost;
+	}
+	
+	public UpgradeCostFeedback checkUpgradeAffordable(MechUpgrade upgrade)
+	{
+		UpgradeEntry entry = mechupgrade_to_entries[upgrade];
+		
+		if(entry.ap_cost <= getCurrentAP())
+			if(	part_count[Part.Gear] >= entry.gear_cost && part_count[Part.Plate] >= entry.plate_cost && part_count[Part.Piston] >= entry.piston_cost && part_count[Part.Strut] >= entry.strut_cost)
+				return UpgradeCostFeedback.Success;
+			else 
+				return UpgradeCostFeedback.NeedMoreParts; 
+		else
+			return UpgradeCostFeedback.NeedMoreAP;
+	}
+	
+	public bool canAffordUpgrade(MechUpgrade upgrade){
+		return (checkUpgradeAffordable(upgrade) == UpgradeCostFeedback.Success);
 	}
 	
 	
 	
-	/*Movement		Combat		Scavenge			Utility
-		Legs		Gun dmg		Kills for parts		Teleport Base
-		Water		Gun Cost	Extra part scavenge	Vision Range
-		Mountain	Gun Range	Chance from empty	AP Pool
-		Marsh		Armor		Scavenge cost less	Heal 3
-					Dodge Chance					Rest Heal*/
+	public void attemptToUpgrade(MechUpgrade upgrade)
+	{
+//		if()
+	}
+	
+	public void applyUpgrade(MechUpgrade upgrade)
+	{
+		subtractPartCosts(mechupgrade_to_entries[upgrade]); 
+		switch(upgrade)
+		{
+			case MechUpgrade.Move_Legs:
+				upgrade_move_cost = true;
+				break;
+			
+			case MechUpgrade.Move_Marsh:
+				upgrade_move_marsh = true;
+				break;
+			
+			case MechUpgrade.Move_Mountain:
+				upgrade_move_mountain = true;
+				break;
+			
+			case MechUpgrade.Move_Water:
+				upgrade_move_water = true;
+				break;
+			
+			case MechUpgrade.Combat_Armor:
+				upgrade_combat_armor = true;
+				break;
+			
+			case MechUpgrade.Combat_Cost:
+				upgrade_combat_cost = true;
+				break;
+			
+			case MechUpgrade.Combat_Damage:
+				upgrade_combat_damage = true;
+				break;
+			
+			case MechUpgrade.Combat_Dodge:
+				upgrade_combat_dodge = true;
+				break;
+			
+			case MechUpgrade.Combat_Range:
+				upgrade_combat_range = true;
+				break;
+			
+			case MechUpgrade.Util_AP:
+				max_ap += 5;
+				upgrade_util_ap = true;				
+				break;
+			
+			case MechUpgrade.Util_Parts:
+				
+				upgrade_util_parts = true;	
+				break;
+			
+			case MechUpgrade.Util_Idle:
+				upgrade_util_idle = true;	
+				break;
+			
+			case MechUpgrade.Util_Recall:
+				upgrade_util_recall = true;	
+				break;
+			
+			case MechUpgrade.Util_Vision:
+				sight_range += 2;
+				updateFoWStates();
+				upgrade_util_vision = true;	
+				break;
+			
+			case MechUpgrade.Scavenge_Combat:
+				upgrade_scavenge_combat = true;	
+				break;
+			
+			case MechUpgrade.Scavenge_Cost:
+				upgrade_scavenge_cost = true;	
+				break;
+			
+			case MechUpgrade.Scavenge_Empty:
+				upgrade_scavenge_empty = true;	
+				break;
+			
+			case MechUpgrade.Scavenge_Greed:
+				upgrade_scavenge_greed = true;	
+				break; 
+			
+		}
+	}
+	
+	
+	public bool checkUpgrade(MechUpgrade upgrade)
+	{ 
+		switch(upgrade)
+		{
+			case MechUpgrade.Move_Legs:
+				return upgrade_move_cost; 
+			
+			case MechUpgrade.Move_Marsh:
+				return upgrade_move_marsh;
+			
+			case MechUpgrade.Move_Mountain:
+				return upgrade_move_mountain;
+			
+			case MechUpgrade.Move_Water:
+				return upgrade_move_water;
+			
+			case MechUpgrade.Combat_Armor:
+				return upgrade_combat_armor;
+			
+			case MechUpgrade.Combat_Cost:
+				return upgrade_combat_cost;
+			
+			case MechUpgrade.Combat_Damage:
+				return upgrade_combat_damage;
+			
+			case MechUpgrade.Combat_Dodge:
+				return upgrade_combat_dodge;
+			
+			case MechUpgrade.Combat_Range:
+				return upgrade_combat_range;
+			
+			case MechUpgrade.Util_AP:
+				return upgrade_util_ap;
+			
+			case MechUpgrade.Util_Parts:
+				return upgrade_util_parts;
+			
+			case MechUpgrade.Util_Idle:
+				return upgrade_util_idle ;
+			
+			case MechUpgrade.Util_Recall:
+				return upgrade_util_recall;
+			
+			case MechUpgrade.Util_Vision:
+				return upgrade_util_vision ;
+			
+			case MechUpgrade.Scavenge_Combat:
+				return upgrade_scavenge_combat;
+			
+			case MechUpgrade.Scavenge_Cost:
+				return upgrade_scavenge_cost;
+			
+			case MechUpgrade.Scavenge_Empty:
+				return upgrade_scavenge_empty;
+			
+			case MechUpgrade.Scavenge_Greed:
+				return upgrade_scavenge_greed; 
+		}
+		
+		throw new System.Exception("Attempted to see if mech has an upgrade that doesn't exist.  Did you change the MechUpgrade enum to add moar st00f?");
+	}
 }
 

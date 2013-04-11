@@ -8,6 +8,8 @@ public class gameManagerS : MonoBehaviour {
 	public static int  current_round;
 	public static Level current_level;
 	
+	public static bool mouse_over_gui = false;
+	
 	public GameObject  selection_hex_input;
 	public static GameObject selection_hex;
 	

@@ -1,25 +1,34 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Engine/Interaction/enginePlayerS.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Engine/Interaction/enginePlayerS.cs" Line="648" Column="4" />
+      <File FileName="Assets/Scripts/Engine/engineHexS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Menus/popUpMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Menus/inPlayMenuS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Managers/entityManagerS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/pathDrawS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Menus/UpgradeMenuS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Enums.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Entity/entityMechS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Managers/gameManagerS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Interaction/mechDisplayS.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Engine/Managers/soundManagerS.cs" Line="1" Column="1" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Assets" expanded="True">
-              <Node name="Level_Files" expanded="True" />
               <Node name="Scripts" expanded="True">
                 <Node name="Engine" expanded="True">
                   <Node name="Entity" expanded="True" />
-                  <Node name="Interaction" expanded="True" />
+                  <Node name="Interaction" expanded="True">
+                    <Node name="enginePlayerS.cs" selected="True" />
+                  </Node>
                   <Node name="Managers" expanded="True" />
                   <Node name="Menus" expanded="True" />
                 </Node>
-                <Node name="MapEditor" expanded="True">
-                  <Node name="editorIOS.cs" selected="True" />
-                </Node>
-              </Node>
-              <Node name="Vectrosity" expanded="True">
-                <Node name="Shaders" expanded="True" />
               </Node>
             </Node>
           </Node>

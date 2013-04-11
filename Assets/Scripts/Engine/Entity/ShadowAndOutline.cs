@@ -3,7 +3,7 @@ using UnityEngine;
 public static class ShadowAndOutline
 {
         public static void DrawOutline(Rect rect, string text, GUIStyle style, Color outColor, Color inColor, float size)
-        {
+        { 
             float halfSize = size * 0.5F;
             GUIStyle backupStyle = new GUIStyle(style);
             Color backupColor = GUI.color;
@@ -20,7 +20,7 @@ public static class ShadowAndOutline
             rect.x -= halfSize;
             rect.y -= halfSize;
             GUI.Label(rect, text, style);
- 
+
             rect.y += size;
             GUI.Label(rect, text, style);
  

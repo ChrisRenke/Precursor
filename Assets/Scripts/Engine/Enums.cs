@@ -9,7 +9,7 @@ public enum Facing       { North, NorthEast, SouthEast, South, SouthWest, NorthW
 public enum NodeLevel    { Empty, Sparse, Full };
 public enum Node         { Factory, Junkyard, Outpost}
 public enum Turn         { Player, Enemy, Base };
-public enum SelectLevel  { Disabled, Easy, Medium, Hard, Scavenge, Attack, Upgrade, Travel};
+public enum SelectLevel  { Disabled, Easy, Medium, Hard, Scavenge, Attack, Town, TownUpgrade, MechUpgrade, TownRecall, Move};
 public enum Action       { Repair, UpgradeMech, UpgradeBase, Scavenge, Attack, Traverse, End };
 public enum Vision       { Live, Visited, Unvisted }; 
 public enum MouseState   { Idle, Over, Click } 
@@ -19,10 +19,15 @@ public enum Level        {Level0,Level1,Level2} ;
 
 public enum MechUpgradeMode        { Movement, Combat, Scavenge, Utility };
 public enum BaseUpgradeMode        { Perimeter, Armament, Structure, Utility };
-public enum UpgradeItemChoice      { Choice0, Choice1, Choice2, Choice3, Choice4 }
+public enum UpgradeItemChoice      { Choice0, Choice1, Choice2, Choice3, Choice4 };
+
+public enum UpgradeState           { Acquired, NotAcquired, Disabled };
+
+public enum MechUpgrade { Move_Water, Move_Mountain, Move_Marsh, Move_Legs, Combat_Damage, Combat_Cost, Combat_Range, Combat_Armor, Combat_Dodge, 
+		Scavenge_Combat, Scavenge_Greed, Scavenge_Empty, Scavenge_Cost, Util_Recall, Util_Vision, Util_AP, Util_Parts, Util_Idle };
 
  
-
+public enum UpgradeCostFeedback { NeedMoreAP, NeedMoreParts, Disabled, Success }
 public enum UpgradeMenu   { Base, Mech }
 
 
@@ -61,6 +66,9 @@ public enum Menu  {Default , Objective, BaseUpgrade1, BaseUpgrade2, BaseUpgrade3
 //	}
 //	
 //}	
+
+
+
 	
 public struct HexData{ 
 	public readonly int 		x;   	  //level x coord (NE / SW)
@@ -156,9 +164,10 @@ public struct UpgradeEntry{
 	public readonly int		plate_cost;
 	public readonly int		strut_cost;
 	public readonly int		ap_cost;
-	public readonly Texture thumbnail;
+	public readonly Texture thumbnail; 
+	public readonly MechUpgrade upgrade_type; 
 	
-	public UpgradeEntry(string title, string description, int gear_cost, int piston_cost, int plate_cost, int strut_cost, int ap_cost, Texture thumbnail)
+	public UpgradeEntry(string title, string description, int gear_cost, int piston_cost, int plate_cost, int strut_cost, int ap_cost, Texture thumbnail, MechUpgrade upgrade_type)
 	{
 		this.title = title;
 		this.description = description; 
@@ -167,6 +176,7 @@ public struct UpgradeEntry{
 		this.plate_cost = plate_cost;
 		this.strut_cost = strut_cost;
 		this.ap_cost = ap_cost;
-		this.thumbnail = thumbnail;
+		this.thumbnail = thumbnail; 
+		this.upgrade_type = upgrade_type;
 	}
 }

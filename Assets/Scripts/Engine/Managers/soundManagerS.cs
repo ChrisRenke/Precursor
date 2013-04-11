@@ -74,19 +74,29 @@ public class soundManagerS : MonoBehaviour {
 		}
 	}
 	
-	public void playUpgradeMech(){
-		int choice = (int)UnityEngine.Random.Range(1F,2.99999F);
-		switch(choice)
+	public void playUpgradeMech(UpgradeCostFeedback feedback){
+		
+		switch(feedback)
 		{
-		case 1:
-		audio.PlayOneShot(upgrade_1);
-			break;
-			
-		case 2:
-		audio.PlayOneShot(scavenge_2);
-			break;
-			 
+			case UpgradeCostFeedback.Success:
+				int choice = (int)UnityEngine.Random.Range(1F,2.99999F);
+				switch(choice)
+				{
+					case 1:
+					audio.PlayOneShot(upgrade_1);
+						break;
+						
+					case 2:
+					audio.PlayOneShot(scavenge_2);
+						break; 
+				}
+				break;
+			case UpgradeCostFeedback.NeedMoreAP:
+				break;
+			case UpgradeCostFeedback.NeedMoreParts:
+				break;
 		}
+		
 	}
 	
 	

@@ -111,19 +111,19 @@ public class inPlayMenuS : MonoBehaviour {
 //		}
 		   
 		
-//		 //Mech Button  
-//		 if(GUI.Button(new Rect(160, screen_size_y - 54, 50, 50), "", mech_button_style)) {
-//		    
-//			if(gameManagerS.current_level != Level.Level0){
-//				displayMechUpgradeMenu();
-//			}else{
-//					//get popup menu
-//				
-//				popup.custom_rect = new Rect(screen_size_x /2 - screen_size_x /9 - screen_size_x /25, screen_size_y/2 - screen_size_y/10, screen_size_x - (screen_size_x /2 + screen_size_x /5), screen_size_y/4);
-//				popup.custom_text = "This menu looks much too cool for now.\nYou decide you'll check it out later"; //not enough ap	
-//				popup.custom_popup = true;
-//			}
-//		}
+		 //Mech Button  
+		 if(GUI.Button(new Rect(160, screen_size_y - 54, 50, 50), "", mech_button_style)) {
+		    
+			if(gameManagerS.current_level != Level.Level0){
+				displayMechUpgradeMenu();
+			}else{
+					//get popup menu
+				
+				popup.custom_rect = new Rect(screen_size_x /2 - screen_size_x /9 - screen_size_x /25, screen_size_y/2 - screen_size_y/10, screen_size_x - (screen_size_x /2 + screen_size_x /5), screen_size_y/4);
+				popup.custom_text = "This menu looks much too cool for now.\nYou decide you'll check it out later"; //not enough ap	
+				popup.custom_popup = true;
+			}
+		}
 //		 
 //		 //Health button
 //		 if(GUI.Button(new Rect(108, screen_size_y - 54, 50, 50), "",health_button_style)) {
@@ -215,8 +215,6 @@ public class inPlayMenuS : MonoBehaviour {
 	
 	
 	private static void disableEnemyHealthBars(){
-		entityEnemyS.show_health_bar = false;	
-		entityBaseS.show_health_bar  = false;	
 	}
 	
 	private static void enableEnemyHealthBars(){

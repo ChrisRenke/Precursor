@@ -31,11 +31,7 @@ public class hexManagerS : MonoBehaviour {
 
 	void Awake(){
 		
-		hex_display = hex_display_init;
-//		visibility_colors = new Dictionary<Vision, Color>();
-//		visibility_colors.Add(Vision.Live, Color.white);
-//		visibility_colors.Add(Vision.Unvisted, Color.black);
-//		visibility_colors.Add(Vision.Visited, Color.gray);
+		hex_display = hex_display_init; 
 		 
 		engineIOS ios      = GameObject.FindGameObjectWithTag("io_manager").GetComponent<engineIOS>();
 		if(!ios.LoadFromTextAsset())
