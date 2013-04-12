@@ -13,7 +13,7 @@ public class gameManagerS : MonoBehaviour {
 	public GameObject  selection_hex_input;
 	public static GameObject selection_hex;
 	
-	public static List<entityEnemyS>.Enumerator	enemy_enumerator;
+	public static List<entityEnemyS >.Enumerator	enemy_enumerator;
 	public static bool 	  					enemy_currently_acting = false;
 	
 	public static bool rebuilt_enemy_lcoations = false;

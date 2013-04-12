@@ -435,7 +435,7 @@ public class entityMechS : Combatable, IMove {
 		foreach(HexData hex in attackable_hexes)
 		{
 			hex.hex_script.can_attack_hex = true;
-			Debug.LogWarning("Enemy at hex :" + hex.x + "," + hex.z);
+			Debug.LogWarning("entityEnemyS at hex :" + hex.x + "," + hex.z);
 		} 
 	}
 	

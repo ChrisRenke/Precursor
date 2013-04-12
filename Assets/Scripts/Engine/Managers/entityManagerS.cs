@@ -7,7 +7,8 @@ public class entityManagerS : MonoBehaviour {
 	//Using dummy values for testing
 	public static entityBaseS base_s;
 	public static entityMechS mech_s;
-	public static List<entityEnemyS> enemy_list;
+	public static List<entityEnemyS > enemy_list;
+	public static List<Enemy > test_list;
 	public static List<entityNodeS> resource_node_list;
 	public static List<entitySpawnS> spawn_list;
 	public static Dictionary<int, int> spawnid_to_enemiesactive;
@@ -48,7 +49,8 @@ public class entityManagerS : MonoBehaviour {
 	void Awake () { 
 		base_s              = gameObject.GetComponent<entityBaseS>();
 	    mech_s  	 	    = gameObject.GetComponent<entityMechS>();
-		enemy_list 			= new List<entityEnemyS>();
+		enemy_list 			= new List<entityEnemyS >();
+		test_list			= new List<Enemy >();
 		resource_node_list  = new List<entityNodeS>(); 
 		spawn_list   		= new List<entitySpawnS>();
 		spawnid_to_enemiesactive = new Dictionary<int, int>();
@@ -127,7 +129,7 @@ public class entityManagerS : MonoBehaviour {
 		return mech_s;
 	}
 	
-	public static List<entityEnemyS> getEnemies(){
+	public static List<entityEnemyS > getEnemies(){
 		return enemy_list;
 	}
 	
@@ -159,7 +161,7 @@ public class entityManagerS : MonoBehaviour {
 			foreach(entityEnemyS enemy in enemy_list)
 				if(hex_x == enemy.x && hex_z == enemy.z)
 					return enemy;	
-			throw new System.Exception("Enemy present, but now found. Idk, this is broken, check enemy locations");
+			throw new System.Exception("entityEnemyS present, but now found. Idk, this is broken, check enemy locations");
 		}
 		
 		return null;
@@ -507,7 +509,7 @@ public class entityManagerS : MonoBehaviour {
 //		enemyDisplayS new_display = (enemyDisplayS) new_entity.AddComponent("enemyDisplayS");
 		
 		if(new_enemy_s == null)
-			throw new System.Exception("Enemy Entity not created properly D:");
+			throw new System.Exception("entityEnemyS Entity not created properly D:");
 		
 		new_enemy_s.x = x;
 		new_enemy_s.z = z;
@@ -724,7 +726,7 @@ public class entityManagerS : MonoBehaviour {
 	//Using dummy values for testing
 	public static entityBaseS base_s;
 	public static entityMechS mech_s;
-	public static List<entityEnemyS> enemy_list;
+	public static List<Enemy> enemy_list;
 	public static List<entityNodeS> resource_node_list;
 	public static List<entityNodeS> spawn_points;
 	
@@ -751,7 +753,7 @@ public class entityManagerS : MonoBehaviour {
 	void Awake () { 
 		base_s              = gameObject.GetComponent<entityBaseS>();
 	    mech_s  	 	    = gameObject.GetComponent<entityMechS>();
-		enemy_list 			= new List<entityEnemyS>();
+		enemy_list 			= new List<Enemy>();
 		resource_node_list  = new List<entityNodeS>(); 
 		spawn_points 		= new List<entityNodeS>();
 		
@@ -814,7 +816,7 @@ public class entityManagerS : MonoBehaviour {
 		return mech_s;
 	}
 	
-	public static List<entityEnemyS> getEnemies(){
+	public static List<Enemy> getEnemies(){
 		return enemy_list;
 	}
 	
@@ -846,7 +848,7 @@ public class entityManagerS : MonoBehaviour {
 			foreach(entityEnemyS enemy in enemy_list)
 				if(hex_x == enemy.x && hex_z == enemy.z)
 					return enemy;	
-			throw new System.Exception("Enemy present, but now found. Idk, this is broken, check enemy locations");
+			throw new System.Exception("entityEnemyS present, but now found. Idk, this is broken, check enemy locations");
 		}
 		
 		return null;
@@ -1035,11 +1037,11 @@ public class entityManagerS : MonoBehaviour {
 	public static bool instantiateEnemy(int x, int z, bool knows_base_location, bool knows_mech_location)
 	{
 		GameObject new_entity = instantiateEntity(x, z, EntityE.Enemy); 
-		entityEnemyS new_enemy_s = (entityEnemyS) new_entity.AddComponent("entityEnemyS");
+		entityEnemyS new_enemy_s = (Enemy) new_entity.AddComponent("Enemy");
 //		enemyDisplayS new_display = (enemyDisplayS) new_entity.AddComponent("enemyDisplayS");
 		
 		if(new_enemy_s == null)
-			throw new System.Exception("Enemy Entity not created properly D:");
+			throw new System.Exception("entityEnemyS Entity not created properly D:");
 		
 		new_enemy_s.x = x;
 		new_enemy_s.z = z;

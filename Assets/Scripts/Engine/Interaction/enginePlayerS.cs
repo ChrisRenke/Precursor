@@ -209,9 +209,9 @@ public class enginePlayerS : MonoBehaviour {
 		 	Vector2 move_direction = new Vector2(cursor_lr_axis, -cursor_ud_axis);
 //		 	
 			float move_angle = Vector2.Angle(Vector2.up, move_direction);
-			print("move_angle " + move_angle);
-		print("cursor_lr_axis " + cursor_lr_axis);
-		print("cursor_ud_axis " + cursor_ud_axis);
+			//print("move_angle " + move_angle);
+		//print("cursor_lr_axis " + cursor_lr_axis);
+		//print("cursor_ud_axis " + cursor_ud_axis);
 			if(cursor_ud_axis >  .5F || cursor_lr_axis >  .5F
 			|| cursor_ud_axis < -.5F || cursor_lr_axis < -.5F)
 			{
@@ -538,8 +538,8 @@ public class enginePlayerS : MonoBehaviour {
 	public GUIStyle menu_close_button;
 	
 	
-	private static bool mech_menu_displayed = true;
-	private static bool base_menu_displayed = true;
+	private static bool mech_menu_displayed = false;
+	private static bool base_menu_displayed = false;
 	 
 	public static void displayMechUpgradeMenu(){ mech_menu_displayed = true;	}
 	public static void displayBaseUpgradeMenu(){ base_menu_displayed = true; }
@@ -783,7 +783,14 @@ public class enginePlayerS : MonoBehaviour {
 				drawBaseMenuFilterButtons(89,0,"Armament", BaseUpgradeMode.Armament );   
 				drawBaseMenuFilterButtons(178,0,"Structure", BaseUpgradeMode.Structure);   
 				drawBaseMenuFilterButtons(267,0,"Utility", BaseUpgradeMode.Utility) ;
+		
 			GUI.EndGroup (); 
+		
+			if(GUI.Button(new Rect(329,17,30, 29),"",menu_close_button))
+				{
+					base_menu_displayed = false;
+					gameManagerS.mouse_over_gui = false;
+				}
 		GUI.EndGroup (); 
 	}
 	

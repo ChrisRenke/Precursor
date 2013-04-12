@@ -39,7 +39,7 @@ public class popUpMenu : MonoBehaviour {
 	private int screen_size_x;
 	private int screen_size_y;
 	
-	public Texture chris_parts;
+	//public Texture chris_parts;
 	
 	void Start(){
 		upgrade_popup = false;
@@ -87,12 +87,12 @@ public class popUpMenu : MonoBehaviour {
 			loadLevelPopup(custom_text,ref custom_rect,backboard);
 		
 		
-		GUI.DrawTexture(new Rect(screen_size_x - 245, screen_size_y - 104, 245, 104 ), chris_parts, ScaleMode.StretchToFill);
-		GUI.Label(new Rect(screen_size_x - 233, screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Piston].ToString(), enginePlayerS.gui_norm_text_black_static);
-	 	GUI.Label(new Rect(screen_size_x - 173, screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Gear].ToString(),   enginePlayerS.gui_norm_text_black_static);
-	 	GUI.Label(new Rect(screen_size_x - 112, screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Plate].ToString(),  enginePlayerS.gui_norm_text_black_static);
-	 	GUI.Label(new Rect(screen_size_x - 52 , screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Strut].ToString(),  enginePlayerS.gui_norm_text_black_static);
-			
+//		GUI.DrawTexture(new Rect(screen_size_x - 245, screen_size_y - 104, 245, 104 ), chris_parts, ScaleMode.StretchToFill);
+//		GUI.Label(new Rect(screen_size_x - 233, screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Piston].ToString(), enginePlayerS.gui_norm_text_black_static);
+//	 	GUI.Label(new Rect(screen_size_x - 173, screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Gear].ToString(),   enginePlayerS.gui_norm_text_black_static);
+//	 	GUI.Label(new Rect(screen_size_x - 112, screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Plate].ToString(),  enginePlayerS.gui_norm_text_black_static);
+//	 	GUI.Label(new Rect(screen_size_x - 52 , screen_size_y - 52, 43, 43 ), entityMechS.part_count[Part.Strut].ToString(),  enginePlayerS.gui_norm_text_black_static);
+//			
 			
 		
 	}
