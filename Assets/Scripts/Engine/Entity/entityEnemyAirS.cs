@@ -97,6 +97,13 @@ public class entityEnemyAirS : Enemy {
 		if(checkIfDead()){
 			//Debug.Log(this.GetInstanceID() + " is DEAD!!");
 			onDeath();
+			is_this_enemies_turn = false;
+			gameManagerS.enemy_currently_acting = false;
+			end_turn = false;
+			last_path_cost = 0;
+			path_to_base = new List<HexData>();
+			path_to_mech = new List<HexData>();
+			path_to_opponent = new List<HexData>();
 		}
 		else
 		{
@@ -284,7 +291,7 @@ public class entityEnemyAirS : Enemy {
 							}else{
 								int damage_done = -1;
 								damage_done = attackTarget (target);
-								onDeath();
+								current_hp = 0;
 							}
 						}else{
 							//nothing in attackable range so try to move randomly
@@ -331,11 +338,11 @@ public class entityEnemyAirS : Enemy {
 							int damage_done = -1;
 							if(chosen_path_is_mech){
 								damage_done = attackTarget (mech_s);
-								onDeath();
+								current_hp = 0;
 								//Debug.Log ("Target is Mech , damage done = " + damage_done);
 							}else if (chosen_path_is_base){
 								damage_done = attackTarget (base_s);
-								onDeath();
+								current_hp = 0;
 								//Debug.Log ("Target is Base , damage done = " + damage_done);
 							}else{
 								//Debug.Log ("ERROR: ATTACK opponent, wasn't an attackable opponent, damage done = " + damage_done);
@@ -353,7 +360,7 @@ public class entityEnemyAirS : Enemy {
 							}else{
 								int damage_done = -1;
 								damage_done = attackTarget (target);
-								onDeath();
+								current_hp = 0;
 							}
 						}else{
 							//move enemy to next position

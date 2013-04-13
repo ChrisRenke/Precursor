@@ -310,11 +310,11 @@ public class enginePlayerS : MonoBehaviour {
 		
 		
 		
-		if(Input.GetKeyDown(KeyCode.Space) && Input.GetKeyDown(KeyCode.LeftControl))
-		{
-			gameManagerS.forcePlayerTurn();
-		}
-		if(Input.GetKeyDown(KeyCode.Space))
+//		if(Input.GetKeyDown(KeyCode.Space) && Input.GetKeyDown(KeyCode.LeftControl))
+//		{
+//			gameManagerS.forcePlayerTurn();
+//		}
+		if(Input.GetKeyDown(KeyCode.Space) & gameManagerS.current_turn == Turn.Player)
 		{
 			gameManagerS.endPlayerTurn();
 		}

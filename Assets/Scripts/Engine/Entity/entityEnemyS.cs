@@ -9,8 +9,6 @@ public class entityEnemyS : Enemy {
 	private HexData last_move; //Can't Move Backwards unless can't move anywhere else; 
 	
 	public static bool show_health_bar = true;
-		
-	//Vector3 center_top;
 	
 	int t = 0; //test
 	
@@ -34,7 +32,6 @@ public class entityEnemyS : Enemy {
 		attack_range = 2;
 		attack_damage = 4;
 		last_move = hexManagerS.getHex(x,z); //last move = current position  
-		
 		
 //        while (i < vertices.Length) {
 //			print (vertices[i].z);
@@ -281,14 +278,12 @@ public class entityEnemyS : Enemy {
 						//check to see if enemy is in attackable range
 						Combatable target = targetInAttackRange(base_s, mech_s);						
 						if(target != null){
-							print ("MADE IT!!!");
 							if(current_ap - attack_cost < 0){
 								//Debug.Log ("Update 5:6: Can't attack, not enough ap, so END TURN");
 								end_turn = true;
 							}else{
 								int damage_done = -1;
 								damage_done = attackTarget (target);
-								print ("HIT IT");
 							}
 						}else{
 							//nothing in attackable range so try to move randomly
@@ -355,6 +350,7 @@ public class entityEnemyS : Enemy {
 							}else{
 								int damage_done = -1;
 								damage_done = attackTarget (target);
+								current_hp = 0;
 							}
 						}else{
 							//move enemy to next position

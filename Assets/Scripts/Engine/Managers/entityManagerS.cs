@@ -191,7 +191,9 @@ public class entityManagerS : MonoBehaviour {
 	{
 		createDeathEffect(dead_enemy.x, dead_enemy.z);
 		sm.playExplodeEnemy();
-		enemy_list.Remove(dead_enemy);
+		if(gameManagerS.current_turn != Turn.Enemy){
+			enemy_list.Remove(dead_enemy);
+		}
 		spawnid_to_enemiesactive[dead_enemy.spawner_owner]--;
 		hexManagerS.getHex(dead_enemy.x, dead_enemy.z).hex_script.can_attack_hex = false;
 		DestroyImmediate(dead_enemy.gameObject);

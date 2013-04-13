@@ -276,8 +276,13 @@ public class gameManagerS : MonoBehaviour {
 						}
 						else //if there are no more enemies to move, then its the players turn again
 						{
-							foreach(entityEnemyS current_enemy in entityManagerS.enemy_list)
+							List<entityEnemyS> result = new List<entityEnemyS>();
+							foreach(entityEnemyS current_enemy in entityManagerS.enemy_list){
 								current_enemy.current_ap = current_enemy.max_ap;
+								if(!current_enemy.checkIfDead())
+									result.Add(current_enemy);		
+							}
+							entityManagerS.enemy_list = result; //update enemy list to account for enemies that exploded
 							current_turn = Turn.Player;
 							spawned_enemies_this_round = false;
 							posted_this_round = false;
