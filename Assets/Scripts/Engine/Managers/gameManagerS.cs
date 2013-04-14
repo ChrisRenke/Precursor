@@ -13,7 +13,8 @@ public class gameManagerS : MonoBehaviour {
 	public GameObject  selection_hex_input;
 	public static GameObject selection_hex;
 	
-	public static List<entityEnemyS >.Enumerator	enemy_enumerator;
+	//public static List<entityEnemyS >.Enumerator	enemy_enumerator;
+	public static List<Enemy >.Enumerator	enemy_enumerator;
 	public static bool 	  					enemy_currently_acting = false;
 	
 	public static bool rebuilt_enemy_lcoations = false;
@@ -270,14 +271,21 @@ public class gameManagerS : MonoBehaviour {
 					
 						if(enemy_enumerator.MoveNext())
 				 		{
-							entityEnemyS current_enemy = enemy_enumerator.Current;
+							//entityEnemyS current_enemy = enemy_enumerator.Current;
+							Enemy current_enemy = enemy_enumerator.Current;
 							current_enemy.is_this_enemies_turn = true;
 							enemy_currently_acting = true;
 						}
 						else //if there are no more enemies to move, then its the players turn again
 						{
-							List<entityEnemyS> result = new List<entityEnemyS>();
-							foreach(entityEnemyS current_enemy in entityManagerS.enemy_list){
+//							List<entityEnemyS> result = new List<entityEnemyS>();
+//							foreach(entityEnemyS current_enemy in entityManagerS.enemy_list){
+//								current_enemy.current_ap = current_enemy.max_ap;
+//								if(!current_enemy.checkIfDead())
+//									result.Add(current_enemy);		
+//							}
+							List<Enemy> result = new List<Enemy>();
+							foreach(Enemy current_enemy in entityManagerS.enemy_list){
 								current_enemy.current_ap = current_enemy.max_ap;
 								if(!current_enemy.checkIfDead())
 									result.Add(current_enemy);		

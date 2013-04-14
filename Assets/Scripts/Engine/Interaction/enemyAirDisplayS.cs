@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class enemyDisplayS : MonoBehaviour {
+public class enemyAirDisplayS : MonoBehaviour {
 		//vars for the whole sheet
 	public int colCount    = 4;
 	public int rowCount    = 2;
@@ -19,7 +19,7 @@ public class enemyDisplayS : MonoBehaviour {
   	//Maybe this should be a private var
     private Vector2 offset;
 	
-	private entityEnemyGroundS owner;
+	private entityEnemyAirS owner;
 	private int col_index=0;
 	private int row_index=0;
 	
@@ -58,7 +58,7 @@ public class enemyDisplayS : MonoBehaviour {
 	
 	void Start()
 	{
-		owner = gameObject.GetComponent<entityEnemyGroundS>();
+		owner = gameObject.GetComponent<entityEnemyAirS>();
 	}
  
 

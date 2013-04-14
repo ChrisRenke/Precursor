@@ -24,7 +24,8 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 	public double mech_weight = 5;
 	
 	public bool knows_mech_location;
-	public bool knows_base_location;	
+	public bool knows_base_location;
+	public int enemy_type;
 	
 	public bool is_this_enemies_turn;
 	

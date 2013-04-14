@@ -328,7 +328,8 @@ public class entityMechS : Combatable, IMove {
 			entityManagerS.sm.playGunNormal();
 		
 		Debug.LogWarning("ABOUT TO ATTCK ENTITY ON - "+ att_x + "," + att_z);
-		entityEnemyS target = entityManagerS.getEnemyAt(att_x, att_z);
+//		entityEnemyS target = entityManagerS.getEnemyAt(att_x, att_z);
+		Enemy target = entityManagerS.getEnemyAt(att_x, att_z);
 		current_ap -= getAttackAPCost();
 		
 		int enemy_hp_left = 15;

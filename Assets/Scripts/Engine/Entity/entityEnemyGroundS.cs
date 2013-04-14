@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class entityEnemyS : Enemy {
+public class entityEnemyGroundS : Enemy {
 	private bool   end_turn;
 	private HexData last_move; //Can't Move Backwards unless can't move anywhere else; 
 	
@@ -32,7 +32,7 @@ public class entityEnemyS : Enemy {
 		attack_range = 2;
 		attack_damage = 4;
 		last_move = hexManagerS.getHex(x,z); //last move = current position  
-		
+		enemy_type = 0;
 //        while (i < vertices.Length) {
 //			print (vertices[i].z);
 ////            vertices[i] += Vector3.up * Time.deltaTime;
@@ -350,7 +350,6 @@ public class entityEnemyS : Enemy {
 							}else{
 								int damage_done = -1;
 								damage_done = attackTarget (target);
-								current_hp = 0;
 							}
 						}else{
 							//move enemy to next position

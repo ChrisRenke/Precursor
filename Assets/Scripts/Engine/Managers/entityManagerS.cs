@@ -7,8 +7,8 @@ public class entityManagerS : MonoBehaviour {
 	//Using dummy values for testing
 	public static entityBaseS base_s;
 	public static entityMechS mech_s;
-	public static List<entityEnemyS > enemy_list;
-	public static List<Enemy > test_list;
+	//public static List<entityEnemyS > enemy_list;
+	public static List<Enemy > enemy_list;
 	public static List<entityNodeS> resource_node_list;
 	public static List<entitySpawnS> spawn_list;
 	public static Dictionary<int, int> spawnid_to_enemiesactive;
@@ -26,6 +26,7 @@ public class entityManagerS : MonoBehaviour {
 	public GameObject base_entity;
 	public GameObject player_entity;
 	public GameObject enemy_entity;
+	public GameObject enemy_air_entity;
 	public GameObject node_entity;
 	public GameObject spawn_entity;
 	
@@ -49,8 +50,8 @@ public class entityManagerS : MonoBehaviour {
 	void Awake () { 
 		base_s              = gameObject.GetComponent<entityBaseS>();
 	    mech_s  	 	    = gameObject.GetComponent<entityMechS>();
-		enemy_list 			= new List<entityEnemyS >();
-		test_list			= new List<Enemy >();
+		//enemy_list 			= new List<entityEnemyS >();
+		enemy_list			= new List<Enemy >();
 		resource_node_list  = new List<entityNodeS>(); 
 		spawn_list   		= new List<entitySpawnS>();
 		spawnid_to_enemiesactive = new Dictionary<int, int>();
@@ -63,6 +64,7 @@ public class entityManagerS : MonoBehaviour {
 		entity_dict.Add(EntityE.Base, base_entity);
 		entity_dict.Add(EntityE.Player, player_entity);
 		entity_dict.Add(EntityE.Enemy, enemy_entity);
+		entity_dict.Add(EntityE.EnemyAir, enemy_air_entity);
 		entity_dict.Add(EntityE.Spawn, spawn_entity);
 		
 		node_dict.Add(Node.Factory, node_entity);
@@ -129,7 +131,11 @@ public class entityManagerS : MonoBehaviour {
 		return mech_s;
 	}
 	
-	public static List<entityEnemyS > getEnemies(){
+//	public static List<entityEnemyS > getEnemies(){
+//		return enemy_list;
+//	}
+	
+	public static List<Enemy > getEnemies(){
 		return enemy_list;
 	}
 	
@@ -137,9 +143,17 @@ public class entityManagerS : MonoBehaviour {
 		return resource_node_list; 
 	}
 	
-	public static entityEnemyS getEnemyAt(int hex_x, int hex_z)
+//	public static entityEnemyS getEnemyAt(int hex_x, int hex_z)
+//	{
+//		foreach(entityEnemyS enemy in enemy_list)
+//			if(hex_x == enemy.x && hex_z == enemy.z)
+//				return enemy;	
+//		return null;
+//	}
+	
+	public static Enemy getEnemyAt(int hex_x, int hex_z)
 	{
-		foreach(entityEnemyS enemy in enemy_list)
+		foreach(Enemy enemy in enemy_list)
 			if(hex_x == enemy.x && hex_z == enemy.z)
 				return enemy;	
 		return null;
@@ -156,12 +170,19 @@ public class entityManagerS : MonoBehaviour {
 			return base_s;
 		if(!isEntityPos(hex_x, hex_z, EntityE.Player))
 			return mech_s;
+//		if(!isEntityPos(hex_x, hex_z, EntityE.Enemy))
+//		{
+//			foreach(entityEnemyS enemy in enemy_list)
+//				if(hex_x == enemy.x && hex_z == enemy.z)
+//					return enemy;	
+//			throw new System.Exception("entityEnemyS present, but now found. Idk, this is broken, check enemy locations");
+//		}
 		if(!isEntityPos(hex_x, hex_z, EntityE.Enemy))
 		{
-			foreach(entityEnemyS enemy in enemy_list)
+			foreach(Enemy enemy in enemy_list)
 				if(hex_x == enemy.x && hex_z == enemy.z)
 					return enemy;	
-			throw new System.Exception("entityEnemyS present, but now found. Idk, this is broken, check enemy locations");
+			throw new System.Exception("Enemy present, but now found. Idk, this is broken, check enemy locations");
 		}
 		
 		return null;
@@ -187,7 +208,19 @@ public class entityManagerS : MonoBehaviour {
 		Instantiate( particle_tele_s, CoordsGameTo3DEntiy(x, z) + new Vector3(0,-2F, 0), Quaternion.identity);
 	}
 	
-	public static void purgeEnemy(entityEnemyS dead_enemy)
+//	public static void purgeEnemy(entityEnemyS dead_enemy)
+//	{
+//		createDeathEffect(dead_enemy.x, dead_enemy.z);
+//		sm.playExplodeEnemy();
+//		if(gameManagerS.current_turn != Turn.Enemy){
+//			enemy_list.Remove(dead_enemy);
+//		}
+//		spawnid_to_enemiesactive[dead_enemy.spawner_owner]--;
+//		hexManagerS.getHex(dead_enemy.x, dead_enemy.z).hex_script.can_attack_hex = false;
+//		DestroyImmediate(dead_enemy.gameObject);
+//		
+//	}
+	public static void purgeEnemy(Enemy dead_enemy)
 	{
 		createDeathEffect(dead_enemy.x, dead_enemy.z);
 		sm.playExplodeEnemy();
@@ -277,8 +310,10 @@ public class entityManagerS : MonoBehaviour {
 //		}
 		foreach(entityNodeS node in resource_node_list)
 			node.updateFoWState();
-		foreach(entityEnemyS enemy in enemy_list)
-			enemy.updateFoWState(); 
+//		foreach(entityEnemyS enemy in enemy_list)
+//			enemy.updateFoWState(); 
+		foreach(Enemy enemy in enemy_list)
+			enemy.updateFoWState();
 		foreach(entitySpawnS spawn in spawn_list)
 			spawn.updateFoWState();
 		
@@ -333,13 +368,21 @@ public class entityManagerS : MonoBehaviour {
 				}
 				return false;
 				
+//			case EntityE.Enemy:
+//				if(enemy_list != null){
+//					foreach(entityEnemyS enemy in enemy_list)
+//						if(hex_x == enemy.x && hex_z == enemy.z)
+//							return true;
+//				}
+//				return false;
 			case EntityE.Enemy:
 				if(enemy_list != null){
-					foreach(entityEnemyS enemy in enemy_list)
+					foreach(Enemy enemy in enemy_list)
 						if(hex_x == enemy.x && hex_z == enemy.z)
 							return true;
 				}
 				return false;
+			
 			
 			default:
 				return false;
@@ -486,7 +529,7 @@ public class entityManagerS : MonoBehaviour {
 	
 	
 	public static bool instantiateSpawn(int x, int z, int spawner_id_number, string spawner_cadence, 
-		bool spawned_enemies_know_mech_location, bool spawned_enemies_know_base_location){
+		bool spawned_enemies_know_mech_location, bool spawned_enemies_know_base_location, int spawned_enemy_type){
 		 
 		GameObject new_entity = instantiateEntity(x, z, EntityE.Spawn); 
 		entitySpawnS spawn_s = (entitySpawnS) new_entity.AddComponent("entitySpawnS");
@@ -496,6 +539,7 @@ public class entityManagerS : MonoBehaviour {
 		spawn_s.spawner_id_number = spawner_id_number; 
 		spawn_s.spawned_enemies_know_mech_location = spawned_enemies_know_mech_location;
 		spawn_s.spawned_enemies_know_base_location = spawned_enemies_know_base_location;
+		spawn_s.enemy_type = spawned_enemy_type;
 		spawn_s.createCadence(spawner_cadence); 
 		spawn_s.SetVisiual();
 		spawn_list.Add(spawn_s);
@@ -504,10 +548,19 @@ public class entityManagerS : MonoBehaviour {
 					
 	//create a base for the level
 	public static bool instantiateEnemy(int x, int z, int enemy_current_hp, int enemy_max_hp, 
-		int enemy_spawner_id_number, bool enemy_knows_base_loc, bool enemy_knows_mech_loc)
+		int enemy_spawner_id_number, bool enemy_knows_base_loc, bool enemy_knows_mech_loc, int enemy_type)
 	{
-		GameObject new_entity = instantiateEntity(x, z, EntityE.Enemy); 
-		entityEnemyS new_enemy_s = (entityEnemyS) new_entity.AddComponent("entityEnemyS");
+		GameObject new_entity; 
+		Enemy new_enemy_s;
+		if(enemy_type == 0){
+			new_entity = instantiateEntity(x, z, EntityE.Enemy); 
+			new_enemy_s = (Enemy) new_entity.AddComponent("entityEnemyGroundS");
+		}else{
+			new_entity = instantiateEntity(x, z, EntityE.EnemyAir); 
+			new_enemy_s = (Enemy) new_entity.AddComponent("entityEnemyAirS");
+		}
+
+		//entityEnemyS new_enemy_s = (entityEnemyS) new_entity.AddComponent("entityEnemyS");
 //		enemyDisplayS new_display = (enemyDisplayS) new_entity.AddComponent("enemyDisplayS");
 		
 		if(new_enemy_s == null)
@@ -521,6 +574,7 @@ public class entityManagerS : MonoBehaviour {
 		new_enemy_s.spawner_owner = enemy_spawner_id_number;		
 		new_enemy_s.knows_base_location = enemy_knows_base_loc;
 		new_enemy_s.knows_mech_location = enemy_knows_mech_loc;
+		new_enemy_s.enemy_type = enemy_type;
 		enemy_list.Add(new_enemy_s);
 	
 		//past the first turn of the game, spawned enemies manage their own presence in the spawner number data shit
@@ -622,7 +676,14 @@ public class entityManagerS : MonoBehaviour {
 	 
 	
 	public static void buildEnemySpawnCounts(){
-		foreach(entityEnemyS enemy in enemy_list)
+//		foreach(entityEnemyS enemy in enemy_list)
+//		{
+//			if(spawnid_to_enemiesactive.ContainsKey(enemy.spawner_owner))
+//				spawnid_to_enemiesactive[enemy.spawner_owner]++;
+//			else
+//				spawnid_to_enemiesactive.Add(enemy.spawner_owner, 1);
+//		}
+		foreach(Enemy enemy in enemy_list)
 		{
 			if(spawnid_to_enemiesactive.ContainsKey(enemy.spawner_owner))
 				spawnid_to_enemiesactive[enemy.spawner_owner]++;
@@ -653,7 +714,7 @@ public class entityManagerS : MonoBehaviour {
 					!(entityManagerS.getMech().x == spawn.x && entityManagerS.getMech().z == spawn.z))
 				{
 					instantiateEnemy(spawn.x, spawn.z, enemy_starting_hp, enemy_max_hp, spawn.spawner_id_number,
-						spawn.spawned_enemies_know_base_location, spawn.spawned_enemies_know_mech_location);
+						spawn.spawned_enemies_know_base_location, spawn.spawned_enemies_know_mech_location, spawn.enemy_type);
 					
 //					Debug.LogWarning("SPAWNED AN ENEMY FROM SPAWNERID " + spawn.spawner_id_number);
 				}

@@ -29,9 +29,9 @@ public class entityEnemyAirS : Enemy {
 		max_ap = 5;
 		attack_cost = 4;
 		attack_range = 2;
-		attack_damage = 4;
+		attack_damage = 6;
 		last_move = hexManagerS.getHex(x,z); //last move = current position  
-		
+		enemy_type = 1;
 		
 //        while (i < vertices.Length) {
 //			print (vertices[i].z);
@@ -488,7 +488,7 @@ public class entityEnemyAirS : Enemy {
 	
 	public override bool onDeath()
 	{
-//		entityManagerS.purgeEnemy(this);
+		entityManagerS.purgeEnemy(this);
 		return false;
 	}
 }

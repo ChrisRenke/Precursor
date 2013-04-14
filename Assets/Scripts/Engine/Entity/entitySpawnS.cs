@@ -6,7 +6,7 @@ using System;
 public class entitySpawnS : Entity {
 	
 	public readonly EntityE   entity_type = EntityE.Spawn;
-	
+	public int enemy_type;
 	public int spawner_id_number; 
 	public bool spawned_enemies_know_mech_location;
 	public bool spawned_enemies_know_base_location;

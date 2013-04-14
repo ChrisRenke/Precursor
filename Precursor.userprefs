@@ -1,19 +1,33 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Engine\Interaction\enginePlayerS.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Engine\Entity\entityEnemyGroundS.cs">
     <Files>
-      <File FileName="Assets\Scripts\Engine\Entity\entityEnemyS.cs" Line="388" Column="37" />
-      <File FileName="Assets\Scripts\Engine\Entity\entityBaseS.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Engine\Menus\inPlayMenuS.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Engine\Interaction\enginePlayerS.cs" Line="798" Column="29" />
-      <File FileName="Assets\Scripts\Engine\Entity\entityS.cs" Line="159" Column="3" />
-      <File FileName="Assets\Scripts\Engine\Entity\interfacesS.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Engine\Entity\Enemy.cs" Line="410" Column="2" />
+      <File FileName="Assets\Scripts\Engine\Managers\entityManagerS.cs" Line="557" Column="69" />
+      <File FileName="Assets\Scripts\Engine\Entity\entityBaseS.cs" Line="431" Column="76" />
+      <File FileName="Assets\Scripts\Engine\Interaction\enginePlayerS.cs" Line="561" Column="1" />
+      <File FileName="Assets\Scripts\Engine\Entity\entityS.cs" Line="168" Column="33" />
+      <File FileName="Assets\Scripts\Engine\Entity\Enemy.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Engine\Entity\entityEnemyAirS.cs" Line="32" Column="20" />
+      <File FileName="Assets\Scripts\Engine\Managers\gameManagerS.cs" Line="215" Column="30" />
+      <File FileName="Assets\Scripts\Engine\Managers\engineIOS.cs" Line="207" Column="24" />
+      <File FileName="Assets\Scripts\Engine\Interaction\enemyDisplayS.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Engine\Entity\entityEnemyGroundS.cs" Line="75" Column="114" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Entity\Enemy.cs" line="379" />
+      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="11" />
+      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Entity\Enemy.cs" line="28" />
+      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Entity\entitySpawnS.cs" line="9" />
+      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\engineIOS.cs" line="196" />
+      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="54" />
+      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="550" />
+      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="542" />
+      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="563" />
+      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="577" />
+      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Entity\entityBaseS.cs" line="406" />
+      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="716" />
+      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\engineIOS.cs" line="207" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

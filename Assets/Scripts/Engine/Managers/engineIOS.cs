@@ -193,7 +193,8 @@ public class engineIOS : MonoBehaviour {
 					string spawner_cadence = getStringR(level_lines[index++]);
 					bool spawned_enemies_know_mech_location = getBoolR(level_lines[index++]);
 					bool spawned_enemies_know_base_location = getBoolR(level_lines[index++]); 
-					entityManagerS.instantiateSpawn(x, z, spawner_id_number, spawner_cadence, spawned_enemies_know_mech_location, spawned_enemies_know_base_location);
+					int spawned_enemy_type = 0; //TODO: 0 = ground / 1 = air
+					entityManagerS.instantiateSpawn(x, z, spawner_id_number, spawner_cadence, spawned_enemies_know_mech_location, spawned_enemies_know_base_location, spawned_enemy_type);
 					break;
 				
 				case editor_entity.Enemy:
@@ -203,7 +204,8 @@ public class engineIOS : MonoBehaviour {
 					int enemy_spawner_id_number =  getIntR(level_lines[index++]);
 					bool enemy_knows_mech_loc = getBoolR(level_lines[index++]);
 					bool enemy_knows_base_loc = getBoolR(level_lines[index++]);
-					if(!entityManagerS.instantiateEnemy(x, z, enemy_current_hp, enemy_max_hp, enemy_spawner_id_number, enemy_knows_base_loc, enemy_knows_mech_loc))
+					int enemy_type = 0; //TODO: 0 = ground / 1 = air
+					if(!entityManagerS.instantiateEnemy(x, z, enemy_current_hp, enemy_max_hp, enemy_spawner_id_number, enemy_knows_base_loc, enemy_knows_mech_loc, enemy_type))
 						throw new System.Exception("Issue adding enemy!");
 					break;
 				

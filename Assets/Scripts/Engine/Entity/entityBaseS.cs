@@ -170,7 +170,8 @@ public class entityBaseS : Combatable {
 						}
 						
 						//Check to see if base can attack
-						entityEnemyS enemy_s = getWeakestEnemy();
+						//entityEnemyS enemy_s = getWeakestEnemy();
+						Enemy enemy_s = getWeakestEnemy();
 						if(enemy_s != null){	
 							if(current_ap - attack_cost < 0){
 								//Debug.Log ("Can't attack, not enough ap, so END TURN");
@@ -402,13 +403,39 @@ public class entityBaseS : Combatable {
 //			return true;
 	
 	//return script of weakest enemy, this method seems slow, may adjust later
-	entityEnemyS getWeakestEnemy(){
+//	entityEnemyS getWeakestEnemy(){
+//		int low_health = 9999;
+//		entityEnemyS final_weak_enemy = null;
+//		//get all hexes in attack range
+//		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z,attack_range)){
+//				//check to see if enemy is at hex
+//				entityEnemyS weak_enemy = entityManagerS.getEnemyAt(h.x, h.z);
+//				if(weak_enemy != null){
+//					if( weak_enemy.current_hp < low_health){
+//						//Debug.Log("Weakest enemy is: " + weak_enemy.x + ":" + weak_enemy.z);
+//						low_health = weak_enemy.current_hp;
+//						final_weak_enemy = weak_enemy;
+//					}
+//				}
+//		}
+//		
+//		if(low_health == 9999){ 
+//			//Debug.Log ("no enemy's in attack range");
+//			return null;
+//		}
+//		
+//		return final_weak_enemy;
+//		
+//	}
+	
+	//return script of weakest enemy, this method seems slow, may adjust later
+	Enemy getWeakestEnemy(){
 		int low_health = 9999;
-		entityEnemyS final_weak_enemy = null;
+		Enemy final_weak_enemy = null;
 		//get all hexes in attack range
 		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z,attack_range)){
 				//check to see if enemy is at hex
-				entityEnemyS weak_enemy = entityManagerS.getEnemyAt(h.x, h.z);
+				Enemy weak_enemy = entityManagerS.getEnemyAt(h.x, h.z);
 				if(weak_enemy != null){
 					if( weak_enemy.current_hp < low_health){
 						//Debug.Log("Weakest enemy is: " + weak_enemy.x + ":" + weak_enemy.z);
