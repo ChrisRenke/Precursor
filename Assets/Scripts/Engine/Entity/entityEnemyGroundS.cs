@@ -32,7 +32,6 @@ public class entityEnemyGroundS : Enemy {
 		attack_range = 2;
 		attack_damage = 4;
 		last_move = hexManagerS.getHex(x,z); //last move = current position  
-		enemy_type = 0;
 //        while (i < vertices.Length) {
 //			print (vertices[i].z);
 ////            vertices[i] += Vector3.up * Time.deltaTime;

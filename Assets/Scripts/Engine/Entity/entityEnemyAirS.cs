@@ -31,7 +31,6 @@ public class entityEnemyAirS : Enemy {
 		attack_range = 2;
 		attack_damage = 6;
 		last_move = hexManagerS.getHex(x,z); //last move = current position  
-		enemy_type = 1;
 		
 //        while (i < vertices.Length) {
 //			print (vertices[i].z);

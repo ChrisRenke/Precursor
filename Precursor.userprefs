@@ -1,15 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Engine\Entity\entityEnemyGroundS.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Engine\Managers\engineIOS.cs">
     <Files>
-      <File FileName="Assets\Scripts\Engine\Managers\entityManagerS.cs" Line="557" Column="69" />
-      <File FileName="Assets\Scripts\Engine\Entity\entityBaseS.cs" Line="431" Column="76" />
-      <File FileName="Assets\Scripts\Engine\Interaction\enginePlayerS.cs" Line="561" Column="1" />
-      <File FileName="Assets\Scripts\Engine\Entity\entityS.cs" Line="168" Column="33" />
-      <File FileName="Assets\Scripts\Engine\Entity\Enemy.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Engine\Entity\entityEnemyAirS.cs" Line="32" Column="20" />
-      <File FileName="Assets\Scripts\Engine\Managers\gameManagerS.cs" Line="215" Column="30" />
       <File FileName="Assets\Scripts\Engine\Managers\engineIOS.cs" Line="207" Column="24" />
+      <File FileName="Assets\Scripts\Engine\Managers\entityManagerS.cs" Line="557" Column="69" />
+      <File FileName="Assets\Scripts\Engine\Interaction\enginePlayerS.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Engine\Entity\entityS.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Engine\Entity\Enemy.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Engine\Entity\entityEnemyAirS.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Engine\Managers\gameManagerS.cs" Line="215" Column="30" />
       <File FileName="Assets\Scripts\Engine\Interaction\enemyDisplayS.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Engine\Entity\entityEnemyGroundS.cs" Line="75" Column="114" />
     </Files>

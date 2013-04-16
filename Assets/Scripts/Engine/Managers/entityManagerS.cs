@@ -529,7 +529,7 @@ public class entityManagerS : MonoBehaviour {
 	
 	
 	public static bool instantiateSpawn(int x, int z, int spawner_id_number, string spawner_cadence, 
-		bool spawned_enemies_know_mech_location, bool spawned_enemies_know_base_location, int spawned_enemy_type){
+		bool spawned_enemies_know_mech_location, bool spawned_enemies_know_base_location, EntityE spawned_enemy_type){
 		 
 		GameObject new_entity = instantiateEntity(x, z, EntityE.Spawn); 
 		entitySpawnS spawn_s = (entitySpawnS) new_entity.AddComponent("entitySpawnS");
@@ -548,11 +548,11 @@ public class entityManagerS : MonoBehaviour {
 					
 	//create a base for the level
 	public static bool instantiateEnemy(int x, int z, int enemy_current_hp, int enemy_max_hp, 
-		int enemy_spawner_id_number, bool enemy_knows_base_loc, bool enemy_knows_mech_loc, int enemy_type)
+		int enemy_spawner_id_number, bool enemy_knows_base_loc, bool enemy_knows_mech_loc, EntityE enemy_type)
 	{
 		GameObject new_entity; 
 		Enemy new_enemy_s;
-		if(enemy_type == 0){
+		if(enemy_type == EntityE.Enemy){
 			new_entity = instantiateEntity(x, z, EntityE.Enemy); 
 			new_enemy_s = (Enemy) new_entity.AddComponent("entityEnemyGroundS");
 		}else{

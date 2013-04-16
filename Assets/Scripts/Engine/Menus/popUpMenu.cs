@@ -34,12 +34,16 @@ public class popUpMenu : MonoBehaviour {
 	//custom variables
 	public string custom_text = "";
 	public Rect custom_rect = new Rect(0,0,0,0);
+	public GUIStyle custom_backboard;
 		
 	//Window size
 	private int screen_size_x;
 	private int screen_size_y;
+	private float savedTimeScale;
 	
 	//public Texture chris_parts;
+	//Get PopUp Menu
+	popUpMenu script_popup;
 	
 	void Start(){
 		upgrade_popup = false;
@@ -47,6 +51,7 @@ public class popUpMenu : MonoBehaviour {
 		level_choice = 0;
 		activate = false;
 		custom_popup = false;
+		script_popup = GetComponent<popUpMenu>();
 	}
 	
 	//Update is called once per frame
@@ -77,11 +82,17 @@ public class popUpMenu : MonoBehaviour {
 				upgrade_popup = false;
 		}
 		
-		if(custom_popup)
-			customPopUpBox(custom_text,ref custom_rect,backboard);
+		if(custom_popup){
+			//pause the game
+			savedTimeScale = Time.timeScale;
+		    Time.timeScale = 0;
+		    //Show the pause menu
+			customPopUpBox(custom_text,ref custom_rect,custom_backboard);
+		}
 		
-		if(game_over_popup)
+		if(game_over_popup){
 			gameOverPopup(custom_text,ref custom_rect,backboard);
+		}
 		
 		if(load_level_popup)
 			loadLevelPopup(custom_text,ref custom_rect,backboard);
@@ -208,6 +219,7 @@ public class popUpMenu : MonoBehaviour {
 		//The Pop Up box
 		
 		if(GUI.Button(rec, text, style)){
+			Time.timeScale = savedTimeScale; 
 			custom_popup = false;
 		}
 	}

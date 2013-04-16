@@ -25,7 +25,7 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 	
 	public bool knows_mech_location;
 	public bool knows_base_location;
-	public int enemy_type;
+	public EntityE enemy_type;
 	
 	public bool is_this_enemies_turn;
 	
