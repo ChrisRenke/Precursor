@@ -412,8 +412,8 @@ public class entityManagerS : MonoBehaviour {
 	
 	
 	//create a base for the level
-	public static bool instantiateBase(int x, int z, int town_current_hp, int town_max_hp, BaseUpgrade town_wall_level,
-					BaseUpgrade town_defense_level, BaseUpgrade town_structure_level)
+	public static bool instantiateBase(int x, int z, int town_current_hp, int town_max_hp, BaseUpgradeLevel town_wall_level,
+					BaseUpgradeLevel town_defense_level, BaseUpgradeLevel town_structure_level)
 	{
 		sm = GameObject.Find("soundManager").GetComponent<soundManagerS>();
 		bool is_first_base = base_s == null;

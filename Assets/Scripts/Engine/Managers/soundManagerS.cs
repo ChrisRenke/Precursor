@@ -24,6 +24,8 @@ public class soundManagerS : MonoBehaviour {
 	public AudioClip  scavenge_2;
 	public AudioClip  scavenge_3; 
 	
+	public AudioClip  no;
+	
 	public AudioClip  upgrade_1;
 	public AudioClip  upgrade_2;
 	
@@ -75,25 +77,30 @@ public class soundManagerS : MonoBehaviour {
 	}
 	
 	public void playUpgradeMech(UpgradeCostFeedback feedback){
-		
+		print (feedback + " FEEDBACK");
 		switch(feedback)
 		{
 			case UpgradeCostFeedback.Success:
-				int choice = (int)UnityEngine.Random.Range(1F,2.99999F);
+				int choice = (int)UnityEngine.Random.Range(0,2);
 				switch(choice)
 				{
-					case 1:
+					case 0:
 					audio.PlayOneShot(upgrade_1);
 						break;
 						
-					case 2:
-					audio.PlayOneShot(scavenge_2);
+					case 1:
+					audio.PlayOneShot(upgrade_2);
 						break; 
+				default: 
+					audio.PlayOneShot(upgrade_1);
+						break;
 				}
 				break;
 			case UpgradeCostFeedback.NeedMoreAP:
+					audio.PlayOneShot(no);
 				break;
 			case UpgradeCostFeedback.NeedMoreParts:
+					audio.PlayOneShot(no);
 				break;
 		}
 		

@@ -18,21 +18,22 @@ public enum Level        {Level0,Level1,Level2} ;
 
 
 public enum MechUpgradeMode        { Movement, Combat, Scavenge, Utility };
-public enum BaseUpgradeMode        { Perimeter, Armament, Structure, Utility };
-public enum UpgradeItemChoice      { Choice0, Choice1, Choice2, Choice3, Choice4 };
+public enum BaseUpgradeMode        { Walls, Armament, Structure, Utility }; 
+//public enum UpgradeItemChoice      { Choice0, Choice1, Choice2, Choice3, Choice4 };
+public enum BaseUpgradeLevel      { Level0, Level1, Level2, Level3}
 
 public enum UpgradeState           { Acquired, NotAcquired, Disabled };
 
 public enum MechUpgrade { Move_Water, Move_Mountain, Move_Marsh, Move_Legs, Combat_Damage, Combat_Cost, Combat_Range, Combat_Armor, Combat_Dodge, 
-		Scavenge_Combat, Scavenge_Greed, Scavenge_Empty, Scavenge_Cost, Util_Recall, Util_Vision, Util_AP, Util_Parts, Util_Idle };
+		Scavenge_Combat, Scavenge_Greed, Scavenge_Empty, Scavenge_Cost, Util_Recall, Util_Vision, Util_AP, Util_Parts, Util_Idle, DEBUG_NONE };
 
  
 public enum UpgradeCostFeedback { NeedMoreAP, NeedMoreParts, Disabled, Success }
 public enum UpgradeMenu   { Base, Mech }
 
 
-public enum BaseUpgrade { Level0, Level1, Level2, Level3}
-public enum BaseCategories  { Structure, Walls, Defense };  
+//public enum BaseUpgrade { Level0, Level1, Level2, Level3}
+//public enum BaseCategories  { Structure, Walls, Defense };  
 //public enum Menu  {Default , Objective, BaseUpgrade, MechUpgrade, HealthUpgrade, TransportUpgrade};  
 public enum Menu  {Default , Objective, BaseUpgrade1, BaseUpgrade2, BaseUpgrade3, MechUpgrade1, MechUpgrade2, MechUpgrade3, HealthUpgrade}; 
   
@@ -165,7 +166,7 @@ public struct UpgradeEntry{
 	public readonly int		strut_cost;
 	public readonly int		ap_cost;
 	public readonly Texture thumbnail; 
-	public readonly MechUpgrade upgrade_type; 
+	public readonly MechUpgrade upgrade_type;   
 	
 	public UpgradeEntry(string title, string description, int gear_cost, int piston_cost, int plate_cost, int strut_cost, int ap_cost, Texture thumbnail, MechUpgrade upgrade_type)
 	{
@@ -178,5 +179,18 @@ public struct UpgradeEntry{
 		this.ap_cost = ap_cost;
 		this.thumbnail = thumbnail; 
 		this.upgrade_type = upgrade_type;
+	}
+	
+	public UpgradeEntry(string title, string description, int gear_cost, int piston_cost, int plate_cost, int strut_cost, int ap_cost, Texture thumbnail)
+	{
+		this.title = title;
+		this.description = description; 
+		this.gear_cost = gear_cost;
+		this.piston_cost = piston_cost;
+		this.plate_cost = plate_cost;
+		this.strut_cost = strut_cost;
+		this.ap_cost = ap_cost;
+		this.thumbnail = thumbnail; 
+		this.upgrade_type = MechUpgrade.DEBUG_NONE;
 	}
 }

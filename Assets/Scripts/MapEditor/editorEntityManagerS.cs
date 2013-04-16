@@ -29,9 +29,9 @@ public class editorEntityManagerS : MonoBehaviour {
 	//town
 	public int         town_current_hp = 100;
 	public int 	       town_max_hp = 100;
-	public BaseUpgrade town_structure_level = BaseUpgrade.Level0;
-	public BaseUpgrade town_wall_level      = BaseUpgrade.Level0;
-	public BaseUpgrade town_defense_level   = BaseUpgrade.Level0;
+	public BaseUpgradeLevel town_structure_level = BaseUpgradeLevel.Level0;
+	public BaseUpgradeLevel town_wall_level      = BaseUpgradeLevel.Level0;
+	public BaseUpgradeLevel town_defense_level   = BaseUpgradeLevel.Level0;
 	
 	//spawn
 //	public int  spawner_max_enemies_from_this_spawn = 3;
@@ -267,13 +267,13 @@ public class editorEntityManagerS : MonoBehaviour {
 				town_max_hp = (int)GUI.HorizontalSlider(new Rect( 30, 110, 210, 30), town_max_hp, (float) 0, (float) 200);	
 				GUI.Label(new Rect(250, 105, 150, 30),  "MaxHP: " +  town_max_hp  );
 				
-				town_structure_level = (BaseUpgrade)GUI.HorizontalSlider(new Rect( 30, 150, 210, 30), (int)town_structure_level, (float) 0, (float) 3                                                                                                                                                                                                                                                                                                     );	
+				town_structure_level = (BaseUpgradeLevel)GUI.HorizontalSlider(new Rect( 30, 150, 210, 30), (int)town_structure_level, (float) 0, (float) 3                                                                                                                                                                                                                                                                                                     );	
 				GUI.Label(new Rect(250, 145, 150, 30), "Structure: " + town_structure_level);
 				
-				town_wall_level = (BaseUpgrade)GUI.HorizontalSlider(new Rect( 30, 190, 210, 30), (int)town_wall_level, (float) 0, (float) 3);	
+				town_wall_level = (BaseUpgradeLevel)GUI.HorizontalSlider(new Rect( 30, 190, 210, 30), (int)town_wall_level, (float) 0, (float) 3);	
 				GUI.Label(new Rect(250, 185, 150, 30), "Walls: " + town_wall_level);
 				
-				town_defense_level = (BaseUpgrade)GUI.HorizontalSlider(new Rect( 30, 230, 210, 30), (int)town_defense_level, (float) 0, (float) 3);	
+				town_defense_level = (BaseUpgradeLevel)GUI.HorizontalSlider(new Rect( 30, 230, 210, 30), (int)town_defense_level, (float) 0, (float) 3);	
 				GUI.Label(new Rect(250, 225, 150, 30), "Defense: " + town_defense_level);
 				
 			}

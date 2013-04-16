@@ -339,10 +339,10 @@ public class editorIOS : MonoBehaviour {
 		return true;
 	}
 	
-	public static BaseUpgrade getBaseUpgrade(String line)
+	public static BaseUpgradeLevel getBaseUpgrade(String line)
 	{  
     	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
-		return (BaseUpgrade)BaseUpgrade.Parse(typeof(BaseUpgrade), items[1]);
+		return (BaseUpgradeLevel)BaseUpgradeLevel.Parse(typeof(BaseUpgradeLevel), items[1]);
 	}
 	public static NodeLevel getNodeLevelR(String line)
 	{  

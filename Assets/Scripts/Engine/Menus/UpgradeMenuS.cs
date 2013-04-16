@@ -936,7 +936,7 @@ switch(menu_choice){
 	}
 	
 	//check to see if player has enough parts to do the base upgrade
-	private bool part_check_for_base(int row_number, ref int [,] parts_array,BaseCategories category, BaseUpgrade upgrade_type){
+	private bool part_check_for_base(int row_number, ref int [,] parts_array,BaseUpgradeMode category, BaseUpgradeLevel upgrade_type){
 		if(
 			(entityMechS.getPartCount(Part.Piston) 	>= parts_array[row_number,0]) &&
 			(entityMechS.getPartCount(Part.Gear)	>= parts_array[row_number,1]) &&

@@ -107,6 +107,26 @@ public class entityMechS : Combatable, IMove {
 		part_count[part_query] += delta;	
 	}
 	
+	public int getRepairAPCost(){
+		return repair_base_cost;
+	}
+	
+	public int getRepairHealAmount(){
+		return repair_core_heal;
+	}
+	
+	public void repair(Part part)
+	{
+		adjustPartCount(part, -1);
+		current_ap -= getRepairAPCost();
+		current_hp += getRepairHealAmount();
+		
+		if(current_hp > max_hp)
+		{
+			current_hp = max_hp;
+		}
+	}
+	
 	public static Transform child_fire; 
 	public static Transform child_shots; 
 	
@@ -758,8 +778,18 @@ public class entityMechS : Combatable, IMove {
 	{
 		UpgradeEntry entry = mechupgrade_to_entries[upgrade];
 		
+		
+		print ( 	part_count[Part.Gear] + " " +entry.gear_cost  + " | " +
+				part_count[Part.Plate] + " " + entry.plate_cost + " | " +
+				part_count[Part.Piston] + " " +entry.piston_cost + " | " +
+				part_count[Part.Strut]+ " " + entry.strut_cost);
+		
+		
 		if(entry.ap_cost <= getCurrentAP())
-			if(	part_count[Part.Gear] >= entry.gear_cost && part_count[Part.Plate] >= entry.plate_cost && part_count[Part.Piston] >= entry.piston_cost && part_count[Part.Strut] >= entry.strut_cost)
+			if(	part_count[Part.Gear] >= entry.gear_cost && 
+				part_count[Part.Plate] >= entry.plate_cost && 
+				part_count[Part.Piston] >= entry.piston_cost && 
+				part_count[Part.Strut] >= entry.strut_cost)
 				return UpgradeCostFeedback.Success;
 			else 
 				return UpgradeCostFeedback.NeedMoreParts; 
@@ -923,6 +953,12 @@ public class entityMechS : Combatable, IMove {
 		}
 		
 		throw new System.Exception("Attempted to see if mech has an upgrade that doesn't exist.  Did you change the MechUpgrade enum to add moar st00f?");
+	}
+	
+	public bool checkUpgradeEnabled(MechUpgrade upgrade)
+	{
+		//TODO add system for disabling upgrades based on level
+		return true;
 	}
 }
 

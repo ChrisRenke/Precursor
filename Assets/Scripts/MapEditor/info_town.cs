@@ -12,9 +12,9 @@ public class info_town : entity_core {
 	public int       current_hp = 100;
 	public int 	     max_hp = 100;
 	
-	public BaseUpgrade structure_level = BaseUpgrade.Level0;
-	public BaseUpgrade wall_level      = BaseUpgrade.Level0;
-	public BaseUpgrade defense_level   = BaseUpgrade.Level0;
+	public BaseUpgradeLevel structure_level = BaseUpgradeLevel.Level0;
+	public BaseUpgradeLevel wall_level      = BaseUpgradeLevel.Level0;
+	public BaseUpgradeLevel defense_level   = BaseUpgradeLevel.Level0;
 	
 	public  override string getOutput()
 	{
