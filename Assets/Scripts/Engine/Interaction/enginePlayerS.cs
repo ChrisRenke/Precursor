@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class enginePlayerS : MonoBehaviour {
 	
+	
+	
 	public int 									maxZoom 	= 2;
 	public int 									minZoom 	= 25;
 	 
@@ -855,11 +857,18 @@ public class enginePlayerS : MonoBehaviour {
 		GUI.BeginGroup (new Rect (Screen.width - 378 - 30, 28, 378, 576));   
 			GUI.DrawTexture(new Rect (0,0, 378, 576), menu_background);	
 			ShadowAndOutline.DrawOutline(new Rect(18,18, 342, 47), "Base Upgrades", menu_heading, new Color(0,0,0,.5F),Color.white, 3F);
+		
+			//close
+			if(GUI.Button(new Rect(329,17,30, 29),"",menu_close_button))
+			{
+				base_menu_displayed = false;
+				gameManagerS.mouse_over_gui = false;
+			}
+		
 			GUI.BeginGroup (new Rect (18, 80, 342, 29));   
 				drawBaseMenuFilterButtons(0,0,"Perimeter", BaseUpgradeMode.Walls );
 				drawBaseMenuFilterButtons(89,0,"Armament", BaseUpgradeMode.Armament );   
-				drawBaseMenuFilterButtons(178,0,"Structure", BaseUpgradeMode.Structure);   
-//				drawBaseMenuFilterButtons(267,0,"Utility", BaseUpgradeMode.Utility) ;
+				drawBaseMenuFilterButtons(178,0,"Structure", BaseUpgradeMode.Structure);    
 			GUI.EndGroup (); 
 		
 			//upgrade items

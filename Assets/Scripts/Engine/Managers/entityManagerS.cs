@@ -259,10 +259,76 @@ public class entityManagerS : MonoBehaviour {
 				if(entityManagerS.getEnemyAt(current_hex.x, current_hex.z))
 					hexes_in_range.Add(current_hex); 
 			}
-		}
+		} 
 		
-//		Debug.LogWarning("hexes_in_range size = " + hexes_in_range.Count);
-		return hexes_in_range;
+		return hexes_in_range; 
+	}
+		
+		
+	public static void disableFacingDirectionsRange(HexData center, int sight_range){ 
+		List<HexData> hexes = hexManagerS.getAdjacentHexes(center,sight_range);
+		foreach(HexData hex in hexes)
+			hex.hex_script.disableDirectionTowardsActor();
+	}
+	
+	 
+	public static void updateFacingDirectionsRange(HexData center, int sight_range){ 
+			
+		List<HexData> hexes_in_range = new List<HexData>();
+		
+		//get the hex standing on
+		HexData current_hex = center;  
+		
+		//enter loop for surrounding hexes
+		for(int ring = 1; ring <= sight_range; ring++)
+		{
+			 
+			//draw the first "northeast" edge hex 
+			current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+			current_hex.hex_script.setDirectionTowardsActor(Facing.NorthEast);
+			
+			//draw the "northeast" portion
+			for(int edge_hexes_drawn = 1; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{ 
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthEast);// = AddHexSE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
+				current_hex.hex_script.setDirectionTowardsActor(Facing.NorthEast);
+			}
+			
+			//draw the "southeast" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.South);
+				current_hex.hex_script.setDirectionTowardsActor(Facing.SouthEast);
+			}
+			
+			//draw the "south" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthWest);
+				current_hex.hex_script.setDirectionTowardsActor(Facing.South);
+			}
+			
+			//draw the "southwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthWest);
+				current_hex.hex_script.setDirectionTowardsActor(Facing.SouthWest);
+			}
+			
+			//draw the "northwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.North);
+				current_hex.hex_script.setDirectionTowardsActor(Facing.NorthWest);
+			}
+			
+			//draw the "north" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+				current_hex.hex_script.setDirectionTowardsActor(Facing.North);
+			}
+		} 
 	}
 	
 	public static void updateEntityFoWStates()

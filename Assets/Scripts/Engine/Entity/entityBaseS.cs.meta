@@ -2,7 +2,20 @@ fileFormatVersion: 2
 guid: 9885960faa5590b4295691b8dfc2411e
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - walls_f: {instanceID: 0}
+  - walls_b: {instanceID: 0}
+  - def: {instanceID: 0}
+  - struc: {instanceID: 0}
+  - armaments_1: {fileID: 2800000, guid: e2b46a5f7b63048998871e4722ffde8d, type: 3}
+  - armaments_2: {fileID: 2800000, guid: ef4b713d7e19044dd8cad5d368b7bece, type: 3}
+  - armaments_3: {fileID: 2800000, guid: 3ec72ef7679a14456a4c9e67e4835f42, type: 3}
+  - walls_1: {fileID: 2800000, guid: 652e60a32896f4cdc86076a84ce508cd, type: 3}
+  - walls_2: {fileID: 2800000, guid: 44c47aecfe9fa44fdbff4a5f0375e11b, type: 3}
+  - walls_3: {fileID: 2800000, guid: 46ab7f9393fc94aa28897f57ec91d833, type: 3}
+  - structure_1: {fileID: 2800000, guid: 98ba1f266584646928477d5f32dd7236, type: 3}
+  - structure_2: {fileID: 2800000, guid: d7563ce8aed834119b7919e86a8fcefc, type: 3}
+  - structure_3: {fileID: 2800000, guid: 1bd042b0fc43c4741a91a4888ce226cf, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

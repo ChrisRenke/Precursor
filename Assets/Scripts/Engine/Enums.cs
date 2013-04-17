@@ -18,8 +18,7 @@ public enum Level        {Level0,Level1,Level2} ;
 
 
 public enum MechUpgradeMode        { Movement, Combat, Scavenge, Utility };
-public enum BaseUpgradeMode        { Walls, Armament, Structure, Utility }; 
-//public enum UpgradeItemChoice      { Choice0, Choice1, Choice2, Choice3, Choice4 };
+public enum BaseUpgradeMode        { Walls, Armament, Structure, Utility };  
 public enum BaseUpgradeLevel      { Level0, Level1, Level2, Level3}
 
 public enum UpgradeState           { Acquired, NotAcquired, Disabled };

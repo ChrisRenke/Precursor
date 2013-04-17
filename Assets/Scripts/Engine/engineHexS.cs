@@ -14,12 +14,31 @@ public class engineHexS : MonoBehaviour {
 	private HexData mech_location_when_path_made = new HexData(-10,-10, true);
 	public bool can_attack_hex = false;
 	
+	private Facing direction_towards_actor = Facing.South;
+	private bool   direction_in_range      = false; 
+
 	public List<HexData> town_adj_hexes;
-	
+
 	public bool node_occupier = false;
 	private bool base_is_here = false;
 	public bool mech_is_here = false;
+
+	public void setDirectionTowardsActor(Facing direction){
+		direction_towards_actor = direction;
+		direction_in_range = true;	
+	} 
 	 
+	public bool isLegitFacing(){
+		return direction_in_range;
+	}
+	
+	public Facing getDirectionTowardsActor(){
+		return direction_towards_actor;
+	}
+	
+	public void disableDirectionTowardsActor(){
+		direction_in_range = false;
+	}
 	
 	public void ControllerSelect(){ 
 		createBorder();
@@ -47,14 +66,7 @@ public class engineHexS : MonoBehaviour {
 	
 	
 	void Start(){
-		
-//		border.minDrawIndex = 50;
-		
-//		glow = pathDrawS.outlineHex(hex_data);
-//		glow.lineWidth = border.lineWidth * 1.45F;
-//		glow.SetColor(enginePlayerS.glow_color);
-//		glow.minDrawIndex = 49;
-		
+		 
 		
 	}
 	
@@ -228,7 +240,10 @@ public class engineHexS : MonoBehaviour {
 	{
 		if(!gameManagerS.mouse_over_gui)
 			createBorder();
-//		print (node_occupier + " node for this hex");
+
+		if(direction_in_range)
+			entityManagerS.getMech().setFacingDirection(direction_towards_actor);
+		  
 	}
 	
 	void OnMouseOver()

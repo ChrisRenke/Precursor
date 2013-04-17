@@ -14,7 +14,8 @@ public class entityBaseS : Combatable {
 	private bool  can_not_heal;
 	private bool  can_not_attack; 
 	
-	public Renderer walls;
+	public Renderer walls_f;
+	public Renderer walls_b;
 	public Renderer def;
 	public Renderer struc;
 	 
@@ -23,12 +24,13 @@ public class entityBaseS : Combatable {
 	public static List<HexData> adjacent_visible_hexes;
 	//Use this for initialization
 	void Start () {
- 		child_fire = gameObject.transform.GetChild(3);//.GetComponentsInChildren<ParticleSystem>();
+ 		child_fire = gameObject.transform.GetChild(4);//.GetComponentsInChildren<ParticleSystem>();
 		Debug.Log("BASE CHILD SELECTED = " + child_fire.name);
 		turnOffFire();
-		def = transform.FindChild("entityBaseDefense").renderer;
-		walls = transform.FindChild("entityBaseWalls").renderer;
-		struc = transform.FindChild("entityBaseStructure").renderer;
+		def 	= transform.FindChild("entityBaseDefense").renderer;
+		struc 	= transform.FindChild("entityBaseStructure").renderer;
+		walls_f = transform.FindChild("entityBaseWallsBack").renderer;
+		walls_b	= transform.FindChild("entityBaseWallsFore").renderer;
 		
 		max_hp = 100;
 		current_hp = 100;
@@ -60,7 +62,7 @@ public class entityBaseS : Combatable {
 	public Texture armaments_3;
 	public Texture walls_1;
 	public Texture walls_2;
-	public Texture walls_3;
+	public Texture walls_3; 
 	public Texture structure_1;
 	public Texture structure_2;
 	public Texture structure_3;
@@ -76,17 +78,17 @@ public class entityBaseS : Combatable {
 		List<UpgradeEntry> armament_upgrades = new List<UpgradeEntry>();
 		List<UpgradeEntry> structure_upgrades = new List<UpgradeEntry>(); 
 //		 																					 			 		gear pis plt stru
-		armament_upgrades.Add (new UpgradeEntry("Iron Cannons", 		"Allows Water hex traversal (5 AP)",		1,	5,	1,	1,	2, armaments_1));
-		armament_upgrades.Add (new UpgradeEntry(" Rounds",	"Allows Mountain hex traversal (5 AP)",					2,	4,	0,	2,	2, armaments_2));
-		armament_upgrades.Add (new UpgradeEntry("Marsh Stabilizers",	"Reduces Marsh hex traversal by 1 AP",		0,	1,	4,	4,	2, armaments_3));
+		armament_upgrades.Add (new UpgradeEntry("Heavy Ordnance", 			"Increase base attack range by 1",		2,	3,	1,	1,	2, armaments_1));
+		armament_upgrades.Add (new UpgradeEntry("Mortar Cannons",			"Increase base attack damage by 3",		1,	5,	0,	2,	3, armaments_2));
+		armament_upgrades.Add (new UpgradeEntry("Gatling Repeaters",		"Grants base etxra an extra attack",	1,	6,	2,	3,	4, armaments_3));
 		 	 
-		walls_upgrades.Add (new UpgradeEntry("Mortar Cannons",			"Increases attack damage by 2",				1,	2,	4,	2,	2, walls_1));
-		walls_upgrades.Add (new UpgradeEntry("Heavy Ordinance", 		"Reduces attack cost by 2 AP",				2,	2,	0,	2,	2, walls_2));
-		walls_upgrades.Add (new UpgradeEntry("Annihilation Payload", 	"Increases attack range by 1",				4,	1,	1,	2,	2, walls_3));
+		walls_upgrades.Add (new UpgradeEntry("Iron Plate Retrofit",			"Reduces incoming attack damage by 1",	0,	0,	4,	3,	2, walls_1));
+		walls_upgrades.Add (new UpgradeEntry("Copper Battlements", 			"Reduces incoming attack damage by 1",	1,	1,	5,	4,	3, walls_2));
+		walls_upgrades.Add (new UpgradeEntry("Golden Fortress", 			"Reduces incoming attack damage by 1",	2,	2,	6,	5,	4, walls_3));
 		 			 
-		structure_upgrades.Add (new UpgradeEntry("Combat Salvage",		"Gain one random part from kills",			2,	3,	0,	2,	2, structure_1));
-		structure_upgrades.Add (new UpgradeEntry("Greedy Gather", 		"Gain one extra part per scavenge",			0,	2,	1,	4,	2, structure_2));
-		structure_upgrades.Add (new UpgradeEntry("Probing Sensors", 		"15% change to scavenge empty nodes",	4,	2,	0,	0,	2, structure_3 ));
+		structure_upgrades.Add (new UpgradeEntry("Castle Expansion",		"Increase base HP by 10",				4,	2,	1,	1,	2, structure_1));
+		structure_upgrades.Add (new UpgradeEntry("Hybrid Observatory", 		"Increase base HP by 15",				5,	3,	2,	4,	3, structure_2));
+		structure_upgrades.Add (new UpgradeEntry("Industrial Revolution",	"Increase base HP by 25",				6,	4,	3,	3,	4, structure_3 ));
 		 
 		baseupgrademode_entrieslists.Add(BaseUpgradeMode.Armament, armament_upgrades);
 		baseupgrademode_entrieslists.Add(BaseUpgradeMode.Walls, walls_upgrades);
@@ -122,26 +124,26 @@ public class entityBaseS : Combatable {
 	
 	void visualDisplay()
 	{
-		int def_index = (int)defense_level;
-		int struct_index = (int)structure_level ;
-		int wall_index = (int) wall_level;
+		int def_index    = (int) defense_level;
+		int wall_b_index = (int) wall_level;
+		int wall_f_index = (int) wall_level;
+		int struct_index = (int) structure_level;
 		  
-	    Vector2 struct_offset = new Vector2((float) structure_level/4, 0);
-	    Vector2 wall_offset = new Vector2((float) wall_level/4, .3333333F);
-	    Vector2 def_offset = new Vector2((float) defense_level/4, .666666F);
+	    Vector2 def_offset = new Vector2((float) defense_level/4, 0);
+	    Vector2 wall_offset_b = new Vector2((float) wall_level/4, .25F);
+	    Vector2 wall_offset_f = new Vector2((float) wall_level/4, .5F);
+	    Vector2 struct_offset = new Vector2((float) structure_level/4, .75F);
 	 
-	    def.material.SetTextureOffset ("_MainTex", def_offset);
-	    walls.material.SetTextureOffset ("_MainTex", wall_offset);
-	    struc.material.SetTextureOffset ("_MainTex", struct_offset);
+	    def.material.SetTextureOffset	  ("_MainTex", def_offset);
+	    walls_f.material.SetTextureOffset ("_MainTex", wall_offset_b); 
+	    walls_b.material.SetTextureOffset ("_MainTex", wall_offset_f);
+	    struc.material.SetTextureOffset   ("_MainTex", struct_offset);
 //	    def.material.SetTextureOffset ("_MainTex", def_offset);
 //	    renderer.material.SetTextureScale  ("_MainTex", size);
 //	
 //		def.renderer.material.SetColor("_Color",Color.green);
 //		struc.renderer.material.SetColor("_Color",Color.red);
-//		walls.renderer.material.SetColor("_Color",Color.blue);
-		
-	
-	
+//		walls.renderer.material.SetColor("_Color",Color.blue);  
 	}
 	
 	public bool onFire = false;

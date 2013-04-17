@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using System.Text; 
 using System.IO;
+//using System.IO
 //using System.;
 
 public class editorIOS : MonoBehaviour {
@@ -173,7 +174,7 @@ public class editorIOS : MonoBehaviour {
 		FileInfo filer = new FileInfo(Application.dataPath + "/" + level_name + ".txt");
 		if(filer != null && filer.Exists)
 		{
-		   reader  = null;//= filer.OpenText();  // returns StreamReader
+		   reader  = filer.OpenText();  // returns StreamReader
 		} 
 		else
 		{
