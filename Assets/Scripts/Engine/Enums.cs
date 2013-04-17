@@ -167,6 +167,8 @@ public struct UpgradeEntry{
 	public readonly Texture thumbnail; 
 	public readonly MechUpgrade upgrade_type;   
 	
+	public BaseUpgradeLevel base_level; 
+	
 	public UpgradeEntry(string title, string description, int gear_cost, int piston_cost, int plate_cost, int strut_cost, int ap_cost, Texture thumbnail, MechUpgrade upgrade_type)
 	{
 		this.title = title;
@@ -178,6 +180,7 @@ public struct UpgradeEntry{
 		this.ap_cost = ap_cost;
 		this.thumbnail = thumbnail; 
 		this.upgrade_type = upgrade_type;
+		base_level = BaseUpgradeLevel.Level0;
 	}
 	
 	public UpgradeEntry(string title, string description, int gear_cost, int piston_cost, int plate_cost, int strut_cost, int ap_cost, Texture thumbnail)
@@ -191,5 +194,6 @@ public struct UpgradeEntry{
 		this.ap_cost = ap_cost;
 		this.thumbnail = thumbnail; 
 		this.upgrade_type = MechUpgrade.DEBUG_NONE;
+		base_level = BaseUpgradeLevel.Level0;
 	}
 }

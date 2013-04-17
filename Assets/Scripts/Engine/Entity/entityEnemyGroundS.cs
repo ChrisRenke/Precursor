@@ -32,23 +32,19 @@ public class entityEnemyGroundS : Enemy {
 		attack_range = 2;
 		attack_damage = 4;
 		last_move = hexManagerS.getHex(x,z); //last move = current position  
-//        while (i < vertices.Length) {
-//			print (vertices[i].z);
-////            vertices[i] += Vector3.up * Time.deltaTime;
-//            i++;
-//        } 
+
 	}
-	public static Transform child_fire;  
 	
-	public static void turnOnFire(){
+	public Transform child_fire;  
+	
+	public void turnOnFire(){
 		
 		child_fire.transform.GetChild(0).particleEmitter.emit = true; 
 		child_fire.transform.GetChild(1).particleEmitter.emit = true; 
 		child_fire.transform.GetChild(2).particleEmitter.emit = true; 
 	}
 	
-	public static void turnOffFire(){
-		
+	public void turnOffFire(){ 
 		child_fire.transform.GetChild(0).particleEmitter.emit = false; 
 		child_fire.transform.GetChild(1).particleEmitter.emit = false; 
 		child_fire.transform.GetChild(2).particleEmitter.emit = false; 
@@ -87,7 +83,7 @@ public class entityEnemyGroundS : Enemy {
 			t=1;
 		}
 		
-		if(!onFire && (float)current_hp/(float)max_hp < .5F )
+		if(!onFire && (float)current_hp/(float)max_hp < .5F &&  isVisibleInWorld())
 		{
 			turnOnFire();
 			onFire = true;
@@ -812,21 +808,34 @@ public class entityEnemyGroundS : Enemy {
 	public bool lerp_move = false; 
 	float time_to_complete = 2F;
 	float moveTime = 0.0f;
+<<<<<<< HEAD:Assets/Scripts/Engine/Entity/entityEnemyGroundS.cs
 */ 
+ 
+	public bool isVisibleInWorld(){
+		HexData occupying_hex = hexManagerS.getHex(x, z);
+		return occupying_hex.vision_state == Vision.Live;
+	}
+	
+	
+	
 	public void updateFoWState()
 	{
 		HexData occupying_hex = hexManagerS.getHex(x, z);
 		switch(occupying_hex.vision_state)
 		{
-		case Vision.Live:
+		case Vision.Live: 
 			gameObject.renderer.enabled = true;
 			renderer.material.SetColor("_Color", Color.white);
 			break;
 		case Vision.Visited:
 			gameObject.renderer.enabled = true;
+			if(onFire)
+				turnOffFire();
 			renderer.material.SetColor("_Color", Color.gray);
 			break;
-		case Vision.Unvisted:
+		case Vision.Unvisted: 
+			if(onFire)
+				turnOffFire();
 			gameObject.renderer.enabled = false;
 			break;
 		default:

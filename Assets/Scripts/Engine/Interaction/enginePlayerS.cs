@@ -677,12 +677,20 @@ public class enginePlayerS : MonoBehaviour {
 	
 	private void drawMechUpgradeMenu(){ 
 		
-		Rect menu_zone = new Rect (30, 28, 378, 576);
+		Rect mech_menu_zone = new Rect (30, 28, 378, 576);
+		Rect base_menu_zone = new Rect (Screen.width - 378 - 30, 28, 378, 576);
+		Rect repair_menu_zone = new Rect (Screen.width - 311, Screen.height - 187, 282, 92);
 		
-		if(menu_zone.Contains(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y))) 
+		Vector2 mouse_pos = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
+		
+		
+		if((base_menu_zone.Contains(mouse_pos) && base_menu_displayed) 
+			|| (mech_menu_zone.Contains(mouse_pos) && mech_menu_displayed) 
+			|| (repair_menu_zone.Contains(mouse_pos) && repair_menu_displayed) ) 
 			gameManagerS.mouse_over_gui = true; 
 		else
 			gameManagerS.mouse_over_gui = false;
+		 
 		
 //		print (gameManagerS.mouse_over_gui);
 			
@@ -867,9 +875,9 @@ public class enginePlayerS : MonoBehaviour {
 			}
 		
 			GUI.BeginGroup (new Rect (18, 80, 342, 29));   
-				drawBaseMenuFilterButtons(0,0,"Perimeter", BaseUpgradeMode.Walls );
-				drawBaseMenuFilterButtons(89,0,"Armament", BaseUpgradeMode.Armament );   
-				drawBaseMenuFilterButtons(178,0,"Structure", BaseUpgradeMode.Structure);    
+				drawBaseMenuFilterButtons(0,0,"Perimeter",   BaseUpgradeMode.Walls );
+				drawBaseMenuFilterButtons(119,0,"Armament",  BaseUpgradeMode.Armament );   
+				drawBaseMenuFilterButtons(237,0,"Structure", BaseUpgradeMode.Structure);    
 			GUI.EndGroup (); 
 		
 			//upgrade items
@@ -882,24 +890,38 @@ public class enginePlayerS : MonoBehaviour {
 	
 	
 	private void drawBaseUpgradeMenuEntries(){
-		List<UpgradeEntry> upgrade_entires = mech.getUpgradeEntries(mech_upgrade_tab);
+		
+		List<UpgradeEntry> upgrade_entires = town.getUpgradeEntries(base_upgrade_tab);
 	 	bool can_afford_upgrade = false; 
 		
-		for(int entry_row = 0; entry_row < upgrade_entires.Count; entry_row++)
+		int highest_level_upgrade =  (int)town.getHighestLevelUpgrade(base_upgrade_tab);
+		
+		
+		
+		for(int entry_row = 0; entry_row < 3; entry_row++)
 		{
 			UpgradeEntry entry = upgrade_entires[entry_row];
-			can_afford_upgrade = mech.canAffordUpgrade(entry.upgrade_type);
+			can_afford_upgrade = mech.canAffordUpgrade(entry);
+			
+			BaseUpgradeLevel bul = entry.base_level; 
+	 
+ 			bool upgrade_owned = (highest_level_upgrade) >= (int) bul;
+			 
+			
+			Rect hover_zone = new Rect (Screen.width - 378 - 10, 28 + 124 + entry_row*(168), 342, 74);
 			
 			
- 			bool upgrade_owned = mech.checkUpgrade(entry.upgrade_type); 
-			Rect hover_zone = new Rect (48, 28 + 124 + entry_row*(74+15), 342, 74);
-			
-			
-		   if(upgrade_owned)
-				GUI.DrawTexture(new Rect(0,entry_row*(74+15),350,82), menu_upgrade_owned);	
+		    if(upgrade_owned)
+				GUI.DrawTexture(new Rect(0,entry_row*(168),350,82), menu_upgrade_owned);	
 				
-			GUI.BeginGroup (new Rect (4, 4 + entry_row*(74+15) , 342, 74)); 
+			
+			GUI.BeginGroup (new Rect (4, 4 + entry_row*(168) , 342, 165)); 
 		
+				if(highest_level_upgrade < entry_row)
+				{
+					GUI.DrawTexture(new Rect(0,0,342,74), menu_upgrade_disabled);	 
+				}
+				else			
 				if(hover_zone.Contains(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y)) && !upgrade_owned)
 				{
 					if(Input.GetMouseButtonDown(0))  
@@ -912,9 +934,9 @@ public class enginePlayerS : MonoBehaviour {
 					if(Input.GetMouseButtonUp(0))  
 					{ 
 					
-						entityManagerS.sm.playUpgradeMech(mech.checkUpgradeAffordable(entry.upgrade_type)); 
+						entityManagerS.sm.playUpgradeMech(mech.checkUpgradeAffordable(entry)); 
 						if(can_afford_upgrade)
-							mech.applyUpgrade(entry.upgrade_type); 
+							town.upgradeBase(base_upgrade_tab, entry.base_level); 
 					
 					}
 					 
@@ -937,6 +959,12 @@ public class enginePlayerS : MonoBehaviour {
 						GUI.DrawTexture(new Rect(0,0,342,74), menu_upgrade_norm);	 
 				}
 				
+				if(entry_row != 2)
+				{
+					GUI.DrawTexture(new Rect(0,94,342,56), menu_upgrade_tier_spacer);	 
+					
+				}
+			 
 				drawEntryContents(entry, upgrade_owned);
 					
 			GUI.EndGroup ();   
@@ -1035,13 +1063,13 @@ public class enginePlayerS : MonoBehaviour {
 	
 	private void drawBaseMenuFilterButtons(int from_left, int from_top,  string text, BaseUpgradeMode filter_control)
 	{   		 
-		GUI.BeginGroup (new Rect (from_left, from_top, 75, 29));  
+		GUI.BeginGroup (new Rect (from_left, from_top, 105, 29));  
 			if(base_upgrade_tab == filter_control) 
-				GUI.Toggle(new Rect (0,0, 75, 29), base_upgrade_tab == filter_control, "", menu_filter_button_selected);
+				GUI.Toggle(new Rect (0,0, 105, 29), base_upgrade_tab == filter_control, "", menu_filter_button_selected);
 			else
-				if(GUI.Toggle(new Rect (0,0, 75, 29), base_upgrade_tab == filter_control, "", menu_filter_button))
+				if(GUI.Toggle(new Rect (0,0, 105, 29), base_upgrade_tab == filter_control, "", menu_filter_button))
 					base_upgrade_tab = filter_control;
-			ShadowAndOutline.DrawOutline(new Rect(0, 0, 75, 29), text, 
+			ShadowAndOutline.DrawOutline(new Rect(0, 0, 105, 29), text, 
 				menu_filter_text, new Color(0,0,0,.5F),Color.white, 3F);
 		GUI.EndGroup ();   
 	}
