@@ -19,7 +19,7 @@ public class enemyDisplayS : MonoBehaviour {
   	//Maybe this should be a private var
     private Vector2 offset;
 	
-	private entityEnemyGroundS owner;
+	private entityEnemyS owner;
 	private int col_index=0;
 	private int row_index=0;
 	
@@ -58,7 +58,7 @@ public class enemyDisplayS : MonoBehaviour {
 	
 	void Start()
 	{
-		owner = gameObject.GetComponent<entityEnemyGroundS>();
+		owner = gameObject.GetComponent<entityEnemyS>();
 	}
  
 

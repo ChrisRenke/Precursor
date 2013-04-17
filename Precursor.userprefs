@@ -1,59 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Engine\Managers\entityManagerS.cs">
     <Files>
-      <File FileName="Assets\Scripts\Engine\Entity\entityEnemyGroundS.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Engine\Entity\entityEnemyS.cs" Line="7" Column="25" />
+      <File FileName="Assets\Scripts\Engine\Entity\entityEnemyFlyerS.cs" Line="6" Column="24" />
+      <File FileName="Assets\Scripts\Engine\Managers\entityManagerS.cs" Line="623" Column="62" />
+      <File FileName="Assets\Scripts\Engine\Interaction\enemyFlyerDisplayS.cs" Line="61" Column="35" />
+      <File FileName="Assets\Scripts\Engine\Managers\engineIOS.cs" Line="208" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Entity\Enemy.cs" line="28" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Entity\entitySpawnS.cs" line="9" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\engineIOS.cs" line="196" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="54" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="550" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="542" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="563" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="577" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Entity\entityBaseS.cs" line="406" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\engineHexS.cs" line="279" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\editorEntityManagerS.cs" line="15" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\info_flyer.cs" line="19" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\info_flyer.cs" line="31" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\info_enemy.cs" line="19" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\info_enemy.cs" line="31" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Enums.cs" line="6" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\info_spawn.cs" line="17" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\info_spawn.cs" line="29" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="643" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="625" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="619" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="620" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="621" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="622" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="623" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="624" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="626" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="627" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="608" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\engineIOS.cs" line="207" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\editorUserS.cs" line="355" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\editorUserS.cs" line="405" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\editorIOS.cs" line="290" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\editorEntityManagerS.cs" line="78" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\editorEntityManagerS.cs" line="51" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\editorEntityManagerS.cs" line="37" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\editorEntityManagerS.cs" line="126" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\editorEntityManagerS.cs" line="150" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\editorEntityManagerS.cs" line="137" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\editorIOS.cs" line="359" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\gameManagerS.cs" line="40" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\Engine\Managers\entityManagerS.cs" line="11" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\editorUserS.cs" line="496" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\editorEntityManagerS.cs" line="422" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\editorEntityManagerS.cs" line="340" />
-      <Breakpoint file="C:\Users\Sinutena\Documents\Precursor\Assets\Scripts\MapEditor\editorEntityManagerS.cs" line="238" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

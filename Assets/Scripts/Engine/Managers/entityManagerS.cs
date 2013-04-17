@@ -620,7 +620,7 @@ public class entityManagerS : MonoBehaviour {
 		Enemy new_enemy_s;
 		if(enemy_type == EntityE.Enemy){
 			new_entity = instantiateEntity(x, z, EntityE.Enemy); 
-			new_enemy_s = (Enemy) new_entity.AddComponent("entityEnemyGroundS");
+			new_enemy_s = (Enemy) new_entity.AddComponent("entityEnemyS");
 		}else{
 			new_entity = instantiateEntity(x, z, EntityE.Flyer); 
 			new_enemy_s = (Enemy) new_entity.AddComponent("entityEnemyFlyerS");

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class entityEnemyGroundS : Enemy {
+public class entityEnemyS : Enemy {
 	private bool   end_turn;
 	private HexData last_move; //Can't Move Backwards unless can't move anywhere else; 
 	
@@ -25,6 +25,8 @@ public class entityEnemyGroundS : Enemy {
 		
 		current_hp = 15;
 		max_hp = 15;
+		
+		enemy_type = EntityE.Enemy;
 		
 		current_ap = 8;
 		max_ap = 8;

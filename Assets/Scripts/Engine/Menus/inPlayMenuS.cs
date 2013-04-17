@@ -218,7 +218,7 @@ public class inPlayMenuS : MonoBehaviour {
 	}
 	
 	private static void enableEnemyHealthBars(){
-		entityEnemyGroundS.show_health_bar = true;
+		entityEnemyS.show_health_bar = true;
 		entityBaseS.show_health_bar  = true;
 	}
 	
