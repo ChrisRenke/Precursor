@@ -914,7 +914,7 @@ public class enginePlayerS : MonoBehaviour {
 				GUI.DrawTexture(new Rect(0,entry_row*(168),350,82), menu_upgrade_owned);	
 				
 			
-			GUI.BeginGroup (new Rect (4, 4 + entry_row*(168) , 342, 134)); 
+			GUI.BeginGroup (new Rect (4, 4 + entry_row*(168) , 342, 165)); 
 		
 				if(highest_level_upgrade < entry_row)
 				{
