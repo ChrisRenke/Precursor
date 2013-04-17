@@ -206,7 +206,7 @@ public class gameManagerS : MonoBehaviour {
 		switch(current_level)
 		{
 			case Level.Level0: 
-				if(entityManagerS.getBase().wall_level >= BaseUpgrade.Level1)
+				if(entityManagerS.getBase().wall_level >= BaseUpgradeLevel.Level1)
 				{
 					beatLevel0();
 				}

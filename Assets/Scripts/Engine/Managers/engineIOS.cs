@@ -151,9 +151,9 @@ public class engineIOS : MonoBehaviour {
 				case editor_entity.Town: 
 					int town_current_hp =  getIntR(level_lines[index++]);
 					int town_max_hp     =  getIntR(level_lines[index++]);
-					BaseUpgrade town_wall_level = getBaseUpgrade(level_lines[index++]);
-					BaseUpgrade town_defense_level = getBaseUpgrade(level_lines[index++]); 
-					BaseUpgrade town_structure_level = getBaseUpgrade(level_lines[index++]);  
+					BaseUpgradeLevel town_wall_level = getBaseUpgrade(level_lines[index++]);
+					BaseUpgradeLevel town_defense_level = getBaseUpgrade(level_lines[index++]); 
+					BaseUpgradeLevel town_structure_level = getBaseUpgrade(level_lines[index++]);  
 				
 					if(!entityManagerS.instantiateBase(x, z, town_current_hp, town_max_hp, town_wall_level,	town_defense_level, town_structure_level))
 						throw new System.Exception("There is already one base, cannot have two! D: Go edit the level file you're loading to only have one!");
@@ -289,9 +289,9 @@ public class engineIOS : MonoBehaviour {
 	} 
 	
 	
-	public static BaseUpgrade getBaseUpgrade(String line)
+	public static BaseUpgradeLevel getBaseUpgrade(String line)
 	{  
     	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
-		return (BaseUpgrade)BaseUpgrade.Parse(typeof(BaseUpgrade), items[1]);
+		return (BaseUpgradeLevel)BaseUpgradeLevel.Parse(typeof(BaseUpgradeLevel), items[1]);
 	} 
 }

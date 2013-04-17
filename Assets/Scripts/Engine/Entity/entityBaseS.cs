@@ -6,15 +6,16 @@ using System.Collections.Generic;
 public class entityBaseS : Combatable {
 	 
 	//variables 
-	public BaseUpgrade structure_level = BaseUpgrade.Level0;
-	public BaseUpgrade defense_level = BaseUpgrade.Level0;
-	public BaseUpgrade wall_level = BaseUpgrade.Level0; 
+	public BaseUpgradeLevel structure_level = BaseUpgradeLevel.Level0;
+	public BaseUpgradeLevel defense_level = BaseUpgradeLevel.Level0;
+	public BaseUpgradeLevel wall_level = BaseUpgradeLevel.Level0; 
 	private int heal_amount = 2;
 	private int heal_cost = 3;
 	private bool  can_not_heal;
 	private bool  can_not_attack; 
 	
-	public Renderer walls;
+	public Renderer walls_f;
+	public Renderer walls_b;
 	public Renderer def;
 	public Renderer struc;
 	 
@@ -23,12 +24,13 @@ public class entityBaseS : Combatable {
 	public static List<HexData> adjacent_visible_hexes;
 	//Use this for initialization
 	void Start () {
- 		child_fire = gameObject.transform.GetChild(3);//.GetComponentsInChildren<ParticleSystem>();
+ 		child_fire = gameObject.transform.GetChild(4);//.GetComponentsInChildren<ParticleSystem>();
 		Debug.Log("BASE CHILD SELECTED = " + child_fire.name);
 		turnOffFire();
-		def = transform.FindChild("entityBaseDefense").renderer;
-		walls = transform.FindChild("entityBaseWalls").renderer;
-		struc = transform.FindChild("entityBaseStructure").renderer;
+		def 	= transform.FindChild("entityBaseDefense").renderer;
+		struc 	= transform.FindChild("entityBaseStructure").renderer;
+		walls_f = transform.FindChild("entityBaseWallsBack").renderer;
+		walls_b	= transform.FindChild("entityBaseWallsFore").renderer;
 		
 		max_hp = 100;
 		current_hp = 100;
@@ -55,7 +57,45 @@ public class entityBaseS : Combatable {
 		entityManagerS.updateEntityFoWStates();
 	}
 	
+	public Texture armaments_1;
+	public Texture armaments_2;
+	public Texture armaments_3;
+	public Texture walls_1;
+	public Texture walls_2;
+	public Texture walls_3; 
+	public Texture structure_1;
+	public Texture structure_2;
+	public Texture structure_3;
 	
+	private Dictionary<BaseUpgradeMode, List<UpgradeEntry>> baseupgrademode_entrieslists;
+	
+		private void createUpgradeMenuEntries()
+	{
+		baseupgrademode_entrieslists = new Dictionary<BaseUpgradeMode, List<UpgradeEntry>>(); 
+//		baseupgrade_to_entries = new Dictionary<BaseUpgradeLevel, UpgradeEntry>();
+		
+		List<UpgradeEntry> walls_upgrades = new List<UpgradeEntry>();
+		List<UpgradeEntry> armament_upgrades = new List<UpgradeEntry>();
+		List<UpgradeEntry> structure_upgrades = new List<UpgradeEntry>(); 
+//		 																					 			 		gear pis plt stru
+		armament_upgrades.Add (new UpgradeEntry("Heavy Ordnance", 			"Increase base attack range by 1",		2,	3,	1,	1,	2, armaments_1));
+		armament_upgrades.Add (new UpgradeEntry("Mortar Cannons",			"Increase base attack damage by 3",		1,	5,	0,	2,	3, armaments_2));
+		armament_upgrades.Add (new UpgradeEntry("Gatling Repeaters",		"Grants base etxra an extra attack",	1,	6,	2,	3,	4, armaments_3));
+		 	 
+		walls_upgrades.Add (new UpgradeEntry("Iron Plate Retrofit",			"Reduces incoming attack damage by 1",	0,	0,	4,	3,	2, walls_1));
+		walls_upgrades.Add (new UpgradeEntry("Copper Battlements", 			"Reduces incoming attack damage by 1",	1,	1,	5,	4,	3, walls_2));
+		walls_upgrades.Add (new UpgradeEntry("Golden Fortress", 			"Reduces incoming attack damage by 1",	2,	2,	6,	5,	4, walls_3));
+		 			 
+		structure_upgrades.Add (new UpgradeEntry("Castle Expansion",		"Increase base HP by 10",				4,	2,	1,	1,	2, structure_1));
+		structure_upgrades.Add (new UpgradeEntry("Hybrid Observatory", 		"Increase base HP by 15",				5,	3,	2,	4,	3, structure_2));
+		structure_upgrades.Add (new UpgradeEntry("Industrial Revolution",	"Increase base HP by 25",				6,	4,	3,	3,	4, structure_3 ));
+		 
+		baseupgrademode_entrieslists.Add(BaseUpgradeMode.Armament, armament_upgrades);
+		baseupgrademode_entrieslists.Add(BaseUpgradeMode.Walls, walls_upgrades);
+		baseupgrademode_entrieslists.Add(BaseUpgradeMode.Structure, structure_upgrades); 
+		 
+		
+	} 
 	
 			//vars for the whole sheet
 	public int colCount    = 4;
@@ -84,26 +124,26 @@ public class entityBaseS : Combatable {
 	
 	void visualDisplay()
 	{
-		int def_index = (int)defense_level;
-		int struct_index = (int)structure_level ;
-		int wall_index = (int) wall_level;
+		int def_index    = (int) defense_level;
+		int wall_b_index = (int) wall_level;
+		int wall_f_index = (int) wall_level;
+		int struct_index = (int) structure_level;
 		  
-	    Vector2 struct_offset = new Vector2((float) structure_level/4, 0);
-	    Vector2 wall_offset = new Vector2((float) wall_level/4, .3333333F);
-	    Vector2 def_offset = new Vector2((float) defense_level/4, .666666F);
+	    Vector2 def_offset = new Vector2((float) defense_level/4, 0);
+	    Vector2 wall_offset_b = new Vector2((float) wall_level/4, .25F);
+	    Vector2 wall_offset_f = new Vector2((float) wall_level/4, .5F);
+	    Vector2 struct_offset = new Vector2((float) structure_level/4, .75F);
 	 
-	    def.material.SetTextureOffset ("_MainTex", def_offset);
-	    walls.material.SetTextureOffset ("_MainTex", wall_offset);
-	    struc.material.SetTextureOffset ("_MainTex", struct_offset);
+	    def.material.SetTextureOffset	  ("_MainTex", def_offset);
+	    walls_f.material.SetTextureOffset ("_MainTex", wall_offset_b); 
+	    walls_b.material.SetTextureOffset ("_MainTex", wall_offset_f);
+	    struc.material.SetTextureOffset   ("_MainTex", struct_offset);
 //	    def.material.SetTextureOffset ("_MainTex", def_offset);
 //	    renderer.material.SetTextureScale  ("_MainTex", size);
 //	
 //		def.renderer.material.SetColor("_Color",Color.green);
 //		struc.renderer.material.SetColor("_Color",Color.red);
-//		walls.renderer.material.SetColor("_Color",Color.blue);
-		
-	
-	
+//		walls.renderer.material.SetColor("_Color",Color.blue);  
 	}
 	
 	public bool onFire = false;
@@ -251,18 +291,18 @@ public class entityBaseS : Combatable {
 	
 	//Player calls this method to change bases upgrade level
 	//Assumption: entityMech will take care of whether upgrade is allowed	
-	public bool upgradeBase(BaseCategories category, BaseUpgrade upgrade){ 
+	public bool upgradeBase(BaseUpgradeMode category, BaseUpgradeLevel upgrade){ 
 		//increase health, walls(armour), attack/range cost, and reduce ap
 		//Upgrades can only be applied once
 		switch(category){ 
 
-		case BaseCategories.Structure:
+		case BaseUpgradeMode.Structure:
 		{
 			switch(upgrade)
 			{
-				case BaseUpgrade.Level1:
+				case BaseUpgradeLevel.Level1:
 					if(structure_level != upgrade && structure_level < upgrade){
-						structure_level = BaseUpgrade.Level1;
+						structure_level = BaseUpgradeLevel.Level1;
 						max_hp += 10;
 						return true;
 					}else{
@@ -270,9 +310,9 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 			
-				case BaseUpgrade.Level2:
+				case BaseUpgradeLevel.Level2:
 					if(structure_level != upgrade && structure_level < upgrade){
-						structure_level = BaseUpgrade.Level2;
+						structure_level = BaseUpgradeLevel.Level2;
 						max_hp += 15;
 						return true;
 					}else{
@@ -280,9 +320,9 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 					
-				case BaseUpgrade.Level3:
+				case BaseUpgradeLevel.Level3:
 					if(structure_level != upgrade && structure_level < upgrade){
-						structure_level = BaseUpgrade.Level3;
+						structure_level = BaseUpgradeLevel.Level3;
 						max_hp += 20;
 						return true;
 					}else{
@@ -292,13 +332,13 @@ public class entityBaseS : Combatable {
 			}
 				break;
 		}
-		case BaseCategories.Defense:
+		case BaseUpgradeMode.Armament:
 		{
 			switch(upgrade)
 			{
-				case BaseUpgrade.Level1:
+				case BaseUpgradeLevel.Level1:
 					if(defense_level != upgrade && defense_level < upgrade){
-						defense_level = BaseUpgrade.Level1;
+						defense_level = BaseUpgradeLevel.Level1;
 						attack_range  += 1; 
 						return true;
 					}else{
@@ -306,9 +346,9 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 	
-				case BaseUpgrade.Level2:
+				case BaseUpgradeLevel.Level2:
 					if(defense_level != upgrade && defense_level < upgrade){
-						defense_level = BaseUpgrade.Level2; 
+						defense_level = BaseUpgradeLevel.Level2; 
 						attack_damage += 2;
 						return true;
 					}else{
@@ -316,9 +356,9 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 					
-				case BaseUpgrade.Level3:
+				case BaseUpgradeLevel.Level3:
 					if(defense_level != upgrade && defense_level < upgrade){
-						defense_level = BaseUpgrade.Level3;
+						defense_level = BaseUpgradeLevel.Level3;
 						attack_range  += 1;
 						attack_damage += 1;
 					return true;
@@ -330,13 +370,13 @@ public class entityBaseS : Combatable {
 			}
 				break;
 		}
-		case BaseCategories.Walls:
+		case BaseUpgradeMode.Walls:
 		{
 			switch(upgrade)
 			{
-			case BaseUpgrade.Level1:
+			case BaseUpgradeLevel.Level1:
 					if(wall_level != upgrade && wall_level < upgrade){
-						wall_level = BaseUpgrade.Level1;
+						wall_level = BaseUpgradeLevel.Level1;
 						base_armor += 1;
 						max_ap   += 2;
 						return true;
@@ -345,9 +385,9 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 	
-				case BaseUpgrade.Level2:
+				case BaseUpgradeLevel.Level2:
 					if(wall_level != upgrade && wall_level < upgrade){
-						wall_level = BaseUpgrade.Level2;
+						wall_level = BaseUpgradeLevel.Level2;
 						base_armor += 1;
 						max_ap   += 3;
 						return true;
@@ -356,9 +396,9 @@ public class entityBaseS : Combatable {
 						return false;
 					}
 					
-				case BaseUpgrade.Level3:
+				case BaseUpgradeLevel.Level3:
 					if(wall_level != upgrade && wall_level < upgrade){
-						wall_level = BaseUpgrade.Level3;
+						wall_level = BaseUpgradeLevel.Level3;
 						max_ap   += 3;
 						base_armor += 1;
 						return true;

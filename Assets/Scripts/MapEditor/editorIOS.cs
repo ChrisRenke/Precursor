@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using System.Text; 
 using System.IO;
+//using System.IO
 //using System.;
 
 public class editorIOS : MonoBehaviour {
@@ -173,7 +174,7 @@ public class editorIOS : MonoBehaviour {
 		FileInfo filer = new FileInfo(Application.dataPath + "/" + level_name + ".txt");
 		if(filer != null && filer.Exists)
 		{
-		   reader  = null;//= filer.OpenText();  // returns StreamReader
+		   reader  = filer.OpenText();  // returns StreamReader
 		} 
 		else
 		{
@@ -339,10 +340,10 @@ public class editorIOS : MonoBehaviour {
 		return true;
 	}
 	
-	public static BaseUpgrade getBaseUpgrade(String line)
+	public static BaseUpgradeLevel getBaseUpgrade(String line)
 	{  
     	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
-		return (BaseUpgrade)BaseUpgrade.Parse(typeof(BaseUpgrade), items[1]);
+		return (BaseUpgradeLevel)BaseUpgradeLevel.Parse(typeof(BaseUpgradeLevel), items[1]);
 	}
 	public static NodeLevel getNodeLevelR(String line)
 	{  

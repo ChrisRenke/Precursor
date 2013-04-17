@@ -6,12 +6,15 @@ using System.Collections.Generic;
 public class pathDrawS : MonoBehaviour {
 	
 	static Vector3 y_adj_line =new Vector3(0,1,0);
-	static Vector3 y_adj_hex =new Vector3(0,10,0);
+	static Vector3 y_adj_hex_top =new Vector3(0,10,0);
 	static Vector3 y_adj_hex_glow =new Vector3(0,9.9F,0);
 	static Vector3 y_adj_hex_sel =new Vector3(0,9.95F,0);
 	static Vector3 xz_norm =new Vector3(1,0,1);
 	
 	public static float max_path_width = 12;
+	
+	public static Material hex_material;
+	public Material hex_material_input;
 	 
 	private static entityMechS  mech;
 	static VectorLine player_route;
@@ -19,6 +22,8 @@ public class pathDrawS : MonoBehaviour {
 	void Start () { 
 //		mech = GameObject.FindWithTag("player_mech").GetComponent<entityMechS>();
 		mech = entityManagerS.getMech();
+		hex_material = hex_material_input;
+		
 	}
 	// Update is called once per frame
 	void Update () {
@@ -49,7 +54,7 @@ public class pathDrawS : MonoBehaviour {
 		Vector3[] verts = new Vector3[(ms.mesh.vertices.Length + 1)];
 //		VectorLine
 		for(int i = 0; i <  ms.mesh.vertices.Length; ++i)
-			verts[i] = ms.mesh.vertices[i] + y_adj_hex + hex.hex_object.transform.position;
+			verts[i] = ms.mesh.vertices[i] + y_adj_hex_glow + hex.hex_object.transform.position;
 		
 		verts[ms.mesh.vertices.Length] = ms.mesh.vertices[0] + y_adj_hex_glow + hex.hex_object.transform.position;
 		
@@ -57,7 +62,7 @@ public class pathDrawS : MonoBehaviour {
 		for(int i = 0; i < verts.Length; ++i)
 			verts[i].y = 1;
 			
-		return new VectorLine("border", verts, null, 8F,LineType.Continuous, Joins.Weld); 
+		return new VectorLine("border", verts, hex_material, 8F,LineType.Continuous, Joins.Weld); 
 //		VectorLine.MakeLine("border", verts).Draw3DAuto();
 	}
 	
@@ -68,7 +73,7 @@ public class pathDrawS : MonoBehaviour {
 		Vector3[] verts = new Vector3[(ms.mesh.vertices.Length + 1)];
 //		VectorLine
 		for(int i = 0; i <  ms.mesh.vertices.Length; ++i)
-			verts[i] = ms.mesh.vertices[i] + y_adj_hex + hex.hex_object.transform.position;
+			verts[i] = ms.mesh.vertices[i] + y_adj_hex_sel + hex.hex_object.transform.position;
 		
 		verts[ms.mesh.vertices.Length] = ms.mesh.vertices[0] + y_adj_hex_sel + hex.hex_object.transform.position;
 		
@@ -76,7 +81,7 @@ public class pathDrawS : MonoBehaviour {
 		for(int i = 0; i < verts.Length; ++i)
 			verts[i].y = 1;
 			
-		return new VectorLine("border", verts, null, 8F,LineType.Continuous, Joins.Weld); 
+		return new VectorLine("border", verts, hex_material, 8F,LineType.Continuous, Joins.Weld); 
 //		VectorLine.MakeLine("border", verts).Draw3DAuto();
 	}
 	
@@ -86,15 +91,15 @@ public class pathDrawS : MonoBehaviour {
 		Vector3[] verts = new Vector3[(ms.mesh.vertices.Length + 1)];
 //		VectorLine
 		for(int i = 0; i <  ms.mesh.vertices.Length; ++i)
-			verts[i] = ms.mesh.vertices[i] + y_adj_hex + hex.hex_object.transform.position;
+			verts[i] = ms.mesh.vertices[i] + y_adj_hex_top + hex.hex_object.transform.position;
 		
-		verts[ms.mesh.vertices.Length] = ms.mesh.vertices[0] + y_adj_hex + hex.hex_object.transform.position;
+		verts[ms.mesh.vertices.Length] = ms.mesh.vertices[0] + y_adj_hex_top + hex.hex_object.transform.position;
 		
 		
 		for(int i = 0; i < verts.Length; ++i)
 			verts[i].y = 1;
 			
-		return new VectorLine("border", verts, null, 8F,LineType.Continuous, Joins.Weld); 
+		return new VectorLine("border", verts,hex_material , 8F,LineType.Continuous, Joins.Weld); 
 //		VectorLine.MakeLine("border", verts).Draw3DAuto();
 	}
 	

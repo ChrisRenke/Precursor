@@ -50,6 +50,7 @@
      <None Include="Assets\Vectrosity\Shaders\Unlit .shader" />
      <None Include="Assets\yourtextfile.txt" />
      <None Include="Assets\Level_Files\level_test_enemy.txt" />
+     <None Include="Assets\test_before_alex.txt" />
      <None Include="Assets\supertestbs.txt" />
      <None Include="Assets\Level_Files\level_00_Donkey_Island.txt" />
      <None Include="Assets\Level_Files\level_00.txt" />

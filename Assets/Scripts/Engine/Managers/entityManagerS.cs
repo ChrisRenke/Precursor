@@ -26,7 +26,7 @@ public class entityManagerS : MonoBehaviour {
 	public GameObject base_entity;
 	public GameObject player_entity;
 	public GameObject enemy_entity;
-	public GameObject enemy_air_entity;
+	public GameObject flyer_entity;
 	public GameObject node_entity;
 	public GameObject spawn_entity;
 	
@@ -64,7 +64,7 @@ public class entityManagerS : MonoBehaviour {
 		entity_dict.Add(EntityE.Base, base_entity);
 		entity_dict.Add(EntityE.Player, player_entity);
 		entity_dict.Add(EntityE.Enemy, enemy_entity);
-		entity_dict.Add(EntityE.EnemyAir, enemy_air_entity);
+		entity_dict.Add(EntityE.Flyer, flyer_entity);
 		entity_dict.Add(EntityE.Spawn, spawn_entity);
 		
 		node_dict.Add(Node.Factory, node_entity);
@@ -296,10 +296,76 @@ public class entityManagerS : MonoBehaviour {
 				if(entityManagerS.getEnemyAt(current_hex.x, current_hex.z))
 					hexes_in_range.Add(current_hex); 
 			}
-		}
+		} 
 		
-//		Debug.LogWarning("hexes_in_range size = " + hexes_in_range.Count);
-		return hexes_in_range;
+		return hexes_in_range; 
+	}
+		
+		
+	public static void disableFacingDirectionsRange(HexData center, int sight_range){ 
+		List<HexData> hexes = hexManagerS.getAdjacentHexes(center,sight_range);
+		foreach(HexData hex in hexes)
+			hex.hex_script.disableDirectionTowardsActor();
+	}
+	
+	 
+	public static void updateFacingDirectionsRange(HexData center, int sight_range){ 
+			
+		List<HexData> hexes_in_range = new List<HexData>();
+		
+		//get the hex standing on
+		HexData current_hex = center;  
+		
+		//enter loop for surrounding hexes
+		for(int ring = 1; ring <= sight_range; ring++)
+		{
+			 
+			//draw the first "northeast" edge hex 
+			current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+			current_hex.hex_script.setDirectionTowardsActor(Facing.NorthEast);
+			
+			//draw the "northeast" portion
+			for(int edge_hexes_drawn = 1; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{ 
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthEast);// = AddHexSE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
+				current_hex.hex_script.setDirectionTowardsActor(Facing.NorthEast);
+			}
+			
+			//draw the "southeast" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.South);
+				current_hex.hex_script.setDirectionTowardsActor(Facing.SouthEast);
+			}
+			
+			//draw the "south" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthWest);
+				current_hex.hex_script.setDirectionTowardsActor(Facing.South);
+			}
+			
+			//draw the "southwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthWest);
+				current_hex.hex_script.setDirectionTowardsActor(Facing.SouthWest);
+			}
+			
+			//draw the "northwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.North);
+				current_hex.hex_script.setDirectionTowardsActor(Facing.NorthWest);
+			}
+			
+			//draw the "north" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+				current_hex.hex_script.setDirectionTowardsActor(Facing.North);
+			}
+		} 
 	}
 	
 	public static void updateEntityFoWStates()
@@ -459,8 +525,8 @@ public class entityManagerS : MonoBehaviour {
 	
 	
 	//create a base for the level
-	public static bool instantiateBase(int x, int z, int town_current_hp, int town_max_hp, BaseUpgrade town_wall_level,
-					BaseUpgrade town_defense_level, BaseUpgrade town_structure_level)
+	public static bool instantiateBase(int x, int z, int town_current_hp, int town_max_hp, BaseUpgradeLevel town_wall_level,
+					BaseUpgradeLevel town_defense_level, BaseUpgradeLevel town_structure_level)
 	{
 		sm = GameObject.Find("soundManager").GetComponent<soundManagerS>();
 		bool is_first_base = base_s == null;
@@ -556,8 +622,8 @@ public class entityManagerS : MonoBehaviour {
 			new_entity = instantiateEntity(x, z, EntityE.Enemy); 
 			new_enemy_s = (Enemy) new_entity.AddComponent("entityEnemyGroundS");
 		}else{
-			new_entity = instantiateEntity(x, z, EntityE.EnemyAir); 
-			new_enemy_s = (Enemy) new_entity.AddComponent("entityEnemyAirS");
+			new_entity = instantiateEntity(x, z, EntityE.Flyer); 
+			new_enemy_s = (Enemy) new_entity.AddComponent("entityEnemyFlyerS");
 		}
 
 		//entityEnemyS new_enemy_s = (entityEnemyS) new_entity.AddComponent("entityEnemyS");

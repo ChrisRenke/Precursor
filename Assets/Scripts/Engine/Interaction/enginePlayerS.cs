@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class enginePlayerS : MonoBehaviour {
 	
+	
+	
 	public int 									maxZoom 	= 2;
 	public int 									minZoom 	= 25;
 	 
@@ -209,9 +211,10 @@ public class enginePlayerS : MonoBehaviour {
 		 	Vector2 move_direction = new Vector2(cursor_lr_axis, -cursor_ud_axis);
 //		 	
 			float move_angle = Vector2.Angle(Vector2.up, move_direction);
-			//print("move_angle " + move_angle);
-		//print("cursor_lr_axis " + cursor_lr_axis);
-		//print("cursor_ud_axis " + cursor_ud_axis);
+
+//			print("move_angle " + move_angle);
+//		print("cursor_lr_axis " + cursor_lr_axis);
+//		print("cursor_ud_axis " + cursor_ud_axis);0
 			if(cursor_ud_axis >  .5F || cursor_lr_axis >  .5F
 			|| cursor_ud_axis < -.5F || cursor_lr_axis < -.5F)
 			{
@@ -258,7 +261,7 @@ public class enginePlayerS : MonoBehaviour {
 				
 				
 				
-				print ("DIRECTION LEFT STICK:   " + direction_to_move.ToString());
+//				print ("DIRECTION LEFT STICK:   " + direction_to_move.ToString());
 				HexData new_selection = hexManagerS.getHex(hovering_hex.x, hovering_hex.z, direction_to_move);
 				
 //				if(new_selection.x != hovering_hex.x && new_selection.z != hovering_hex.z)
@@ -269,7 +272,7 @@ public class enginePlayerS : MonoBehaviour {
 					
 					hovering_hex = new_selection;
 					move_time = Time.time; 
-					print ("MOVING TO A NEW HEX @ " + new_selection.x + ", " + new_selection.z);
+//					print ("MOVING TO A NEW HEX @ " + new_selection.x + ", " + new_selection.z);
 //				}
 				
 			}
@@ -480,7 +483,7 @@ public class enginePlayerS : MonoBehaviour {
 		}
 	}
 	
-	public static List<string> 	  hex_display_text;
+	public static List<string> 	  hex_display_text = new List<string>();
 	public static HexData 	  hex_display_text_at;
 	public static PathDisplay current_path_display;
 	
@@ -530,6 +533,8 @@ public class enginePlayerS : MonoBehaviour {
 	public Texture menu_upgrade_disabled;
 	public Texture menu_upgrade_owned;
 	
+	public Texture menu_upgrade_tier_spacer;
+	
 	public Texture part_small_gear;
 	public Texture part_small_strut;
 	public Texture part_small_plate;
@@ -538,8 +543,9 @@ public class enginePlayerS : MonoBehaviour {
 	public GUIStyle menu_close_button;
 	
 	
-	private static bool mech_menu_displayed = false;
+	private static bool mech_menu_displayed = true;
 	private static bool base_menu_displayed = false;
+	private static bool repair_menu_displayed = false;
 	 
 	public static void displayMechUpgradeMenu(){ mech_menu_displayed = true;	}
 	public static void displayBaseUpgradeMenu(){ base_menu_displayed = true; }
@@ -552,6 +558,75 @@ public class enginePlayerS : MonoBehaviour {
 	
 	void OnGUI()
 	{	
+		drawHexText();
+			 
+		//draw Part bars
+		drawHUDPartBar(203, 109,  bar_part_plate_bg, Part.Plate); 
+		drawHUDPartBar(203,  65,  bar_part_strut_bg, Part.Strut); 
+		drawHUDPartBar( 29, 109,   bar_part_gear_bg, Part.Gear); 
+		drawHUDPartBar( 29,  65, bar_part_piston_bg, Part.Piston); 
+			
+		//draw HP Bars
+		drawHUDHPBar(311,  60, 276, town.getCurrentHP(), town.getMaxHP(), Color.red, Color.yellow, Color.gray);
+		drawHUDHPBar(311, 104, 178, mech.getCurrentHP(), mech.getMaxHP(), Color.red, Color.yellow, Color.green);
+		
+		//draw repair menu button
+		if(drawButtonBool(122, 105, 94, "Repair"))
+			repair_menu_displayed = !repair_menu_displayed;
+		
+		//draw round counter
+		if(!base_menu_displayed)
+			drawButtonBool(408, Screen.height - 28, 104,"Round " + gameManagerS.current_round); 
+		
+		//draw end turn button5
+		if(!mech_menu_displayed)
+			drawEndTurnButton();
+		
+		//draw HP bar
+		drawHUDEnergyBar(417,29,446,mech.getCurrentAP(), mech.getMaxAP());
+		
+		 
+		//display menu mech upgrade
+		if(mech_menu_displayed)
+			drawUpgradeMenu(UpgradeMenu.Mech);
+			
+		//display menu mech upgrade
+		if(base_menu_displayed)
+			drawUpgradeMenu(UpgradeMenu.Base);
+			 
+		//display menu mech repair
+		if(repair_menu_displayed) 
+			drawRepairMenu(); 
+//	  	 
+	}
+	
+	private void drawEndTurnButton(){
+		
+		if(gameManagerS.current_turn == Turn.Player) 
+		{
+			if(drawButtonBool(976, Screen.height - 28, 104,"Finish Turn?"))
+				gameManagerS.endPlayerTurn(); 
+		}
+		else
+		
+		if(gameManagerS.current_turn == Turn.Enemy) 
+		{
+			if(drawButtonBool(976, Screen.height - 28, 104,"Enemy Turn..."))
+				//TODO playe negative sound
+				return;
+		}
+		else
+		
+		if(gameManagerS.current_turn == Turn.Base) 
+		{
+			if(drawButtonBool(976, Screen.height - 28, 104,"Base Turn..."))
+				//TODO playe negative sound
+				return;
+		} 	
+	}
+	
+	
+	public void drawHexText(){
 		if(!gameManagerS.mouse_over_gui)
 		{
 			
@@ -582,31 +657,6 @@ public class enginePlayerS : MonoBehaviour {
 				current_path_display.destroySelf();
 			}
 		}
-			
-			
-			 
-		drawHUDPartBar(203, 109,  bar_part_plate_bg, Part.Plate); 
-		drawHUDPartBar(203,  65,  bar_part_strut_bg, Part.Strut); 
-		drawHUDPartBar( 29, 109,   bar_part_gear_bg, Part.Gear); 
-		drawHUDPartBar( 29,  65, bar_part_piston_bg, Part.Piston); 
-			
-		drawHUDHPBar(311,  60, 276, town.getCurrentHP(), town.getMaxHP(), Color.red, Color.yellow, Color.gray);
-		drawHUDHPBar(311, 104, 178, mech.getCurrentHP(), mech.getMaxHP(), Color.red, Color.yellow, Color.green);
-		
-		drawButtonBool(122, 105, 94, "Repair"); 
-		drawButtonBool(408, Screen.height - 28, 104,"Round 30"); 
-		drawButtonBool(976, Screen.height - 28, 104,"End Turn"); 
-		
-		drawHUDEnergyBar(417,29,446,mech.getCurrentAP(), mech.getMaxAP());
-		
-		if(mech_menu_displayed)
-			drawUpgradeMenu(UpgradeMenu.Mech);
-			
-		if(base_menu_displayed)
-			drawUpgradeMenu(UpgradeMenu.Base);
-			
-//	  	ShadowAndOutline.DrawShadow(new Rect(36, 8, 128, 24), new GUIContent(entityMechS.getPartCount(Part.Plate) + "/12"),  enginePlayerS.gui_norm_text_static,Color.white, new Color(0,0,0,.5F),Vector2.up);
-
 	}
 	
 	public Color can_afford;
@@ -615,7 +665,7 @@ public class enginePlayerS : MonoBehaviour {
 	public Color disabled_afford;
 	
 	private MechUpgradeMode mech_upgrade_tab = MechUpgradeMode.Movement;
-	private BaseUpgradeMode base_upgrade_tab = BaseUpgradeMode.Perimeter;
+	private BaseUpgradeMode base_upgrade_tab = BaseUpgradeMode.Armament;
 	 
 	private void drawUpgradeMenu(UpgradeMenu upgrade_menu_type){ 
 		switch(upgrade_menu_type)
@@ -676,26 +726,31 @@ public class enginePlayerS : MonoBehaviour {
 			can_afford_upgrade = mech.canAffordUpgrade(entry.upgrade_type);
 			
 			
+ 			bool upgrade_owned = mech.checkUpgrade(entry.upgrade_type); 
 			Rect hover_zone = new Rect (48, 28 + 124 + entry_row*(74+15), 342, 74);
-	 		bool upgrade_owned = mech.checkUpgrade(entry.upgrade_type);
 			
-			if(upgrade_owned)
+			
+		   if(upgrade_owned)
 				GUI.DrawTexture(new Rect(0,entry_row*(74+15),350,82), menu_upgrade_owned);	
-	
+				
 			GUI.BeginGroup (new Rect (4, 4 + entry_row*(74+15) , 342, 74)); 
-			  
+		
 				if(hover_zone.Contains(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y)) && !upgrade_owned)
 				{
 					if(Input.GetMouseButtonDown(0))  
 					{
+						for(int i = 0; i < click_started.Length; ++i)
+							click_started[i] = false;
+					
 						click_started[entry_row] = true;
 					}
 					if(Input.GetMouseButtonUp(0))  
 					{ 
+					
+						entityManagerS.sm.playUpgradeMech(mech.checkUpgradeAffordable(entry.upgrade_type)); 
 						if(can_afford_upgrade)
 							mech.applyUpgrade(entry.upgrade_type); 
 					
-						entityManagerS.sm.playUpgradeMech(mech.checkUpgradeAffordable(entry.upgrade_type)); 
 					}
 					 
 					if(Input.GetMouseButton(0) && click_started[entry_row])
@@ -716,39 +771,65 @@ public class enginePlayerS : MonoBehaviour {
 					if(!upgrade_owned)
 						GUI.DrawTexture(new Rect(0,0,342,74), menu_upgrade_norm);	 
 				}
-				 
-				GUI.DrawTexture(new Rect(7,7,60,60),entry.thumbnail); 					
-				ShadowAndOutline.DrawOutline(new Rect(75,5,200,19), entry.title, menu_item_heading, new Color(0,0,0,.5F),Color.white, 3F);
-				ShadowAndOutline.DrawOutline(new Rect(75, 24 ,200,19), entry.description, menu_item_description, new Color(0,0,0,.5F),Color.white, 3F);
-		
-				//cost stuff
-				GUI.BeginGroup (new Rect (75, 47, 262, 22));
-					GUI.DrawTexture(new Rect(  0,0,23,23), part_small_gear);	 
-					drawPartCost(new Rect(28,0, 23, 23), entry, Part.Gear);
-		
-					GUI.DrawTexture(new Rect( 53,0,23,23), part_small_piston);	
-					drawPartCost(new Rect(81,0, 23, 23), entry, Part.Piston);
-				 
-					GUI.DrawTexture(new Rect(107,0,23,23), part_small_plate);	
-					drawPartCost(new Rect(135,0, 23, 23), entry, Part.Plate);
-		
-					GUI.DrawTexture(new Rect(160,0,23,23), part_small_strut); 
-					drawPartCost(new Rect(188,0, 23, 23), entry, Part.Strut);
-		
-					ShadowAndOutline.DrawOutline(new Rect(215, 0, 47,23), entry.ap_cost.ToString() + " AP", menu_item_ap, new Color(0,0,0,.5F), entry.ap_cost <= mech.getCurrentAP() ? can_afford : cannot_afford , 3F);
-		 
-				GUI.EndGroup ();  
 				
+				drawEntryContents(entry, upgrade_owned);
+					
 			GUI.EndGroup ();   
 		}
 	}
 	
-	private void drawPartCost(Rect in_rect, UpgradeEntry upgrade_entry, Part part_to_price)
+	
+	private void drawEntryContents(UpgradeEntry entry, bool upgrade_owned){
+		
+		
+		bool enabled = mech.checkUpgradeEnabled(entry.upgrade_type);
+		
+		GUI.DrawTexture(new Rect(7,7,60,60),entry.thumbnail); 					
+		ShadowAndOutline.DrawOutline(new Rect(75,5,200,19), entry.title, menu_item_heading, new Color(0,0,0,.5F),Color.white, 3F);
+		ShadowAndOutline.DrawOutline(new Rect(75, 24 ,200,19), entry.description, menu_item_description, new Color(0,0,0,.5F),Color.white, 3F);
+
+		//cost stuff
+		GUI.BeginGroup (new Rect (75, 47, 262, 22));
+			GUI.DrawTexture(new Rect(  0,0,23,23), part_small_gear);	 
+			drawPartCost(new Rect(28,0, 23, 23), entry, Part.Gear, upgrade_owned, enabled);
+
+			GUI.DrawTexture(new Rect( 53,0,23,23), part_small_piston);	
+			drawPartCost(new Rect(81,0, 23, 23), entry, Part.Piston, upgrade_owned, enabled);
+		 
+			GUI.DrawTexture(new Rect(107,0,23,23), part_small_plate);	
+			drawPartCost(new Rect(135,0, 23, 23), entry, Part.Plate, upgrade_owned, enabled);
+
+			GUI.DrawTexture(new Rect(160,0,23,23), part_small_strut); 
+			drawPartCost(new Rect(188,0, 23, 23), entry, Part.Strut, upgrade_owned, enabled);
+	 
+			drawPartCostAP(new Rect(207,0, 47, 23), entry.ap_cost, upgrade_owned, enabled);
+
+		GUI.EndGroup ();  
+	}
+	
+	private void drawPartCostAP(Rect in_rect, int ap_cost, bool owned, bool enabled)
+	{ 
+		Color price_color;
+		   
+		if(owned)
+			price_color = owned_afford;
+		else
+		if(!enabled)
+			price_color = disabled_afford;
+		else
+			if(ap_cost > mech.getCurrentAP())
+				price_color = cannot_afford;
+			else
+				price_color = can_afford; 
+		  
+		ShadowAndOutline.DrawOutline(in_rect, ap_cost + " AP", menu_item_ap, new Color(0,0,0,.5F), price_color, 3F);
+
+	}
+	  
+	private void drawPartCost(Rect in_rect, UpgradeEntry upgrade_entry, Part part_to_price, bool owned, bool enabled)
 	{
 		int part_cost = 0;
-		Color price_color;
-		bool owned = mech.checkUpgrade(upgrade_entry.upgrade_type);
-		bool enabled = true;
+		Color price_color; 
 		
 		switch(part_to_price)
 		{
@@ -758,10 +839,11 @@ public class enginePlayerS : MonoBehaviour {
 			case Part.Strut:  part_cost = upgrade_entry.strut_cost; break;
 		}
 		
-		if(!enabled)
-			price_color = disabled_afford;
 		if(owned)
 			price_color = owned_afford;
+		else
+		if(!enabled)
+			price_color = disabled_afford;
 		else
 			if(part_cost > entityMechS.getPartCount(part_to_price))
 				price_color = cannot_afford;
@@ -771,29 +853,95 @@ public class enginePlayerS : MonoBehaviour {
 		ShadowAndOutline.DrawOutline(in_rect, part_cost.ToString(), menu_item_costs, new Color(0,0,0,.5F),price_color, 3F);
 					
 	}
-	
-//	private void drawMenuUpgradeItem(int from_left, int from_top, )
-	
+	  
 	private void drawBaseUpgradeMenu(){ 
 		GUI.BeginGroup (new Rect (Screen.width - 378 - 30, 28, 378, 576));   
 			GUI.DrawTexture(new Rect (0,0, 378, 576), menu_background);	
 			ShadowAndOutline.DrawOutline(new Rect(18,18, 342, 47), "Base Upgrades", menu_heading, new Color(0,0,0,.5F),Color.white, 3F);
-			GUI.BeginGroup (new Rect (18, 80, 342, 29));   
-				drawBaseMenuFilterButtons(0,0,"Perimeter", BaseUpgradeMode.Perimeter );
-				drawBaseMenuFilterButtons(89,0,"Armament", BaseUpgradeMode.Armament );   
-				drawBaseMenuFilterButtons(178,0,"Structure", BaseUpgradeMode.Structure);   
-				drawBaseMenuFilterButtons(267,0,"Utility", BaseUpgradeMode.Utility) ;
 		
+			//close
+			if(GUI.Button(new Rect(329,17,30, 29),"",menu_close_button))
+			{
+				base_menu_displayed = false;
+				gameManagerS.mouse_over_gui = false;
+			}
+		
+			GUI.BeginGroup (new Rect (18, 80, 342, 29));   
+				drawBaseMenuFilterButtons(0,0,"Perimeter", BaseUpgradeMode.Walls );
+				drawBaseMenuFilterButtons(89,0,"Armament", BaseUpgradeMode.Armament );   
+				drawBaseMenuFilterButtons(178,0,"Structure", BaseUpgradeMode.Structure);    
 			GUI.EndGroup (); 
 		
-			if(GUI.Button(new Rect(329,17,30, 29),"",menu_close_button))
-				{
-					base_menu_displayed = false;
-					gameManagerS.mouse_over_gui = false;
-				}
+			//upgrade items
+			GUI.BeginGroup (new Rect (14, 120, 350, 438)); 
+				drawBaseUpgradeMenuEntries();	 		
+			GUI.EndGroup ();
+		
 		GUI.EndGroup (); 
 	}
 	
+	
+	private void drawBaseUpgradeMenuEntries(){
+		List<UpgradeEntry> upgrade_entires = mech.getUpgradeEntries(mech_upgrade_tab);
+	 	bool can_afford_upgrade = false; 
+		
+		for(int entry_row = 0; entry_row < upgrade_entires.Count; entry_row++)
+		{
+			UpgradeEntry entry = upgrade_entires[entry_row];
+			can_afford_upgrade = mech.canAffordUpgrade(entry.upgrade_type);
+			
+			
+ 			bool upgrade_owned = mech.checkUpgrade(entry.upgrade_type); 
+			Rect hover_zone = new Rect (48, 28 + 124 + entry_row*(74+15), 342, 74);
+			
+			
+		   if(upgrade_owned)
+				GUI.DrawTexture(new Rect(0,entry_row*(74+15),350,82), menu_upgrade_owned);	
+				
+			GUI.BeginGroup (new Rect (4, 4 + entry_row*(74+15) , 342, 74)); 
+		
+				if(hover_zone.Contains(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y)) && !upgrade_owned)
+				{
+					if(Input.GetMouseButtonDown(0))  
+					{
+						for(int i = 0; i < click_started.Length; ++i)
+							click_started[i] = false;
+					
+						click_started[entry_row] = true;
+					}
+					if(Input.GetMouseButtonUp(0))  
+					{ 
+					
+						entityManagerS.sm.playUpgradeMech(mech.checkUpgradeAffordable(entry.upgrade_type)); 
+						if(can_afford_upgrade)
+							mech.applyUpgrade(entry.upgrade_type); 
+					
+					}
+					 
+					if(Input.GetMouseButton(0) && click_started[entry_row])
+					{  
+						if(can_afford_upgrade)
+							GUI.DrawTexture(new Rect(0,0,342,74), menu_upgrade_down_canafford);	 
+						else
+							GUI.DrawTexture(new Rect(0,0,342,74), menu_upgrade_down_cannotafford);	  
+					}
+					else
+					{ 
+						click_started[entry_row] = false;
+						GUI.DrawTexture(new Rect(0,0,342,74), menu_upgrade_over);	 
+					}
+				}
+				else 
+				{ 
+					if(!upgrade_owned)
+						GUI.DrawTexture(new Rect(0,0,342,74), menu_upgrade_norm);	 
+				}
+				
+				drawEntryContents(entry, upgrade_owned);
+					
+			GUI.EndGroup ();   
+		}
+	}
 	
 	private bool drawButtonBool(int from_right, int from_bottom, int width, string text)
 	{  
@@ -897,6 +1045,63 @@ public class enginePlayerS : MonoBehaviour {
 				menu_filter_text, new Color(0,0,0,.5F),Color.white, 3F);
 		GUI.EndGroup ();   
 	}
+	
+	
+	
+	public GUIStyle repair_menu_text;
+	public GUIStyle repair_menu_button_canafford;
+	public GUIStyle repair_menu_button_cannotafford;
+	public GUIStyle repair_callout_bg;
+	
+	public Texture repair_menu_gear;
+	public Texture repair_menu_strut;
+	public Texture repair_menu_plate;
+	public Texture repair_menu_piston;
+	
+	
+	private void drawRepairMenu(){ 
+		  
+		GUI.BeginGroup (new Rect (Screen.width - 311, Screen.height - 187, 282, 92));
+			GUI.Box(new Rect (0,0, 282, 92),"", repair_callout_bg);
+			 
+				ShadowAndOutline.DrawOutline(new Rect(16, 11, 47, 17), "-1 Part", repair_menu_text, new Color(0,0,0,.5F),Color.white, 3F);
+				ShadowAndOutline.DrawOutline(new Rect(16, 27, 47, 17), "-1 AP", repair_menu_text, new Color(0,0,0,.5F),Color.white, 3F);
+				ShadowAndOutline.DrawOutline(new Rect(16, 43, 47, 17), "+2 HP", repair_menu_text, new Color(0,0,0,.5F),Color.white, 3F);
+			 
+			GUI.BeginGroup (new Rect (71, 13, 198, 48)); 
+				drawRepairMenuPartButton(repair_menu_gear,  0, Part.Gear);
+				drawRepairMenuPartButton(repair_menu_piston,1, Part.Piston);
+				drawRepairMenuPartButton(repair_menu_plate, 2, Part.Plate);
+				drawRepairMenuPartButton(repair_menu_strut, 3, Part.Strut); 
+			GUI.EndGroup ();  
+		
+		GUI.EndGroup (); 
+		
+	}
+	
+	private void drawRepairMenuPartButton(Texture button_image, int position, Part part_type)
+	{ 
+		if(entityMechS.getPartCount(part_type) > 0 && mech.getCurrentAP() >= mech.getRepairAPCost() && mech.getCurrentHP() < mech.getMaxHP())
+		{ 
+			if(GUI.Button(new Rect(position*48 + position*2, 0, 48,48),button_image,repair_menu_button_canafford))
+			{
+				mech.repair(part_type);
+				//TODO Play sound
+			}
+		}
+		else
+		{ 
+			if(GUI.Button(new Rect(position*48 + position*2, 0, 48,48),button_image,repair_menu_button_cannotafford))  
+			{	
+				//TODO Play sound
+				return;
+			}
+		}
+	
+	}
+	
+	
+	
 	
 }
 //			GUI.DrawTexture(new Rect (0,0, 168, 44), background);

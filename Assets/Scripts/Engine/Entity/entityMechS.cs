@@ -107,6 +107,29 @@ public class entityMechS : Combatable, IMove {
 		part_count[part_query] += delta;	
 	}
 	
+	public int getRepairAPCost(){
+		return repair_base_cost;
+	}
+	
+	public int getRepairHealAmount(){
+		return repair_core_heal;
+	}
+	
+	public void repair(Part part)
+	{
+		entityManagerS.createHealEffect(x,z);
+		entityManagerS.sm.playHeal();
+		
+		adjustPartCount(part, -1);
+		current_ap -= getRepairAPCost();
+		current_hp += getRepairHealAmount();
+		
+		if(current_hp > max_hp)
+		{
+			current_hp = max_hp;
+		}
+	}
+	
 	public static Transform child_fire; 
 	public static Transform child_shots; 
 	
@@ -476,6 +499,9 @@ public class entityMechS : Combatable, IMove {
 	
 	public void moveToHex(HexData location, bool _standing_on_top_of_node)
 	{
+		
+		entityManagerS.disableFacingDirectionsRange(hexManagerS.getHex(x,z), sight_range);
+		
 		hexManagerS.getHex(x,z).hex_script.mech_is_here = false;
 		current_ap -= location.traversal_cost;
 		setLocation(location.x, location.z);	
@@ -486,6 +512,9 @@ public class entityMechS : Combatable, IMove {
 		updateAttackableEnemies();
 		is_standing_on_node = _standing_on_top_of_node;
 		hexManagerS.getHex(x,z).hex_script.mech_is_here = true;
+		
+		entityManagerS.updateFacingDirectionsRange(hexManagerS.getHex(x,z), sight_range);
+		
 	}
 	
 	public void transportToHex(HexData location, bool _standing_on_top_of_node)
@@ -708,7 +737,7 @@ public class entityMechS : Combatable, IMove {
 		movement_upgrades.Add (new UpgradeEntry("Aquatic Fins", 		"Allows Water hex traversal (5 AP)",	1,	5,	1,	1,	2, upgrade_menu_entry_fins, MechUpgrade.Move_Water));
 		movement_upgrades.Add (new UpgradeEntry("Mountaineering Claws",	"Allows Mountain hex traversal (5 AP)",	2,	4,	0,	2,	2, upgrade_menu_entry_legs, MechUpgrade.Move_Mountain));
 		movement_upgrades.Add (new UpgradeEntry("Marsh Stabilizers",	"Reduces Marsh hex traversal by 1 AP",	0,	1,	4,	4,	2, upgrade_menu_entry_mountains, MechUpgrade.Move_Marsh));
-		movement_upgrades.Add (new UpgradeEntry("Re-engineered Frame",	"Reduces all hex traversal by 1 AP",	6,	3,	0,	3,	2, upgrade_menu_entry_marsh, MechUpgrade.Move_Legs));
+		movement_upgrades.Add (new UpgradeEntry("Re-engineered Frame",	"Reduces all hex traversal by 1 AP",	6,	3,	1,	3,	2, upgrade_menu_entry_marsh, MechUpgrade.Move_Legs));
 			 
 		combat_upgrades.Add (new UpgradeEntry("Howizter Bore",			"Increases attack damage by 2",			1,	2,	4,	2,	2, upgrade_menu_entry_gundamage, MechUpgrade.Combat_Damage));
 		combat_upgrades.Add (new UpgradeEntry("Efficient Reload", 		"Reduces attack cost by 2 AP",			2,	2,	0,	2,	2, upgrade_menu_entry_guncost, MechUpgrade.Combat_Cost));
@@ -718,14 +747,14 @@ public class entityMechS : Combatable, IMove {
 					 
 		scavenge_upgrades.Add (new UpgradeEntry("Combat Salvage",		"Gain one random part from kills",		2,	3,	0,	2,	2, upgrade_menu_entry_killscavenge, MechUpgrade.Scavenge_Combat));
 		scavenge_upgrades.Add (new UpgradeEntry("Greedy Gather", 		"Gain one extra part per scavenge",		0,	2,	1,	4,	2, upgrade_menu_entry_extrapartsscavenge, MechUpgrade.Scavenge_Greed));
-		scavenge_upgrades.Add (new UpgradeEntry("Probing Sensors", 		"15% change to scavenge empty nodes",	4,	2,	0,	0,	2, upgrade_menu_entry_emptyscavenge, MechUpgrade.Scavenge_Empty));
+//		scavenge_upgrades.Add (new UpgradeEntry("Probing Sensors", 		"15% change to scavenge empty nodes",	4,	2,	0,	0,	2, upgrade_menu_entry_emptyscavenge, MechUpgrade.Scavenge_Empty));
 		scavenge_upgrades.Add (new UpgradeEntry("Efficient Scavenge", 	"Reduceds cost of scavenge by 1",		2,	2,	2,	2,	2, upgrade_menu_entry_costscavenge, MechUpgrade.Scavenge_Cost));
-	  
-		utility_upgrades.Add (new UpgradeEntry("Town Recall",			"Click base to teleport home (6 AP)",	1,	4,	5,	0,	2, upgrade_menu_entry_recallbase, MechUpgrade.Util_Recall));
+	  	scavenge_upgrades.Add (new UpgradeEntry("Expanded Cargohold", 	"Increase part capacity to 16",			2,	2,	2,	2,	2, upgrade_menu_entry_part_capacity, MechUpgrade.Util_Parts));
+	 	
 		utility_upgrades.Add (new UpgradeEntry("Augemented Perception",	"Increase vision range by 2",			1,	2,	0,	3,	2, upgrade_menu_entry_visionrange, MechUpgrade.Util_Vision));
 		utility_upgrades.Add (new UpgradeEntry("Redline Reactor", 		"Increase max AP by 5",					3,	6,	2,	2,	2, upgrade_menu_entry_ap, MechUpgrade.Util_AP));
-		utility_upgrades.Add (new UpgradeEntry("Expanded Cargohold", 	"Increase part capacity to 16",			2,	2,	2,	2,	2, upgrade_menu_entry_part_capacity, MechUpgrade.Util_Parts));
-	 	utility_upgrades.Add (new UpgradeEntry("Idle Reconstruction", 	"Covert 3 AP into 1 HP at end of turn",	4,	0,	0,	4,	2, upgrade_menu_entry_healidle, MechUpgrade.Util_Idle));
+		utility_upgrades.Add (new UpgradeEntry("Town Recall",			"Click base to teleport home (6 AP)",	1,	4,	5,	0,	2, upgrade_menu_entry_recallbase, MechUpgrade.Util_Recall));
+		utility_upgrades.Add (new UpgradeEntry("Idle Reconstruction", 	"Covert 3 AP into 1 HP at end of turn",	4,	0,	0,	4,	2, upgrade_menu_entry_healidle, MechUpgrade.Util_Idle));
 	 
 		mechupgrademode_entrieslists.Add(MechUpgradeMode.Combat, combat_upgrades);
 		mechupgrademode_entrieslists.Add(MechUpgradeMode.Movement, movement_upgrades);
@@ -756,11 +785,14 @@ public class entityMechS : Combatable, IMove {
 	}
 	
 	public UpgradeCostFeedback checkUpgradeAffordable(MechUpgrade upgrade)
-	{
-		UpgradeEntry entry = mechupgrade_to_entries[upgrade];
+	{ 
+		UpgradeEntry entry = mechupgrade_to_entries[upgrade];  
 		
 		if(entry.ap_cost <= getCurrentAP())
-			if(	part_count[Part.Gear] >= entry.gear_cost && part_count[Part.Plate] >= entry.plate_cost && part_count[Part.Piston] >= entry.piston_cost && part_count[Part.Strut] >= entry.strut_cost)
+			if(	part_count[Part.Gear] >= entry.gear_cost && 
+				part_count[Part.Plate] >= entry.plate_cost && 
+				part_count[Part.Piston] >= entry.piston_cost && 
+				part_count[Part.Strut] >= entry.strut_cost)
 				return UpgradeCostFeedback.Success;
 			else 
 				return UpgradeCostFeedback.NeedMoreParts; 
@@ -770,13 +802,6 @@ public class entityMechS : Combatable, IMove {
 	
 	public bool canAffordUpgrade(MechUpgrade upgrade){
 		return (checkUpgradeAffordable(upgrade) == UpgradeCostFeedback.Success);
-	}
-	
-	
-	
-	public void attemptToUpgrade(MechUpgrade upgrade)
-	{
-//		if()
 	}
 	
 	public void applyUpgrade(MechUpgrade upgrade)
@@ -924,6 +949,12 @@ public class entityMechS : Combatable, IMove {
 		}
 		
 		throw new System.Exception("Attempted to see if mech has an upgrade that doesn't exist.  Did you change the MechUpgrade enum to add moar st00f?");
+	}
+	
+	public bool checkUpgradeEnabled(MechUpgrade upgrade)
+	{
+		//TODO add system for disabling upgrades based on level
+		return true;
 	}
 }
 

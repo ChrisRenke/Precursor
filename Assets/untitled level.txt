@@ -1,16 +1,19 @@
 LEVEL{
-	EDITOR VER   = 6
+	EDITOR VER   = 8
 	Level Name   = untitled level
-	Level Ver    = 0
-	X_dim        = 3
-	Z_dim        = 3
+	Level Number = 0
+	Round Num    = 1
+	Turn         = Player
+	Current_ap   = 18
+	X_dim        = 4
+	Z_dim        = 5
 	X_min        = -1
-	X_max        = 1
+	X_max        = 2
 	Z_min        = -1
-	Z_max        = 1
-	Total_Hexes  = 7
-	Game_Hexes   = 1
-	Border_Hexes = 6
+	Z_max        = 3
+	Total_Hexes  = 15
+	Game_Hexes   = 4
+	Border_Hexes = 11
 	HEXES{
 		HEX{ 
 			X    = 0
@@ -25,6 +28,16 @@ LEVEL{
 		HEX{ 
 			X    = 0
 			Z    = 1
+			Type = Desert
+		}
+		HEX{ 
+			X    = 0
+			Z    = 2
+			Type = Desert
+		}
+		HEX{ 
+			X    = 0
+			Z    = 3
 			Type = Perimeter
 		}
 		HEX{ 
@@ -38,6 +51,16 @@ LEVEL{
 			Type = Perimeter
 		}
 		HEX{ 
+			X    = 1
+			Z    = 1
+			Type = Desert
+		}
+		HEX{ 
+			X    = 1
+			Z    = 2
+			Type = Perimeter
+		}
+		HEX{ 
 			X    = -1
 			Z    = 0
 			Type = Perimeter
@@ -45,6 +68,26 @@ LEVEL{
 		HEX{ 
 			X    = -1
 			Z    = 1
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -1
+			Z    = 2
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -1
+			Z    = 3
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 2
+			Z    = 1
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 2
+			Z    = 0
 			Type = Perimeter
 		}
 	}

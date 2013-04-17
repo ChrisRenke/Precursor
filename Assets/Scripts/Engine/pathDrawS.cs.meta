@@ -2,7 +2,9 @@ fileFormatVersion: 2
 guid: 3a5caa648a0df470998dbbb1bcea045c
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - hex_material_input: {fileID: 2100000, guid: 07ba58632838f4c3b8a808be0ae4e6bc,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
