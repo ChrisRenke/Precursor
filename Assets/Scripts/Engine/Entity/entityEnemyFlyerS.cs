@@ -43,10 +43,11 @@ public class entityEnemyFlyerS : Enemy {
 	public static Transform child_fire;  
 	
 	public static void turnOnFire(){
-		
-		child_fire.transform.GetChild(0).particleEmitter.emit = true; 
-		child_fire.transform.GetChild(1).particleEmitter.emit = true; 
-		child_fire.transform.GetChild(2).particleEmitter.emit = true; 
+		if(child_fire != null){
+			child_fire.transform.GetChild(0).particleEmitter.emit = true; 
+			child_fire.transform.GetChild(1).particleEmitter.emit = true; 
+			child_fire.transform.GetChild(2).particleEmitter.emit = true; 
+		}
 	}
 	
 	public static void turnOffFire(){

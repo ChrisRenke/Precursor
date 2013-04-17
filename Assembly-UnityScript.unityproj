@@ -102,6 +102,7 @@
      <None Include="Assets\Scripts\_Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
      <None Include="Assets\supertest.txt" />
      <None Include="Assets\Level_Files\save_test_1.txt" />
+     <None Include="Assets\level_testE.txt" />
      <None Include="Assets\Level_Files\yoyoyo.txt" />
      <None Include="Assets\testyE.txt" />
      <None Include="Assets\Level_Files\level_01.txt" />
@@ -109,7 +110,6 @@
      <None Include="Assets\Level_Files\level_02.txt" />
      <None Include="Assets\Vectrosity\Shaders\DepthMask.shader" />
      <None Include="Assets\Materials\texture.shader" />
-     <None Include="Assets\testy.txt" />
      <None Include="Assets\untitled level.txt" />
      <None Include="Assets\Vectrosity\Shaders\SolidColor.shader" />
   </ItemGroup>

@@ -1,12 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Engine\Managers\entityManagerS.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Engine\Managers\engineIOS.cs">
     <Files>
-      <File FileName="Assets\Scripts\Engine\Entity\entityEnemyS.cs" Line="7" Column="25" />
-      <File FileName="Assets\Scripts\Engine\Entity\entityEnemyFlyerS.cs" Line="6" Column="24" />
-      <File FileName="Assets\Scripts\Engine\Managers\entityManagerS.cs" Line="623" Column="62" />
-      <File FileName="Assets\Scripts\Engine\Interaction\enemyFlyerDisplayS.cs" Line="61" Column="35" />
-      <File FileName="Assets\Scripts\Engine\Managers\engineIOS.cs" Line="208" Column="34" />
+      <File FileName="Assets\Scripts\Engine\Managers\engineIOS.cs" Line="312" Column="55" />
+      <File FileName="Assets\Scripts\Engine\Managers\entityManagerS.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MapEditor\editorMenuEntityS.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MapEditor\editorIOS.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MapEditor\editorEntityManagerS.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
