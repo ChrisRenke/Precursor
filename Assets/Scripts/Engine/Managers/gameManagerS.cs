@@ -38,7 +38,7 @@ public class gameManagerS : MonoBehaviour {
 	
 	
 	public void tutorialMessages(){
-		   
+		   inPlayMenuS.popup.custom_popup = true;
 	}
 	
 	
@@ -48,6 +48,7 @@ public class gameManagerS : MonoBehaviour {
 	
 	void postMessageLevel2()
 	{
+		inPlayMenuS.popup.custom_popup = true;
 //		switch(current_round){
 //		case 1:
 //			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
@@ -340,6 +341,7 @@ public class gameManagerS : MonoBehaviour {
 	
 	public static void beatLevel0()
 	{
+		//inPlayMenuS.popup.custom_popup = true;
 		inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216,   210, 432,  200);
 		inPlayMenuS.popup.custom_text = "You've got the hang of the base!\nNow onto the fightin' enemies."; //not enough ap	 
 		inPlayMenuS.popup.level_name = "Level1"; 

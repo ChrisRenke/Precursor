@@ -88,6 +88,7 @@ public class enginePlayerS : MonoBehaviour {
 	private float east_angle ;
 	private float southeast_angle ;
 	private float southwest_angle ;
+	
 	 
 //	private static LineRenderer lr;
 	
@@ -559,7 +560,6 @@ public class enginePlayerS : MonoBehaviour {
 	void OnGUI()
 	{	
 		drawHexText();
-			 
 		//draw Part bars
 		drawHUDPartBar(203, 109,  bar_part_plate_bg, Part.Plate); 
 		drawHUDPartBar(203,  65,  bar_part_strut_bg, Part.Strut); 

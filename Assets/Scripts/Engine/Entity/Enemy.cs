@@ -79,14 +79,12 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 			//check to see if base or mech is at one the hexes
 			if(h.x == base_s.x && h.z == base_s.z){
 				attack_hex = h;
-				attack_facing = h.direction_from_central_hex;
 				final_target = base_s;
 				break;
 			}
 			
 			if(h.x == mech_s.x && h.z == mech_s.z){
 				attack_hex = h;
-				attack_facing = h.direction_from_central_hex;
 				final_target = mech_s;
 				break;
 			}
@@ -356,7 +354,7 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 	{
 		//subtract ap cost from total
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z);
-		//facing_direction = attack_facing;
+		setFacingDirection(facing_direction);
 		current_ap -= attack_cost;
 		entityManagerS.sm.playGunNormal();
 		

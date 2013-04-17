@@ -13,6 +13,7 @@ public class popUpMenu : MonoBehaviour {
 	//Pick a menu
 	public int level_choice = 0;
 	public int text_number_choice = 0;
+	private int next_popup = 0;
 	
 	//styles
 	public GUIStyle backboard;
@@ -43,7 +44,7 @@ public class popUpMenu : MonoBehaviour {
 	
 	//public Texture chris_parts;
 	//Get PopUp Menu
-	popUpMenu script_popup;
+	//popUpMenu script_popup = GetComponent<popUpMenu>();
 	
 	void Start(){
 		upgrade_popup = false;
@@ -51,7 +52,6 @@ public class popUpMenu : MonoBehaviour {
 		level_choice = 0;
 		activate = false;
 		custom_popup = false;
-		script_popup = GetComponent<popUpMenu>();
 	}
 	
 	//Update is called once per frame
@@ -83,11 +83,9 @@ public class popUpMenu : MonoBehaviour {
 		}
 		
 		if(custom_popup){
-			//pause the game
-			savedTimeScale = Time.timeScale;
-		    Time.timeScale = 0;
-		    //Show the pause menu
-			customPopUpBox(custom_text,ref custom_rect,custom_backboard);
+			//get correct popUp
+		    getNextPopUp();
+			customPopUpBox(custom_text,ref custom_rect,backboard);
 		}
 		
 		if(game_over_popup){
@@ -218,9 +216,9 @@ public class popUpMenu : MonoBehaviour {
 	public void customPopUpBox(string text, ref Rect rec, GUIStyle style){
 		//The Pop Up box
 		
-		if(GUI.Button(rec, text, style)){
-			Time.timeScale = savedTimeScale; 
+		if(GUI.Button(rec, text, style)){ 
 			custom_popup = false;
+			next_popup++;
 		}
 	}
 	
@@ -240,6 +238,30 @@ public class popUpMenu : MonoBehaviour {
 		Debug.Log("Showing popup");
 		if(GUI.Button(rec, text, style)){
 			Application.LoadLevel(level_name); 
+		}
+	}
+	
+	//just set custom popup to true to activate
+	private void getNextPopUp(){
+		switch(next_popup){
+			case 0:
+				custom_text = "PopUp 1";
+				custom_rect = new Rect(screen_size_x /2 - screen_size_x /9 - screen_size_x /25, screen_size_y/2 - screen_size_y/10, screen_size_x - (screen_size_x /2 + screen_size_x /5), screen_size_y/4);
+				break;
+	
+			case 1:
+			    custom_text = "PopUp 2";
+				custom_rect = new Rect(screen_size_x /2 - screen_size_x /9 - screen_size_x /25, screen_size_y/2 - screen_size_y/10, screen_size_x - (screen_size_x /2 + screen_size_x /5), screen_size_y/4);
+				break;
+			
+			case 2:
+			    custom_text = "PopUp 3";
+				custom_rect = new Rect(screen_size_x /2 - screen_size_x /9 - screen_size_x /25, screen_size_y/2 - screen_size_y/10, screen_size_x - (screen_size_x /2 + screen_size_x /5), screen_size_y/4);
+				break;
+			
+			default:
+				
+				break;
 		}
 	}
 		
