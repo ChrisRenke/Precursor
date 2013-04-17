@@ -31,8 +31,6 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 	
 	public Vector3 center_top;
 	
-	public Facing attack_facing;
-	
 	public HexData attack_hex;
 	
 	//Extract hexes from path and put hexes into a List 
@@ -354,7 +352,8 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 	{
 		//subtract ap cost from total
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z);
-		setFacingDirection(facing_direction);
+		facing_direction = getDirectionToFace();
+		
 		current_ap -= attack_cost;
 		entityManagerS.sm.playGunNormal();
 		
@@ -368,6 +367,14 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 //		StartCoroutine(DelayStuff(.8f));
 		return 0; //nothing to damage if we get here
 	}	
+	
+	public Facing getDirectionToFace(){
+		//TODO: Facing Direction use attack_hex and current hex_position
+
+		Facing direction_to_move = facing_direction;
+				
+		return direction_to_move;
+	}
 	
 	
 	public void moveInWorld(int _destination_x, int _destination_z, float _time_to_complete)
