@@ -543,7 +543,7 @@ public class enginePlayerS : MonoBehaviour {
 	public GUIStyle menu_close_button;
 	
 	
-	private static bool mech_menu_displayed = true;
+	private static bool mech_menu_displayed = false;
 	private static bool base_menu_displayed = false;
 	private static bool repair_menu_displayed = false;
 	 
