@@ -55,6 +55,7 @@ public class entityBaseS : Combatable {
 			hex.hex_script.updateFoWState();
 		} 
 		entityManagerS.updateEntityFoWStates();
+		createUpgradeMenuEntries();
 	}
 	
 	public Texture armaments_1;
@@ -69,26 +70,45 @@ public class entityBaseS : Combatable {
 	
 	private Dictionary<BaseUpgradeMode, List<UpgradeEntry>> baseupgrademode_entrieslists;
 	
-		private void createUpgradeMenuEntries()
+	private void createUpgradeMenuEntries()
 	{
-		baseupgrademode_entrieslists = new Dictionary<BaseUpgradeMode, List<UpgradeEntry>>(); 
-//		baseupgrade_to_entries = new Dictionary<BaseUpgradeLevel, UpgradeEntry>();
+		baseupgrademode_entrieslists = new Dictionary<BaseUpgradeMode, List<UpgradeEntry>>();  
 		
 		List<UpgradeEntry> walls_upgrades = new List<UpgradeEntry>();
 		List<UpgradeEntry> armament_upgrades = new List<UpgradeEntry>();
 		List<UpgradeEntry> structure_upgrades = new List<UpgradeEntry>(); 
 //		 																					 			 		gear pis plt stru
-		armament_upgrades.Add (new UpgradeEntry("Heavy Ordnance", 			"Increase base attack range by 1",		2,	3,	1,	1,	2, armaments_1));
-		armament_upgrades.Add (new UpgradeEntry("Mortar Cannons",			"Increase base attack damage by 3",		1,	5,	0,	2,	3, armaments_2));
-		armament_upgrades.Add (new UpgradeEntry("Gatling Repeaters",		"Grants base etxra an extra attack",	1,	6,	2,	3,	4, armaments_3));
+		 
+		UpgradeEntry temp;
+		temp = (new UpgradeEntry("Heavy Ordnance", 			"Increase base attack range by 1",		2,	3,	1,	1,	2, armaments_1));
+		temp.base_level = BaseUpgradeLevel.Level1;
+		armament_upgrades.Add(temp);
+		temp = new UpgradeEntry("Mortar Cannons",			"Increase base attack damage by 3",		1,	5,	0,	2,	3, armaments_2);
+		temp.base_level = BaseUpgradeLevel.Level2;
+		armament_upgrades.Add(temp);
+		temp = new UpgradeEntry("Gatling Repeaters",		"Grants base etxra an extra attack",	1,	6,	2,	3,	4, armaments_3);
+		temp.base_level = BaseUpgradeLevel.Level3;
+		armament_upgrades.Add(temp); 
 		 	 
-		walls_upgrades.Add (new UpgradeEntry("Iron Plate Retrofit",			"Reduces incoming attack damage by 1",	0,	0,	4,	3,	2, walls_1));
-		walls_upgrades.Add (new UpgradeEntry("Copper Battlements", 			"Reduces incoming attack damage by 1",	1,	1,	5,	4,	3, walls_2));
-		walls_upgrades.Add (new UpgradeEntry("Golden Fortress", 			"Reduces incoming attack damage by 1",	2,	2,	6,	5,	4, walls_3));
+		temp = new UpgradeEntry("Iron Plate Retrofit",			"Reduces incoming attack damage by 1",	0,	0,	4,	3,	2, walls_1);
+		temp.base_level = BaseUpgradeLevel.Level1;
+		walls_upgrades.Add(temp); 
+		temp = new UpgradeEntry("Copper Battlements", 			"Reduces incoming attack damage by 1",	1,	1,	5,	4,	3, walls_2);
+		temp.base_level = BaseUpgradeLevel.Level2;
+		walls_upgrades.Add(temp); 
+		temp = new UpgradeEntry("Golden Fortress", 			"Reduces incoming attack damage by 1",	2,	2,	6,	5,	4, walls_3);
+		temp.base_level = BaseUpgradeLevel.Level3;
+		walls_upgrades.Add(temp);  
 		 			 
-		structure_upgrades.Add (new UpgradeEntry("Castle Expansion",		"Increase base HP by 10",				4,	2,	1,	1,	2, structure_1));
-		structure_upgrades.Add (new UpgradeEntry("Hybrid Observatory", 		"Increase base HP by 15",				5,	3,	2,	4,	3, structure_2));
-		structure_upgrades.Add (new UpgradeEntry("Industrial Revolution",	"Increase base HP by 25",				6,	4,	3,	3,	4, structure_3 ));
+		temp  = new UpgradeEntry("Castle Expansion",		"Increase base HP by 10",				4,	2,	1,	1,	2, structure_1);
+		temp.base_level = BaseUpgradeLevel.Level1;
+		structure_upgrades.Add(temp);  
+		temp  = new UpgradeEntry("Hybrid Observatory", 		"Increase base HP by 15",				5,	3,	2,	4,	3, structure_2);
+		temp.base_level = BaseUpgradeLevel.Level2;
+		structure_upgrades.Add(temp);  
+		temp  = new UpgradeEntry("Industrial Revolution",	"Increase base HP by 25",				6,	4,	3,	3,	4, structure_3);
+		temp.base_level = BaseUpgradeLevel.Level3;
+		structure_upgrades.Add(temp);   
 		 
 		baseupgrademode_entrieslists.Add(BaseUpgradeMode.Armament, armament_upgrades);
 		baseupgrademode_entrieslists.Add(BaseUpgradeMode.Walls, walls_upgrades);
@@ -97,6 +117,10 @@ public class entityBaseS : Combatable {
 		
 	} 
 	
+	
+	public List<UpgradeEntry> getUpgradeEntries(BaseUpgradeMode upgrade_type){
+		return baseupgrademode_entrieslists[upgrade_type];
+	}
 			//vars for the whole sheet
 	public int colCount    = 4;
 	public int rowCount    = 2;
@@ -129,10 +153,10 @@ public class entityBaseS : Combatable {
 		int wall_f_index = (int) wall_level;
 		int struct_index = (int) structure_level;
 		  
-	    Vector2 def_offset = new Vector2((float) defense_level/4, 0);
-	    Vector2 wall_offset_b = new Vector2((float) wall_level/4, .25F);
-	    Vector2 wall_offset_f = new Vector2((float) wall_level/4, .5F);
-	    Vector2 struct_offset = new Vector2((float) structure_level/4, .75F);
+	    Vector2 def_offset = new Vector2((float) defense_level/4, -.25F);
+	    Vector2 wall_offset_b = new Vector2((float) wall_level/4, -.5F);
+	    Vector2 wall_offset_f = new Vector2((float) wall_level/4, -.75F);
+	    Vector2 struct_offset = new Vector2((float) structure_level/4, -0);
 	 
 	    def.material.SetTextureOffset	  ("_MainTex", def_offset);
 	    walls_f.material.SetTextureOffset ("_MainTex", wall_offset_b); 
@@ -348,7 +372,7 @@ public class entityBaseS : Combatable {
 				case BaseUpgradeLevel.Level2:
 					if(defense_level != upgrade && defense_level < upgrade){
 						defense_level = BaseUpgradeLevel.Level2; 
-						attack_damage += 2;
+						attack_damage += 3;
 						return true;
 					}else{
 						//Debug.Log ("Base Already has this defense upgrade, can't downgrade");
@@ -358,8 +382,7 @@ public class entityBaseS : Combatable {
 				case BaseUpgradeLevel.Level3:
 					if(defense_level != upgrade && defense_level < upgrade){
 						defense_level = BaseUpgradeLevel.Level3;
-						attack_range  += 1;
-						attack_damage += 1;
+						attack_cost = 4;
 					return true;
 					}else{
 						//Debug.Log ("Base Already has this defense upgrade, can't downgrade");
@@ -376,8 +399,7 @@ public class entityBaseS : Combatable {
 			case BaseUpgradeLevel.Level1:
 					if(wall_level != upgrade && wall_level < upgrade){
 						wall_level = BaseUpgradeLevel.Level1;
-						base_armor += 1;
-						max_ap   += 2;
+						base_armor += 1; 
 						return true;
 					}else{
 						//Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
@@ -387,8 +409,7 @@ public class entityBaseS : Combatable {
 				case BaseUpgradeLevel.Level2:
 					if(wall_level != upgrade && wall_level < upgrade){
 						wall_level = BaseUpgradeLevel.Level2;
-						base_armor += 1;
-						max_ap   += 3;
+						base_armor += 1; 
 						return true;
 					}else{
 						//Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
@@ -398,8 +419,7 @@ public class entityBaseS : Combatable {
 				case BaseUpgradeLevel.Level3:
 					if(wall_level != upgrade && wall_level < upgrade){
 						wall_level = BaseUpgradeLevel.Level3;
-						max_ap   += 3;
-						base_armor += 1;
+						max_ap   += 1;
 						return true;
 					}else{
 						//Debug.Log ("Base Already has this AP cost upgrade, can't downgrade");
@@ -494,6 +514,19 @@ public class entityBaseS : Combatable {
 		
 	}
 	
+	
+	public BaseUpgradeLevel getHighestLevelUpgrade(BaseUpgradeMode bum)
+	{
+		
+		if(bum == BaseUpgradeMode.Armament) 
+			return defense_level;
+		if(bum == BaseUpgradeMode.Walls)
+			return wall_level;
+		if(bum == BaseUpgradeMode.Structure)
+			return structure_level;
+		
+		throw new System.Exception("well shit, broke stuff on base get highest level");
+	}
 	
 
 }

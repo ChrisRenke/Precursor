@@ -34,6 +34,17 @@ public class gameManagerS : MonoBehaviour {
 	public bool posted_this_round = false;
 	public static float time_after_shot_start = 0F;
 	public static bool waiting_after_shot = false;
+	
+	
+	public void tutorialMessages(){
+		   
+	}
+	
+	
+	
+	
+	
+	
 	void postMessageLevel2()
 	{
 //		switch(current_round){

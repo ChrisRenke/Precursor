@@ -783,6 +783,23 @@ public class entityMechS : Combatable, IMove {
 		part_count[Part.Strut] -= entry.strut_cost;
 	}
 	
+	public UpgradeCostFeedback checkUpgradeAffordable(UpgradeEntry entry)
+	{  
+		
+		if(entry.ap_cost <= getCurrentAP())
+			if(	part_count[Part.Gear] >= entry.gear_cost && 
+				part_count[Part.Plate] >= entry.plate_cost && 
+				part_count[Part.Piston] >= entry.piston_cost && 
+				part_count[Part.Strut] >= entry.strut_cost)
+				return UpgradeCostFeedback.Success;
+			else 
+				return UpgradeCostFeedback.NeedMoreParts; 
+		else
+			return UpgradeCostFeedback.NeedMoreAP;
+	}
+	
+	
+	
 	public UpgradeCostFeedback checkUpgradeAffordable(MechUpgrade upgrade)
 	{ 
 		UpgradeEntry entry = mechupgrade_to_entries[upgrade];  
@@ -800,6 +817,9 @@ public class entityMechS : Combatable, IMove {
 	}
 	
 	public bool canAffordUpgrade(MechUpgrade upgrade){
+		return (checkUpgradeAffordable(upgrade) == UpgradeCostFeedback.Success);
+	}
+	public bool canAffordUpgrade(UpgradeEntry upgrade){
 		return (checkUpgradeAffordable(upgrade) == UpgradeCostFeedback.Success);
 	}
 	
