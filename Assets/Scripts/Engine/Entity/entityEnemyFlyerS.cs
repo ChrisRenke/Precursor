@@ -22,8 +22,8 @@ public class entityEnemyFlyerS : Enemy {
 		last_path_cost = 0;		
 		end_turn = false;
 		
-		current_hp = 15;
-		max_hp = 15;
+//		current_hp = 15;
+//		max_hp = 15;
 		
 		current_ap = 5;
 		max_ap = 5;

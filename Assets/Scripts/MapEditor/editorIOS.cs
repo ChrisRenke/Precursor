@@ -287,6 +287,16 @@ public class editorIOS : MonoBehaviour {
 					editorUserS.ems.enemy_spawner_owner_id   = getIntR(reader.ReadLine());
 					editorUserS.ems.enemy_know_mech_location = getBoolR(reader.ReadLine());
 					editorUserS.ems.enemy_know_base_location = getBoolR(reader.ReadLine());
+					editorUserS.ems.enemy_type = getEnemyUpgrade(reader.ReadLine());
+				break;
+				
+				case editor_entity.Flyer:
+					editorUserS.ems.flyer_current_hp = getIntR(reader.ReadLine());
+					editorUserS.ems.flyer_max_hp = getIntR(reader.ReadLine());
+					editorUserS.ems.flyer_spawner_owner_id   = getIntR(reader.ReadLine());
+					editorUserS.ems.flyer_know_mech_location = getBoolR(reader.ReadLine());
+					editorUserS.ems.flyer_know_base_location = getBoolR(reader.ReadLine());
+					editorUserS.ems.flyer_type = getEnemyUpgrade(reader.ReadLine());
 				break;
 				
 				case editor_entity.Spawn:
@@ -295,6 +305,7 @@ public class editorIOS : MonoBehaviour {
 					editorUserS.ems.spawner_cadence = getStringR(reader.ReadLine());
 					editorUserS.ems.spawned_enemies_know_mech_location = getBoolR(reader.ReadLine());
 					editorUserS.ems.spawned_enemies_know_base_location = getBoolR(reader.ReadLine()); 
+				    editorUserS.ems.spawner_enemy_type = getEnemyUpgrade(reader.ReadLine());
 				break;
 				
 				case editor_entity.Mech:
@@ -344,6 +355,11 @@ public class editorIOS : MonoBehaviour {
 	{  
     	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
 		return (BaseUpgradeLevel)BaseUpgradeLevel.Parse(typeof(BaseUpgradeLevel), items[1]);
+	}
+	public static EntityE getEnemyUpgrade(String line)
+	{  
+    	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
+		return (EntityE)EntityE.Parse(typeof(EntityE), items[1]);
 	}
 	public static NodeLevel getNodeLevelR(String line)
 	{  

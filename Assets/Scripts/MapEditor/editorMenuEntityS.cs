@@ -36,6 +36,8 @@ public class editorMenuEntityS : MonoBehaviour {
 			case 5:
 			new_entity_s.ent_type = editor_entity.Enemy;break;
 			case 6:
+			new_entity_s.ent_type = editor_entity.Flyer;break;
+			case 7:
 			new_entity_s.ent_type = editor_entity.Spawn;break;
 			} 
 			new_entity.transform.parent = transform;
