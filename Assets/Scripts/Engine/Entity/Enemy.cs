@@ -31,6 +31,10 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 	
 	public Vector3 center_top;
 	
+	public Facing attack_facing;
+	
+	public HexData attack_hex;
+	
 	//Extract hexes from path and put hexes into a List 
 	public List<HexData> extractPath (Path path)
 	{
@@ -74,11 +78,15 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z,attack_range)){
 			//check to see if base or mech is at one the hexes
 			if(h.x == base_s.x && h.z == base_s.z){
+				attack_hex = h;
+				attack_facing = h.direction_from_central_hex;
 				final_target = base_s;
 				break;
 			}
 			
 			if(h.x == mech_s.x && h.z == mech_s.z){
+				attack_hex = h;
+				attack_facing = h.direction_from_central_hex;
 				final_target = mech_s;
 				break;
 			}
@@ -348,6 +356,7 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 	{
 		//subtract ap cost from total
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z);
+		//facing_direction = attack_facing;
 		current_ap -= attack_cost;
 		entityManagerS.sm.playGunNormal();
 		

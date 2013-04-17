@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class enemyAirDisplayS : MonoBehaviour {
+public class enemyFlyerDisplayS : MonoBehaviour {
 		//vars for the whole sheet
 	public int colCount    = 4;
 	public int rowCount    = 2;
