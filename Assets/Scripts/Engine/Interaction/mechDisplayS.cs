@@ -244,7 +244,7 @@ public class mechDisplayS : MonoBehaviour {
 				setToStanding(colCount,rowCount,rowNumber,colNumber,totalCells,fps);
 			
 				armor.enabled = owner.upgrade_combat_armor;
-				legs.enabled = owner.upgrade_move_cost;
+				legs.enabled = owner.upgrade_move_cost || owner.upgrade_combat_dodge;
 				mountain.enabled = owner.upgrade_move_mountain;
 				water.enabled = owner.upgrade_move_water;
 				gunrange.enabled = owner.upgrade_combat_range || owner.upgrade_util_vision;

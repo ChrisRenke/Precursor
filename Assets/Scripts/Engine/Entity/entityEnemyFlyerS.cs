@@ -8,6 +8,11 @@ public class entityEnemyFlyerS : Enemy {
 	private HexData last_move; //Can't Move Backwards unless can't move anywhere else; 
 	
 	
+	public override int attackTarget(Combatable t)
+	{
+		return 0;
+	}
+	
 	int t = 0; //test
 	
 	//Use this for initialization
@@ -289,7 +294,7 @@ public class entityEnemyFlyerS : Enemy {
 								end_turn = true;
 							}else{
 								int damage_done = -1;
-								damage_done = attackTarget (target);
+								damage_done = shootStuff (target);
 								em.killed_enemy_count--;
 								current_hp = 0;
 							}
@@ -337,12 +342,12 @@ public class entityEnemyFlyerS : Enemy {
 						}else{
 							int damage_done = -1;
 							if(chosen_path_is_mech){
-								damage_done = attackTarget (mech_s);
+								damage_done = shootStuff (mech_s);
 								em.killed_enemy_count--;
 								current_hp = 0;
 								//Debug.Log ("Target is Mech , damage done = " + damage_done);
 							}else if (chosen_path_is_base){
-								damage_done = attackTarget (base_s);
+								damage_done = shootStuff (base_s);
 								em.killed_enemy_count--;
 								current_hp = 0;
 								//Debug.Log ("Target is Base , damage done = " + damage_done);
@@ -361,7 +366,7 @@ public class entityEnemyFlyerS : Enemy {
 								end_turn = true;
 							}else{
 								int damage_done = -1;
-								damage_done = attackTarget (target);
+								damage_done = shootStuff (target);
 								em.killed_enemy_count--;
 								current_hp = 0;
 							}

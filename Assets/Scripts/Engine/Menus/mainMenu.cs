@@ -24,33 +24,23 @@ public class mainMenu : MonoBehaviour {
 		
 		//The Menu background box
 	    GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");
-		
-		int label_x_start  = window_size_width/3; 
-	    int button_x_start  = window_size_width/3 + window_size_width/4; 
-	    int button_y_start  = window_size_height/2 - window_size_width/10; 
-		int button_size_width  = window_size_width/2 - window_size_width/4 - window_size_width/40; 
-	    int button_size_height = window_size_height/12; 
-	    int button_spacing  = button_size_height/5; 
-		
+		 
 		//Continue
-	    if(GUI.Button(new Rect(button_x_start, button_y_start + (button_spacing) + (button_size_height), button_size_width, button_size_height), "Continue")) {
+	    if(GUI.Button(new Rect(490, 375, 300, 50), "Continue")) {
 			Application.LoadLevel(PlayerPrefs.GetString("CONTINUE"));
 	    }
 		
 		//New Game
-	    if(GUI.Button(new Rect(button_x_start, button_y_start + (2 * button_spacing) + (2 * button_size_height), button_size_width, button_size_height), "New Game")) {
+	    if(GUI.Button(new Rect(490, 435, 300, 50), "New Game")) {
 			PlayerPrefs.SetString("CONTINUE","Level0");
 			Application.LoadLevel("Level0");
 	    } 
 		
 		//Quit
-	    if(GUI.Button(new Rect(button_x_start, button_y_start + (3 * button_spacing) + (3 * button_size_height), button_size_width, button_size_height), "Quit" )) {
+	    if(GUI.Button(new Rect(490, 495, 300, 50), "Quit" )) {
 			Application.Quit();
 	    }
-		
-//		//not present at the moment...
-//	    if(GUI.Button(new Rect(button_x_start, button_y_start + (3 * button_spacing) + (3 * button_size_height), button_size_width, button_size_height), "" )) {
-//	    }
+		 
 		
 	}
 	

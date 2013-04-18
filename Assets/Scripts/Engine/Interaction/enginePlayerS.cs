@@ -276,6 +276,43 @@ public class enginePlayerS : MonoBehaviour {
 		}
 //NORMAL STUFF |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 		
+		if(Input.GetKeyDown(KeyCode.Tab))
+		{ 
+//			GameObject maincam = GameObject.FindGameObjectWithTag("MainCamera");
+			Vector3 current_camera_pos = maincam.transform.position;
+			Vector3 mech_camera_pos = new Vector3(hm.CoordsGameTo3D(mech.x,mech.z).x, 60, hm.CoordsGameTo3D(mech.x,mech.z).z);
+			Vector3 town_camera_pos = new Vector3(hm.CoordsGameTo3D(town.x,town.z).x, 60, hm.CoordsGameTo3D(town.x,town.z).z);
+			
+			if(current_camera_pos == mech_camera_pos)
+			{
+				maincam.transform.position = town_camera_pos;
+			}
+			else
+			if(current_camera_pos == town_camera_pos)
+			{
+				maincam.transform.position = mech_camera_pos;
+			}
+			else
+			{
+				maincam.transform.position = mech_camera_pos; 
+			}
+		}
+		
+		if(Input.GetKeyDown(KeyCode.O))
+		{ 
+			displayObjectivesMenu();
+		}
+		
+		if(Input.GetKeyDown(KeyCode.LeftShift))
+		{ 
+			gm.advanceFST();
+		}
+		
+		if(Input.GetKeyDown(KeyCode.R))
+		{ 
+			displayRepairMenu();
+		}
+		
 		//zoom out
 		if(Input.GetKey(KeyCode.Equals))
 		{  
@@ -284,17 +321,28 @@ public class enginePlayerS : MonoBehaviour {
 		
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
-			mech_menu_displayed = false;
-			base_menu_displayed = false;
-			repair_menu_displayed = false;
-			//TODO: SHOW MENU 
-			//TODO: Play close menu sound
+			
+			if(!mech_menu_displayed && !base_menu_displayed && !repair_menu_displayed && !pause_menu_displayed && !objective_menu_displayed)
+				displayPauseMenu();
+			else
+			{
+				mech_menu_displayed = false;
+				base_menu_displayed = false;
+				repair_menu_displayed = false;
+				pause_menu_displayed = false;
+				objective_menu_displayed = false;
+				audio.PlayOneShot(sound_open_menu);
+			} 
 		}
 		
 		if(Input.GetKeyDown(KeyCode.Q))
 		{
 			displayMechUpgradeMenu();
 		}
+//		if(Input.GetKeyDown())
+//		{
+//			displayMechUpgradeMenu();
+//		}
 		if(Input.GetKeyDown(KeyCode.E))
 		{
 			displayBaseUpgradeMenu();
@@ -563,31 +611,225 @@ public class enginePlayerS : MonoBehaviour {
 	public GUIStyle menu_close_button;
 	
 	
+	public Texture hud_indicator_box;
+	
+	
 	private bool mech_menu_displayed = false;
 	private bool base_menu_displayed = false;
 	private bool repair_menu_displayed = false;
+	private bool controls_menu_displayed = false;
 	 
-	public void displayRepairMenu(){ repair_menu_displayed = !repair_menu_displayed;}
+	public void displayControlsMenu(){ controls_menu_displayed = !controls_menu_displayed; audio.PlayOneShot(sound_open_menu);}
+	public void displayRepairMenu(){ repair_menu_displayed = !repair_menu_displayed; audio.PlayOneShot(sound_open_menu);}
+	public void displayObjectivesMenu(){ objective_menu_displayed = !objective_menu_displayed; pause_menu_displayed = false; controls_menu_displayed = false;  audio.PlayOneShot(sound_open_menu);}
+	public void displayPauseMenu(){ pause_menu_displayed = !pause_menu_displayed;	  audio.PlayOneShot(sound_open_menu);}
 	public void displayMechUpgradeMenu(){ mech_menu_displayed = !mech_menu_displayed;	mech_upgrade_start_time = Time.time; audio.PlayOneShot(sound_open_menu);}
 	public void displayBaseUpgradeMenu(){ base_menu_displayed = !base_menu_displayed;    base_upgrade_start_time = Time.time; audio.PlayOneShot(sound_open_menu);}
+	
 	public void hideMechUpgradeMenu(){ mech_menu_displayed = false; audio.PlayOneShot(sound_button); audio.PlayOneShot(sound_open_menu);}
 	public void hideBaseUpgradeMenu(){ base_menu_displayed = false; audio.PlayOneShot(sound_button); audio.PlayOneShot(sound_open_menu);}
 	public void hideRepairMenu(){ repair_menu_displayed = false; audio.PlayOneShot(sound_button);  audio.PlayOneShot(sound_open_menu);}
+	public void hideObjectivesMenu(){ objective_menu_displayed = false;  audio.PlayOneShot(sound_button);  audio.PlayOneShot(sound_open_menu);}
+	public void hidePauseMenu(){ pause_menu_displayed = false; audio.PlayOneShot(sound_button);  audio.PlayOneShot(sound_open_menu);}
+	public void hideControlsMenu(){controls_menu_displayed = false; audio.PlayOneShot(sound_button);  audio.PlayOneShot(sound_open_menu);}
 	
 	  
 	
 	private Rect mech_upgrade_rect;
 	private Rect base_upgrade_rect;
+	private Rect controls_rect = new Rect (343,81, 594, 579);
+	private Rect objective_rect = new Rect (417,220, 446, 248);
 	
 	public int gui_element_size = 80;
 	public int gui_text_element_size =  20;
 	public int gui_spacing      = 10;
 	
+	public bool objective_menu_displayed = false;
+	public bool pause_menu_displayed = false;
+	
+	public Texture objectives_bg;
+	public Texture big_bg;
+	
+	private void drawObjectivesMenu(){
+		 
+		GUI.BeginGroup (new Rect (417,220, 446, 248));   
+		
+			//background
+			GUI.DrawTexture(new Rect (0,0, 446, 248), objectives_bg);	
+		
+			if(GUI.Button(new Rect(400,17,30, 29),"",menu_close_button))
+			{
+				hideObjectivesMenu();
+				gm.mouse_over_gui = false;
+			}
+			//menu title
+			ShadowAndOutline.DrawOutline(new Rect(18,18, 342, 47), "Objectives", menu_heading, new Color(0,0,0,.5F),Color.white, 3F);
+	 
+		
+			//upgrade items
+			GUI.BeginGroup (new Rect (25, 80, 420, 438));  
+				
+				ShadowAndOutline.DrawOutline(new Rect(0,0, 342, 40),  gm.getObjectiveText(), menu_item_heading, new Color(0,0,0,.5F),Color.white, 3F);
+			 
+		 
+			GUI.EndGroup ();  
+		GUI.EndGroup (); 
+	}
+	
+	public Texture logo_small;
+	public Texture controls;
+	
+	private void drawPauseMenu(){
+		
+		
+		GUI.DrawTexture(new Rect (417+13, 108, 420, 114), logo_small);
+		GUI.BeginGroup (new Rect (417,220, 446, 248));   
+		
+			//background
+			GUI.DrawTexture(new Rect (0,0, 446, 248), objectives_bg);	
+		
+			if(GUI.Button(new Rect(400,17,30, 29),"",menu_close_button))
+			{
+				hidePauseMenu();
+				gm.mouse_over_gui = false;
+			} 
+		
+		
+			//upgrade items
+			GUI.BeginGroup (new Rect (13, 28, 420, 248));  
+				if(drawButtonBoolInGroup(105,0,210,"Restart"))
+					gm.restartLevel();
+				if(drawButtonBoolInGroup(105,50,210,"Objectives"))
+				{
+					pause_menu_displayed = false;
+					displayObjectivesMenu();
+				}
+				if(drawButtonBoolInGroup(105,100,210,"Control List"))
+				{
+					pause_menu_displayed = false;
+					displayControlsMenu();
+				}
+				if(drawButtonBoolInGroup(105,150,210,"Quit"))
+					gm.quitToMenu();
+		 
+			GUI.EndGroup ();  
+		GUI.EndGroup (); 
+	}
+	
+	private void drawControlsMenu(){
+		GUI.BeginGroup (new Rect (343,81, 594, 579));   
+		
+			//background
+			GUI.DrawTexture(new Rect (0,0, 594, 579), controls);	
+		
+			if(GUI.Button(new Rect(541,28,30, 29),"",menu_close_button))
+			{
+				hideControlsMenu();
+				gm.mouse_over_gui = false;
+			} 
+		GUI.EndGroup();
+		
+	}
+	
+	
+	private bool drawButtonBoolInGroup(int from_left, int from_top, int width, string text)
+	{  
+		GUI.BeginGroup (new Rect (from_left,from_top, width, 35));  
+			bool result = GUI.Button(new Rect (0,0, width, 35),"", HUD_button); 
+			ShadowAndOutline.DrawOutline(new Rect(0, 0, width, 31), text, 
+				 menu_filter_text, new Color(0,0,0,.5F),Color.white, 3F);
+		GUI.EndGroup (); 
+		
+		if(result)
+			audio.PlayOneShot(sound_button);
+			 
+		return result;
+	}
+	
+	public GUIStyle popupbox;
+	public Texture popup;
+	
+	private void drawInGamePopups(){
+		
+		List<PopupInfo> popups = gm.getPopupInfoForLevel();
+		
+		foreach(PopupInfo pops in popups)
+		{
+			drawSpecificPopup(pops.placement, pops.text, pops.widthless, pops.heightless, pops.ID);
+		}
+		
+	}
+	
+	public GUIStyle popup_text;
+	
+	
+	
+	private void drawFullscreenTips()
+	{
+		Texture fst = gm.getCurrentFullscreenTip();
+		if(fst!= null)
+		{
+			GUI.DrawTexture(new Rect (0,0, Screen.width, Screen.height), gm.getCurrentFullscreenTip());	
+			ShadowAndOutline.DrawOutline(new Rect(Screen.width/2 - 100, Screen.height - 100, 200, 50), "Press [SHIFT] to continue.", popup_text, new Color(0,0,0,.7F),Color.white, 3F);
+		}
+		
+	}
+	
+	
+	
+	
+	
+	private void drawSpecificPopup(Vector2 placement, string text, int widthless, int heightless, int ID)
+	{ 
+		int popup_width = 304;
+		int popup_height = 271;
+		int popup_content_width = 287;
+		int popup_content_height = 146;
+		
+		
+		switch(ID)
+		{
+		case 5: 
+			if(gm.first_move_popup_display)
+			{ 
+				GUI.BeginGroup (new Rect (placement.x - 48,Screen.height - placement.y-popup_height + heightless, popup_width, popup_height- heightless));  
+				
+					GUI.Box(new Rect(0,0, popup_width - widthless, popup_height - heightless),"",popupbox);
+					ShadowAndOutline.DrawOutline(new Rect(9,19, popup_content_width- widthless, popup_content_height - heightless), text, popup_text, new Color(0,0,0,.5F),Color.white, 3F);
+				GUI.EndGroup (); 
+			}
+			break;
+			
+		default:
+		GUI.BeginGroup (new Rect (placement.x - 48,Screen.height - placement.y-popup_height + heightless, popup_width, popup_height- heightless));  
+		
+			GUI.Box(new Rect(0,0, popup_width - widthless, popup_height - heightless),"",popupbox);
+			ShadowAndOutline.DrawOutline(new Rect(9,19, popup_content_width- widthless, popup_content_height - heightless), text, popup_text, new Color(0,0,0,.5F),Color.white, 3F);
+		GUI.EndGroup (); 
+			break;
+		}
+	}
+	
+	
 	void OnGUI()
 	{	
 		drawHexText();
 		
+		drawInGamePopups();
+		
 		checkMousePlacement();
+		
+		if(objective_menu_displayed)
+			drawObjectivesMenu();
+		
+		if(pause_menu_displayed)
+			drawPauseMenu();
+		
+		if(controls_menu_displayed)
+			drawControlsMenu();
+		
+		 
+		
 		
 		//draw Part bars
 		drawHUDPartBar(203, 109,  bar_part_plate_bg, Part.Plate); 
@@ -607,14 +849,22 @@ public class enginePlayerS : MonoBehaviour {
 		
 		//draw round counter
 		if(!base_menu_displayed)
-			drawButtonBool(408, Screen.height - 28, 104,"Round " + gm.current_round); 
+		{ 
+			if(drawButtonBool(408, Screen.height - 28, 104,"Round " + gm.current_round))
+				displayObjectivesMenu(); 
+		}
 		
 		//draw end turn button5
 		if(!mech_menu_displayed)
 			drawEndTurnButton();
 		
-		//draw HP bar
+		//draw AP bar
 		drawHUDEnergyBar(417,29,446,mech.getCurrentAP(), mech.getMaxAP());
+		if(gm.requiresHUDIndicator())
+		{
+			GUI.DrawTexture(new Rect(562,59,156,31), hud_indicator_box);
+			ShadowAndOutline.DrawOutline(new Rect(562,59,156,26), gm.getHUDIndicatorText(), menu_filter_text, new Color(0,0,0,.7F),Color.white, 3F);
+		}
 		
 		 
 		//display menu mech upgrade
@@ -629,6 +879,7 @@ public class enginePlayerS : MonoBehaviour {
 		if(repair_menu_displayed) 
 			drawRepairMenu(); 
 //	  	 
+		drawFullscreenTips();
 	}
 	
 	
@@ -643,6 +894,8 @@ public class enginePlayerS : MonoBehaviour {
 		
 		if((base_menu_zone.Contains(mouse_pos) && base_menu_displayed) 
 			|| (mech_menu_zone.Contains(mouse_pos) && mech_menu_displayed) 
+			|| (objective_rect.Contains(mouse_pos) && objective_menu_displayed) 
+			|| (controls_rect.Contains(mouse_pos) && controls_menu_displayed) 
 			|| (repair_menu_zone.Contains(mouse_pos) && repair_menu_displayed) ) 
 			gm.mouse_over_gui = true; 
 		else
@@ -740,7 +993,7 @@ public class enginePlayerS : MonoBehaviour {
 	private void lerpMenuInMechUpgrade()
 	{ 
 		float current_t_param = (Time.time - mech_upgrade_start_time)/animation_upgrade_menu_time;
-		print (current_t_param);
+//		print (current_t_param);
 		if(current_t_param < 1)
 		{
 			float result = Mathf.SmoothStep(menu_mech_origin_lerp,menu_mech_destin_lerp, current_t_param);

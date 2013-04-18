@@ -193,6 +193,7 @@ public hexManagerS hm;
 		Instantiate( particle_tele, CoordsGameTo3DEntiy(x, z) + new Vector3(0,-2F, 0), Quaternion.identity);
 	}
 	
+	public AudioClip enemy_death;
 	public void purgeEnemy(Enemy dead_enemy)
 	{
 //<<<<<<< HEAD
@@ -201,6 +202,7 @@ public hexManagerS hm;
 //=======
 		killed_enemy_count++;
 		createDeathEffect(dead_enemy.x, dead_enemy.z);
+		audio.PlayOneShot(enemy_death);
 //		sm.playExplodeEnemy();
 		if(gm.current_turn != Turn.Enemy){
 			enemy_list.Remove(dead_enemy);
@@ -594,10 +596,10 @@ public hexManagerS hm;
 		Enemy new_enemy_s;
 		if(enemy_type == EntityE.Enemy){
 			new_entity = instantiateEntity(x, z, EntityE.Enemy); 
-			new_enemy_s = (Enemy) new_entity.AddComponent("entityEnemyS");
+			new_enemy_s = (entityEnemyS) new_entity.GetComponent("entityEnemyS");
 		}else{
 			new_entity = instantiateEntity(x, z, EntityE.Flyer); 
-			new_enemy_s = (Enemy) new_entity.AddComponent("entityEnemyFlyerS");
+			new_enemy_s = (entityEnemyFlyerS) new_entity.GetComponent("entityEnemyFlyerS");
 		}
 
 		//entityEnemyS new_enemy_s = (entityEnemyS) new_entity.AddComponent("entityEnemyS");

@@ -352,7 +352,7 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 			facing_direction = new_facing;
 	}
 	
-	public override int attackTarget (Combatable target)
+	public  int shootStuff (Combatable target)
 	{
 		//subtract ap cost from total
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z);
@@ -362,6 +362,7 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 		
 		current_ap -= attack_cost; 
 		
+		gm.waiting_after_shot = true;
 		gm.time_after_shot_start = Time.time;
 		
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY " + target.GetInstanceID());
@@ -375,12 +376,7 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 			}
 			else
 				target.acceptDamage(attack_damage);
-		
-		gm.waiting_after_shot = true;
-		gm.time_after_shot_start = Time.time;
-		//Debug.Log ("ERROR: didn't pick a combatable target");
-		
-//		StartCoroutine(DelayStuff(.8f));
+		    
 		return 0; //nothing to damage if we get here
 	}	
 	

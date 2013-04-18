@@ -65,26 +65,26 @@ public class engineHexS : MonoBehaviour {
 	}
 	
 	public void ControllerSelect(){ 
-		createBorder();
-		
-		draw_mode = true;
-			
-		if(!border.active)
-			border.active = true; 
-		if(!glow.active)
-			glow.active = true; 
-		
-		border.SetColor(ep.upgrade);
-		border.Draw3DAuto();
-		glow.Draw3DAuto();
+//		createBorder();
+//		
+//		draw_mode = true;
+//			
+//		if(!border.active)
+//			border.active = true; 
+//		if(!glow.active)
+//			glow.active = true; 
+//		
+//		border.SetColor(ep.upgrade);
+//		border.Draw3DAuto();
+//		glow.Draw3DAuto();
 	}
 	
 	public void ControllerDeselect(){ 
-		border.active = false;
-		glow.active = false; 
-		
-		draw_mode = false;
-		clearBorders();
+//		border.active = false;
+//		glow.active = false; 
+//		
+//		draw_mode = false;
+//		clearBorders();
 	}
 	
 	
@@ -586,20 +586,20 @@ public class engineHexS : MonoBehaviour {
 	void OnMouseExit()
 	{
 		
-			if(hex_data.vision_state != Vision.Unvisted)
-			{ 
-				if(border != null)
-					border.active = false;
-				if(glow != null)
-					glow.active = false; 
-				
-				draw_mode = false;
-				clearBorders();
-				
+		if(hex_data.vision_state != Vision.Unvisted)
+		{ 
+			if(border != null)
+				border.active = false;
+			if(glow != null)
+				glow.active = false; 
+			
+			draw_mode = false;
+			clearBorders();
+			
 //				if(path_display != null)
 //					path_display.hidePath();
 //				border.StopDrawing3DAuto();
-			}
+		}
 	}
 	
 	

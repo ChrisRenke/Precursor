@@ -9,7 +9,11 @@ public class entityEnemyS : Enemy {
 	private HexData last_move; //Can't Move Backwards unless can't move anywhere else; 
 	
 	public AudioClip sound_shoot;
-
+	
+	public override int attackTarget(Combatable t)
+	{
+		return 0;
+	}
 	
 	int t = 0; //test
 	
@@ -123,7 +127,8 @@ public class entityEnemyS : Enemy {
 					path_to_mech = new List<HexData>();
 					path_to_opponent = new List<HexData>();
 					//t =0;	//test
-				}else{
+				}
+				else if(!gm.waiting_after_shot){
 				
 					//MAIN IDEA
 					//if can see mech and base and enemy is able to get to both mech and base
@@ -281,8 +286,8 @@ public class entityEnemyS : Enemy {
 								end_turn = true;
 							}else{
 								int damage_done = -1;
-								damage_done = attackTarget (target);
 								audio.PlayOneShot(sound_shoot);
+								damage_done = shootStuff (target);
 							}
 						}else{
 							//nothing in attackable range so try to move randomly
@@ -328,12 +333,12 @@ public class entityEnemyS : Enemy {
 						}else{
 							int damage_done = -1;
 							if(chosen_path_is_mech){
-								damage_done = attackTarget (mech_s);
 								audio.PlayOneShot(sound_shoot);
+								damage_done = shootStuff (mech_s); 
 								//Debug.Log ("Target is Mech , damage done = " + damage_done);
 							}else if (chosen_path_is_base){
-								damage_done = attackTarget (base_s);
 								audio.PlayOneShot(sound_shoot);
+								damage_done = shootStuff (base_s);
 								//Debug.Log ("Target is Base , damage done = " + damage_done);
 							}else{
 								//Debug.Log ("ERROR: ATTACK opponent, wasn't an attackable opponent, damage done = " + damage_done);
@@ -350,8 +355,8 @@ public class entityEnemyS : Enemy {
 								end_turn = true;
 							}else{
 								int damage_done = -1;
-								damage_done = attackTarget (target);
 								audio.PlayOneShot(sound_shoot);
+								damage_done = shootStuff (target);
 							}
 						}else{
 							//move enemy to next position
@@ -429,7 +434,7 @@ public class entityEnemyS : Enemy {
 			return true;
 	} 
 	
-//	public int attackTarget(Combatable target)
+//	public int shootStuff(Combatable target)
 //	{
 //		getDirectionToFaceToAttack(target);
 //		

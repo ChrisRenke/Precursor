@@ -14,8 +14,9 @@ public enum Action       { Repair, UpgradeMech, UpgradeBase, Scavenge, Attack, T
 public enum Vision       { Live, Visited, Unvisted }; 
 public enum MouseState   { Idle, Over, Click } 
 public enum editor_entity { Mech, Enemy, Flyer, Town, Spawn, Factory, Outpost, Junkyard };
-public enum Level        {Level0,Level1,Level2} ;
+public enum Level        {Level0,Level1,Level2,Level3,Level4,Level5} ;
 
+public enum Trigger      { AlwaysOn, Proximity, SpecialCase }
 
 public enum MechUpgradeMode        { Movement, Combat, Scavenge, Utility };
 public enum BaseUpgradeMode        { Walls, Armament, Structure, Utility };  
@@ -68,6 +69,23 @@ public enum Menu  {Default , Objective, BaseUpgrade1, BaseUpgrade2, BaseUpgrade3
 //}	
 
 
+public struct PopupInfo{
+	public string text;
+	public Vector3 placement;
+	public Trigger trigger;
+	public readonly int ID;
+	public int heightless; 
+	public int widthless;
+	public PopupInfo(string t, Vector3 v, Trigger tr, int i)
+	{
+		text = t;
+		placement = v;
+		trigger = tr;
+		ID = i;
+	  heightless = 0; 
+	  widthless = 0;
+	}
+}
 
 	
 public struct HexData{ 

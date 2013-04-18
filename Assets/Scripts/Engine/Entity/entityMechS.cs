@@ -376,6 +376,7 @@ public class entityMechS : Combatable, IMove {
 			int ind = (int) UnityEngine.Random.Range(0, 3.999999999999F);
 			part_count[(Part) ind] += 1;
 			em.createPartEffect(att_x,att_z,(Part) ind);
+			validatePartCounts();
 		}
 		
 		return 0; //nothing to damage if we get here			
@@ -411,44 +412,70 @@ public class entityMechS : Combatable, IMove {
 			 
 		if(((int) UnityEngine.Random.Range(0, 99.999999999999F)) < scavenge_empty_percent)
 		{
-			if(node_type == Node.Factory)
-			{
-				audio.PlayOneShot(sound_scavenge_fact);
-				part_count[Part.Piston] += num_of_each_type;
-				em.createPartEffect(x,z,Part.Piston);
-				part_count[Part.Gear] += num_of_each_type;
-				em.createPartEffect(x,z,Part.Gear);
 				
+		if(node_type == Node.Factory)
+		{
+			audio.PlayOneShot(sound_scavenge_fact);
+			part_count[Part.Piston] += num_of_each_type;
+			part_count[Part.Gear] += num_of_each_type;
+			for(int i = 0; i < num_of_each_type; ++i)
+			{
+			em.createPartEffect(x,z,Part.Gear);
+			em.createPartEffect(x,z,Part.Piston);
 			}
-			else if(node_type == Node.Outpost)
+					
+			
+		}
+		else if(node_type == Node.Outpost)
+		{
+			audio.PlayOneShot(sound_scavenge_outpost);
+			part_count[Part.Strut] += num_of_each_type;
+			
+			part_count[Part.Plate] += num_of_each_type;
+			for(int i = 0; i < num_of_each_type; ++i)
 			{
-				audio.PlayOneShot(sound_scavenge_outpost);
-				part_count[Part.Strut] += num_of_each_type;
+					
 				em.createPartEffect(x,z,Part.Strut);
-				
-				part_count[Part.Plate] += num_of_each_type;
 				em.createPartEffect(x,z,Part.Plate);
 			}
-			else
+		}
+		else
+		{
+			audio.PlayOneShot(sound_scavenge_junk);
+			//increase random part count by two, twice
+			for(int i =0; i < 2; i++)
 			{
-				audio.PlayOneShot(sound_scavenge_junk);
-				//increase random part count by two, twice
-				for(int i =0; i < 2; i++)
+				int ind = (int) UnityEngine.Random.Range(0, 3.999999999999F);
+				part_count[(Part) ind] += num_of_each_type;
+				for(int ix = 0; ix < num_of_each_type; ++ix)
 				{
-					int ind = (int) UnityEngine.Random.Range(0, 3.999999999999F);
-					part_count[(Part) ind] += num_of_each_type;
-					em.createPartEffect(x,z,(Part) ind);
+				 	em.createPartEffect(x,z,(Part) ind);
 				}
 			}
+		}
 			
 		}
 		else
 		{
-			ep.audio.PlayOneShot(ep._sound_negative);
+			audio.PlayOneShot(sound_negative);
 		}
 		current_ap -= getScavengeAPCost(); 
+		validatePartCounts();
 		return true;
 		
+	}
+	
+	public AudioClip sound_negative;
+	
+	public void validatePartCounts(){
+		if(part_count[Part.Gear] > getPartCapacity())
+			part_count[Part.Gear] = getPartCapacity();
+		if(part_count[Part.Piston] > getPartCapacity())
+			part_count[Part.Piston] = getPartCapacity();
+		if(part_count[Part.Strut] > getPartCapacity())
+			part_count[Part.Strut] = getPartCapacity();
+		if(part_count[Part.Plate] > getPartCapacity())
+			part_count[Part.Plate] = getPartCapacity(); 
 	}
 	
 	
@@ -472,19 +499,27 @@ public class entityMechS : Combatable, IMove {
 		{
 			audio.PlayOneShot(sound_scavenge_fact);
 			part_count[Part.Piston] += num_of_each_type;
-			em.createPartEffect(x,z,Part.Piston);
 			part_count[Part.Gear] += num_of_each_type;
+			for(int i = 0; i < num_of_each_type; ++i)
+			{
 			em.createPartEffect(x,z,Part.Gear);
+			em.createPartEffect(x,z,Part.Piston);
+			}
+					
 			
 		}
 		else if(node_type == Node.Outpost)
 		{
 			audio.PlayOneShot(sound_scavenge_outpost);
 			part_count[Part.Strut] += num_of_each_type;
-			em.createPartEffect(x,z,Part.Strut);
 			
 			part_count[Part.Plate] += num_of_each_type;
-			em.createPartEffect(x,z,Part.Plate);
+			for(int i = 0; i < num_of_each_type; ++i)
+			{
+					
+				em.createPartEffect(x,z,Part.Strut);
+				em.createPartEffect(x,z,Part.Plate);
+			}
 		}
 		else
 		{
@@ -494,13 +529,17 @@ public class entityMechS : Combatable, IMove {
 			{
 				int ind = (int) UnityEngine.Random.Range(0, 3.999999999999F);
 				part_count[(Part) ind] += num_of_each_type;
-				em.createPartEffect(x,z,(Part) ind);
+				for(int ix = 0; ix < num_of_each_type; ++ix)
+				{
+				 	em.createPartEffect(x,z,(Part) ind);
+				}
 			}
 		}
 		
 		current_ap -= getScavengeAPCost(); 
 		
 		em.updateNodeLevel(x, z, resource_level);
+		validatePartCounts();
 		return true;
 	}
 	
