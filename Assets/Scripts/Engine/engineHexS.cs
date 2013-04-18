@@ -335,13 +335,21 @@ public class engineHexS : MonoBehaviour {
 				
 				if(base_is_here){
 					if(!town_adj_hexes.Contains(mech_hex)){
-						genTextString(SelectLevel.Town, -1);
-						ep.setRoute(null, hex_display_text, hex_data);	
+						if(em.getMech().upgrade_util_recall)
+						{ 
+							genTextString(SelectLevel.TownRecall, em.getMech().getRecallAPCost());
+							ep.setRoute(null, hex_display_text, hex_data); 
+						}
+						else{
+							genTextString(SelectLevel.Town, -1);
+							ep.setRoute(null, hex_display_text, hex_data);	
+						}
 					} 
 					else	
-					{ 
+					{  
 						genTextString(SelectLevel.TownUpgrade, -1);
-						ep.setRoute(null, hex_display_text, hex_data);
+						ep.setRoute(null, hex_display_text, hex_data); 
+					
 					}
 					border.SetColor(ep.upgrade); 
 					return;
@@ -562,6 +570,12 @@ public class engineHexS : MonoBehaviour {
 //				em.getPlayer().displayMechUpgradeMenu();
 //				return;
 //			}
+			
+			
+			if(base_is_here && em.getMech().upgrade_util_recall)
+			{
+				em.getMech().recallBase();
+			}
 			
 			//if your're selecting an enemy within range
 			if(can_attack_hex)

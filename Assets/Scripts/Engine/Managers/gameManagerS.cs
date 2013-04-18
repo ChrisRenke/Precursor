@@ -299,27 +299,39 @@ public class gameManagerS : MonoBehaviour {
 	
 	public Texture getCurrentFullscreenTip()
 	{
-		if(!show_fst)
-			return null;
-		if(show_fst && current_level == Level.Level0)
-			switch(current_fst){ 
-				case 0: return camera_controls;
-				case 1: return ap_info;
-				case 2: return movement_information;
+		if(current_level == Level.Level0)
+		{
+			if(!show_fst)
+				return null;
+			if(show_fst && current_level == Level.Level0)
+				switch(current_fst){ 
+					case 0: return camera_controls;
+					case 1: return ap_info;
+					case 2: return movement_information;
+				
+					case 3: return hp_parts;
+					case 4: return enemies_spawns;
+					case 5: return repair_town;
+					case 6: return rounds_objectives;
+					case 7: return town_defend;
+				
+					case 8: return upgrade_base_objective;
+					case 9: return upgrade_base;
+					case 10: return nodes;
+				
+					case 11: return kill_5; 
+					case 12: return upgrade_mech;
+				}
+		return null;
+		}
+		else
+			if(current_level == Level.Level3){
+				if(current_fst == 0)  
+					return flyer_warning;
+				else
+					return null;
 			
-				case 3: return hp_parts;
-				case 4: return enemies_spawns;
-				case 5: return repair_town;
-				case 6: return rounds_objectives;
-				case 7: return town_defend;
-			
-				case 8: return upgrade_base_objective;
-				case 9: return upgrade_base;
-				case 10: return nodes;
-			
-				case 11: return kill_5; 
-				case 12: return upgrade_mech;
-			} 
+		}
 		return null;
 	}
 	
@@ -505,7 +517,7 @@ public class gameManagerS : MonoBehaviour {
 		em.getMech().current_ap = em.getMech().max_ap;
 	}
 	
-	
+	public Texture flyer_warning;
 	 
 	
 	

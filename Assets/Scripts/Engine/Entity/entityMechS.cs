@@ -13,6 +13,8 @@ public class entityMechS : Combatable, IMove {
 	public AudioClip  sound_walk_water;
 	public AudioClip  sound_walk_mountain;
 	 
+	public AudioClip  sound_dodge;
+	
 	public AudioClip  sound_attack_norm;
 	public AudioClip  sound_attack_upgrade;
 	
@@ -395,6 +397,22 @@ public class entityMechS : Combatable, IMove {
 	
 	public int getScavengeAPCost(){
 		return  upgrade_scavenge_cost ? scavenge_upgrade_cost : scavenge_core_cost;
+	}
+	
+	public void recallBase(){
+		
+		if(upgrade_util_recall)
+		{
+			List<HexData> adj_to_town = new List<HexData>(hm.getAdjacentHexes(em.getBase().x, em.getBase().z));
+			foreach(HexData hex in adj_to_town)
+			{
+				if(!em.getEnemyAt(hex.x, hex.z))
+				{
+					moveToHex(hex,false);
+					audio.PlayOneShot(sound_recall);
+				}
+			}
+		}
 	}
 	
 	public int parts_collected = 0;
