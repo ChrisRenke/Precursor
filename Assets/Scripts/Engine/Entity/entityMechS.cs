@@ -8,6 +8,27 @@ public class entityMechS : Combatable, IMove {
 //public enum MechUpgrade { Move_Water, Move_Mountain, Move_Marsh, Move_Legs, Combat_Damage, Combat_Cost, Combat_Range, Combat_Armor, Combat_Dodge, 
 //		Scavenge_Combat, Scavenge_Greed, Scavenge_Empty, Scavenge_Cost, Util_Recall, Util_Vision, Util_AP, Util_Heal, Util_Idle };
 	
+	
+	public AudioClip  sound_walk_norm;
+	public AudioClip  sound_walk_water;
+	public AudioClip  sound_walk_mountain;
+	 
+	public AudioClip  sound_attack_norm;
+	public AudioClip  sound_attack_upgrade;
+	
+	public AudioClip  sound_repair;
+	
+	public AudioClip  sound_burning;
+	
+	public AudioClip  sound_recall;
+	
+	public AudioClip  sound_upgrade_mech; 
+	
+	public AudioClip  sound_scavenge_junk;
+	public AudioClip  sound_scavenge_fact;
+	public AudioClip  sound_scavenge_outpost;
+	
+	
 	public bool upgrade_move_water		= false;
 	public bool upgrade_move_mountain 	= false;
 	public bool upgrade_move_cost 		= false;
@@ -78,7 +99,14 @@ public class entityMechS : Combatable, IMove {
 	public readonly int vision_upgrade_range		= 7;
 	
 	public readonly int armor_upgrade 				= 2; 
+	
+	public readonly int part_core_capacity          = 12;
+	public readonly int part_upgrade_capacity       = 20;
 	 
+	public int getPartCapacity(){
+		return upgrade_util_parts ? part_upgrade_capacity : part_core_capacity;
+	}
+	
 	
 	public List<HexData> adjacent_visible_hexes;
 	public List<HexData> previous_adjacent_visible_hexes;
@@ -117,8 +145,7 @@ public class entityMechS : Combatable, IMove {
 	
 	public void repair(Part part)
 	{
-		entityManagerS.createHealEffect(x,z);
-		entityManagerS.sm.playHeal();
+		entityManagerS.createHealEffect(x,z); 
 		
 		adjustPartCount(part, -1);
 		current_ap -= getRepairAPCost();
@@ -154,9 +181,7 @@ public class entityMechS : Combatable, IMove {
 	}
 	
 	//Use this for initialization
-	void Start () { 
-		inPlayMenuS.displayObjectiveUpgradeMenu();
-		UpgradeMenuS.showObjectivesMenu();
+	void Start () {  
 		updateFoWStates();
 	}
 	
@@ -346,9 +371,9 @@ public class entityMechS : Combatable, IMove {
 		shootEffect(facing_direction);
 		
 		if(upgrade_combat_damage)
-			entityManagerS.sm.playGunBigl();
+			audio.PlayOneShot(sound_attack_upgrade);
 		else
-			entityManagerS.sm.playGunNormal();
+			audio.PlayOneShot(sound_attack_norm);
 		
 		Debug.LogWarning("ABOUT TO ATTCK ENTITY ON - "+ att_x + "," + att_z);
 		entityEnemyS target = entityManagerS.getEnemyAt(att_x, att_z);
@@ -391,14 +416,15 @@ public class entityMechS : Combatable, IMove {
 		if(resource_level == NodeLevel.Empty)
 			return false;
 		
-		entityManagerS.sm.playScavenge();
-		int num_of_each_type = (int) resource_level;
+
+		int num_of_each_type = 1;//(int) resource_level;
 		
 		if(upgrade_scavenge_greed)
 			num_of_each_type++;
 		
 		if(node_type == Node.Factory)
 		{
+			audio.PlayOneShot(sound_scavenge_fact);
 			part_count[Part.Piston] += num_of_each_type;
 			entityManagerS.createPartEffect(x,z,Part.Piston);
 			part_count[Part.Gear] += num_of_each_type;
@@ -407,6 +433,7 @@ public class entityMechS : Combatable, IMove {
 		}
 		else if(node_type == Node.Outpost)
 		{
+			audio.PlayOneShot(sound_scavenge_outpost);
 			part_count[Part.Strut] += num_of_each_type;
 			entityManagerS.createPartEffect(x,z,Part.Strut);
 			
@@ -415,6 +442,7 @@ public class entityMechS : Combatable, IMove {
 		}
 		else
 		{
+			audio.PlayOneShot(sound_scavenge_junk);
 			//increase random part count by two, twice
 			for(int i =0; i < 2; i++)
 			{
@@ -505,7 +533,15 @@ public class entityMechS : Combatable, IMove {
 		current_ap -= location.traversal_cost;
 		setLocation(location.x, location.z);	
 		moveInWorld(location.x, location.z, 6F);
-		entityManagerS.sm.playMechWalk();
+		
+		
+		if(location.hex_type == Hex.Mountain || location.hex_type == Hex.Hills)
+			audio.PlayOneShot(sound_walk_mountain);
+		else if(location.hex_type == Hex.Marsh || location.hex_type == Hex.Marsh) 
+			audio.PlayOneShot(sound_walk_water);
+		else
+			audio.PlayOneShot(sound_walk_norm);
+		
 		setFacingDirection(location.direction_from_central_hex);
 		updateFoWStates();
 		updateAttackableEnemies();
@@ -520,7 +556,10 @@ public class entityMechS : Combatable, IMove {
 	{
 		setLocation(location.x, location.z);	
 		moveInWorld(location.x, location.z, 6F);
-		entityManagerS.sm.playMechWalk();
+		
+		
+		audio.PlayOneShot(sound_recall);
+		
 		//setFacingDirection(location.direction_from_central_hex);
 		updateFoWStates();
 		updateAttackableEnemies();
@@ -682,7 +721,7 @@ public class entityMechS : Combatable, IMove {
 	public override bool onDeath()
 	{
 //		Application.Quit();
-		gameManagerS.gameOver();
+		entityManagerS.getGameManger().endGame(false);
 		return true;
 	}
 	
@@ -825,6 +864,7 @@ public class entityMechS : Combatable, IMove {
 	
 	public void applyUpgrade(MechUpgrade upgrade)
 	{
+		audio.PlayOneShot(sound_upgrade_mech);
 		subtractPartCosts(mechupgrade_to_entries[upgrade]); 
 		switch(upgrade)
 		{

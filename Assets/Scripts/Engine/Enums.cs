@@ -194,6 +194,6 @@ public struct UpgradeEntry{
 		this.ap_cost = ap_cost;
 		this.thumbnail = thumbnail; 
 		this.upgrade_type = MechUpgrade.DEBUG_NONE;
-		base_level = BaseUpgradeLevel.Level0;
+		base_level = BaseUpgradeLevel.Level0; 
 	}
 }

@@ -144,8 +144,7 @@ public abstract class  Combatable : Entity{
 	 *  @return  remaining hp, floor of 0 returned
 	 */
 	public int healhp(int amount_to_heal)
-	{
-		entityManagerS.sm.playHeal();
+	{ 
 		entityManagerS.createHealEffect(x,z);
 		current_hp += amount_to_heal;
 		current_hp = current_hp > max_hp ? max_hp : current_hp;

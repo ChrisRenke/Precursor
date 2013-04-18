@@ -7,6 +7,9 @@ public class entityManagerS : MonoBehaviour {
 	//Using dummy values for testing
 	public static entityBaseS base_s;
 	public static entityMechS mech_s;
+	public static enginePlayerS player_s;
+	public static gameManagerS game_s;
+	
 	public static List<entityEnemyS> enemy_list;
 	public static List<entityNodeS> resource_node_list;
 	public static List<entitySpawnS> spawn_list;
@@ -73,8 +76,18 @@ public class entityManagerS : MonoBehaviour {
 		part_dict.Add(Part.Strut, particle_strut);
 		
 		sm = GameObject.Find("soundManager").GetComponent<soundManagerS>();
+		player_s = GameObject.Find("enginePlayer").GetComponent<enginePlayerS>();
+		game_s = GameObject.Find("engineGameManager").GetComponent<gameManagerS>();
 		spawn_points 		= new List<entityNodeS>();
 		
+	}
+	
+	public static enginePlayerS getPlayer(){
+		return player_s;
+	}
+	
+	public static gameManagerS getGameManger(){
+		return game_s;
 	}
 	
 //	public static void setSM()
@@ -187,8 +200,7 @@ public class entityManagerS : MonoBehaviour {
 	
 	public static void purgeEnemy(entityEnemyS dead_enemy)
 	{
-		createDeathEffect(dead_enemy.x, dead_enemy.z);
-		sm.playExplodeEnemy();
+		createDeathEffect(dead_enemy.x, dead_enemy.z); 
 		enemy_list.Remove(dead_enemy);
 		spawnid_to_enemiesactive[dead_enemy.spawner_owner]--;
 		hexManagerS.getHex(dead_enemy.x, dead_enemy.z).hex_script.can_attack_hex = false;

@@ -5,6 +5,14 @@ using System.Collections.Generic;
 public class enginePlayerS : MonoBehaviour {
 	
 	
+	public AudioClip  _sound_button;
+	public AudioClip  _sound_negative;
+	public AudioClip  _sound_open_menu;
+	
+	public static AudioClip  sound_button;
+	public static AudioClip  sound_negative;
+	public static AudioClip  sound_open_menu;
+	
 	
 	public int 									maxZoom 	= 2;
 	public int 									minZoom 	= 25;
@@ -14,7 +22,7 @@ public class enginePlayerS : MonoBehaviour {
 	public static GUIStyle						hp_bar_for_base;
 	public GUIStyle								hp_bar;
 	public GUIStyle								hp_bar_base;
-	public static Texture								hp_backboard;
+	public static Texture						hp_backboard;
 	public Texture								hp_backboard_test;	
 	public GUIStyle								selection_hover;
 	
@@ -90,7 +98,12 @@ public class enginePlayerS : MonoBehaviour {
 	private float southwest_angle ;
 	 
 //	private static LineRenderer lr;
-	
+	void Start () {
+		audio.volume = 1F;
+		audio.priority = 128;
+		audio.ignoreListenerVolume = true;
+		audio.rolloffMode = UnityEngine.AudioRolloffMode.Linear; 
+	}
 	// Use this for initialization
 	void Awake () {  
 		maincam 		= GameObject.FindGameObjectWithTag("MainCamera");
@@ -102,7 +115,7 @@ public class enginePlayerS : MonoBehaviour {
 		hp_bar_for_base = hp_bar_base;
 		hp_backboard = hp_backboard_test; 
 		
-		
+		HUD_button_static = HUD_button;
 		chris_hp_bg = chris_hp_bg_in;
 			chris_hp = chris_hp_in;
 		
@@ -116,7 +129,10 @@ public class enginePlayerS : MonoBehaviour {
 		glow_color = glow;
 		select_color = select_;
 		upgrade_color = upgrade;
-		
+		 
+		sound_button    = _sound_button;
+		sound_negative  = _sound_negative;
+		sound_open_menu = _sound_open_menu;
 		
 		Vector2 northwest = new Vector2(   -1F,  .557F);
 		Vector2 northeast = new Vector2( .464F,     1F);
@@ -132,12 +148,12 @@ public class enginePlayerS : MonoBehaviour {
 		southeast_angle	 = Vector2.Angle(Vector2.up, southeast);
 		southwest_angle	 = Vector2.Angle(Vector2.up, southwest); 
 		
-		print("northwest_angle " + northwest_angle); //60.9
-		print("northeast_angle " + northeast_angle); //25
-		print("west_angle " + west_angle);           //99
-		print("east_angle " + east_angle);           //81  
-		print("southeast_angle " + southeast_angle); //119
-		print("southwest_angle " + southwest_angle); //155
+//		print("northwest_angle " + northwest_angle); //60.9
+//		print("northeast_angle " + northeast_angle); //25
+//		print("west_angle " + west_angle);           //99
+//		print("east_angle " + east_angle);           //81  
+//		print("southeast_angle " + southeast_angle); //119
+//		print("southwest_angle " + southwest_angle); //155
 	}
 	 
 	public static entityBaseS town;
@@ -284,6 +300,30 @@ public class enginePlayerS : MonoBehaviour {
 		{  
 			zoom_adjust += .5F * zoomSensitivity; 
 		}
+		
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			mech_menu_displayed = false;
+			base_menu_displayed = false;
+			repair_menu_displayed = false;
+			//TODO: SHOW MENU 
+			//TODO: Play close menu sound
+		}
+		
+		if(Input.GetKeyDown(KeyCode.Q))
+		{
+			displayMechUpgradeMenu();
+		}
+		if(Input.GetKeyDown(KeyCode.E))
+		{
+			displayMechUpgradeMenu();
+		}
+		
+		if(Input.GetKeyDown(KeyCode.R))
+		{
+			drawRepairMenu();
+		}
+		
 		
 		//zoom in
 		if(Input.GetKey(KeyCode.Minus))
@@ -542,15 +582,22 @@ public class enginePlayerS : MonoBehaviour {
 	public GUIStyle menu_close_button;
 	
 	
-	private static bool mech_menu_displayed = true;
-	private static bool base_menu_displayed = false;
-	private static bool repair_menu_displayed = false;
+	private bool mech_menu_displayed = false;
+	private bool base_menu_displayed = false;
+	private bool repair_menu_displayed = false;
 	 
-	public static void displayMechUpgradeMenu(){ mech_menu_displayed = true;	}
-	public static void displayBaseUpgradeMenu(){ base_menu_displayed = true; }
-	public static void hideMechUpgradeMenu(){ mech_menu_displayed = false; }
-	public static void hideBaseUpgradeMenu(){ base_menu_displayed = false; }
+	public void displayRepairMenu(){ repair_menu_displayed = !repair_menu_displayed;}
+	public void displayMechUpgradeMenu(){ mech_menu_displayed = !mech_menu_displayed;	mech_upgrade_start_time = Time.time; audio.PlayOneShot(sound_open_menu);}
+	public void displayBaseUpgradeMenu(){ base_menu_displayed = !base_menu_displayed;    base_upgrade_start_time = Time.time; audio.PlayOneShot(sound_open_menu);}
+	public void hideMechUpgradeMenu(){ mech_menu_displayed = false; audio.PlayOneShot(sound_button);}
+	public void hideBaseUpgradeMenu(){ base_menu_displayed = false; audio.PlayOneShot(sound_button);}
+	public void hideRepairMenu(){ repair_menu_displayed = false; audio.PlayOneShot(sound_button);}
+	
 	  
+	
+	private Rect mech_upgrade_rect;
+	private Rect base_upgrade_rect;
+	
 	public int gui_element_size = 80;
 	public int gui_text_element_size =  20;
 	public int gui_spacing      = 10;
@@ -558,6 +605,8 @@ public class enginePlayerS : MonoBehaviour {
 	void OnGUI()
 	{	
 		drawHexText();
+		
+		checkMousePlacement();
 			 
 		//draw Part bars
 		drawHUDPartBar(203, 109,  bar_part_plate_bg, Part.Plate); 
@@ -567,11 +616,13 @@ public class enginePlayerS : MonoBehaviour {
 			
 		//draw HP Bars
 		drawHUDHPBar(311,  60, 276, town.getCurrentHP(), town.getMaxHP(), Color.red, Color.yellow, Color.gray);
+			ShadowAndOutline.DrawOutline(new Rect(Screen.width - 360, Screen.height - 104, 50, 28), "Town", menu_filter_text, new Color(0,0,0,.7F),Color.white, 3F);
 		drawHUDHPBar(311, 104, 178, mech.getCurrentHP(), mech.getMaxHP(), Color.red, Color.yellow, Color.green);
+			ShadowAndOutline.DrawOutline(new Rect(Screen.width - 360, Screen.height - 60, 50, 28), "Mech", menu_filter_text, new Color(0,0,0,.7F),Color.white, 3F);
 		
 		//draw repair menu button
 		if(drawButtonBool(122, 105, 94, "Repair"))
-			repair_menu_displayed = !repair_menu_displayed;
+			displayRepairMenu();
 		
 		//draw round counter
 		if(!base_menu_displayed)
@@ -597,6 +648,24 @@ public class enginePlayerS : MonoBehaviour {
 		if(repair_menu_displayed) 
 			drawRepairMenu(); 
 //	  	 
+	}
+	
+	
+	private void checkMousePlacement(){
+		
+		Rect mech_menu_zone = new Rect (30, 28, 378, 576);
+		Rect base_menu_zone = new Rect (Screen.width - 378 - 30, 28, 378, 576);
+		Rect repair_menu_zone = new Rect (Screen.width - 311, Screen.height - 187, 282, 92);
+		
+		Vector2 mouse_pos = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
+		
+		
+		if((base_menu_zone.Contains(mouse_pos) && base_menu_displayed) 
+			|| (mech_menu_zone.Contains(mouse_pos) && mech_menu_displayed) 
+			|| (repair_menu_zone.Contains(mouse_pos) && repair_menu_displayed) ) 
+			gameManagerS.mouse_over_gui = true; 
+		else
+			gameManagerS.mouse_over_gui = false;
 	}
 	
 	private void drawEndTurnButton(){
@@ -674,26 +743,52 @@ public class enginePlayerS : MonoBehaviour {
 		}
 	}
 	
+	
+	
+	private static float mech_upgrade_start_time = 0;
+	private static float base_upgrade_start_time = 0;
+	private static float animation_upgrade_menu_time = .14F; 
+	
+	private float menu_mech_origin_lerp = -408;
+	private float menu_mech_destin_lerp = 30;
+	
+	private float menu_base_origin_lerp = Screen.width;
+	private float menu_base_destin_lerp = Screen.width - 408;
+	
+	private void lerpMenuInMechUpgrade()
+	{ 
+		float current_t_param = (Time.time - mech_upgrade_start_time)/animation_upgrade_menu_time;
+		print (current_t_param);
+		if(current_t_param < 1)
+		{
+			float result = Mathf.SmoothStep(menu_mech_origin_lerp,menu_mech_destin_lerp, current_t_param);
+			mech_upgrade_rect = new Rect(result, 28, 378,576);  
+		}
+		else
+		{
+			mech_upgrade_rect =new Rect (30, 28, 378, 576);  
+		}
+	}
+	
+	private void lerpMenuInBaseUpgrade()
+	{ 
+		float current_t_param = (Time.time - base_upgrade_start_time)/animation_upgrade_menu_time;
+//		print (current_t_param);
+		if(current_t_param < 1)
+		{
+			float result = Mathf.SmoothStep(menu_base_origin_lerp,menu_base_destin_lerp, current_t_param);
+			base_upgrade_rect = new Rect(result, 28, 378,576);  
+		}else
+		{
+			base_upgrade_rect = new Rect (Screen.width - 378 - 30, 28, 378, 576);   
+		}
+	}
+	
 	private void drawMechUpgradeMenu(){ 
 		
-		Rect mech_menu_zone = new Rect (30, 28, 378, 576);
-		Rect base_menu_zone = new Rect (Screen.width - 378 - 30, 28, 378, 576);
-		Rect repair_menu_zone = new Rect (Screen.width - 311, Screen.height - 187, 282, 92);
-		
-		Vector2 mouse_pos = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y);
-		
-		
-		if((base_menu_zone.Contains(mouse_pos) && base_menu_displayed) 
-			|| (mech_menu_zone.Contains(mouse_pos) && mech_menu_displayed) 
-			|| (repair_menu_zone.Contains(mouse_pos) && repair_menu_displayed) ) 
-			gameManagerS.mouse_over_gui = true; 
-		else
-			gameManagerS.mouse_over_gui = false;
+		lerpMenuInMechUpgrade();
 		 
-		
-//		print (gameManagerS.mouse_over_gui);
-			
-		GUI.BeginGroup (new Rect (30, 28, 378, 576));   
+		GUI.BeginGroup (mech_upgrade_rect);   
 		
 			//background
 			GUI.DrawTexture(new Rect (0,0, 378, 576), menu_background);	
@@ -753,10 +848,11 @@ public class enginePlayerS : MonoBehaviour {
 					}
 					if(Input.GetMouseButtonUp(0))  
 					{ 
-					
-						entityManagerS.sm.playUpgradeMech(mech.checkUpgradeAffordable(entry.upgrade_type)); 
+					 
 						if(can_afford_upgrade)
-							mech.applyUpgrade(entry.upgrade_type); 
+						{
+							mech.applyUpgrade(entry.upgrade_type);  
+						}
 					
 					}
 					 
@@ -862,7 +958,10 @@ public class enginePlayerS : MonoBehaviour {
 	}
 	  
 	private void drawBaseUpgradeMenu(){ 
-		GUI.BeginGroup (new Rect (Screen.width - 378 - 30, 28, 378, 576));   
+		
+		lerpMenuInBaseUpgrade();
+		
+		GUI.BeginGroup (base_upgrade_rect);   
 			GUI.DrawTexture(new Rect (0,0, 378, 576), menu_background);	
 			ShadowAndOutline.DrawOutline(new Rect(18,18, 342, 47), "Base Upgrades", menu_heading, new Color(0,0,0,.5F),Color.white, 3F);
 		
@@ -932,8 +1031,7 @@ public class enginePlayerS : MonoBehaviour {
 					}
 					if(Input.GetMouseButtonUp(0))  
 					{ 
-					
-						entityManagerS.sm.playUpgradeMech(mech.checkUpgradeAffordable(entry)); 
+					 
 						if(can_afford_upgrade)
 							town.upgradeBase(base_upgrade_tab, entry.base_level); 
 					
@@ -981,6 +1079,7 @@ public class enginePlayerS : MonoBehaviour {
 	}
 	  
 	public GUIStyle HUD_button;
+	public static GUIStyle HUD_button_static;
 	public GUIStyle HUD_bar;
 	public Texture  energy_bar;
 	public Texture  menu_background;
@@ -997,12 +1096,13 @@ public class enginePlayerS : MonoBehaviour {
 	
 	private void drawHUDPartBar(int from_left, int from_bottom, Texture background, Part part_type)
 	{  
+		int part_cap = entityManagerS.getMech().getPartCapacity();
 		GUI.BeginGroup (new Rect (from_left, Screen.height - from_bottom, 168, 44));
 			GUI.DrawTexture(new Rect (0,0, 168, 44), background);
-			GUI.BeginGroup (new Rect (36, 8, (int)128*(float)entityMechS.getPartCount(part_type)/(float)12, 24));
+			GUI.BeginGroup (new Rect (36, 8, (int)128*(float)entityMechS.getPartCount(part_type)/(float)part_cap, 24));
 				GUI.DrawTexture(new Rect (0,0, 128, 24), bar_part_scale);
 			GUI.EndGroup (); 
-			ShadowAndOutline.DrawOutline(new Rect(36, 8, 128, 24), entityMechS.getPartCount(part_type) + "/12", 
+			ShadowAndOutline.DrawOutline(new Rect(36, 8, 128, 24), entityMechS.getPartCount(part_type) + "/" + part_cap, 
 				enginePlayerS.gui_norm_text_static, new Color(0,0,0,.5F),Color.white, 3F);
 		GUI.EndGroup (); 
 	}

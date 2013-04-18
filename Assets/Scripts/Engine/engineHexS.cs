@@ -16,6 +16,12 @@ public class engineHexS : MonoBehaviour {
 	
 	private Facing direction_towards_actor = Facing.South;
 	private bool   direction_in_range      = false; 
+	
+	
+	
+	private Facing direction_towards_enemy  = Facing.South;
+	private bool   direction_in_range_enemy = false; 
+
 
 	public List<HexData> town_adj_hexes;
 
@@ -239,10 +245,13 @@ public class engineHexS : MonoBehaviour {
 	void OnMouseEnter()
 	{
 		if(!gameManagerS.mouse_over_gui)
+		{
 			createBorder();
 
-		if(direction_in_range)
-			entityManagerS.getMech().setFacingDirection(direction_towards_actor);
+			if(direction_in_range && !entityManagerS.getMech().lerp_move)
+				entityManagerS.getMech().setFacingDirection(direction_towards_actor);
+			
+		}
 		  
 	}
 	
@@ -374,7 +383,7 @@ public class engineHexS : MonoBehaviour {
 	void OnMouseUpAsButton()
 	{		
 		
-		if(!gameManagerS.mouse_over_gui)
+		if(!gameManagerS.mouse_over_gui && !entityManagerS.getMech().lerp_move)
 		{
 			HexData mech_hex = hexManagerS.getHex(entityManagerS.getMech().x, entityManagerS.getMech().z);//if mech standing on this hex
 			
@@ -382,7 +391,7 @@ public class engineHexS : MonoBehaviour {
 			if(base_is_here)
 			{
 				if(town_adj_hexes.Contains(mech_hex)){
-					enginePlayerS.displayBaseUpgradeMenu();
+					entityManagerS.getPlayer().displayBaseUpgradeMenu();
 				}
 				return;
 			}
@@ -402,7 +411,7 @@ public class engineHexS : MonoBehaviour {
 						return;
 					}
 					else{ 
-						enginePlayerS.displayMechUpgradeMenu();
+						entityManagerS.getPlayer().displayMechUpgradeMenu();
 						return; 
 					}
 				}
@@ -411,7 +420,7 @@ public class engineHexS : MonoBehaviour {
 			 
 			if(mech_is_here)
 			{  
-				enginePlayerS.displayMechUpgradeMenu();
+				entityManagerS.getPlayer().displayMechUpgradeMenu();
 				return;
 			}
 			

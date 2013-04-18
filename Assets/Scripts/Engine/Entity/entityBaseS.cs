@@ -18,6 +18,13 @@ public class entityBaseS : Combatable {
 	public Renderer walls_b;
 	public Renderer def;
 	public Renderer struc;
+	
+	public AudioClip sound_repair;
+	public AudioClip sound_burning;
+	public AudioClip sound_attack_core;
+	public AudioClip sound_attack_upgrade;
+	public AudioClip sound_attack_gatling;
+	public AudioClip sound_upgrade;
 	 
 	public static bool show_health_bar = true; 
 	
@@ -287,9 +294,14 @@ public class entityBaseS : Combatable {
 	#region implemented abstract members of Combatable
 	public override int attackTarget (Combatable target)
 	{
+		if(defense_level == BaseUpgradeLevel.Level3)
+			audio.PlayOneShot(sound_attack_gatling);
+		else if(defense_level == BaseUpgradeLevel.Level0)
+			audio.PlayOneShot(sound_attack_core);
+		else
+			audio.PlayOneShot(sound_attack_upgrade);
 		//subtract ap cost from total
-		//Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z);
-		entityManagerS.sm.playGunBigl();
+		//Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z); 
 		current_ap -= attack_cost;
 		
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY " + target.GetInstanceID());
@@ -308,7 +320,7 @@ public class entityBaseS : Combatable {
 	
 	public override bool onDeath()
 	{
-		gameManagerS.gameOver();
+		entityManagerS.getGameManger().endGame(false);
 		return true;
 	}
 	
@@ -317,6 +329,8 @@ public class entityBaseS : Combatable {
 	public bool upgradeBase(BaseUpgradeMode category, BaseUpgradeLevel upgrade){ 
 		//increase health, walls(armour), attack/range cost, and reduce ap
 		//Upgrades can only be applied once
+		
+		audio.PlayOneShot(sound_upgrade);
 		switch(category){ 
 
 		case BaseUpgradeMode.Structure:

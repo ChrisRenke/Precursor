@@ -8,13 +8,23 @@ public class gameManagerS : MonoBehaviour {
 	public static int  current_round;
 	public static Level current_level;
 	
+	
+	public AudioClip _level_complete_screen_sound;
+	public AudioClip _fanfare_success;
+	public AudioClip _fanfare_failure;
+	
+	
+	public static AudioClip level_complete_screen_sound;
+	public static AudioClip fanfare_success;
+	public static AudioClip fanfare_failure;
+	
 	public static bool mouse_over_gui = false;
 	
 	public GameObject  selection_hex_input;
 	public static GameObject selection_hex;
 	
 	public static List<entityEnemyS>.Enumerator	enemy_enumerator;
-	public static bool 	  					enemy_currently_acting = false;
+	public static bool 	enemy_currently_acting = false;
 	
 	public static bool rebuilt_enemy_lcoations = false;
 	public static bool spawned_enemies_this_round = false;
@@ -24,6 +34,10 @@ public class gameManagerS : MonoBehaviour {
 		selection_hex = selection_hex_input;
 		current_turn  = Turn.Player;
 		current_round = 1;
+		
+		level_complete_screen_sound = _level_complete_screen_sound;
+		fanfare_success = _fanfare_success;
+		fanfare_failure = _fanfare_failure;
 	}
 	
 	// Use this for initialization
@@ -42,173 +56,7 @@ public class gameManagerS : MonoBehaviour {
 	
 	
 	
-	
-	
-	
-	void postMessageLevel2()
-	{
-//		switch(current_round){
-//		case 1:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = "Oh donkies in heaven! There are a lot" +
-//											"\nof unruly wild mech's about. Help keep" +
-//											 "\nour town alive for 40 rounds " +
-//											"\nand I'll make it worth your while!"; //not enough ap	
-//			inPlayMenuS.popup.custom_popup = true;   
-//			break;
-//		case 5:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = "If you get low on HP, check out" +
-//											"\nthe repair menu.  You can convert\n"
-//											+"one part into 2 HP. Not a bad deal."; //not enough ap	
-//			inPlayMenuS.popup.custom_popup = true;   
-//			break;
-//		case 6:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = "As for reparing the town," +
-//			"\nwe'll handle that when we're not" +
-//			"\nin combat; you just have to keep" +
-//			"\nyourself in good repair."; //not enough ap	
-//			inPlayMenuS.popup.custom_popup = true;   
-//			break;
-//		case 7:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = "Generally, you can upgrade our town to keep" +
-//											"\nus strong enough to defend ourselves while\n"
-//											+"you go around and collect more resources for" +
-//												"\neither your or us!  Good luck!"; //not enough ap	
-//			inPlayMenuS.popup.custom_popup = true;   
-//			break;
-//		}
-		posted_this_round = true;
-	}
-	
-	void postMessageLevel1()
-	{
-//		switch(current_round){
-//		case 1:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = "Alrighty then, on to the basics of combat." +
-//				"\nJust go exploring a bit, " +
-//				"\nI'm sure you'll find some trouble." ; //not enough ap	
-//			inPlayMenuS.popup.custom_popup = true;   
-//			break;
-//		case 4:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = "When you see an enemy, you can attack him from" +
-//				"\nup to two hexes away, so " +
-//				"\nno need to get toooo close." ; //not enough ap	
-//			inPlayMenuS.popup.custom_popup = true;   
-//			break;
-//		case 6:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = "I heard there were three of these punks" +
-//				"\nroaming about. Take 'em all down" +
-//				 "\nand I'll give ya your next map." ; //not enough ap	
-//			inPlayMenuS.popup.custom_popup = true;   
-//			break;
-//		case 8:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = "So apparently the 3rd baddie is " +
-//				"\n in a little bit of a mountain valley." +
-//				"\nYou're gonna need to get Climbin"
-//				+"\nClaws to cross into it." ; //not enough ap	
-//			inPlayMenuS.popup.custom_popup = true;   
-//			break;
-//		case 9:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = "Just scavenge up 3 pistons," +
-//											"\n4 gears, and a strut then" +
-//											"\nclick on the Mech Upgrade button" +
-//											"\nin the bottom left." ; //not enough ap	
-//			inPlayMenuS.popup.custom_popup = true;   
-//			break;
-//		}
-		posted_this_round = true;
-	}
-	
-	void postMessageLevel0()
-	{
-//		switch(current_round){
-//		case 1:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = "Oh Goodness! Thank the donkey you made it!!" +
-//				"\nErm, thats slang around here..." +
-//				"\nAnyways, try moving around the world a bit. " +
-//				"\nMoving costs you AP, so watch your meter!" +
-//				"\nBut don't worry, ya get all the turns ya need."; //not enough ap	
-//			inPlayMenuS.popup.custom_popup = true;   
-//			break;
-//		case 2:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = 
-//				"Use WASD to move the camera around,"+
-//				"\npress - + to zoom in and out,"+
-//				"\nand click on stuff to do actions!"+
-//					
-//				"\n\nWhy don't you head for some old scrap structures" +
-//				 "\nin the area. That cataclsym that shook" +
-//				 "\nloose your there mech also uncovered a" +
-//				 "\nwhole lota these rusted ruins."; //not enough ap	//not enough ap	
-//			inPlayMenuS.popup.custom_popup = true;
-//			break; 
-//		case 3:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = 
-//				"Yep, that's right, just click on a ruin" +
-//				 "\nto scavenge some parts!" +
-//				 "\nYou can use them parts for fancy" +
-//				 "\nnew upgrades for our town..." +
-//				  "\n(and your mech too I s'pose)"; //not enough ap	
-//			inPlayMenuS.popup.custom_popup = true;
-//			break;
-//		case 7:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = 
-//				"How's about you build us a nice new wall?" +
-//				 "\nI'll give ya a map to the next level..." +
-//				 "\n...erm, 'island' that is...";
-//			inPlayMenuS.popup.custom_popup = true;
-//			break;
-//		case 8:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = 
-//				"Now's probably a good time to mention:" +
-//				 "\nFactories give ya gears and pistons" +
-//				 "\nOutposts give ya struts and plates" +
-//				 "\nand Junkyards give ya whatever they want!";
-//			inPlayMenuS.popup.custom_popup = true;
-//			break;
-//		case 10:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = 
-//				"You'll need 4 plates, 3 gears, and 3 struts" +
-//				 "\nto upgrade our little stone wall!" +
-//				 "\nKeep on scavenging!" +
-//				 "\nWhen you're ready, just come over to the base.";
-//			inPlayMenuS.popup.custom_popup = true;
-//			break;
-//		case 11:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = 
-//				"All's ya gots to do is just click the" +
-//				"\n'Upgrade Town' button in the bottom left" +
-//				"\nwhen you're standing next to the town!" +
-//				"\nEasy as pie.";
-//			inPlayMenuS.popup.custom_popup = true;
-//			break;
-//		case 20:
-//			inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-//			inPlayMenuS.popup.custom_text = 
-//				"We ain't got all day... " +
-//				"\nNo wall equals no map to the next area!";
-//			inPlayMenuS.popup.custom_popup = true;
-//			break;
-//		default:
-//			break;
-//		}
-//		posted_this_round = true;
-	}
+	 
 	
 	
 	void checkVictoryConditions()
@@ -218,19 +66,19 @@ public class gameManagerS : MonoBehaviour {
 			case Level.Level0: 
 				if(entityManagerS.getBase().wall_level >= BaseUpgradeLevel.Level1)
 				{
-					beatLevel0();
+					endGame(true);
 				}
 			break;
 			case Level.Level1: 
 				if(entityManagerS.getEnemies().Count == 0)
 				{
-					beatLevel1();
+					endGame(true);
 				}
 			break;
 			case Level.Level2: 
 				if(current_round >= 41)
 				{
-					beatLevel2();
+					endGame(true);
 				}
 			break; 
 		} 
@@ -240,14 +88,14 @@ public class gameManagerS : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		if(!posted_this_round && current_level == Level.Level0)
-			postMessageLevel0();
-		else
-		if(!posted_this_round && current_level == Level.Level1)
-			postMessageLevel1();
-		else
-		if(!posted_this_round && current_level == Level.Level2)
-			postMessageLevel2();
+//		if(!posted_this_round && current_level == Level.Level0)
+//			postMessageLevel0();
+//		else
+//		if(!posted_this_round && current_level == Level.Level1)
+//			postMessageLevel1();
+//		else
+//		if(!posted_this_round && current_level == Level.Level2)
+//			postMessageLevel2();
 		
 		checkVictoryConditions();
 	
@@ -316,45 +164,108 @@ public class gameManagerS : MonoBehaviour {
 	}
 	
 	
-	
-	
-	public static void gameOver()
-	{
-		inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216,   210, 432,  200);
-		inPlayMenuS.popup.custom_text = "Game Over! \n Better luck next time!"; //not enough ap	
-		inPlayMenuS.popup.game_over_popup = true;
-	}
-	
-	public static void beatLevel0()
-	{
-		inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216,   210, 432,  200);
-		inPlayMenuS.popup.custom_text = "You've got the hang of the base!\nNow onto the fightin' enemies."; //not enough ap	 
-		inPlayMenuS.popup.level_name = "Level1"; 
-		PlayerPrefs.SetString("CONTINUE","Level1");
-		inPlayMenuS.popup.load_level_popup = true;
-	}
 	 
-	public static void beatLevel1()
-	{
-		inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216,   210, 432,  200);
-		inPlayMenuS.popup.custom_text = "Alrighty, now you can kill baddies and upgrade\nyour mech & our town. Onto a real challenge!"; //not enough ap	
-		inPlayMenuS.popup.level_name = "levelto2"; 
-		PlayerPrefs.SetString("CONTINUE","Level2");
-		inPlayMenuS.popup.load_level_popup = true; 
+	
+	
+	public Texture completescreen_left;
+	public Texture completescreen_right;
+	public Texture completescreen_center;
+	public Texture completescreen_center_victory;
+	public Texture completescreen_center_defeat;
+	
+	public bool won_the_game = false;
+	
+	private float completescreen_start_time = 0; 
+	private float completescreen_animation_duration = .55F;
+	private float completescreen_animation_duration_center = .45F; 
+	
+	private float complete_left_origin_lerp  = -335;
+	private float complete_right_origin_lerp = Screen.width;
+	
+	private float complete_left_destin_lerp  = 0;
+	private float complete_right_destin_lerp = Screen.width - 335;
+	
+	private float complete_center_origin_lerp = -366;
+	private float complete_center_destin_lerp  = 190;
+	
+	private void lerpInCompletedSides()
+	{ 
+		float current_t_param = (Time.time - completescreen_start_time)/completescreen_animation_duration; 
+		if(current_t_param < 1)
+		{
+			float result = Mathf.SmoothStep(complete_left_origin_lerp,complete_left_destin_lerp, current_t_param);
+			left_complete_rect = new Rect(result, 247, 335,247);  
+			
+			result = Mathf.SmoothStep(complete_right_origin_lerp,complete_right_destin_lerp, current_t_param);
+			right_complete_rect = new Rect(result, 247, 335,247);  
+		} 
+	}
+	
+	private void lerpInCompletedCenter()
+	{ 
+		float current_t_param = (Time.time - completescreen_start_time)/completescreen_animation_duration_center; 
+		if(current_t_param < 1)
+		{
+			float result = Mathf.SmoothStep(complete_center_origin_lerp,complete_center_destin_lerp, current_t_param);
+			center_complete_rect = new Rect(252, result, 776,366);   
+		} 
+		else
+			center_complete_rect = new Rect(252, 190, 776,366);   
+	}
+	
+	private Rect left_complete_rect;
+	private Rect right_complete_rect;
+	private Rect center_complete_rect = new Rect(252, -366, 776,366);   
+	 
+	
+	private void drawLevelOverScreen(){ 
 		
+		lerpInCompletedSides();
+		
+		GUI.DrawTexture(left_complete_rect, completescreen_left);	 
+		GUI.DrawTexture(right_complete_rect, completescreen_right);
+		
+		lerpInCompletedCenter();
+		GUI.BeginGroup(center_complete_rect);
+			GUI.DrawTexture(new Rect(0,0,776,366), completescreen_center);	
+			GUI.DrawTexture(new Rect(0,119, 776, 92), won_the_game ? completescreen_center_victory : completescreen_center_defeat);	
+		
+			//Game Info
+			ShadowAndOutline.DrawOutline(new Rect(0, 54 ,776,19), level_complete_top_stats, enginePlayerS.gui_norm_text_static, new Color(0,0,0,.6F),Color.white, 3F);
+			ShadowAndOutline.DrawOutline(new Rect(0, 80 ,776,19), level_complete_bottom_stats, enginePlayerS.gui_norm_text_static, new Color(0,0,0,.6F),Color.white, 3F);
+		
+			if(GUI.Button(new Rect(223,  250, 330, 40),"",enginePlayerS.HUD_button_static))
+				endGame(Time.time % 2 == 1);
+			ShadowAndOutline.DrawOutline(new Rect(223,  250, 330, 40), won_the_game ? "Next Level" : "Restart", enginePlayerS.gui_norm_text_static, new Color(0,0,0,.6F),Color.white, 3F);
+				
+		GUI.EndGroup();
 	}
-	 
-	public static void beatLevel2()
+		
+    private static bool game_is_over;
+	private static string level_complete_top_stats;
+	private static string level_complete_bottom_stats;
+	
+	public void endGame(bool victory)
 	{
-		inPlayMenuS.popup.custom_rect = new Rect(Screen.width/2 - 216, 210, 432,  200);
-		inPlayMenuS.popup.custom_text = "Awesome! You've defended the lands!\nNow to an early retirement for donkey farming!"; //not enough ap	
-		PlayerPrefs.SetString("CONTINUE","Level2");
-		inPlayMenuS.popup.game_over_popup = true; 
+		won_the_game = victory;
+		level_complete_top_stats =  "Parts Collected: 13   |   " +
+									"Upgrades Built: 12   |   " +
+									"Enemies Killed: 61";
+		level_complete_bottom_stats = "Time Elapsed: " + (int)Time.time/60 + ":" + (int)Time.time%60;
+ 		completescreen_start_time = Time.time;  
+		game_is_over = true; 
+		audio.PlayOneShot(level_complete_screen_sound);
 	}
 	
 	void OnGUI()
 	{  
-	
+		if(game_is_over)
+			drawLevelOverScreen();
+		
+		if(Input.GetKeyDown(KeyCode.F10))
+		{
+			endGame((int)Time.time % 2 == 1);
+		}
 	}
 	
 	public static void endPlayerTurn()
@@ -366,8 +277,7 @@ public class gameManagerS : MonoBehaviour {
 	public static void endBaseTurn()
 	{
 		//TODO: not sure if this is finished
-		current_turn = Turn.Enemy;
-		entityManagerS.getBase().current_ap =  entityManagerS.getBase().max_ap;
+		current_turn = Turn.Enemy; 
 		entityManagerS.getMech().current_ap =  0;
 		
 	}

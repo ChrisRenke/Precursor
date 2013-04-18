@@ -226,9 +226,7 @@ public class engineIOS : MonoBehaviour {
 		} 
 
 		entityManagerS.getMech().current_ap = current_ap; 
-				enginePlayerS.setMech();
-		inPlayMenuS.setMech();
-		UpgradeMenuS.setMech();
+				enginePlayerS.setMech(); 
 		hexManagerS.setNodePresenseOnHexes();
 		entityManagerS.buildEnemySpawnCounts();
 		return true;

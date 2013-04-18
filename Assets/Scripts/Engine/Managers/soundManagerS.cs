@@ -9,6 +9,7 @@ public class soundManagerS : MonoBehaviour {
 	public AudioClip  gun_normal;
 	public AudioClip  gun_big;
 	public AudioClip  on_fire;
+	
 	public AudioClip  tile_desert;
 	public AudioClip  tile_grass;
 	public AudioClip  tile_water;
@@ -16,14 +17,7 @@ public class soundManagerS : MonoBehaviour {
 	public AudioClip  tile_mountain;
 	public AudioClip  tile_farmland;
 	public AudioClip  tile_forest;
-	public AudioClip  teleport;
-	public AudioClip  spawn_enemy;
-	public AudioClip  heal;  
-	
-	public AudioClip  scavenge_1;
-	public AudioClip  scavenge_2;
-	public AudioClip  scavenge_3; 
-	
+		
 	public AudioClip  no;
 	
 	public AudioClip  upgrade_1;
@@ -31,11 +25,11 @@ public class soundManagerS : MonoBehaviour {
 	
 	public AudioClip  upgrade_base_1;
 	public AudioClip  upgrade_base_2;
-	void Awake()
-	{
-		
-//		DontDestroyOnLoad(transform.gameObject);
-	}
+//	void Awake()
+//	{
+//		
+////		DontDestroyOnLoad(transform.gameObject);
+//	}
 	// Use this for initialization
 	void Start () {
 		audio.volume = 1F;
@@ -45,84 +39,87 @@ public class soundManagerS : MonoBehaviour {
 //		if(audio = null)
 //		{
 //			audio = new AudioSource();
+//		}	public void playSpawn(){ 
+//		audio.PlayOneShot(spawn_enemy);
+	}
+//	}
+//	
+//	public void playSpawn(){ 
+//		audio.PlayOneShot(spawn_enemy);
+//	}
+//	
+//	public void playTeleport(){ 
+//		audio.PlayOneShot(teleport);
+//	}
+//	
+//	public void playHeal(){audio.PlayOneShot(heal);}
+//	
+//	public void playScavenge(){
+//		int choice = (int)UnityEngine.Random.Range(1F,3.99999F);
+//		switch(choice)
+//		{
+//		case 1:
+//		audio.PlayOneShot(scavenge_1);
+//			break;
+//			
+//		case 2:
+//		audio.PlayOneShot(scavenge_2);
+//			break;
+//			
+//		case 3: 
+//		audio.PlayOneShot(scavenge_3);
+//			break;
 //		}
-	}
-	
-	public void playSpawn(){ 
-		audio.PlayOneShot(spawn_enemy);
-	}
-	
-	public void playTeleport(){ 
-		audio.PlayOneShot(teleport);
-	}
-	
-	public void playHeal(){audio.PlayOneShot(heal);}
-	
-	public void playScavenge(){
-		int choice = (int)UnityEngine.Random.Range(1F,3.99999F);
-		switch(choice)
-		{
-		case 1:
-		audio.PlayOneShot(scavenge_1);
-			break;
-			
-		case 2:
-		audio.PlayOneShot(scavenge_2);
-			break;
-			
-		case 3: 
-		audio.PlayOneShot(scavenge_3);
-			break;
-		}
-	}
-	
-	public void playUpgradeMech(UpgradeCostFeedback feedback){
-		print (feedback + " FEEDBACK");
-		switch(feedback)
-		{
-			case UpgradeCostFeedback.Success:
-				int choice = (int)UnityEngine.Random.Range(0,2);
-				switch(choice)
-				{
-					case 0:
-					audio.PlayOneShot(upgrade_1);
-						break;
-						
-					case 1:
-					audio.PlayOneShot(upgrade_2);
-						break; 
-				default: 
-					audio.PlayOneShot(upgrade_1);
-						break;
-				}
-				break;
-			case UpgradeCostFeedback.NeedMoreAP:
-					audio.PlayOneShot(no);
-				break;
-			case UpgradeCostFeedback.NeedMoreParts:
-					audio.PlayOneShot(no);
-				break;
-		}
-		
-	}
-	
-	
-	public void playGunNormal(){
-		audio.PlayOneShot(gun_normal);
-	}	
-	public void playGunBigl(){
-		audio.PlayOneShot(gun_big);
-	}
-	public void playButtonPress(){
-		audio.PlayOneShot(button_press);
-	}
-	public void playMechWalk(){
-		
-		if(audio == null)
-			UnityEngine.AudioSource.Instantiate(gameObject);
-		audio.PlayOneShot(mech_walk);
-	}
-	public void playExplodeEnemy(){
-		audio.PlayOneShot(explode_enemy);
-	}
+//	}
+//	
+//	public void playUpgradeMech(UpgradeCostFeedback feedback){
+//		print (feedback + " FEEDBACK");
+//		switch(feedback)
+//		{
+//			case UpgradeCostFeedback.Success:
+//				int choice = (int)UnityEngine.Random.Range(0,2);
+//				switch(choice)
+//				{
+//					case 0:
+//					audio.PlayOneShot(upgrade_1);
+//						break;
+//						
+//					case 1:
+//					audio.PlayOneShot(upgrade_2);
+//						break; 
+//				default: 
+//					audio.PlayOneShot(upgrade_1);
+//						break;
+//				}
+//				break;
+//			case UpgradeCostFeedback.NeedMoreAP:
+//					audio.PlayOneShot(no);
+//				break;
+//			case UpgradeCostFeedback.NeedMoreParts:
+//					audio.PlayOneShot(no);
+//				break;
+//		}
+//		
+//	}
+//	
+//	
+//	public void playGunNormal(){
+//		audio.PlayOneShot(gun_normal);
+//	}	
+//	public void playGunBigl(){
+//		audio.PlayOneShot(gun_big);
+//	}
+//	public void playButtonPress(){
+//		audio.PlayOneShot(button_press);
+//	}
+//	public void playMechWalk(){
+//		
+//		if(audio == null)
+//			UnityEngine.AudioSource.Instantiate(gameObject);
+//		
+////		audio.PlayOneShot(mech_walk);
+//	}
+//	public void playExplodeEnemy(){
+//		audio.PlayOneShot(explode_enemy);
+//	}
 }

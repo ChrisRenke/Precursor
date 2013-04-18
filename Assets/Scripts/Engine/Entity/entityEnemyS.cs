@@ -746,7 +746,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		//subtract ap cost from total
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z);
 		current_ap -= attack_cost;
-		entityManagerS.sm.playGunNormal();
+ 
 		
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY " + target.GetInstanceID());
 		if(target != null)
@@ -790,6 +790,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		{
 		case Vision.Live: 
 			gameObject.renderer.enabled = true;
+			if(current_hp <= max_hp/2)
+				turnOnFire();
 			renderer.material.SetColor("_Color", Color.white);
 			break;
 		case Vision.Visited:
