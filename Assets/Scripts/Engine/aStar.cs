@@ -14,7 +14,7 @@ public class aStar {
 		Func<HexData, HexData, double> distance,
 		Func<HexData, HexData, double> estimate,
 		Func<HexData, HexData, EntityE, List<HexData>> neighbours)
-		{
+	{
 			//set of already checked HexData
    	 		var closed = new HashSet<HexData>();
 			//queued HexData in open set
@@ -46,7 +46,7 @@ public class aStar {
 					//add new path to queue
             		queue.Enqueue(newPath.TotalCost + estimate(n, destination), newPath);
         		}
-    	}
-    	return null;
+    		}
+    		return null;
 	}	
 }

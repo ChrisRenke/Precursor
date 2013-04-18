@@ -7,6 +7,14 @@ MonoImporter:
   - walls_b: {instanceID: 0}
   - def: {instanceID: 0}
   - struc: {instanceID: 0}
+  - sound_repair: {fileID: 8300000, guid: ae6417d12e5964fba991533fe7cc130f, type: 3}
+  - sound_burning: {fileID: 8300000, guid: 5b042d85f91804bef820cc9ef1af01d5, type: 3}
+  - sound_attack_core: {fileID: 8300000, guid: 0fb767ff270a1460eb60174352b2a055, type: 3}
+  - sound_attack_upgrade: {fileID: 8300000, guid: 59065abb066c546b5bc437e610d21cd4,
+      type: 3}
+  - sound_attack_gatling: {fileID: 8300000, guid: 533c9714ae8ea4371a284d5b45ba852b,
+      type: 3}
+  - sound_upgrade: {fileID: 8300000, guid: 215e3da49bece4534986084b40ff617b, type: 3}
   - armaments_1: {fileID: 2800000, guid: e2b46a5f7b63048998871e4722ffde8d, type: 3}
   - armaments_2: {fileID: 2800000, guid: ef4b713d7e19044dd8cad5d368b7bece, type: 3}
   - armaments_3: {fileID: 2800000, guid: 3ec72ef7679a14456a4c9e67e4835f42, type: 3}

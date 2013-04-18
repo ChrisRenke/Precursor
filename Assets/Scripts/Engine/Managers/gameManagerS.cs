@@ -266,6 +266,14 @@ public class gameManagerS : MonoBehaviour {
 		{
 			endGame((int)Time.time % 2 == 1);
 		}
+		
+		if(Input.GetKeyDown(KeyCode.F9))
+		{
+			entityMechS.adjustPartCount(Part.Gear, 2000);
+			entityMechS.adjustPartCount(Part.Piston, 2000);
+			entityMechS.adjustPartCount(Part.Plate, 2000);
+			entityMechS.adjustPartCount(Part.Strut, 2000);
+		}
 	}
 	
 	public static void endPlayerTurn()

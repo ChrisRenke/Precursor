@@ -330,6 +330,7 @@ public class entityBaseS : Combatable {
 		//increase health, walls(armour), attack/range cost, and reduce ap
 		//Upgrades can only be applied once
 		
+		entityManagerS.getMech().subtractPartCosts(baseupgrademode_entrieslists[category][(int)upgrade -1 ]);
 		audio.PlayOneShot(sound_upgrade);
 		switch(category){ 
 

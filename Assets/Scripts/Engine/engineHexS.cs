@@ -17,12 +17,11 @@ public class engineHexS : MonoBehaviour {
 	private Facing direction_towards_actor = Facing.South;
 	private bool   direction_in_range      = false; 
 	
-	
+	private bool unreachable_hex_from_current_mech_location = false;
 	
 	private Facing direction_towards_enemy  = Facing.South;
 	private bool   direction_in_range_enemy = false; 
-
-
+  
 	public List<HexData> town_adj_hexes;
 
 	public bool node_occupier = false;
@@ -265,6 +264,8 @@ public class engineHexS : MonoBehaviour {
 			if(hex_data.vision_state != Vision.Unvisted)
 			{
 				
+					
+				
 				
 				draw_mode = true;
 				
@@ -277,6 +278,22 @@ public class engineHexS : MonoBehaviour {
 				border.Draw3DAuto();
 				glow.Draw3DAuto();
 				HexData mech_hex = hexManagerS.getHex(entityManagerS.getMech().x, entityManagerS.getMech().z);
+				
+				
+				if(base_is_here && Input.GetMouseButtonUp(1))
+				{
+					if(town_adj_hexes.Contains(mech_hex)){
+						entityManagerS.getPlayer().displayBaseUpgradeMenu();
+					}
+					return;
+				}
+									
+				if(mech_is_here && Input.GetMouseButtonUp(1))
+				{
+						entityManagerS.getPlayer().displayMechUpgradeMenu();
+						return;
+				}
+				
 				
 				
 				if(base_is_here){
@@ -351,24 +368,100 @@ public class engineHexS : MonoBehaviour {
 				
 				
 				//if the path is no longer starting from where the player mechu currently is...
-				if(!mech_location_when_path_made.Equals(mech_hex) || path_display == null || path_display.path_line == null)
-				{	
-					if(path_display != null)
-						path_display.destroySelf();
+				
+				  //the mech has moved                                //the mech has made another upgrade
+				if(!mech_location_when_path_made.Equals(mech_hex)){
 					
-					if(entityManagerS.canTraverseHex(hex_data))
-					{
+						if(path_display != null)
+								path_display.destroySelf();
+						
+						can_attack_hex = false;
+						
+						
 						path_from_mech = entityManagerS.getMech().getPathFromMechTo(hexManagerS.getHex (hex_data.x, hex_data.z));
 						path_display = pathDrawS.getPathLine(path_from_mech);
-					}
-					mech_location_when_path_made = mech_hex;
-					can_attack_hex = false;
+						
+						last_mech_upgrade_count = entityManagerS.getMech().getUpgradeCount();
+						mech_location_when_path_made = mech_hex; 
+						
+						Debug.Log("Currently trying to find a path from hex " + x_DISPLAYONLY + "|" + z_DISPLAYONLY + " for round " + gameManagerS.current_round);
+						if(path_from_mech == null)
+						{
+							unreachable_hex_from_current_mech_location = true; 
+						}
+						else{
+							unreachable_hex_from_current_mech_location = false;
+						}
 				}
+				else
+				if((last_mech_upgrade_count != entityManagerS.getMech().getUpgradeCount())) //|| path_display == null || path_display.path_line == null)
+				{	
+					if(path_display != null)
+							path_display.destroySelf();
+					
+					can_attack_hex = false;
+					
+					
+//					if(last_mech_upgrade_count != entityManagerS.getMech().getUpgradeCount() && unreachable_hex_from_current_mech_location)
+//					{
+						path_from_mech = entityManagerS.getMech().getPathFromMechTo(hexManagerS.getHex (hex_data.x, hex_data.z));
+						path_display = pathDrawS.getPathLine(path_from_mech);
+						
+						last_mech_upgrade_count = entityManagerS.getMech().getUpgradeCount();
+						mech_location_when_path_made = mech_hex; 
+						
+						Debug.Log("Currently trying to find a path from hex " + x_DISPLAYONLY + "|" + z_DISPLAYONLY + " for round " + gameManagerS.current_round);
+						if(path_from_mech == null)
+						{
+							unreachable_hex_from_current_mech_location = true; 
+						}
+						else{
+							unreachable_hex_from_current_mech_location = false;
+						}
+//					}
+				}
+				else
+				{
+					nothing_changed_this_pass = true;
+				}
+				
+//				if(built_path_with_current_mech_state  && ( path_display == null || path_display.path_line == null))
+//				{
+//					
+//				}
+				
+					
+//					if(!unreachable_hex_from_current_mech_location &&  last_mech_upgrade_count == entityManagerS.getMech().getUpgradeCount())    //mech_location_when_path_made.Equals(mech_hex))
+//					{
+//						 
+//						if(entityManagerS.canTraverseHex(hex_data))
+//						{
+//							path_from_mech = entityManagerS.getMech().getPathFromMechTo(hexManagerS.getHex (hex_data.x, hex_data.z));
+//							path_display = pathDrawS.getPathLine(path_from_mech);
+//							
+//							last_mech_upgrade_count = entityManagerS.getMech().getUpgradeCount();
+//							mech_location_when_path_made = mech_hex; 
+//							
+//							Debug.Log("Currently trying to find a path from hex " + x_DISPLAYONLY + "|" + z_DISPLAYONLY + " for round " + gameManagerS.current_round);
+//							if(path_from_mech == null)
+//							{
+//								unreachable_hex_from_current_mech_location = true; 
+//							}
+//							else{
+//								unreachable_hex_from_current_mech_location = false;
+//							}
+//						}
+						
+//					}
 				
 				//if the mech could possibly walk here
 				if(path_display != null && entityManagerS.getMech().canTraverse(hex_data))
 				{
 					genTextString(SelectLevel.Move, (int) path_from_mech.TotalCost);
+					
+					if(path_display == null || path_display.path_line == null)
+						path_display = pathDrawS.getPathLine(path_from_mech);
+					
 					enginePlayerS.setRoute(path_display, hex_display_text, hex_data);
 				}
 				else
@@ -380,6 +473,9 @@ public class engineHexS : MonoBehaviour {
 		}
 	}
 	
+	
+	public bool nothing_changed_this_pass = false;
+	
 	void OnMouseUpAsButton()
 	{		
 		
@@ -387,14 +483,7 @@ public class engineHexS : MonoBehaviour {
 		{
 			HexData mech_hex = hexManagerS.getHex(entityManagerS.getMech().x, entityManagerS.getMech().z);//if mech standing on this hex
 			
-			
-			if(base_is_here)
-			{
-				if(town_adj_hexes.Contains(mech_hex)){
-					entityManagerS.getPlayer().displayBaseUpgradeMenu();
-				}
-				return;
-			}
+		
 			
 			if(mech_hex.Equals(hex_data))
 			{
@@ -411,18 +500,18 @@ public class engineHexS : MonoBehaviour {
 						return;
 					}
 					else{ 
-						entityManagerS.getPlayer().displayMechUpgradeMenu();
+//						entityManagerS.getPlayer().displayMechUpgradeMenu();
 						return; 
 					}
 				}
 				
 			}
-			 
-			if(mech_is_here)
-			{  
-				entityManagerS.getPlayer().displayMechUpgradeMenu();
-				return;
-			}
+//			 
+//			if(mech_is_here)
+//			{  
+//				entityManagerS.getPlayer().displayMechUpgradeMenu();
+//				return;
+//			}
 			
 			//if your're selecting an enemy within range
 			if(can_attack_hex)
@@ -440,6 +529,8 @@ public class engineHexS : MonoBehaviour {
 			}
 		}
 	}
+	
+	private int last_mech_upgrade_count = 0;
 	
 	
 	void OnMouseExit()

@@ -316,7 +316,7 @@ public class enginePlayerS : MonoBehaviour {
 		}
 		if(Input.GetKeyDown(KeyCode.E))
 		{
-			displayMechUpgradeMenu();
+			displayBaseUpgradeMenu();
 		}
 		
 		if(Input.GetKeyDown(KeyCode.R))
@@ -589,9 +589,9 @@ public class enginePlayerS : MonoBehaviour {
 	public void displayRepairMenu(){ repair_menu_displayed = !repair_menu_displayed;}
 	public void displayMechUpgradeMenu(){ mech_menu_displayed = !mech_menu_displayed;	mech_upgrade_start_time = Time.time; audio.PlayOneShot(sound_open_menu);}
 	public void displayBaseUpgradeMenu(){ base_menu_displayed = !base_menu_displayed;    base_upgrade_start_time = Time.time; audio.PlayOneShot(sound_open_menu);}
-	public void hideMechUpgradeMenu(){ mech_menu_displayed = false; audio.PlayOneShot(sound_button);}
-	public void hideBaseUpgradeMenu(){ base_menu_displayed = false; audio.PlayOneShot(sound_button);}
-	public void hideRepairMenu(){ repair_menu_displayed = false; audio.PlayOneShot(sound_button);}
+	public void hideMechUpgradeMenu(){ mech_menu_displayed = false; audio.PlayOneShot(sound_button); audio.PlayOneShot(sound_open_menu);}
+	public void hideBaseUpgradeMenu(){ base_menu_displayed = false; audio.PlayOneShot(sound_button); audio.PlayOneShot(sound_open_menu);}
+	public void hideRepairMenu(){ repair_menu_displayed = false; audio.PlayOneShot(sound_button);  audio.PlayOneShot(sound_open_menu);}
 	
 	  
 	
@@ -673,23 +673,24 @@ public class enginePlayerS : MonoBehaviour {
 		if(gameManagerS.current_turn == Turn.Player) 
 		{
 			if(drawButtonBool(976, Screen.height - 28, 104,"Finish Turn?"))
+			{
 				gameManagerS.endPlayerTurn(); 
+				audio.PlayOneShot(sound_button);
+			}
 		}
 		else
 		
 		if(gameManagerS.current_turn == Turn.Enemy) 
 		{
-			if(drawButtonBool(976, Screen.height - 28, 104,"Enemy Turn..."))
-				//TODO playe negative sound
-				return;
+			if(drawButtonBool(976, Screen.height - 28, 104,"Enemy Turn...")) 
+				audio.PlayOneShot(sound_negative); 
 		}
 		else
 		
 		if(gameManagerS.current_turn == Turn.Base) 
 		{
 			if(drawButtonBool(976, Screen.height - 28, 104,"Base Turn..."))
-				//TODO playe negative sound
-				return;
+				audio.PlayOneShot(sound_negative);
 		} 	
 	}
 	
@@ -795,7 +796,7 @@ public class enginePlayerS : MonoBehaviour {
 		
 			if(GUI.Button(new Rect(329,17,30, 29),"",menu_close_button))
 			{
-				mech_menu_displayed = false;
+				hideMechUpgradeMenu();
 				gameManagerS.mouse_over_gui = false;
 			}
 			//menu title
@@ -848,10 +849,16 @@ public class enginePlayerS : MonoBehaviour {
 					}
 					if(Input.GetMouseButtonUp(0))  
 					{ 
+					  
 					 
 						if(can_afford_upgrade)
 						{
 							mech.applyUpgrade(entry.upgrade_type);  
+							audio.PlayOneShot(sound_button);
+						}
+						else
+						{
+							audio.PlayOneShot(sound_negative);	
 						}
 					
 					}
@@ -968,7 +975,7 @@ public class enginePlayerS : MonoBehaviour {
 			//close
 			if(GUI.Button(new Rect(329,17,30, 29),"",menu_close_button))
 			{
-				base_menu_displayed = false;
+				hideBaseUpgradeMenu();
 				gameManagerS.mouse_over_gui = false;
 			}
 		
@@ -1033,16 +1040,39 @@ public class enginePlayerS : MonoBehaviour {
 					{ 
 					 
 						if(can_afford_upgrade)
-							town.upgradeBase(base_upgrade_tab, entry.base_level); 
+						{
+							
+							if( (new List<HexData>(hexManagerS.getAdjacentHexes(entityManagerS.getBase().x, entityManagerS.getBase().z)))
+							.Contains(hexManagerS.getHex(entityManagerS.getMech().x,entityManagerS.getMech().z)))
+							{
+								entityManagerS.getBase().upgradeBase(base_upgrade_tab, entry.base_level); 
+								audio.PlayOneShot(sound_button);
+							}
+							else
+							{
+								audio.PlayOneShot(sound_negative); 
+							}
+						}
+						else
+						{
+							audio.PlayOneShot(sound_negative);	
+						}
 					
 					}
 					 
 					if(Input.GetMouseButton(0) && click_started[entry_row])
 					{  
-						if(can_afford_upgrade)
-							GUI.DrawTexture(new Rect(0,0,342,74), menu_upgrade_down_canafford);	 
+						if((can_afford_upgrade) && (new List<HexData>(hexManagerS.getAdjacentHexes(entityManagerS.getBase().x, entityManagerS.getBase().z)))
+								.Contains(hexManagerS.getHex(entityManagerS.getMech().x,entityManagerS.getMech().z)))
+								{
+								GUI.DrawTexture(new Rect(0,0,342,74), menu_upgrade_down_canafford);	 
+							}
+						
 						else
+						{
 							GUI.DrawTexture(new Rect(0,0,342,74), menu_upgrade_down_cannotafford);	  
+							
+						}
 					}
 					else
 					{ 
@@ -1075,6 +1105,10 @@ public class enginePlayerS : MonoBehaviour {
 			ShadowAndOutline.DrawOutline(new Rect(0, 0, width, 31), text, 
 				 menu_filter_text, new Color(0,0,0,.5F),Color.white, 3F);
 		GUI.EndGroup (); 
+		
+		if(result)
+			audio.PlayOneShot(sound_button);
+			 
 		return result;
 	}
 	  
@@ -1154,7 +1188,10 @@ public class enginePlayerS : MonoBehaviour {
 				GUI.Toggle(new Rect (0,0, 75, 29), mech_upgrade_tab == filter_control, "", menu_filter_button_selected);
 			else
 				if(GUI.Toggle(new Rect (0,0, 75, 29), mech_upgrade_tab == filter_control, "", menu_filter_button))
-					mech_upgrade_tab = filter_control;
+				{
+					mech_upgrade_tab = filter_control; 
+					audio.PlayOneShot(sound_button); 
+				}
 			ShadowAndOutline.DrawOutline(new Rect(0, 0, 75, 29), text, 
 				menu_filter_text, new Color(0,0,0,.5F),Color.white, 3F);
 		GUI.EndGroup ();   
@@ -1167,7 +1204,10 @@ public class enginePlayerS : MonoBehaviour {
 				GUI.Toggle(new Rect (0,0, 105, 29), base_upgrade_tab == filter_control, "", menu_filter_button_selected);
 			else
 				if(GUI.Toggle(new Rect (0,0, 105, 29), base_upgrade_tab == filter_control, "", menu_filter_button))
+				{
 					base_upgrade_tab = filter_control;
+					audio.PlayOneShot(sound_button);
+				}
 			ShadowAndOutline.DrawOutline(new Rect(0, 0, 105, 29), text, 
 				menu_filter_text, new Color(0,0,0,.5F),Color.white, 3F);
 		GUI.EndGroup ();   
@@ -1213,14 +1253,14 @@ public class enginePlayerS : MonoBehaviour {
 			if(GUI.Button(new Rect(position*48 + position*2, 0, 48,48),button_image,repair_menu_button_canafford))
 			{
 				mech.repair(part_type);
-				//TODO Play sound
+				audio.PlayOneShot(sound_button);
 			}
 		}
 		else
 		{ 
 			if(GUI.Button(new Rect(position*48 + position*2, 0, 48,48),button_image,repair_menu_button_cannotafford))  
 			{	
-				//TODO Play sound
+				audio.PlayOneShot(sound_negative);
 				return;
 			}
 		}
@@ -1230,16 +1270,5 @@ public class enginePlayerS : MonoBehaviour {
 	
 	
 	
-}
-//			GUI.DrawTexture(new Rect (0,0, 168, 44), background);
-//				GUITexture bar_texture = new GUITexture();
-//				bar_texture.color = Color.Lerp(empty, full, hp_percent);
-//				bar_texture.texture = bar_hp_town;
-
-//
-//					string nm = hit.transform.name;
-//					GameObject hex = GameObject.Find(nm);
-//					editorHexS hex_tile = hex.GetComponent<editorHexS>();
-//					hex_tile.CloneNorth();
-
+} 
 //-0.841947, 0, 1.81415

@@ -240,16 +240,7 @@ public class entityMechS : Combatable, IMove {
 		travel_path_en.MoveNext();
 		moving_on_path = true;
 	}
-	
-	//return true if upgrade can be applied
-	public bool applyUpgrade(int cost){
-		if( current_ap >= cost){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
+	 
 	public void applyAPCost(int cost){
 		current_ap -= cost;
 	}
@@ -335,8 +326,7 @@ public class entityMechS : Combatable, IMove {
 	public Path getPathFromMechTo(HexData destination)
 	{
 //		Debug.LogWarning("getPathFromMechTo");
-		return hexManagerS.getTraversablePath(
-												hexManagerS.getHex(x, z), 
+		return hexManagerS.getTraversablePath(	hexManagerS.getHex(x, z), 
 												hexManagerS.getHex(destination.x, destination.z),
 												EntityE.Player,
 												getTraverseAPCostPathVersion, 
@@ -814,12 +804,13 @@ public class entityMechS : Combatable, IMove {
 		
 	} 
 	
-	private void subtractPartCosts(UpgradeEntry entry)
+	public void subtractPartCosts(UpgradeEntry entry)
 	{
 		part_count[Part.Gear] -= entry.gear_cost;
 		part_count[Part.Plate] -= entry.plate_cost;
 		part_count[Part.Piston] -= entry.piston_cost;
 		part_count[Part.Strut] -= entry.strut_cost;
+		current_ap -= entry.ap_cost;
 	}
 	
 	public UpgradeCostFeedback checkUpgradeAffordable(UpgradeEntry entry)
@@ -862,8 +853,15 @@ public class entityMechS : Combatable, IMove {
 		return (checkUpgradeAffordable(upgrade) == UpgradeCostFeedback.Success);
 	}
 	
+	
+	private int mech_upgrade_count = 0;
+	
+	public int getUpgradeCount(){ return mech_upgrade_count; }
+	
+	
 	public void applyUpgrade(MechUpgrade upgrade)
 	{
+		mech_upgrade_count++;
 		audio.PlayOneShot(sound_upgrade_mech);
 		subtractPartCosts(mechupgrade_to_entries[upgrade]); 
 		switch(upgrade)

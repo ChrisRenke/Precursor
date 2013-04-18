@@ -149,7 +149,11 @@ public class hexManagerS : MonoBehaviour {
 		Func<HexData, HexData, EntityE, List<HexData>> neighbor_hex_func)
 	{
 		//Send hex of base and hex of enemy to aStar
-		var path = aStar.FindPath(start, destination, ignore_entity, traversal_cost_func, calcCostToDestinationHex, neighbor_hex_func);
+		Path path = aStar.FindPath(start, destination, ignore_entity, traversal_cost_func, calcCostToDestinationHex, neighbor_hex_func);
+		if(path != null)
+			Debug.LogWarning(path.Count);
+		else
+			Debug.LogWarning("RETURNING A NULL FROM getTraversablePath");
 //		if(path != null){
 //			last_path_cost = path.TotalCost;
 //			Debug.Log ("getTraversablePath: path cost = " + last_path_cost);
