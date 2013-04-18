@@ -9,7 +9,7 @@ using System.IO;
 
 public class engineIOS : MonoBehaviour {
 	 
-	public static int   				level_editor_format_version = 7;
+	public static int   				level_editor_format_version = 8;
 	public TextAsset                    level_string_asset;
 	
 	//used for parsing level files
@@ -193,7 +193,8 @@ public class engineIOS : MonoBehaviour {
 					string spawner_cadence = getStringR(level_lines[index++]);
 					bool spawned_enemies_know_mech_location = getBoolR(level_lines[index++]);
 					bool spawned_enemies_know_base_location = getBoolR(level_lines[index++]); 
-					entityManagerS.instantiateSpawn(x, z, spawner_id_number, spawner_cadence, spawned_enemies_know_mech_location, spawned_enemies_know_base_location);
+					EntityE spawned_enemy_type = getEnemyUpgrade(level_lines[index++]); 
+					entityManagerS.instantiateSpawn(x, z, spawner_id_number, spawner_cadence, spawned_enemies_know_mech_location, spawned_enemies_know_base_location, spawned_enemy_type);
 					break;
 				
 				case editor_entity.Enemy:
@@ -203,8 +204,21 @@ public class engineIOS : MonoBehaviour {
 					int enemy_spawner_id_number =  getIntR(level_lines[index++]);
 					bool enemy_knows_mech_loc = getBoolR(level_lines[index++]);
 					bool enemy_knows_base_loc = getBoolR(level_lines[index++]);
-					if(!entityManagerS.instantiateEnemy(x, z, enemy_current_hp, enemy_max_hp, enemy_spawner_id_number, enemy_knows_base_loc, enemy_knows_mech_loc))
+					EntityE enemy_type = getEnemyUpgrade(level_lines[index++]); 
+					if(!entityManagerS.instantiateEnemy(x, z, enemy_current_hp, enemy_max_hp, enemy_spawner_id_number, enemy_knows_base_loc, enemy_knows_mech_loc, enemy_type))
 						throw new System.Exception("Issue adding enemy!");
+					break;
+				
+				case editor_entity.Flyer:
+//				print("enemy case");
+					int flyer_current_hp =  getIntR(level_lines[index++]);
+					int flyer_max_hp     =  getIntR(level_lines[index++]);
+					int flyer_spawner_id_number =  getIntR(level_lines[index++]);
+					bool flyer_knows_mech_loc = getBoolR(level_lines[index++]);
+					bool flyer_knows_base_loc = getBoolR(level_lines[index++]);
+					EntityE flyer_type = getEnemyUpgrade(level_lines[index++]); 
+					if(!entityManagerS.instantiateEnemy(x, z, flyer_current_hp, flyer_max_hp, flyer_spawner_id_number, flyer_knows_base_loc, flyer_knows_mech_loc, flyer_type))
+						throw new System.Exception("Issue adding flyer!");
 					break;
 				
 				case editor_entity.Factory: 
@@ -289,5 +303,10 @@ public class engineIOS : MonoBehaviour {
 	{  
     	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
 		return (BaseUpgradeLevel)BaseUpgradeLevel.Parse(typeof(BaseUpgradeLevel), items[1]);
+	} 
+	public static EntityE getEnemyUpgrade(String line)
+	{  
+    	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
+		return (EntityE)EntityE.Parse(typeof(EntityE), items[1]);
 	} 
 }

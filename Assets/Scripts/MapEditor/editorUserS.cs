@@ -493,7 +493,7 @@ public class editorUserS : MonoBehaviour {
 	
 	void OnGUI()
 	{
-		GUI.Box(new Rect(30, 5, 210, 250), "TOOLS");
+		GUI.Box(new Rect(30, 5, 210, 290), "TOOLS");
 		draw_mode_label =  overwrite_mode ? "Overwrite" : "Fill";
 		over_mode_label =  entity_mode ?  "Entity"    : "Terrain"; 
 		current_brush   =  entity_mode ?  last_created_entity_type.ToString()    : last_created_hex_type.ToString(); 

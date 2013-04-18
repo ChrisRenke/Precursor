@@ -3,7 +3,7 @@ using System.Collections;
 
 public enum Part	     { Gear, Piston, Strut, Plate };
 public enum Hex  	     { Desert, Farmland, Forest, Grass, Hills, Marsh, Mountain, Water, Perimeter };
-public enum EntityE      { None, Player, Base, Enemy, Node, Spawn, NotCheckedYet };
+public enum EntityE      { None, Player, Base, Enemy, Flyer, Node, Spawn, NotCheckedYet };
 public enum PlayerStates { Idle, Walking, Scavenging, Attacking, Upgrading };
 public enum Facing       { North, NorthEast, SouthEast, South, SouthWest, NorthWest };
 public enum NodeLevel    { Empty, Sparse, Full };
@@ -13,7 +13,7 @@ public enum SelectLevel  { Disabled, Easy, Medium, Hard, Scavenge, Attack, Town,
 public enum Action       { Repair, UpgradeMech, UpgradeBase, Scavenge, Attack, Traverse, End };
 public enum Vision       { Live, Visited, Unvisted }; 
 public enum MouseState   { Idle, Over, Click } 
-public enum editor_entity { Mech, Enemy, Town, Spawn, Factory, Outpost, Junkyard };
+public enum editor_entity { Mech, Enemy, Flyer, Town, Spawn, Factory, Outpost, Junkyard };
 public enum Level        {Level0,Level1,Level2} ;
 
 

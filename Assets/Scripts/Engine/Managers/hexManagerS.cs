@@ -141,6 +141,95 @@ public class hexManagerS : MonoBehaviour {
 		return hexes_in_range;
 	}
 	
+	public static Facing getFacingDirection(int x, int z, int t_x, int t_z, int sight_range)
+	{
+		return hexManagerS.getFacingDirectionHexes(getHex(x, z), getHex(t_x, t_z), sight_range);
+	}
+	
+	public static Facing getFacingDirectionHexes(HexData center, HexData opponent, int sight_range)
+	{ 
+		//List<HexData> hexes_in_range = new List<HexData>();
+		
+		//Get the hex standing on
+		HexData current_hex = center; 
+		//hexes_in_range.Add(current_hex);
+		
+		//Enter loop for surrounding hexes
+		for(int ring = 1; ring <= sight_range; ring++)
+		{
+			 
+			//draw the first "northeast" edge hex 
+			current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+			if(current_hex.x == opponent.x && current_hex.z == opponent.z){
+				print ("hit1");
+				return Facing.NorthEast;
+			}
+			
+			//draw the "northeast" portion
+			for(int edge_hexes_drawn = 1; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{ 
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthEast);// = AddHexSE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
+				if(current_hex.x == opponent.x && current_hex.z == opponent.z){
+					print ("hit2");
+					return Facing.SouthWest;
+				} 
+			}
+			
+			//draw the "southeast" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.South);
+				if(current_hex.x == opponent.x && current_hex.z == opponent.z){
+					print ("hit3");
+					return Facing.SouthEast;
+				}  
+			}
+			
+			//draw the "south" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthWest);
+				if(current_hex.x == opponent.x && current_hex.z == opponent.z){
+					print ("hit4");
+					return Facing.South;
+				}  
+			}
+			
+			//draw the "southwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthWest);
+				if(current_hex.x == opponent.x && current_hex.z == opponent.z){
+					print ("hit5");
+					return Facing.SouthWest;
+				}   
+			}
+			
+			//draw the "northwest" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.North);
+				if(current_hex.x == opponent.x && current_hex.z == opponent.z){
+					print ("hit6");
+					return Facing.NorthWest;
+				} 
+			}
+			
+			//draw the "north" portion
+			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
+			{
+				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+				if(current_hex.x == opponent.x && current_hex.z == opponent.z){
+					print ("hit7");
+					return Facing.North;
+				} 
+			}
+		}
+		
+//		Debug.LogWarning("hexes_in_range size = " + hexes_in_range.Count);
+		return center.direction_from_central_hex;
+	}
+	
 	
 	
 	//Get path to base

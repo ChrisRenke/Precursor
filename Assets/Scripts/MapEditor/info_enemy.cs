@@ -16,6 +16,7 @@ public class info_enemy : entity_core {
 	
 	public bool know_mech_location = false;
 	public bool know_base_location = true;
+	public EntityE enemy_type = EntityE.Enemy;
 	
 	public GUIStyle appearnce;
 	
@@ -27,6 +28,7 @@ public class info_enemy : entity_core {
 		sb.AppendLine("\t\t\towner_id   = " + spawner_owner_id);
 		sb.AppendLine("\t\t\tmech_loc   = " + know_mech_location);
 		sb.AppendLine("\t\t\tbase_loc   = " + know_base_location);
+		sb.AppendLine("\t\t\tenemy_typ  = " + enemy_type);
         sb.AppendLine("\t\t}");
 		return sb.ToString();
 	}

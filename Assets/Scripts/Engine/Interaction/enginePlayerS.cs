@@ -96,6 +96,7 @@ public class enginePlayerS : MonoBehaviour {
 	private float east_angle ;
 	private float southeast_angle ;
 	private float southwest_angle ;
+	
 	 
 //	private static LineRenderer lr;
 	void Start () {
@@ -159,8 +160,8 @@ public class enginePlayerS : MonoBehaviour {
 	public static entityBaseS town;
 	public static void setMech()
 	{
-		mech    = GameObject.FindGameObjectWithTag("player_mech").GetComponent<entityMechS>(); 
-		hovering_hex = hexManagerS.getHex(mech.x,mech.z);
+		mech    = entityManagerS.getMech();//GameObject.FindGameObjectWithTag("player_mech").GetComponent<entityMechS>(); 
+  		hovering_hex = hexManagerS.getHex(mech.x,mech.z);
 		hovering_hex.hex_script.ControllerSelect();
 		Debug.LogWarning("LOG: CREATING CONTROLLERSELECT");
 	}
@@ -227,9 +228,10 @@ public class enginePlayerS : MonoBehaviour {
 		 	Vector2 move_direction = new Vector2(cursor_lr_axis, -cursor_ud_axis);
 //		 	
 			float move_angle = Vector2.Angle(Vector2.up, move_direction);
+
 //			print("move_angle " + move_angle);
 //		print("cursor_lr_axis " + cursor_lr_axis);
-//		print("cursor_ud_axis " + cursor_ud_axis);
+//		print("cursor_ud_axis " + cursor_ud_axis);0
 			if(cursor_ud_axis >  .5F || cursor_lr_axis >  .5F
 			|| cursor_ud_axis < -.5F || cursor_lr_axis < -.5F)
 			{
@@ -352,11 +354,11 @@ public class enginePlayerS : MonoBehaviour {
 		
 		
 		
-		if(Input.GetKeyDown(KeyCode.Space) && Input.GetKeyDown(KeyCode.LeftControl))
-		{
-			gameManagerS.forcePlayerTurn();
-		}
-		if(Input.GetKeyDown(KeyCode.Space))
+//		if(Input.GetKeyDown(KeyCode.Space) && Input.GetKeyDown(KeyCode.LeftControl))
+//		{
+//			gameManagerS.forcePlayerTurn();
+//		}
+		if(Input.GetKeyDown(KeyCode.Space) & gameManagerS.current_turn == Turn.Player)
 		{
 			gameManagerS.endPlayerTurn();
 		}
@@ -607,7 +609,7 @@ public class enginePlayerS : MonoBehaviour {
 		drawHexText();
 		
 		checkMousePlacement();
-			 
+		
 		//draw Part bars
 		drawHUDPartBar(203, 109,  bar_part_plate_bg, Part.Plate); 
 		drawHUDPartBar(203,  65,  bar_part_strut_bg, Part.Strut); 
@@ -616,9 +618,9 @@ public class enginePlayerS : MonoBehaviour {
 			
 		//draw HP Bars
 		drawHUDHPBar(311,  60, 276, town.getCurrentHP(), town.getMaxHP(), Color.red, Color.yellow, Color.gray);
-			ShadowAndOutline.DrawOutline(new Rect(Screen.width - 360, Screen.height - 104, 50, 28), "Town", menu_filter_text, new Color(0,0,0,.7F),Color.white, 3F);
+			ShadowAndOutline.DrawOutline(new Rect(Screen.width - 360, Screen.height - 104, 50, 28), "Mech", menu_filter_text, new Color(0,0,0,.7F),Color.white, 3F);
 		drawHUDHPBar(311, 104, 178, mech.getCurrentHP(), mech.getMaxHP(), Color.red, Color.yellow, Color.green);
-			ShadowAndOutline.DrawOutline(new Rect(Screen.width - 360, Screen.height - 60, 50, 28), "Mech", menu_filter_text, new Color(0,0,0,.7F),Color.white, 3F);
+			ShadowAndOutline.DrawOutline(new Rect(Screen.width - 360, Screen.height - 60, 50, 28), "Town", menu_filter_text, new Color(0,0,0,.7F),Color.white, 3F);
 		
 		//draw repair menu button
 		if(drawButtonBool(122, 105, 94, "Repair"))

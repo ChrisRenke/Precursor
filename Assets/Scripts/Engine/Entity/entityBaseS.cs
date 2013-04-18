@@ -9,8 +9,8 @@ public class entityBaseS : Combatable {
 	public BaseUpgradeLevel structure_level = BaseUpgradeLevel.Level0;
 	public BaseUpgradeLevel defense_level = BaseUpgradeLevel.Level0;
 	public BaseUpgradeLevel wall_level = BaseUpgradeLevel.Level0; 
-	private int heal_amount = 2;
-	private int heal_cost = 3;
+	private int heal_amount = 5;
+//	private int heal_cost = 3;
 	private bool  can_not_heal;
 	private bool  can_not_attack; 
 	
@@ -27,6 +27,10 @@ public class entityBaseS : Combatable {
 	public AudioClip sound_upgrade;
 	 
 	public static bool show_health_bar = true; 
+	
+	public int current_attacks_this_round = 0;
+	public int max_attacks_this_round = 2;
+	
 	
 	public static List<HexData> adjacent_visible_hexes;
 	//Use this for initialization
@@ -48,10 +52,12 @@ public class entityBaseS : Combatable {
 		base_armor = 0;
 		attack_cost   = 5;
 		attack_range  = 2;
-		attack_damage = 5;
+		attack_damage = 4;
 		
 		can_not_heal = false;
 		can_not_attack = false;
+		
+		sight_range = 5;
 		
 		adjacent_visible_hexes = hexManagerS.getAdjacentHexes(x, z, sight_range);
 		
@@ -179,6 +185,7 @@ public class entityBaseS : Combatable {
 	
 	public bool onFire = false;
 	// Update is called once per frame
+	
 	void Update () {
 		visualDisplay();
 		
@@ -195,80 +202,106 @@ public class entityBaseS : Combatable {
 			onFire = false;
 		}
 		 
+		
+		 
 		if(checkIfDead()){
+			Debug.LogError("SHIT BE DEAD YO!");
 			print (this.GetInstanceID() + " is DEAD!!");
 			onDeath();
-		}else{
-		
-			if(gameManagerS.current_turn == Turn.Base)
+		}
+		if(gameManagerS.current_turn == Turn.Base)
+		{
+ 
+			if(!waiting_after_shot)
 			{
-				if(!waiting_after_shot)
+				Enemy targeted_enemy = getWeakestEnemy();
+				
+//				Debug.Log("BASEINFOLOG - " + current_attacks_this_round);
+				//if there's something to shoot
+				if(targeted_enemy != null && current_attacks_this_round < max_attacks_this_round)
+				{ 
+					attackTarget(targeted_enemy);
+				}
+				else
+				if(current_attacks_this_round == 0)
 				{
 					
-	//				//Debug.Log("BASE TURN NOW");
-	//				print ("BASE hp = " + current_hp);
-	//				print ("BASE Ap = " + current_ap);
-					
-					//check ap
-					if(current_ap <= 0 || (can_not_heal && can_not_attack))
+					if(current_hp <= max_hp)
 					{
-						//Debug.Log("Ran out of Ap or can't make a move");
-						gameManagerS.endBaseTurn();
-						can_not_heal = false;
-						can_not_attack = false;
-					}
-					else
-					{
-						//Check to see if base can heal
-						int temp = current_hp;
-						if(current_hp < max_hp && canHeal()){ 
-							int heal_points = healhp(heal_amount);
-							if(heal_points == temp){
-								//Debug.Log ("no healing occurred");
-								can_not_heal = true;
-							}else{
-								if(current_ap - heal_cost < 0){
-									//Debug.Log ("not enough ap to heal");
-									can_not_heal = true;
-								}else{
-									//Debug.Log ("healing occured");
-									current_ap -= heal_cost;
-								}
-							}
-						}else{
-							//Debug.Log ("can't heal, under attack");
-							can_not_heal = true;
-						}
-						
-						//Check to see if base can attack
-						entityEnemyS enemy_s = getWeakestEnemy();
-						if(enemy_s != null){	
-							if(current_ap - attack_cost < 0){
-								//Debug.Log ("Can't attack, not enough ap, so END TURN");
-								can_not_attack = true;
-							}else{
-								//current_ap -= attack_cost;
-								int damage_done = attackTarget (enemy_s);
-								//Debug.Log ("ATTACK opponent, damage done = " + damage_done);
-							}
-							
-						}else{
-							//Debasug.Log ("no enemies in range, can't attack");
-							can_not_attack = true;
-						}
+						entityManagerS.createHealEffect(x,z);
+						audio.PlayOneShot(sound_repair);
+						current_hp += heal_amount;						
 					}
 						
+					gameManagerS.endBaseTurn();
 				}
 				else
 				{
-					if(time_after_shot_start + .8F < Time.time)
-					{
-						waiting_after_shot = false;
-					}
+					gameManagerS.endBaseTurn();
+				}
+				
+//					
+//					
+//					//check ap
+//					if(current_ap <= 0 || (can_not_heal && can_not_attack))
+//					{
+//						//Debug.Log("Ran out of Ap or can't make a move");
+//						gameManagerS.endBaseTurn();
+//						can_not_heal = false;
+//						can_not_attack = false;
+//					}
+//					else
+//					{
+//						//Check to see if base can heal
+//						int temp = current_hp;
+//						if(current_hp < max_hp && canHeal()){ 
+//							int heal_points = healhp(heal_amount);
+//							if(heal_points == temp){
+//								//Debug.Log ("no healing occurred");
+//								can_not_heal = true;
+//							}else{
+//								if(current_ap - heal_cost < 0){
+//									//Debug.Log ("not enough ap to heal");
+//									can_not_heal = true;
+//								}else{
+//									//Debug.Log ("healing occured");
+//									current_ap -= heal_cost;
+//								}
+//							}
+//						}else{
+//							//Debug.Log ("can't heal, under attack");
+//							can_not_heal = true;
+//						}
+//						
+//						//Check to see if base can attack
+//						//entityEnemyS enemy_s = getWeakestEnemy();
+//						Enemy enemy_s = getWeakestEnemy();
+//						if(enemy_s != null){	
+//							if(current_ap - attack_cost < 0){
+//								//Debug.Log ("Can't attack, not enough ap, so END TURN");
+//								can_not_attack = true;
+//							}else{
+//								//current_ap -= attack_cost;
+//								int damage_done = attackTarget (enemy_s);
+//								//Debug.Log ("ATTACK opponent, damage done = " + damage_done);
+//							}
+//							
+//						}else{
+//							//Debasug.Log ("no enemies in range, can't attack");
+//							can_not_attack = true;
+//						}
+//					}
+//						
+			}
+			else
+			{
+				if(time_after_shot_start + .8F < Time.time)
+				{
+					waiting_after_shot = false;
 				}
 			}
-			
 		}
+			 
 		
 	}
 	
@@ -302,17 +335,21 @@ public class entityBaseS : Combatable {
 			audio.PlayOneShot(sound_attack_upgrade);
 		//subtract ap cost from total
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z); 
-		current_ap -= attack_cost;
+//		current_ap -= attack_cost;
+		
+		current_attacks_this_round++;
+		
 		
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY " + target.GetInstanceID());
 		if(target != null)
 			 target.acceptDamage(attack_damage);
+		else
+			throw new System.Exception("HOLY SHIT YOU CANT ATTACK NOTHING BRO!");
 		
 		
-		 gameManagerS.waiting_after_shot = true;
-		gameManagerS.time_after_shot_start = Time.time;
+		waiting_after_shot = true;
+		time_after_shot_start = Time.time;
 		
-		//Debug.Log ("ERROR: didn't pick a combatable target");
 		return 0; //nothing to damage if we get here
 	}
 	
@@ -397,7 +434,7 @@ public class entityBaseS : Combatable {
 				case BaseUpgradeLevel.Level3:
 					if(defense_level != upgrade && defense_level < upgrade){
 						defense_level = BaseUpgradeLevel.Level3;
-						attack_cost = 4;
+						max_attacks_this_round++;
 					return true;
 					}else{
 						//Debug.Log ("Base Already has this defense upgrade, can't downgrade");
@@ -477,26 +514,49 @@ public class entityBaseS : Combatable {
 //			return true;
 	
 	//return script of weakest enemy, this method seems slow, may adjust later
-	entityEnemyS getWeakestEnemy(){
+//	entityEnemyS getWeakestEnemy(){
+//		int low_health = 9999;
+//		entityEnemyS final_weak_enemy = null;
+//		//get all hexes in attack range
+//		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z,attack_range)){
+//				//check to see if enemy is at hex
+//				entityEnemyS weak_enemy = entityManagerS.getEnemyAt(h.x, h.z);
+//				if(weak_enemy != null){
+//					if( weak_enemy.current_hp < low_health){
+//						//Debug.Log("Weakest enemy is: " + weak_enemy.x + ":" + weak_enemy.z);
+//						low_health = weak_enemy.current_hp;
+//						final_weak_enemy = weak_enemy;
+//					}
+//				}
+//		}
+//		
+//		if(low_health == 9999){ 
+//			//Debug.Log ("no enemy's in attack range");
+//			return null;
+//		}
+//		
+//		return final_weak_enemy;
+//		
+//	}
+	
+	//return script of weakest enemy, this method seems slow, may adjust later
+	private Enemy getWeakestEnemy(){
 		int low_health = 9999;
-		entityEnemyS final_weak_enemy = null;
+		Enemy final_weak_enemy = null;
 		//get all hexes in attack range
 		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z,attack_range)){
 				//check to see if enemy is at hex
-				entityEnemyS weak_enemy = entityManagerS.getEnemyAt(h.x, h.z);
-				if(weak_enemy != null){
-					if( weak_enemy.current_hp < low_health){
-						//Debug.Log("Weakest enemy is: " + weak_enemy.x + ":" + weak_enemy.z);
-						low_health = weak_enemy.current_hp;
-						final_weak_enemy = weak_enemy;
+			
+				Enemy current_enemy = entityManagerS.getEnemyAt(h.x, h.z);
+			
+				//is an enemy there?
+				if(current_enemy != null){
+					if( current_enemy.current_hp < low_health){ 
+						low_health = current_enemy.current_hp;
+						final_weak_enemy = current_enemy;
 					}
 				}
-		}
-		
-		if(low_health == 9999){ 
-			//Debug.Log ("no enemy's in attack range");
-			return null;
-		}
+		} 
 		
 		return final_weak_enemy;
 		

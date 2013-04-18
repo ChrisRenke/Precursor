@@ -4,36 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class entityEnemyS : Combatable, IMove, IPathFind {
-	private List<HexData> traversable_hexes; //Hold traversable hexes
-	private List<HexData> untraversable_hexes; //Hold untraversable hexes
-	private List<HexData> path_to_base; //Hold traversable hex path to base
-	private List<HexData> path_to_mech; //Hold traversable hex path to mech
-	private List<HexData> path_to_opponent; //Hold traversable hex path to chosen opponent
-	
-	public int spawner_owner;
-	private bool   can_get_to_mech_location;
-	private bool   can_get_to_base_location;
-	private double last_path_cost; //path cost of most recent path gotten from traversable path call
+public class entityEnemyS : Enemy {
 	private bool   end_turn;
-	private bool   chosen_path_is_mech = false;
-	private bool   chosen_path_is_base = false;
-	private HexData last_move; //************Can't Move Backwards unless can't move anywhere else; 
-	//Put a weight on entities to decide which is more important when having to make a path choice
-	public double base_weight = 10;
-	public double mech_weight = 5;
+	private HexData last_move; //Can't Move Backwards unless can't move anywhere else; 
 	
-	public bool knows_mech_location;
-	public bool knows_base_location;
-	
-	public bool is_this_enemies_turn;
-	
+	public AudioClip sound_shoot;
+
 	public static bool show_health_bar = true;
-	
-	
-	
-		
-	Vector3 center_top;
 	
 	int t = 0; //test
 	
@@ -51,12 +28,15 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		current_hp = 15;
 		max_hp = 15;
 		
+		enemy_type = EntityE.Enemy;
+		
 		current_ap = 8;
 		max_ap = 8;
 		attack_cost = 4;
 		attack_range = 2;
 		attack_damage = 4;
 		last_move = hexManagerS.getHex(x,z); //last move = current position  
+
 	}
 	
 	public Transform child_fire;  
@@ -78,22 +58,6 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 	
 	void OnGUI()
 	{ 
-//		if(hexManagerS.getHex(x,z).vision_state == Vision.Live)
-//		{
-//			
-////			Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
-////			GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y+30, 200, 15), current_hp + "/" + max_hp + " HP", enginePlayerS.hover_text);
-////			GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
-//		}
-		//hp bar variables
-		int width_denominator = 1;
-		int width_numerator = 75;
-		int denominator_hp = width_denominator * max_hp;
-		int multiple_hp = denominator_hp/width_denominator;
-		int numerator_hp = width_numerator * multiple_hp;
-		int difference_hp = max_hp - numerator_hp;		
-		
-		
         Mesh mesh = GetComponent<MeshFilter>().mesh;
         Vector3[] vertices = mesh.vertices;
         int i = 0;
@@ -111,41 +75,8 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				GUI.DrawTexture(new Rect (0, 0, 73, 10), enginePlayerS.chris_hp, ScaleMode.StretchToFill);
 			GUI.EndGroup (); 
 		 	
-			GUI.Label(new Rect(center_top_ss.x - 39, Screen.height - center_top_ss.y+4, 75, 10),  current_hp + "/" +  max_hp,  enginePlayerS.hp_bar_for_enemy);
-//			
-//			 current_hp + "/" + max_hp + " HP",
- 
+			GUI.Label(new Rect(center_top_ss.x - 39, Screen.height - center_top_ss.y+4, 75, 10),  current_hp + "/" +  max_hp,  enginePlayerS.hp_bar_for_enemy); 
 		}
-	}
-		//Extract hexes from path and put hexes into a List 
-	private List<HexData> extractPath (Path path)
-	{
-		
-		if(path != null){
-			last_path_cost = path.TotalCost;
-			//Debug.Log ("getTraversablePath: path cost = " + last_path_cost);
-		}
-		
-		List<HexData> list = new List<HexData>();
-		if(path != null){
-			foreach (HexData hex in path){
-				list.Add(hex);
-			}
-			//Debug.Log ("extractPath: size of path = " + list.Count);
-			
-			list.Reverse();	//path comes in backwards
-			
-			//if list size is 2, don't remove the enemies position from list
-			if(list.Count > 2){
-				list.RemoveAt(0); //first element is the current enemies position
-			}
-			
-			list.RemoveAt(list.Count - 1); //last element is the destination hex
-		}else{
-			//Debug.Log ("extractPath: path is empty");
-		}
-		
-		return list;
 	}
 	
 	// Update is called once per frame
@@ -198,7 +129,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 					//MAIN IDEA
 					//if can see mech and base and enemy is able to get to both mech and base
 					//then can get to mech and base is true.
-					//if cant see mech and base and enemy then check to see if in visible range
+					//if cant see mech and base and enemy then checks to see if in visible range
 					//then can get to mech and base is true if they are in visible range and a path can be found.
 					//if they aren't in visible range or a path can't be found then can get to mech and base will be false
 					
@@ -339,43 +270,55 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 					}
 					
 					
-					
 					//Debug.Log ("FINALIZE path move");
 					if(path_to_opponent.Count == 0){
-				 		//Debug.Log ("Update 5:1: no path found so try to move randomly");
+				 		//Debug.Log ("Update 5:1: no path found so try to move randomly or attack");
 						
-						path_to_opponent = getAdjacentTraversableHexes();
-						
-						if(path_to_opponent.Count > 0){
-							//try to make a random move
-							int move = UnityEngine.Random.Range(0, path_to_opponent.Count);
-							bool not_end = true;
-							
-							//don't enter loop if path_to_opponent.Count is 1 since only one choice to make
-							//Debug.Log ("LastMove:" + last_move.x + ":" + last_move.z);
-							while(not_end && path_to_opponent.Count != 1){
-								if(path_to_opponent[move].x == last_move.x && path_to_opponent[move].z == last_move.z){
-									//Debug.Log("Enemy trying to move backwards, try another move");
-									move = UnityEngine.Random.Range(0, path_to_opponent.Count);
-								}else{
-							 		//Debug.Log("Found a good move");
-									not_end = false;
-								}
-							}
-							//Debug.Log ("NewMove:" + path_to_opponent[move].x + ":" + path_to_opponent[move].z);
-							if(current_ap - getTraverseAPCost(path_to_opponent[move].hex_type) < 0){
-								//Debug.Log ("Update 5:2: can't make a move, not enough ap, END TURN");
+						//check to see if enemy is in attackable range
+						Combatable target = targetInAttackRange(base_s, mech_s);						
+						if(target != null){
+							if(current_ap - attack_cost < 0){
+								//Debug.Log ("Update 5:6: Can't attack, not enough ap, so END TURN");
 								end_turn = true;
 							}else{
-								//Debug.Log ("Update 5:3: Move to random position");
-								last_move = hexManagerS.getHex(x,z);
-								makeMove(path_to_opponent[move]);
+								int damage_done = -1;
+								damage_done = attackTarget (target);
 							}
-							
-							
 						}else{
-							//Debug.Log ("Update 5:4: can't move, END TURN");
-							end_turn = true;
+							//nothing in attackable range so try to move randomly
+							path_to_opponent = getAdjacentTraversableHexes();
+							
+							if(path_to_opponent.Count > 0){
+								//try to make a random move
+								int move = UnityEngine.Random.Range(0, path_to_opponent.Count);
+								bool not_end = true;
+								
+								//don't enter loop if path_to_opponent.Count is 1 since only one choice to make
+								//Debug.Log ("LastMove:" + last_move.x + ":" + last_move.z);
+								while(not_end && path_to_opponent.Count != 1){
+									if(path_to_opponent[move].x == last_move.x && path_to_opponent[move].z == last_move.z){
+										//Debug.Log("Enemy trying to move backwards, try another move");
+										move = UnityEngine.Random.Range(0, path_to_opponent.Count);
+									}else{
+								 		//Debug.Log("Found a good move");
+										not_end = false;
+									}
+								}
+								//Debug.Log ("NewMove:" + path_to_opponent[move].x + ":" + path_to_opponent[move].z);
+								if(current_ap - getTraverseAPCost(path_to_opponent[move].hex_type) < 0){
+									//Debug.Log ("Update 5:2: can't make a move, not enough ap, END TURN");
+									end_turn = true;
+								}else{
+									//Debug.Log ("Update 5:3: Move to random position");
+									last_move = hexManagerS.getHex(x,z);
+									makeMove(path_to_opponent[move]);
+								}
+								
+								
+							}else{
+								//Debug.Log ("Update 5:4: can't move, END TURN");
+								end_turn = true;
+							}
 						}
 					}else if(path_to_opponent.Count == 1 && path_to_opponent[0].x == x && path_to_opponent[0].z == z){
 						//Debug.Log ("Update 5:5: enemy found attackable opponent");
@@ -397,14 +340,26 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 						}
 						
 					}else{ 
-						//move enemy to next position
-						if(current_ap - getTraverseAPCost(path_to_opponent[0].hex_type) < 0){
-							//Debug.Log ("Update 5:8: Can't make a move, not enough ap, END TURN");
-							end_turn = true;
+						//check to see if enemy is in attackable range
+						Combatable target = targetInAttackRange(base_s, mech_s);						
+						if(target != null){
+							if(current_ap - attack_cost < 0){
+								//Debug.Log ("Update 5:6: Can't attack, not enough ap, so END TURN");
+								end_turn = true;
+							}else{
+								int damage_done = -1;
+								damage_done = attackTarget (target);
+							}
 						}else{
-							//Debug.Log ("Update 5:9: Move enemy one position on path");
-							last_move = hexManagerS.getHex(x,z);
-							makeMove(path_to_opponent[0]);
+							//move enemy to next position
+							if(current_ap - getTraverseAPCost(path_to_opponent[0].hex_type) < 0){
+								//Debug.Log ("Update 5:8: Can't make a move, not enough ap, END TURN");
+								end_turn = true;
+							}else{
+								//Debug.Log ("Update 5:9: Move enemy one position on path");
+								last_move = hexManagerS.getHex(x,z);
+								makeMove(path_to_opponent[0]);
+							}
 						}
 					}			
 				
@@ -412,7 +367,6 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 				}
 					//t++;
 				//}//test
-				
 	
 			}
 			
@@ -444,175 +398,42 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		}//not dead
 	}
 	
-	
-	public double getTraverseAPCostPathVersion (HexData hex_start, HexData hex_end)
-	{	
-		return (double) getTraverseAPCost(hex_end.hex_type);
-	}
-	
-	public List<HexData> getAdjacentTraversableHexes () {
-		return getAdjacentTraversableHexes (x, z);
-	}
- 
-	//Will use this method for single movements, alternative method used for A*, see IPathFind 
-	public List<HexData> getAdjacentTraversableHexes (int _x, int _z) 
-	{
-		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
-		
-		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(_x, _z);
-		////Debug.Log(adjacent_hexes.Length + " found adjacent");
-		
-		//See which of the adjacent hexes are traversable
-		for(int i = 0; i < adjacent_hexes.Length; i++)
-			if(canTraverse(adjacent_hexes[i]))
-				result_hexes.Add(adjacent_hexes[i]);
-		
-		////Debug.Log(result_hexes.Count + " found adjacent goods");
-		return result_hexes;
-	}
- 
-	
-	public List<HexData> getAdjacentUntraversableHexes () {
-		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
-		
-		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
-		
-		//See which of the adjacent hexes are NOT traversable
-		for(int i = 0; i < adjacent_hexes.Length; i++)
-			if(!canTraverse(adjacent_hexes[i]))
-				result_hexes.Add(adjacent_hexes[i]); 
-		
-		return result_hexes;
-	}
-
-	public bool canTraverse (HexData hex)
-	{
-		return canTraverse(hex.x, hex.z);
-	}  
-	
-	public bool canTraverse (int hex_x, int hex_z)
-	{
-		HexData hex = hexManagerS.getHex(hex_x, hex_z);
-		
-		if(!entityManagerS.canTraverseHex(hex.x, hex.z)){
-			////Debug.Log ("enemy hex");
-			return false;
-		}else if(hex.hex_type == Hex.Water || hex.hex_type == Hex.Mountain || hex.hex_type == Hex.Perimeter){
-			////Debug.Log ("enviro hex");
-			return false;
-		}else
-			return true;
-	} 
-	
-	//alternative can traverse methods where an entity can be excluded from search
-	public bool canTraverse (HexData hex, EntityE entity)
-	{
-		return canTraverse(hex.x, hex.z, entity);
-	}  
-	
-	public bool canTraverse (int hex_x, int hex_z, EntityE entity)
+	public override bool canTraverseHex (int hex_x, int hex_z, EntityE entity)
 	{
 		HexData hex = hexManagerS.getHex(hex_x, hex_z);
 		
 		if(!entityManagerS.canTraverseHex(hex.x, hex.z, entity)){
-			////Debug.Log ("enemy hex");
+			//Debug.Log ("enemy hex");
 			return false;
 		}else if(hex.hex_type == Hex.Water || hex.hex_type == Hex.Mountain || hex.hex_type == Hex.Perimeter){
-			////Debug.Log ("enviro hex");
+			//Debug.Log ("enviro hex");
+			return false;
+		}else
+			return true;
+	}
+	
+	public override bool canTraverseHex (int hex_x, int hex_z)
+	{
+		HexData hex = hexManagerS.getHex(hex_x, hex_z);
+		
+		if(!entityManagerS.canTraverseHex(hex.x, hex.z)){
+			//Debug.Log ("enemy hex");
+			return false;
+		}else if(hex.hex_type == Hex.Water || hex.hex_type == Hex.Mountain || hex.hex_type == Hex.Perimeter){
+			//Debug.Log ("enviro hex");
 			return false;
 		}else
 			return true;
 	} 
- 	
-	public bool makeMove (HexData hex)
-	{
-		facing_direction = hex.direction_from_central_hex;
-		if(!canTraverse(hex))
-			throw new MissingComponentException("Can't move to this spot, invalid location!");
-		
-		//subtract ap cost from total
-		current_ap -= getTraverseAPCost(hex.hex_type);
-		
-		//update enemy hex tags
-		moveInWorld(hex.x, hex.z, 2F);
-		x = hex.x;
-		z = hex.z;
-		return true;
-	} 
 	
-	//Get path to base
-	public List<HexData> getTraversablePath (HexData start, HexData destination, EntityE entity)
+	public int attackTarget(Combatable target)
 	{
-		//Send hex of base and hex of enemy to aStar
-		var path = aStar.FindPath(start, destination, entity, calcCostToTravelAdjacentHex, calcCostToTravelToDistantHex, getAdjacentTraversableHexes);
-		if(path != null){
-			last_path_cost = path.TotalCost;
-			//Debug.Log ("getTraversablePath: path cost = " + last_path_cost);
-		}
-		return extractPath(path);
-	}
-	
-	//Extract hexes from path and put hexes into a List 
-	private List<HexData> extractPath (IEnumerable<HexData> path)
-	{
-		List<HexData> list = new List<HexData>();
-		if(path != null){
-			foreach (HexData hex in path){
-				list.Add(hex);
-			}
-			//Debug.Log ("extractPath: size of path = " + list.Count);
-			
-			list.Reverse();	//path comes in backwards
-			
-			//if list size is 2, don't remove the enemies position from list
-			if(list.Count > 2){
-				list.RemoveAt(0); //first element is the current enemies position
-			}
-			
-			list.RemoveAt(list.Count - 1); //last element is the destination hex
-		}else{
-			//Debug.Log ("extractPath: path is empty");
-		}
-		
-		return list;
-	}
-	
-	 
-	public double calcCostToTravelAdjacentHex (HexData hex_start, HexData hex_end)
-	{	
-		return (double) getTraverseAPCost(hex_end.hex_type);
+		int huzzah = base.attackTarget(target);
+		audio.PlayOneShot(sound_shoot);
+		return huzzah;
 	}
 
-	public double calcCostToTravelToDistantHex (HexData hex_start, HexData hex_end)
-	{
-		//TODO: may need to be adjusted later
-        return Math.Sqrt(Math.Pow(Math.Abs(hex_start.x - hex_end.x),2) + Math.Pow(Math.Abs(hex_start.z - hex_end.z),2))*2;
-	} 
-	
-	public List<HexData> getAdjacentTraversableHexes (HexData hex, HexData destination, EntityE entity)
-	{
-		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
-		
-		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(hex.x, hex.z);
-		////Debug.Log(adjacent_hexes.Length + " found adjacent");
-		
-		//See which of the adjacent hexes are traversable
-		for(int i = 0; i < adjacent_hexes.Length; i++){
-			if(canTraverse(adjacent_hexes[i], entity) || (adjacent_hexes[i].x == destination.x && adjacent_hexes[i].z == destination.z)){
-				//add hex to traversable array
-				result_hexes.Add(adjacent_hexes[i]); 
-			}
-		}
-		
-		////Debug.Log ("Number of result_hexes " + result_hexes.Count);
-		return result_hexes;
-	}
-	
- 
-	public int getTraverseAPCost(Hex hex_type){
+	public override int getTraverseAPCost(Hex hex_type){
 		switch(hex_type)
 		{
 			case Hex.Desert:
@@ -637,144 +458,6 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		} 
 	}
 	
-	//True if enemy can can get to specified opponent
-	bool canGetToOpponent(HexData enemy, HexData opponent, EntityE entity_opponent, bool knows_opponents_location, ref List<HexData> path_to_opp){
-
-		if(knows_opponents_location){
-			//if enemy already "knows opponents location" then don't worry about visibility just get path to opponent
-			//Debug.Log ("canGetToOpponent: knows enemy location, get path:" + entity_opponent);
-			path_to_opp = extractPath(hexManagerS.getTraversablePath(enemy, opponent, EntityE.Node, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
-			
-			if(path_to_opp.Count == 0){
-				//Debug.Log ("canGetToOpponent: knows enemy location, but can't find path");
-				return false;
-			}else{
-				//Debug.Log ("canGetToOpponent: knows enemy location, and found path");
-				return true;
-			}
-		}
-		else
-		{
-			//Debug.Log ("canGetToOpponent: doesn't know enemy location, see if enemy is visible in sight range: " + entity_opponent);
-			//TODO: TESTING****using old method*********
-			if(canSeeHex(opponent)){ 
-			//if(canSeeHex(opponent)){ ****
-				//Debug.Log ("canGetToOpponent: doesn't know enemy location, get path to " + entity_opponent);
-				path_to_opp = extractPath(hexManagerS.getTraversablePath(enemy, opponent, EntityE.Node, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
-				if(path_to_opp.Count == 0){
-					//Debug.Log ("canGetToOpponent: enemy is visible, but can't find path");
-					return false;
-				}else{
-					//Debug.Log ("canGetToOpponent: enemy is visible, and found path");
-					return true;
-				}
-			}else{
-				//Debug.Log ("canGetToOpponent: doesn't know enemy location, and enemy not visible");
-				return false;
-			}
-		}
-	}
-	
-	
-	//Return true if entity is visible(enemy_visibility_range) to enemy based on enemies current x and z
-	public bool canSeeHex(HexData hex)
-	{		
-
-		//Debug.Log(hex + " = hex | " + hex.x + " | " + hex.z);  
-			foreach(HexData h in hexManagerS.getAdjacentHexes(x,z, sight_range)){
-				if(h.x == hex.x && h.z == hex.z)
-				{
-					//opponent is in sight range of enemy
-					//Debug.Log ("canSeeHex: opponent in sight, sight_range = " + sight_range);
-					return true;
-				}
-				////Debug.Log ("...checking hex...");
-			}  
-		
-		//opponent isn't in sight range of enemy
-		//Debug.Log ("canSeeHex: opponent is not in sight range");
-		return false;
-	}
-
-	
-	//Return path cost where path_cost = path cost * weight [where weight = path cost^2 * entity_weight]
-	public double pathCost(double weight, double path_cost){
-		return path_cost * Math.Pow(path_cost,2) * weight;
-	}
-	
-	//return minimun cost path: i.o MIN(mech cost, base cost);
-	public List<HexData> minCostPath(double weight1, double weight2, double path_cost1, double path_cost2, ref List<HexData> path1, ref List<HexData> path2){
-		double cost1 = pathCost(weight1, path_cost1); 
-		double cost2 = pathCost(weight2, path_cost2); 
-		//Debug.Log("minCostPath: comparing costs-" + cost1 +" vs " + cost2);
-		if(cost1 < cost2){
-			//Debug.Log ("minCostPath: mech path returned, cost =" + cost1);
-			chosen_path_is_mech = true;
-			return path1;
-		}else if(cost2 < cost1){
-			//Debug.Log ("minCostPath: base path returned, cost =" + cost2);
-			chosen_path_is_base = true;
-			return path2;
-		}else{
-			//Debug.Log ("minCostPath: paths have same cost, so return path with higher weight-" + weight1 +" vs " + weight2);
-			if(weight1 > weight2){
-				//Debug.Log ("minCostPath: mech path had higher weight = " +weight1);
-				chosen_path_is_mech = true;
-				return path1;
-			}else if(weight2 > weight1){
-				//Debug.Log ("minCostPath: base path had higher weight = " + weight2);
-				chosen_path_is_base = true;
-				return path2;
-			}else{
-				//Debug.Log ("minCostPath: path are equal in weight and cost so just go to base");
-				chosen_path_is_base = true;
-				return path2;
-			}
-		}
-	}
-	
-//	
-//	IEnumerator DelayStuff(float delay)
-//	{
-//	    yield return new WaitForSeconds(delay); 
-//	}
-// 
-// 
-	
-	public override int attackTarget (Combatable target)
-	{
-		//subtract ap cost from total
-		//Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z);
-		current_ap -= attack_cost;
- 
-		
-		//Debug.LogWarning("ABOUT TO ATTACK ENTITY " + target.GetInstanceID());
-		if(target != null)
-			 target.acceptDamage(attack_damage);
-		 gameManagerS.waiting_after_shot = true;
-		gameManagerS.time_after_shot_start = Time.time;
-		//Debug.Log ("ERROR: didn't pick a combatable target");
-		
-//		StartCoroutine(DelayStuff(.8f));
-		return 0; //nothing to damage if we get here
-	}	
-	
-	
-	public void moveInWorld(int _destination_x, int _destination_z, float _time_to_complete)
-	{
-		lerp_move = true;
-		starting_pos =  entityManagerS.CoordsGameTo3DEntiy(x, z);
-		ending_pos = entityManagerS.CoordsGameTo3DEntiy(_destination_x, _destination_z);
-		time_to_complete = _time_to_complete;
-		moveTime = 0.0f;
-		dist = Vector3.Distance(transform.position, ending_pos) * 2;
-	}
-	
-	float dist; 
-	Vector3 starting_pos, ending_pos;
-	public bool lerp_move = false; 
-	float time_to_complete = 2F;
-	float moveTime = 0.0f;
  
 	public bool isVisibleInWorld(){
 		HexData occupying_hex = hexManagerS.getHex(x, z);
@@ -791,7 +474,10 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 		case Vision.Live: 
 			gameObject.renderer.enabled = true;
 			if(current_hp <= max_hp/2)
+			{
+			    onFire = true;
 				turnOnFire();
+			}
 			renderer.material.SetColor("_Color", Color.white);
 			break;
 		case Vision.Visited:
@@ -809,6 +495,7 @@ public class entityEnemyS : Combatable, IMove, IPathFind {
 			throw new System.Exception("update FoW Combatable error!!");
 		}
 	}
+
 	
 	public override bool onDeath()
 	{

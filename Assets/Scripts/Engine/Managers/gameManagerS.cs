@@ -23,8 +23,14 @@ public class gameManagerS : MonoBehaviour {
 	public GameObject  selection_hex_input;
 	public static GameObject selection_hex;
 	
-	public static List<entityEnemyS>.Enumerator	enemy_enumerator;
-	public static bool 	enemy_currently_acting = false;
+//<<<<<<< HEAD
+//	public static List<entityEnemyS>.Enumerator	enemy_enumerator;
+//	public static bool 	enemy_currently_acting = false;
+//=======
+	//public static List<entityEnemyS >.Enumerator	enemy_enumerator;
+	public static List<Enemy >.Enumerator	enemy_enumerator;
+	public static bool 	  					enemy_currently_acting = false;
+//>>>>>>> 828572593879f78233657f8d0fdf57d3582e18e2
 	
 	public static bool rebuilt_enemy_lcoations = false;
 	public static bool spawned_enemies_this_round = false;
@@ -50,14 +56,8 @@ public class gameManagerS : MonoBehaviour {
 	public static bool waiting_after_shot = false;
 	
 	
-	public void tutorialMessages(){
-		   
-	}
-	
-	
 	
 	 
-	
 	
 	void checkVictoryConditions()
 	{ 
@@ -88,15 +88,6 @@ public class gameManagerS : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-//		if(!posted_this_round && current_level == Level.Level0)
-//			postMessageLevel0();
-//		else
-//		if(!posted_this_round && current_level == Level.Level1)
-//			postMessageLevel1();
-//		else
-//		if(!posted_this_round && current_level == Level.Level2)
-//			postMessageLevel2();
-		
 		checkVictoryConditions();
 	
 		//if the player still has actions 
@@ -110,7 +101,7 @@ public class gameManagerS : MonoBehaviour {
 		}
 		else if(current_turn == Turn.Base)
 		{
-		
+			//handled in base's Update() method
 		}			
 		else if(current_turn == Turn.Enemy)
 		{ 
@@ -129,20 +120,21 @@ public class gameManagerS : MonoBehaviour {
 					
 						if(enemy_enumerator.MoveNext())
 				 		{
-							entityEnemyS current_enemy = enemy_enumerator.Current;
+							//entityEnemyS current_enemy = enemy_enumerator.Current;
+							Enemy current_enemy = enemy_enumerator.Current;
 							current_enemy.is_this_enemies_turn = true;
 							enemy_currently_acting = true;
 						}
 						else //if there are no more enemies to move, then its the players turn again
 						{
-							foreach(entityEnemyS current_enemy in entityManagerS.enemy_list)
-								current_enemy.current_ap = current_enemy.max_ap;
-							current_turn = Turn.Player;
-							spawned_enemies_this_round = false;
-							posted_this_round = false;
-							entityManagerS.getMech().current_ap = entityManagerS.getMech().max_ap;
-							entityManagerS.getMech().updateAttackableEnemies();
-							current_round++;
+//							List<entityEnemyS> result = new List<entityEnemyS>();
+//							foreach(entityEnemyS current_enemy in entityManagerS.enemy_list){
+//								current_enemy.current_ap = current_enemy.max_ap;
+//								if(!current_enemy.checkIfDead())
+//									result.Add(current_enemy);		
+//							}
+							
+							endAllEnemeyTurn();
 						}	
 						
 					}
@@ -200,7 +192,7 @@ public class gameManagerS : MonoBehaviour {
 			right_complete_rect = new Rect(result, 247, 335,247);  
 		} 
 	}
-	
+	 
 	private void lerpInCompletedCenter()
 	{ 
 		float current_t_param = (Time.time - completescreen_start_time)/completescreen_animation_duration_center; 
@@ -278,15 +270,35 @@ public class gameManagerS : MonoBehaviour {
 	
 	public static void endPlayerTurn()
 	{ 
+		entityManagerS.getMech().current_ap =  0;   
+		rebuilt_enemy_lcoations = false;
+		current_turn = Turn.Enemy;
+	}
+	
+	public static void endAllEnemeyTurn()
+	{  
+		List<Enemy> result = new List<Enemy>();
+		foreach(Enemy current_enemy in entityManagerS.enemy_list){
+			current_enemy.current_ap = current_enemy.max_ap;
+			if(!current_enemy.checkIfDead())
+				result.Add(current_enemy);		
+		}
+		entityManagerS.enemy_list = result; //update enemy list to account for enemies that exploded
+		 
+		spawned_enemies_this_round = false; 
+		 
+		
+		entityManagerS.getBase().current_attacks_this_round = 0;
 		current_turn = Turn.Base;
-		entityManagerS.getMech().current_ap =  0;  
 	}
 	
 	public static void endBaseTurn()
 	{
 		//TODO: not sure if this is finished
-		current_turn = Turn.Enemy; 
-		entityManagerS.getMech().current_ap =  0;
+		entityManagerS.getMech().current_ap = entityManagerS.getMech().max_ap; 
+		current_round++;
+		entityManagerS.getMech().updateAttackableEnemies();
+		current_turn = Turn.Player; 
 		
 	}
 }

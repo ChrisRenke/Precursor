@@ -83,7 +83,7 @@ public class entityMechS : Combatable, IMove {
 	public readonly int repair_base_cost            =  1; 
 		  
 	public readonly int weapon_core_damage	  		= 4;
-	public readonly int weapon_upgrade_damage 		= 6;
+	public readonly int weapon_upgrade_damage 		= 8;
 	
 	public readonly int weapon_core_range 	  		= 2;
 	public readonly int weapon_upgrade_range  		= 3;
@@ -192,8 +192,6 @@ public class entityMechS : Combatable, IMove {
 //		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y+30, 200, 15), current_hp + "/" + max_hp + " HP", enginePlayerS.hover_text);
 //		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
 //	}
-	
-	
  		//.GetComponentsInChildren<ParticleSystem>();
 	
 	public static void shootEffect(Facing face_direction){  
@@ -366,7 +364,8 @@ public class entityMechS : Combatable, IMove {
 			audio.PlayOneShot(sound_attack_norm);
 		
 		Debug.LogWarning("ABOUT TO ATTCK ENTITY ON - "+ att_x + "," + att_z);
-		entityEnemyS target = entityManagerS.getEnemyAt(att_x, att_z);
+//		entityEnemyS target = entityManagerS.getEnemyAt(att_x, att_z);
+		Enemy target = entityManagerS.getEnemyAt(att_x, att_z);
 		current_ap -= getAttackAPCost();
 		
 		int enemy_hp_left = 15;
@@ -476,7 +475,7 @@ public class entityMechS : Combatable, IMove {
 		foreach(HexData hex in attackable_hexes)
 		{
 			hex.hex_script.can_attack_hex = true;
-			Debug.LogWarning("Enemy at hex :" + hex.x + "," + hex.z);
+			Debug.LogWarning("entityEnemyS at hex :" + hex.x + "," + hex.z);
 		} 
 	}
 	
@@ -767,11 +766,11 @@ public class entityMechS : Combatable, IMove {
 		movement_upgrades.Add (new UpgradeEntry("Marsh Stabilizers",	"Reduces Marsh hex traversal by 1 AP",	0,	1,	4,	4,	2, upgrade_menu_entry_mountains, MechUpgrade.Move_Marsh));
 		movement_upgrades.Add (new UpgradeEntry("Re-engineered Frame",	"Reduces all hex traversal by 1 AP",	6,	3,	1,	3,	2, upgrade_menu_entry_marsh, MechUpgrade.Move_Legs));
 			 
-		combat_upgrades.Add (new UpgradeEntry("Howizter Bore",			"Increases attack damage by 2",			1,	2,	4,	2,	2, upgrade_menu_entry_gundamage, MechUpgrade.Combat_Damage));
+		combat_upgrades.Add (new UpgradeEntry("Howizter Bore",			"Increases attack damage by 3",			1,	2,	4,	2,	2, upgrade_menu_entry_gundamage, MechUpgrade.Combat_Damage));
 		combat_upgrades.Add (new UpgradeEntry("Efficient Reload", 		"Reduces attack cost by 2 AP",			2,	2,	0,	2,	2, upgrade_menu_entry_guncost, MechUpgrade.Combat_Cost));
 		combat_upgrades.Add (new UpgradeEntry("Targeting Optics", 		"Increases attack range by 1",			4,	1,	1,	2,	2, upgrade_menu_entry_gunrange, MechUpgrade.Combat_Range));
 		combat_upgrades.Add (new UpgradeEntry("Gilded Armor", 			"Reduces damage recieved by 2",			2,	0,	6,	0,	2, upgrade_menu_entry_armor, MechUpgrade.Combat_Armor));
-		combat_upgrades.Add (new UpgradeEntry("Reactive Manuever", 		"Gives 35% change to dodge attacks",	0,	4,	0,	4,	2, upgrade_menu_entry_dodge, MechUpgrade.Combat_Dodge));
+//		combat_upgrades.Add (new UpgradeEntry("Reactive Manuever", 		"Gives 35% change to dodge attacks",	0,	4,	0,	4,	2, upgrade_menu_entry_dodge, MechUpgrade.Combat_Dodge));
 					 
 		scavenge_upgrades.Add (new UpgradeEntry("Combat Salvage",		"Gain one random part from kills",		2,	3,	0,	2,	2, upgrade_menu_entry_killscavenge, MechUpgrade.Scavenge_Combat));
 		scavenge_upgrades.Add (new UpgradeEntry("Greedy Gather", 		"Gain one extra part per scavenge",		0,	2,	1,	4,	2, upgrade_menu_entry_extrapartsscavenge, MechUpgrade.Scavenge_Greed));

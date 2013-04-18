@@ -14,6 +14,7 @@ public class info_spawn : entity_core {
 	public string cadence = "3/1,4/5";
 	public bool spawned_enemies_know_mech_location = false;
 	public bool spawned_enemies_know_base_location = true;
+	public EntityE spawned_enemy_type = EntityE.Enemy;
 	
 	public GUIStyle appear;
 	
@@ -25,6 +26,7 @@ public class info_spawn : entity_core {
 		sb.AppendLine("\t\t\tcadence    = " + cadence);
 		sb.AppendLine("\t\t\tmech_loc   = " + spawned_enemies_know_mech_location); 
 		sb.AppendLine("\t\t\tbase_loc   = " + spawned_enemies_know_base_location); 
+		sb.AppendLine("\t\t\tenemy_typ  = " + spawned_enemy_type);
         sb.AppendLine("\t\t}");
 		return sb.ToString();
 	}

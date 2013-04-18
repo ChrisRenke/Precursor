@@ -12,6 +12,7 @@ public class editorEntityManagerS : MonoBehaviour {
 	  
 	public GameObject  	player_entity;
 	public GameObject  	enemy_entity;
+	public GameObject 	flyer_entity;
 	public GameObject  	spawn_entity;
 	public GameObject  	outpost_entity;
 	public GameObject  	junkyard_entity; 
@@ -25,6 +26,15 @@ public class editorEntityManagerS : MonoBehaviour {
 	public int       enemy_spawner_owner_id = 0;
 	public bool 	 enemy_know_mech_location = false;
 	public bool	 	 enemy_know_base_location = true;
+	public EntityE	 enemy_type = EntityE.Enemy;
+	
+	//flyer
+	public int       flyer_current_hp = 10;
+	public int 	     flyer_max_hp     = 10;
+	public int       flyer_spawner_owner_id = 0;
+	public bool 	 flyer_know_mech_location = false;
+	public bool	 	 flyer_know_base_location = true;
+	public EntityE	 flyer_type = EntityE.Flyer;
 	
 	//town
 	public int         town_current_hp = 100;
@@ -38,6 +48,7 @@ public class editorEntityManagerS : MonoBehaviour {
 	public int  spawner_id_number = 0;
 	public bool spawned_enemies_know_mech_location = false;
 	public bool spawned_enemies_know_base_location = true;
+	public EntityE	 spawner_enemy_type = EntityE.Enemy;
 	public string spawner_cadence = "1/1";
 	
 	//node
@@ -64,6 +75,7 @@ public class editorEntityManagerS : MonoBehaviour {
 		entity_dict.Add(editor_entity.Mech, 	player_entity);
 		entity_dict.Add(editor_entity.Town, 	base_entity); 
 		entity_dict.Add(editor_entity.Enemy, 	enemy_entity);
+		entity_dict.Add(editor_entity.Flyer, 	flyer_entity);
 		entity_dict.Add(editor_entity.Spawn, 	spawn_entity);  
 		entity_dict.Add(editor_entity.Factory, 	factory_entity);
 		entity_dict.Add(editor_entity.Outpost, 	outpost_entity);
@@ -109,6 +121,20 @@ public class editorEntityManagerS : MonoBehaviour {
 			script.spawner_owner_id   = enemy_spawner_owner_id;
 			script.know_mech_location = enemy_know_mech_location;
 			script.know_base_location = enemy_know_base_location;
+			script.enemy_type = enemy_type;
+		} break;
+		case editor_entity.Flyer:{
+			var script = new_ent.GetComponent<info_flyer>(); //TODO
+			script.x = x;
+			script.z = z;
+			script.name = "entity("+ x +"," + z +")";
+			script.ent_type = ent_type;
+			script.current_hp = flyer_current_hp;
+			script.max_hp = flyer_max_hp;
+			script.spawner_owner_id   = flyer_spawner_owner_id;
+			script.know_mech_location = flyer_know_mech_location;
+			script.know_base_location = flyer_know_base_location;
+			script.enemy_type = flyer_type; 
 		} break;
 		case editor_entity.Spawn:{
 			var script = new_ent.GetComponent<info_spawn>();
@@ -121,6 +147,7 @@ public class editorEntityManagerS : MonoBehaviour {
 			script.z = z;
 			script.name = "entity("+ x +"," + z +")";
 			script.ent_type = ent_type;
+			script.spawned_enemy_type = spawner_enemy_type;
 		}  break;
 		case editor_entity.Mech:{
 			var script = new_ent.GetComponent<info_mech>();
@@ -130,7 +157,6 @@ public class editorEntityManagerS : MonoBehaviour {
 			script.ent_type = ent_type;
 			script.current_hp =  mech_current_hp;
 			script.max_hp = 	 mech_max_hp; 	
-			
 			
 			
 			
@@ -310,6 +336,31 @@ public class editorEntityManagerS : MonoBehaviour {
 				  
 			}
 			else
+				
+				if(editorUserS.last_created_entity_type == editor_entity.Flyer)
+				{ 
+					if(GUI.Button(new Rect( 30, 70, 210, 30), "Base: " + flyer_know_base_location))
+						flyer_know_base_location  = !flyer_know_base_location; 
+					
+					if(GUI.Button(new Rect( 30, 110, 210, 30), "Mech: " + flyer_know_mech_location))
+						flyer_know_mech_location  = !flyer_know_mech_location; 
+					
+	//				enemy_spawner_owner_id = (int) GUI.HorizontalSlider(new Rect( 30, 150, 210, 30), enemy_spawner_owner_id, (float) 0, (float) 20);
+					val_enemy = GUI.TextField(new Rect( 30, 150, 210, 30), val_enemy, 2);
+					val_enemy = Regex.Replace(val_enemy, @"[^0-9 ]", "");
+					try{
+						flyer_spawner_owner_id = int.Parse(val_enemy);
+					}
+					catch{
+						flyer_spawner_owner_id = 0;
+					} 
+					GUI.Label(new Rect(250, 150, 100, 30),  "SpawnerID: " + flyer_spawner_owner_id);
+					GUI.Label(new Rect(30, 190, 100, 30),  "Type: " + flyer_type);
+	//				GUI.Label(new Rect(250, 150, 100, 60), "Source SpawnerID: " + enemy_spawner_owner_id );
+				} 
+			
+		
+				else
 			//draw node config options
 			if(editorUserS.last_created_entity_type == editor_entity.Factory || editorUserS.last_created_entity_type == editor_entity.Junkyard || editorUserS.last_created_entity_type == editor_entity.Outpost)
 			{
@@ -317,39 +368,43 @@ public class editorEntityManagerS : MonoBehaviour {
 				GUI.Label(new Rect(250, 65, 100, 30),  node_level.ToString());
 			}
 			else
-			//draw enemy config options
-			if(editorUserS.last_created_entity_type == editor_entity.Enemy)
-			{ 
-				if(GUI.Button(new Rect( 30, 70, 210, 30), "Base: " + enemy_know_base_location))
-					enemy_know_base_location  = !enemy_know_base_location; 
-				
-				if(GUI.Button(new Rect( 30, 110, 210, 30), "Mech: " + enemy_know_mech_location))
-					enemy_know_mech_location  = !enemy_know_mech_location; 
-				
-//				enemy_spawner_owner_id = (int) GUI.HorizontalSlider(new Rect( 30, 150, 210, 30), enemy_spawner_owner_id, (float) 0, (float) 20);
-				val_enemy = GUI.TextField(new Rect( 30, 150, 210, 30), val_enemy, 2);
-				val_enemy = Regex.Replace(val_enemy, @"[^0-9 ]", "");
-				try{
-					enemy_spawner_owner_id = int.Parse(val_enemy);
-				}
-				catch{
-					enemy_spawner_owner_id = 0;
+				//draw enemy config options
+				if(editorUserS.last_created_entity_type == editor_entity.Enemy)
+				{ 
+					if(GUI.Button(new Rect( 30, 70, 210, 30), "Base: " + enemy_know_base_location))
+						enemy_know_base_location  = !enemy_know_base_location; 
+					
+					if(GUI.Button(new Rect( 30, 110, 210, 30), "Mech: " + enemy_know_mech_location))
+						enemy_know_mech_location  = !enemy_know_mech_location; 
+					
+	//				enemy_spawner_owner_id = (int) GUI.HorizontalSlider(new Rect( 30, 150, 210, 30), enemy_spawner_owner_id, (float) 0, (float) 20);
+					val_enemy = GUI.TextField(new Rect( 30, 150, 210, 30), val_enemy, 2);
+					val_enemy = Regex.Replace(val_enemy, @"[^0-9 ]", "");
+					try{
+						enemy_spawner_owner_id = int.Parse(val_enemy);
+					}
+					catch{
+						enemy_spawner_owner_id = 0;
+					} 
+					GUI.Label(new Rect(250, 150, 100, 30),  "SpawnerID: " + enemy_spawner_owner_id);
+					GUI.Label(new Rect(30, 190, 100, 30),  "Type: " + enemy_type);
+	//				GUI.Label(new Rect(250, 150, 100, 60), "Source SpawnerID: " + enemy_spawner_owner_id );
 				} 
-				GUI.Label(new Rect(250, 150, 100, 30),  "SpawnerID: " + enemy_spawner_owner_id);
-//				GUI.Label(new Rect(250, 150, 100, 60), "Source SpawnerID: " + enemy_spawner_owner_id );
-			} 
-			else
-			//draw spawn config options
+			
+				else
+				
+				
+				//draw spawn config options
 			if(editorUserS.last_created_entity_type == editor_entity.Spawn)
-			{ 
+			{
 				if(GUI.Button(new Rect( 30, 70, 210, 30), "Base: " + spawned_enemies_know_base_location))
-					spawned_enemies_know_base_location  = !spawned_enemies_know_base_location; 
+					spawned_enemies_know_base_location = !spawned_enemies_know_base_location;
 				
 				if(GUI.Button(new Rect( 30, 110, 210, 30), "Mech: " + spawned_enemies_know_mech_location))
-					spawned_enemies_know_mech_location  = !spawned_enemies_know_mech_location; 
+					spawned_enemies_know_mech_location = !spawned_enemies_know_mech_location;
 				
-//				spawner_id_number = (int) GUI.HorizontalSlider(new Rect( 30, 150, 210, 30), spawner_id_number, (float) 0, (float) 20);
-				val_spawn = GUI.TextField(new Rect( 30, 150, 210, 30), val_spawn, 2); 
+				// spawner_id_number = (int) GUI.HorizontalSlider(new Rect( 30, 150, 210, 30), spawner_id_number, (float) 0, (float) 20);
+				val_spawn = GUI.TextField(new Rect( 30, 150, 210, 30), val_spawn, 2);
 				val_spawn = Regex.Replace(val_spawn, @"[^0-9 ]", "");
 				try{
 					spawner_id_number = int.Parse(val_spawn);
@@ -357,19 +412,28 @@ public class editorEntityManagerS : MonoBehaviour {
 				catch{
 					spawner_id_number = 0;
 				}
-				GUI.Label(new Rect(250, 150, 100, 30),  "SpawnerID: " + spawner_id_number);
+				GUI.Label(new Rect(250, 150, 100, 30), "SpawnerID: " + spawner_id_number);
 				
-//				spawner_max_enemies_from_this_spawn = (int) GUI.HorizontalSlider(new Rect( 30, 190, 210, 30), spawner_max_enemies_from_this_spawn, (float) 0, (float) 20);
-//				GUI.Label(new Rect(250, 190, 100, 60), "Simultaneous Enemies: " + spawner_max_enemies_from_this_spawn);
+				// spawner_max_enemies_from_this_spawn = (int) GUI.HorizontalSlider(new Rect( 30, 190, 210, 30), spawner_max_enemies_from_this_spawn, (float) 0, (float) 20);
+				// GUI.Label(new Rect(250, 190, 100, 60), "Simultaneous Enemies: " + spawner_max_enemies_from_this_spawn);
 				spawner_cadence = GUI.TextField(new Rect( 30, 190, 210, 30), spawner_cadence,200);
 				spawner_cadence = Regex.Replace(spawner_cadence, @"[^0-9,/]", "");
 				GUI.Label(new Rect(250, 190, 200, 60), "Cadence");
-				GUI.Label(new Rect(30, 220, 210, 60), "   MaxEnemies/RoundNum,repeat\n   ie: 3/1,5/10,3/12,5/20");
-			} 
-		} 
-			 
-		
+				GUI.Label(new Rect(30, 220, 210, 60), " MaxEnemies/RoundNum,repeat\n ie: 3/1,5/10,3/12,5/20");
+				if(GUI.Button(new Rect( 30, 260, 210, 30), "Enemy Type: " + spawner_enemy_type)){
+					Time.timeScale = 0;
+						if(spawner_enemy_type == EntityE.Enemy){
+							spawner_enemy_type = EntityE.Flyer;
+						}else{
+							spawner_enemy_type = EntityE.Enemy;
+						}
+					Time.timeScale = 1;
+					}
+			}
 	}
-	string val_enemy = "";
-	string val_spawn = "";
+
+	
+}
+string val_enemy = "";
+string val_spawn = "";
 }

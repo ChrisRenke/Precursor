@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 295c6dfa700206b4a8ddc9328883bc7d
+guid: 27832250495fe8e4385ee615cda4b2f5
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - chris_hp_bg: {fileID: 2800000, guid: a5d40f95ac6f6424286794b33e04c23a, type: 3}
-  - chris_hp: {fileID: 2800000, guid: b6fffc80f5fc24424a043083e85ed11f, type: 3}
+  - sound_shoot: {fileID: 8300000, guid: 59065abb066c546b5bc437e610d21cd4, type: 3}
+  - child_fire: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

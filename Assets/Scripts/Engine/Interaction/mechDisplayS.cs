@@ -71,6 +71,21 @@ public class mechDisplayS : MonoBehaviour {
 	public Material water_nw;
 	
 	
+	public Material marsh_n;
+	public Material marsh_ne;
+	public Material marsh_se;
+	public Material marsh_s;
+	public Material marsh_sw;
+	public Material marsh_nw;
+	
+	public Material scavenge_n;
+	public Material scavenge_ne;
+	public Material scavenge_se;
+	public Material scavenge_s;
+	public Material scavenge_sw;
+	public Material scavenge_nw;
+	
+	
 	Renderer water;
 	Renderer mountain;
 	Renderer legs;
@@ -78,6 +93,8 @@ public class mechDisplayS : MonoBehaviour {
 	Renderer gunrange;
 	Renderer armor;
 	Renderer basic;
+	Renderer scav;
+	Renderer marsh;
 	
 	private Facing previous_facing = Facing.North;
 	 
@@ -91,6 +108,8 @@ public class mechDisplayS : MonoBehaviour {
 	private Dictionary<Facing, Material> facing_armor;
 	private Dictionary<Facing, Material> facing_gunsize;
 	private Dictionary<Facing, Material> facing_gunrange;
+	private Dictionary<Facing, Material> facing_scavenge;
+	private Dictionary<Facing, Material> facing_marsh;
 	
 	Vector2 size; 
 	
@@ -105,6 +124,8 @@ public class mechDisplayS : MonoBehaviour {
 		facing_gunsize = new Dictionary<Facing, Material>();
 		facing_water = new Dictionary<Facing, Material>();
 		facing_mountain = new Dictionary<Facing, Material>();
+		facing_scavenge = new Dictionary<Facing, Material>();
+		facing_marsh = new Dictionary<Facing, Material>();
 		
 		
 		facing_basic.Add (Facing.North, basic_n);
@@ -156,6 +177,20 @@ public class mechDisplayS : MonoBehaviour {
 		facing_water.Add (Facing.South, water_s);
 		facing_water.Add (Facing.SouthWest, water_sw);
 		
+		facing_scavenge.Add (Facing.North,     scavenge_n);
+		facing_scavenge.Add (Facing.SouthEast, scavenge_se);
+		facing_scavenge.Add (Facing.NorthWest, scavenge_nw);
+		facing_scavenge.Add (Facing.NorthEast, scavenge_ne);
+		facing_scavenge.Add (Facing.South,     scavenge_s);
+		facing_scavenge.Add (Facing.SouthWest, scavenge_sw);
+		
+		facing_marsh.Add (Facing.North,     marsh_n);
+		facing_marsh.Add (Facing.SouthEast, marsh_se);
+		facing_marsh.Add (Facing.NorthWest, marsh_nw);
+		facing_marsh.Add (Facing.NorthEast, marsh_ne);
+		facing_marsh.Add (Facing.South,     marsh_s);
+		facing_marsh.Add (Facing.SouthWest, marsh_sw);
+		
 		
 		
 		water 		= transform.FindChild("upgradeWater").renderer;
@@ -164,6 +199,8 @@ public class mechDisplayS : MonoBehaviour {
 		gunsize 	= transform.FindChild("upgradeGunSize").renderer;
 		gunrange 	= transform.FindChild("upgradeGunRange").renderer;
 		armor 		= transform.FindChild("upgradeArmor").renderer;
+		scav 		= transform.FindChild("upgradeScavenge").renderer;
+		marsh 		= transform.FindChild("upgradeMarsh").renderer;
 		basic 		= transform.renderer;  	 
 		
 		
@@ -179,6 +216,8 @@ public class mechDisplayS : MonoBehaviour {
 	    gunsize.material.SetTextureScale  ("_MainTex", size);
 	    gunrange.material.SetTextureScale  ("_MainTex", size);
 	    armor.material.SetTextureScale  ("_MainTex", size);
+	    scav.material.SetTextureScale  ("_MainTex", size);
+	    marsh.material.SetTextureScale  ("_MainTex", size);
 		
 		water.enabled = false;
 		mountain.enabled = false;
@@ -186,6 +225,8 @@ public class mechDisplayS : MonoBehaviour {
 		gunrange.enabled = false;
 		gunsize.enabled = false;
 		armor.enabled = false;
+		scav.enabled = false;
+		marsh.enabled = false;
 	}
 	 
 	
@@ -208,6 +249,8 @@ public class mechDisplayS : MonoBehaviour {
 				water.enabled = owner.upgrade_move_water;
 				gunrange.enabled = owner.upgrade_combat_range;
 				gunsize.enabled = owner.upgrade_combat_damage;
+				marsh.enabled = owner.upgrade_move_marsh;
+				scav.enabled = owner.upgrade_scavenge_greed || owner.upgrade_scavenge_cost;
 			
 //			previous_facing = owner.facing_direction;
 //		    Vector2 offset = new Vector2(0,0);
@@ -241,6 +284,8 @@ public class mechDisplayS : MonoBehaviour {
 	    gunsize.material.SetTextureOffset  ("_MainTex", offset);
 	    gunrange.material.SetTextureOffset  ("_MainTex", offset);
 	    armor.material.SetTextureOffset  ("_MainTex", offset);
+	    scav.material.SetTextureOffset  ("_MainTex", offset);
+	    marsh.material.SetTextureOffset  ("_MainTex", offset);
 	}
 	
 	
@@ -269,6 +314,8 @@ public class mechDisplayS : MonoBehaviour {
 	    gunsize.material.SetTextureOffset  ("_MainTex", offset);
 	    gunrange.material.SetTextureOffset  ("_MainTex", offset);
 	    armor.material.SetTextureOffset  ("_MainTex", offset);
+	    scav.material.SetTextureOffset  ("_MainTex", offset);
+	    marsh.material.SetTextureOffset  ("_MainTex", offset);
 	}
 	
 	
@@ -286,6 +333,8 @@ public class mechDisplayS : MonoBehaviour {
 	    gunrange.material = facing_gunrange[owner.facing_direction];
 	    water.material = facing_water[owner.facing_direction];
 	    mountain.material = facing_mountain[owner.facing_direction];
+	    scav.material = facing_scavenge[owner.facing_direction];
+	    marsh.material = facing_marsh[owner.facing_direction];
 		
 		
 	}
