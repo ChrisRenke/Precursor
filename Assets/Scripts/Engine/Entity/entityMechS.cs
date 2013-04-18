@@ -376,9 +376,11 @@ public class entityMechS : Combatable, IMove {
 			int ind = (int) UnityEngine.Random.Range(0, 3.999999999999F);
 			part_count[(Part) ind] += 1;
 			em.createPartEffect(att_x,att_z,(Part) ind);
+			parts_collected += 1;
 			validatePartCounts();
 		}
-		
+		if(enemy_hp_left <= 0)
+			player_kills++;
 		return 0; //nothing to damage if we get here			
 	}
 	
@@ -395,7 +397,7 @@ public class entityMechS : Combatable, IMove {
 		return  upgrade_scavenge_cost ? scavenge_upgrade_cost : scavenge_core_cost;
 	}
 	
-	
+	public int parts_collected = 0;
 	public bool attemptScavenge(Node node_type, NodeLevel resource_level, int x, int z)
 	{
 		
@@ -417,11 +419,15 @@ public class entityMechS : Combatable, IMove {
 		{
 			audio.PlayOneShot(sound_scavenge_fact);
 			part_count[Part.Piston] += num_of_each_type;
+				
+			parts_collected += num_of_each_type;
 			part_count[Part.Gear] += num_of_each_type;
+			parts_collected += num_of_each_type;
+				
 			for(int i = 0; i < num_of_each_type; ++i)
 			{
-			em.createPartEffect(x,z,Part.Gear);
-			em.createPartEffect(x,z,Part.Piston);
+				em.createPartEffect(x,z,Part.Gear);
+				em.createPartEffect(x,z,Part.Piston);
 			}
 					
 			
@@ -432,6 +438,8 @@ public class entityMechS : Combatable, IMove {
 			part_count[Part.Strut] += num_of_each_type;
 			
 			part_count[Part.Plate] += num_of_each_type;
+			parts_collected += num_of_each_type;
+			parts_collected += num_of_each_type;
 			for(int i = 0; i < num_of_each_type; ++i)
 			{
 					
@@ -447,6 +455,7 @@ public class entityMechS : Combatable, IMove {
 			{
 				int ind = (int) UnityEngine.Random.Range(0, 3.999999999999F);
 				part_count[(Part) ind] += num_of_each_type;
+				parts_collected += num_of_each_type;
 				for(int ix = 0; ix < num_of_each_type; ++ix)
 				{
 				 	em.createPartEffect(x,z,(Part) ind);
@@ -500,6 +509,8 @@ public class entityMechS : Combatable, IMove {
 			audio.PlayOneShot(sound_scavenge_fact);
 			part_count[Part.Piston] += num_of_each_type;
 			part_count[Part.Gear] += num_of_each_type;
+			parts_collected += num_of_each_type;
+			parts_collected += num_of_each_type;
 			for(int i = 0; i < num_of_each_type; ++i)
 			{
 			em.createPartEffect(x,z,Part.Gear);
@@ -512,6 +523,8 @@ public class entityMechS : Combatable, IMove {
 		{
 			audio.PlayOneShot(sound_scavenge_outpost);
 			part_count[Part.Strut] += num_of_each_type;
+			parts_collected += num_of_each_type;
+			parts_collected += num_of_each_type;
 			
 			part_count[Part.Plate] += num_of_each_type;
 			for(int i = 0; i < num_of_each_type; ++i)
@@ -532,6 +545,7 @@ public class entityMechS : Combatable, IMove {
 				for(int ix = 0; ix < num_of_each_type; ++ix)
 				{
 				 	em.createPartEffect(x,z,(Part) ind);
+			parts_collected += num_of_each_type;
 				}
 			}
 		}
@@ -779,8 +793,16 @@ public class entityMechS : Combatable, IMove {
 	public override int attackTarget(Combatable target){
 		Debug.Log ("Mech attacking target"); 
 		current_ap -= getAttackAPCost();
-		return target.acceptDamage(getAttackDamage());
+		int hp =  target.acceptDamage(getAttackDamage());
+		
+		if(hp <= 0)
+			player_kills++;
+		
+		return hp;
 	}
+	
+	
+	public int player_kills = 0;
 	
 	public void idleHeal()
 	{

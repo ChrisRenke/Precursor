@@ -14,6 +14,8 @@ public class entityBaseS : Combatable {
 	private bool  can_not_heal;
 	private bool  can_not_attack; 
 	
+	public int upgrades_built = 0;
+	
 	public Renderer walls_f;
 	public Renderer walls_b;
 	public Renderer def;
@@ -33,7 +35,9 @@ public class entityBaseS : Combatable {
 	
 	public List<HexData> adjacent_visible_hexes;
 	
-	
+	public int getUpgradeCount(){
+		return upgrades_built;
+	}
 	//Use this for initialization
 	void Start () {
  		child_fire = gameObject.transform.GetChild(4);//.GetComponentsInChildren<ParticleSystem>();
@@ -310,12 +314,18 @@ public class entityBaseS : Combatable {
 		return true;
 	}
 	
+	public bool isThereALevel3Tier(){
+		
+		return (wall_level == BaseUpgradeLevel.Level3 || structure_level == BaseUpgradeLevel.Level3 || defense_level == BaseUpgradeLevel.Level3);
+	}
+	
+	
 	//Player calls this method to change bases upgrade level
 	//Assumption: entityMech will take care of whether upgrade is allowed	
 	public bool upgradeBase(BaseUpgradeMode category, BaseUpgradeLevel upgrade){ 
 		//increase health, walls(armour), attack/range cost, and reduce ap
 		//Upgrades can only be applied once
-		
+		upgrades_built++;
 		em.getMech().subtractPartCosts(baseupgrademode_entrieslists[category][(int)upgrade -1 ]);
 		audio.PlayOneShot(sound_upgrade);
 		switch(category){ 

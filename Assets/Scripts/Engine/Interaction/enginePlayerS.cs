@@ -91,6 +91,7 @@ public class enginePlayerS : MonoBehaviour {
 		audio.rolloffMode = UnityEngine.AudioRolloffMode.Linear; 
 		gm = GameObject.Find("engineGameManager").GetComponent<gameManagerS>(); 
 		em = GameObject.Find("engineEntityManager").GetComponent<entityManagerS>();
+		
 	}
 	// Use this for initialization
 	void Awake () {  
@@ -669,7 +670,7 @@ public class enginePlayerS : MonoBehaviour {
 			//upgrade items
 			GUI.BeginGroup (new Rect (25, 80, 420, 438));  
 				
-				ShadowAndOutline.DrawOutline(new Rect(0,0, 342, 40),  gm.getObjectiveText(), menu_item_heading, new Color(0,0,0,.5F),Color.white, 3F);
+				ShadowAndOutline.DrawOutline(new Rect(0,0, 342, 90),  gm.getObjectiveText(), menu_item_heading, new Color(0,0,0,.5F),Color.white, 3F);
 			 
 		 
 			GUI.EndGroup ();  
@@ -699,6 +700,7 @@ public class enginePlayerS : MonoBehaviour {
 			GUI.BeginGroup (new Rect (13, 28, 420, 248));  
 				if(drawButtonBoolInGroup(105,0,210,"Restart"))
 					gm.restartLevel();
+		
 				if(drawButtonBoolInGroup(105,50,210,"Objectives"))
 				{
 					pause_menu_displayed = false;
@@ -709,6 +711,7 @@ public class enginePlayerS : MonoBehaviour {
 					pause_menu_displayed = false;
 					displayControlsMenu();
 				}
+		
 				if(drawButtonBoolInGroup(105,150,210,"Quit"))
 					gm.quitToMenu();
 		 
@@ -794,7 +797,8 @@ public class enginePlayerS : MonoBehaviour {
 			{ 
 				GUI.BeginGroup (new Rect (placement.x - 48,Screen.height - placement.y-popup_height + heightless, popup_width, popup_height- heightless));  
 				
-					GUI.Box(new Rect(0,0, popup_width - widthless, popup_height - heightless),"",popupbox);
+//					GUI.Box(new Rect(0,0, popup_width - widthless, popup_height - heightless),"",popupbox);
+					GUI.DrawTexture(new Rect(0,0, popup_width - widthless, popup_height - heightless),popup);
 					ShadowAndOutline.DrawOutline(new Rect(9,19, popup_content_width- widthless, popup_content_height - heightless), text, popup_text, new Color(0,0,0,.5F),Color.white, 3F);
 				GUI.EndGroup (); 
 			}
@@ -803,8 +807,9 @@ public class enginePlayerS : MonoBehaviour {
 		default:
 		GUI.BeginGroup (new Rect (placement.x - 48,Screen.height - placement.y-popup_height + heightless, popup_width, popup_height- heightless));  
 		
-			GUI.Box(new Rect(0,0, popup_width - widthless, popup_height - heightless),"",popupbox);
-			ShadowAndOutline.DrawOutline(new Rect(9,19, popup_content_width- widthless, popup_content_height - heightless), text, popup_text, new Color(0,0,0,.5F),Color.white, 3F);
+//			GUI.Box(new Rect(0,0, popup_width - widthless, popup_height - heightless),"",popupbox);
+			GUI.DrawTexture(new Rect(0,0, popup_width - widthless, popup_height - heightless),popup);
+					ShadowAndOutline.DrawOutline(new Rect(9,19, popup_content_width- widthless, popup_content_height - heightless), text, popup_text, new Color(0,0,0,.5F),Color.white, 3F);
 		GUI.EndGroup (); 
 			break;
 		}
@@ -818,9 +823,6 @@ public class enginePlayerS : MonoBehaviour {
 		drawInGamePopups();
 		
 		checkMousePlacement();
-		
-		if(objective_menu_displayed)
-			drawObjectivesMenu();
 		
 		if(pause_menu_displayed)
 			drawPauseMenu();
@@ -860,7 +862,7 @@ public class enginePlayerS : MonoBehaviour {
 		
 		//draw AP bar
 		drawHUDEnergyBar(417,29,446,mech.getCurrentAP(), mech.getMaxAP());
-		if(gm.requiresHUDIndicator())
+		if(gm.display_hud_obj_area)
 		{
 			GUI.DrawTexture(new Rect(562,59,156,31), hud_indicator_box);
 			ShadowAndOutline.DrawOutline(new Rect(562,59,156,26), gm.getHUDIndicatorText(), menu_filter_text, new Color(0,0,0,.7F),Color.white, 3F);
@@ -880,6 +882,10 @@ public class enginePlayerS : MonoBehaviour {
 			drawRepairMenu(); 
 //	  	 
 		drawFullscreenTips();
+		
+		if(objective_menu_displayed)
+			drawObjectivesMenu();
+		
 	}
 	
 	

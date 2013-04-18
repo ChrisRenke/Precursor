@@ -49,6 +49,13 @@ public class gameManagerS : MonoBehaviour {
 	void Start () {
 		hm.setNodePresenseOnHexes();
 		em = GameObject.Find("engineEntityManager").GetComponent<entityManagerS>();
+		requiresHUDIndicatorAtStart();
+		
+		
+		if(current_level != Level.Level0)
+		{
+			ep.displayObjectivesMenu();
+		}
 	}
 	 
 	public bool posted_this_round = false;
@@ -57,36 +64,109 @@ public class gameManagerS : MonoBehaviour {
 	
 	
 	
-	 
+	 bool fired_win_already = false;
 	
 	void checkVictoryConditions()
 	{ 
 		switch(current_level)
 		{
 			case Level.Level0: 
-				if(em.getBase().wall_level >= BaseUpgradeLevel.Level1)
+				if(em.getMech().player_kills >= 2 && em.getMech().getUpgradeCount() > 0 && current_fst >= 12)
 				{
-					endGame(true);
+					if(!fired_win_already)
+					{
+						fired_win_already = true; 
+						endGame(true);
+					}
 				}
 			break;
 			case Level.Level1: 
-				if(em.killed_enemy_count >= 25)
+				if(em.killed_enemy_count >= 20)
 				{
-					endGame(true);
+					
+					if(!fired_win_already)
+					{
+						fired_win_already = true;
+						endGame(true);
+					}
 				}
 			break;
 			case Level.Level2: 
+				if(em.getBase().isThereALevel3Tier() && em.getMech().getUpgradeCount() >= 3)
+				{
+					if(!fired_win_already)
+					{
+						fired_win_already = true;
+						endGame(true);
+					}
+				}
+			break; 
+			case Level.Level3: 
+				if(current_round >= 35)
+				{
+					if(!fired_win_already)
+					{
+						fired_win_already = true;
+						endGame(true);
+					}
+				}
+			break; 
+			case Level.Level4: 
 				if(current_round >= 41)
 				{
-					endGame(true);
+					if(!fired_win_already)
+					{
+						fired_win_already = true;
+						endGame(true);
+					}
 				}
 			break; 
 		} 
 	}
 	
+	bool flipped_once = false;
+	bool flipped_once2 = false;
+	bool flipped_once3 = false;
 	
 	// Update is called once per frame
 	void Update () {
+		
+		if(current_level == Level.Level0)
+		{
+			if(em.getMech().x == 22 && em.getMech().z == 13)
+			{
+				first_move_popup_display = false;
+				if(!flipped_once)
+				{ 
+					show_fst = true;
+					flipped_once = true;
+				}
+			}
+			
+			if(em.getMech().player_kills > 0 )
+			{
+				if(!flipped_once2)
+				{ 
+					show_fst = true;
+					flipped_once2 = true;
+				}
+			}
+//			
+			if(em.getBase().getUpgradeCount() > 0 )
+			{
+				if(!flipped_once3)
+				{ 
+					show_fst = true;
+					flipped_once3 = true;
+					em.getMech().player_kills = 0;
+					display_hud_obj_area = true;
+					
+				}
+			}
+//			o
+			
+		}
+		
 		
 		checkVictoryConditions();
 	
@@ -156,22 +236,20 @@ public class gameManagerS : MonoBehaviour {
 		switch(current_level)
 		{
 			case Level.Level0:
-				return "Parts Collected: 12";
+				return "Enemy Kills: " + em.getMech().player_kills + "/2";
 			
 			case Level.Level1:
-				return "Parts Collected: 12";
+				return "Enemy Kills: " + em.killed_enemy_count + "/20";
 				
 			case Level.Level2:
-				return "Base Upgrades: 3";
+				return "";// "Maxed Tier: " + (em.getBase().isThereALevel3Tier() ? "Y" : "N") + " | Mech Ups: " + em.getMech().getUpgradeCount() + "/3";
 				
 			case Level.Level3:
-				return "Base Upgrades: 3";
+				return "Rounds: " + current_round + "/35";
 				
 			case Level.Level4:
-				return "Kills: 12";
-				
-			case Level.Level5:
-				return "Kills: 12";
+				return " ";
+				 
 		}
 		return null;
 	}
@@ -179,6 +257,39 @@ public class gameManagerS : MonoBehaviour {
 	
 	public void advanceFST()
 	{
+		if(current_fst == 2)
+		{
+			
+			current_fst++;
+			show_fst = false;
+			first_move_popup_display = true;
+			return;
+		}
+		
+		if(current_fst == 7)
+		{ 
+			
+			current_fst++;
+			show_fst = false;
+			return;
+		}
+		
+		if(current_fst == 10)
+		{
+			
+			current_fst++;
+			show_fst = false;
+			return;
+		}
+		
+		if(current_fst == 12)
+		{
+			
+			current_fst++;
+			show_fst = false;
+			return;
+		}
+		
 		if(show_fst)
 			current_fst++;
 	}
@@ -188,20 +299,26 @@ public class gameManagerS : MonoBehaviour {
 	
 	public Texture getCurrentFullscreenTip()
 	{
+		if(!show_fst)
+			return null;
 		if(show_fst && current_level == Level.Level0)
 			switch(current_fst){ 
 				case 0: return camera_controls;
 				case 1: return ap_info;
-				case 2: return rounds_objectives;
-				case 3: return movement_information;
-				case 4: return hp_parts;
-				case 5: return enemies_spawns;
-				case 6: return repair_town;
+				case 2: return movement_information;
+			
+				case 3: return hp_parts;
+				case 4: return enemies_spawns;
+				case 5: return repair_town;
+				case 6: return rounds_objectives;
+				case 7: return town_defend;
+			
 				case 8: return upgrade_base_objective;
-				case 7: return nodes;
 				case 9: return upgrade_base;
-				case 10: return upgrade_mech;
+				case 10: return nodes;
+			
 				case 11: return kill_5; 
+				case 12: return upgrade_mech;
 			} 
 		return null;
 	}
@@ -219,6 +336,8 @@ public class gameManagerS : MonoBehaviour {
 	public Texture upgrade_base;
 	public Texture upgrade_base_objective;
 	public Texture movement_information;
+	public Texture town_defend;
+	public Texture repair_alert_corner;
 	
 	public bool first_move_popup_display = false;
 	
@@ -235,16 +354,20 @@ public class gameManagerS : MonoBehaviour {
 			PopupInfo temp  = new PopupInfo("This is your Town.\nDefend it at all costs!",getScreenSpot(21,21), Trigger.AlwaysOn, 1);
 			temp.widthless = 100; temp.heightless = 140;
 			values.Add(temp);
+			
 			temp  = new PopupInfo("This is a FACTORY.\nScavenge here to get\nPistons and Gears!",getScreenSpot(27 		,19), Trigger.AlwaysOn, 2);
 			temp.widthless = 100; temp.heightless = 120;
 			values.Add(temp);
+			
 			temp  = new PopupInfo("This is an OUTPOST.\nScavenge here to get\nPlates and Struts!",getScreenSpot(23,31), Trigger.AlwaysOn, 3);
 			temp.widthless = 100; temp.heightless = 120;
 			values.Add(temp);
+			
 			temp  = new PopupInfo("This is a JUNKYARD.\nScavenge here to get\nrandom parts!",getScreenSpot(12,29), Trigger.AlwaysOn, 4);
 			temp.widthless = 100; temp.heightless = 120;
 			values.Add(temp);
-			temp  = new PopupInfo("Click on this tile to move here!\nNotice your mech will automatically\nnavigate the shortest parth!",getScreenSpot(12,29), Trigger.Proximity, 5);
+			
+			temp  = new PopupInfo("Click on this tile to move here!\nNotice your mech will automatically\nnavigate the shortest parth!",getScreenSpot(22,13), Trigger.Proximity, 5);
 			temp.widthless = 50; temp.heightless = 90;
 			values.Add(temp);
  				return values;
@@ -271,30 +394,62 @@ public class gameManagerS : MonoBehaviour {
 		}
 		return null;
 	}
+	public bool display_hud_obj_area = false;
 	
-	public bool requiresHUDIndicator()
+	public void requiresHUDIndicatorAtStart()
 	{
 		switch(current_level)
 		{
 			case Level.Level0:
-				return false;
-			
+				display_hud_obj_area = false;
+			break;
 			case Level.Level1:
-				return true;
+				display_hud_obj_area = true;
+			break;
 				
 			case Level.Level2:
-				return true;
-				
+				display_hud_obj_area = false; 
+			break;
 			case Level.Level3:
-				return true;
+				display_hud_obj_area = true;
+			break;
 				
 			case Level.Level4:
-				return true;
+				display_hud_obj_area = false;
+			break; 
+		} 
+	}
+	
+	
+	public void loadNextLevel(){
+		switch(current_level)
+		{
+			case Level.Level0: 
+				PlayerPrefs.SetString("CONTINUE","Level1");
+				Application.LoadLevel("Level1");
+				break;
+			
+			case Level.Level1:
+				PlayerPrefs.SetString("CONTINUE","Level2");
+				Application.LoadLevel("Level2");
+				break;
 				
-			case Level.Level5:
-				return true;
+			case Level.Level2:
+				PlayerPrefs.SetString("CONTINUE","Level3");
+				Application.LoadLevel("Level3");
+				break;
+				
+			case Level.Level3:
+				PlayerPrefs.SetString("CONTINUE","Level4");
+				Application.LoadLevel("Level4");
+				break;
+				
+			case Level.Level4:
+				PlayerPrefs.SetString("CONTINUE","Level4");
+				Application.LoadLevel("MainMenu");
+				break;
+				 
 		}
-		return true;
 	}
 	
 	public void restartLevel(){
@@ -319,10 +474,7 @@ public class gameManagerS : MonoBehaviour {
 			case Level.Level4:
 				Application.LoadLevel("Level4");
 				break;
-				
-			case Level.Level5:
-				Application.LoadLevel("Level5");
-				break;
+				 
 		}
 	}
 	
@@ -332,29 +484,21 @@ public class gameManagerS : MonoBehaviour {
 		switch(current_level)
 		{
 		case Level.Level0:
-			return "1. Level 0 objective info!";
-			
+			return "1.) Move towards base.\n2.) Kill an enemy.\n3.) Upgrade base.\n4.) Upgrade Mech.\n5.) Kill 2 additional enemies." ;
 		case Level.Level1:
-			return "1. Level 1 objective info!";
-			
+			return "1.) Kill 20 enemies.\n2.) Protect yourself and your base.";	
 		case Level.Level2:
-			return "1. Level 2 objective info!";
-			
+			return "1.) Upgrade one base category to level 3.\n2.) Acquire any three mech upgrades.";
 		case Level.Level3:
-			return "1. Level 3 objective info!";
-			
+			return "1.) Survive for 35 rounds."; 
 		case Level.Level4:
-			return "1. Level 4 objective info!";
-			
-		case Level.Level5:
-			return "1. Level 5 objective info!";
+			return "1. Travel Southeast and reach the sacred valley farm in the mountain crater.\n2.) Beware of the kamikaze mechs.";
+	
+			 
 		}
 		
 		return "something went wrong D:";
-		
 	}
-	
-	
 	
 	public void forcePlayerTurn(){
 		current_turn = Turn.Player;
@@ -434,7 +578,10 @@ public class gameManagerS : MonoBehaviour {
 		
 			if(GUI.Button(new Rect(223,  232, 330, 40),"",ep.HUD_button))
 			{
-				Application.LoadLevel("Level2");	
+				if( won_the_game)
+					loadNextLevel();
+				else
+					restartLevel();
 			} 
 			ShadowAndOutline.DrawOutline(new Rect(223,  232, 330, 38), won_the_game ? "Next Level" : "Restart",ep.gui_norm_text, new Color(0,0,0,.6F),Color.white, 3F);
 				
@@ -447,11 +594,12 @@ public class gameManagerS : MonoBehaviour {
 	
 	public void endGame(bool victory)
 	{
+		
 		won_the_game = victory;
-		level_complete_top_stats =  "Parts Collected: 13   |   " +
-									"Upgrades Built: 12   |   " +
-									"Enemies Killed: 61";
-		level_complete_bottom_stats = "Time Elapsed: " + (int)Time.time/60 + ":" + (int)Time.time%60;
+		level_complete_top_stats =  "Parts Collected: " + em.getMech().parts_collected +  "   |   " +
+									"Upgrades Built: " + (em.getMech().getUpgradeCount() + em.getBase().upgrades_built) +"   |   " +
+									"Enemies Killed: " + em.killed_enemy_count;
+		level_complete_bottom_stats = "Time Elapsed: " + (int)Time.time/60 + " minutes, " + (int)Time.time%60 + " seconds";
  		completescreen_start_time = Time.time;  
 		game_is_over = true; 
 		audio.PlayOneShot(level_complete_screen_sound);
@@ -461,6 +609,12 @@ public class gameManagerS : MonoBehaviour {
 	{  
 		if(game_is_over)
 			drawLevelOverScreen();
+		
+		
+		if(current_level == Level.Level0 && em.getMech().current_hp <= em.getMech().getMaxHP()/2)
+		{
+			GUI.DrawTexture(new Rect(0,0,Screen.width, Screen.height), repair_alert_corner);
+		}
 		
 		if(Input.GetKeyDown(KeyCode.F10))
 		{
