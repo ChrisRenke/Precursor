@@ -167,8 +167,6 @@ public class entityMechS : Combatable, IMove {
 //		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y+30, 200, 15), current_hp + "/" + max_hp + " HP", enginePlayerS.hover_text);
 //		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
 //	}
-	
-	
  		//.GetComponentsInChildren<ParticleSystem>();
 	
 	public static void shootEffect(Facing face_direction){  

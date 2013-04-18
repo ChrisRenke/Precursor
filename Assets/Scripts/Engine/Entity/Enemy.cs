@@ -31,8 +31,6 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 	
 	public Vector3 center_top;
 	
-	public HexData attack_hex;
-	
 	//Extract hexes from path and put hexes into a List 
 	public List<HexData> extractPath (Path path)
 	{
@@ -76,13 +74,11 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z,attack_range)){
 			//check to see if base or mech is at one the hexes
 			if(h.x == base_s.x && h.z == base_s.z){
-				attack_hex = h;
 				final_target = base_s;
 				break;
 			}
 			
 			if(h.x == mech_s.x && h.z == mech_s.z){
-				attack_hex = h;
 				final_target = mech_s;
 				break;
 			}
@@ -352,7 +348,11 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 	{
 		//subtract ap cost from total
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z);
-		facing_direction = getDirectionToFace();
+		Facing new_facing = getDirectionFacing(target.x, target.z);
+		if(new_facing != facing_direction)
+			facing_direction = new_facing;
+		
+		print ("FACING" + facing_direction);
 		
 		current_ap -= attack_cost;
 		entityManagerS.sm.playGunNormal();
@@ -368,12 +368,9 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 		return 0; //nothing to damage if we get here
 	}	
 	
-	public Facing getDirectionToFace(){
-		//TODO: Facing Direction use attack_hex and current hex_position
-
-		Facing direction_to_move = facing_direction;
+	public Facing getDirectionFacing(int target_x, int target_z){
 				
-		return direction_to_move;
+		return hexManagerS.getFacingDirection(x,z,target_x,target_z,attack_range);
 	}
 	
 	

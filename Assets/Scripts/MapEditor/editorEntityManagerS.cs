@@ -340,10 +340,10 @@ public class editorEntityManagerS : MonoBehaviour {
 				if(editorUserS.last_created_entity_type == editor_entity.Flyer)
 				{ 
 					if(GUI.Button(new Rect( 30, 70, 210, 30), "Base: " + flyer_know_base_location))
-						enemy_know_base_location  = !enemy_know_base_location; 
+						flyer_know_base_location  = !flyer_know_base_location; 
 					
 					if(GUI.Button(new Rect( 30, 110, 210, 30), "Mech: " + flyer_know_mech_location))
-						enemy_know_mech_location  = !enemy_know_mech_location; 
+						flyer_know_mech_location  = !flyer_know_mech_location; 
 					
 	//				enemy_spawner_owner_id = (int) GUI.HorizontalSlider(new Rect( 30, 150, 210, 30), enemy_spawner_owner_id, (float) 0, (float) 20);
 					val_enemy = GUI.TextField(new Rect( 30, 150, 210, 30), val_enemy, 2);
