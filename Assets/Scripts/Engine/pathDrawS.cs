@@ -5,50 +5,55 @@ using System.Collections.Generic;
 
 public class pathDrawS : MonoBehaviour {
 	
-	static Vector3 y_adj_line =new Vector3(0,1,0);
-	static Vector3 y_adj_hex_top =new Vector3(0,10,0);
-	static Vector3 y_adj_hex_glow =new Vector3(0,9.9F,0);
-	static Vector3 y_adj_hex_sel =new Vector3(0,9.95F,0);
-	static Vector3 xz_norm =new Vector3(1,0,1);
+	 Vector3 y_adj_line =new Vector3(0,1,0);
+	 Vector3 y_adj_hex_top =new Vector3(0,10,0);
+	 Vector3 y_adj_hex_glow =new Vector3(0,9.9F,0);
+	 Vector3 y_adj_hex_sel =new Vector3(0,9.95F,0);
+	 Vector3 xz_norm =new Vector3(1,0,1);
 	
-	public static float max_path_width = 12;
-	
-	public static Material hex_material;
+	public   float max_path_width = 12;
+	 
 	public Material hex_material_input;
 	 
-	private static entityMechS  mech;
-	static VectorLine player_route;
+	private entityMechS  mech;
+	VectorLine player_route;
+	
 	// Use this for initialization
-	void Start () { 
-//		mech = GameObject.FindWithTag("player_mech").GetComponent<entityMechS>();
-		mech = entityManagerS.getMech();
-		hex_material = hex_material_input;
-		
-	}
-	// Update is called once per frame
-	void Update () {
+	public gameManagerS  gm;
+	public enginePlayerS ep;
+	public entityManagerS em; 
+	public hexManagerS hm; 
 	
+	void Start(){ 
+		gm = GameObject.Find("engineGameManager").GetComponent<gameManagerS>();
+		ep = GameObject.Find("enginePlayer").GetComponent<enginePlayerS>();
+		em = GameObject.Find("engineEntityManager").GetComponent<entityManagerS>();
+		hm = GameObject.Find("engineHexManager").GetComponent<hexManagerS>();
+		mech = em.getMech();
 	}
 	
-	public static Color getColorFromCost(int cost)
+
+	  
+	
+	public Color getColorFromCost(int cost)
 	{	 
 		if(cost <= 2)
 		{
-			return enginePlayerS.easy_color;
+			return ep.easy;
 		}
 		else if(cost <= 4)
 		{
-			return  enginePlayerS.medium_color;
+			return  ep.medium;
 		}
 		else
 		{
-			return  enginePlayerS.hard_color;
+			return  ep.hard;
 		}
 	
 	}
 	
 	
-	public static VectorLine getGlowHex(HexData hex)
+	public   VectorLine getGlowHex(HexData hex)
 	{
 		MeshFilter ms = (MeshFilter)hex.hex_object.GetComponent("MeshFilter");
 		Vector3[] verts = new Vector3[(ms.mesh.vertices.Length + 1)];
@@ -62,12 +67,11 @@ public class pathDrawS : MonoBehaviour {
 		for(int i = 0; i < verts.Length; ++i)
 			verts[i].y = 1;
 			
-		return new VectorLine("border", verts, hex_material, 8F,LineType.Continuous, Joins.Weld); 
-//		VectorLine.MakeLine("border", verts).Draw3DAuto();
+		return new VectorLine("border", verts, hex_material_input, 8F,LineType.Continuous, Joins.Weld); 
 	}
 	
 	
-	public static VectorLine getSelectHex(HexData hex)
+	public   VectorLine getSelectHex(HexData hex)
 	{
 		MeshFilter ms = (MeshFilter)hex.hex_object.GetComponent("MeshFilter");
 		Vector3[] verts = new Vector3[(ms.mesh.vertices.Length + 1)];
@@ -81,11 +85,11 @@ public class pathDrawS : MonoBehaviour {
 		for(int i = 0; i < verts.Length; ++i)
 			verts[i].y = 1;
 			
-		return new VectorLine("border", verts, hex_material, 8F,LineType.Continuous, Joins.Weld); 
+		return new VectorLine("border", verts, hex_material_input, 8F,LineType.Continuous, Joins.Weld); 
 //		VectorLine.MakeLine("border", verts).Draw3DAuto();
 	}
 	
-	public static VectorLine outlineHex(HexData hex)
+	public   VectorLine outlineHex(HexData hex)
 	{
 		MeshFilter ms = (MeshFilter)hex.hex_object.GetComponent("MeshFilter");
 		Vector3[] verts = new Vector3[(ms.mesh.vertices.Length + 1)];
@@ -99,12 +103,19 @@ public class pathDrawS : MonoBehaviour {
 		for(int i = 0; i < verts.Length; ++i)
 			verts[i].y = 1;
 			
-		return new VectorLine("border", verts,hex_material , 8F,LineType.Continuous, Joins.Weld); 
+		return new VectorLine("border", verts,hex_material_input , 8F,LineType.Continuous, Joins.Weld); 
 //		VectorLine.MakeLine("border", verts).Draw3DAuto();
 	}
 	
 	
-	public static PathDisplay getPathLine(Path path)
+		//converts engine coordinates into 3D space cordinates
+	private     Vector3 CoordsGameTo3D(int x, int z)
+	{   
+		return new Vector3(x * 2.30024F + z * -0.841947F, 0, z * 1.81415F + x * 1.3280592F);
+	}
+	
+	
+	public   PathDisplay getPathLine(Path path)
 	{
 //			Debug.Log("drawPath numba J");
 //			Debug.Log("awkward length " + 	path.getPathLength());
@@ -127,7 +138,7 @@ public class pathDrawS : MonoBehaviour {
 			{
 //				path_spots[i] = Camera.mainCamera.WorldToScreenPoint((hexManagerS.CoordsGameTo3D(path_pos.x, path_pos.z)));
 				
-				path_spots[i] = ((hexManagerS.CoordsGameTo3D(path_pos.x, path_pos.z) + y_adj_line));
+				path_spots[i] = ((CoordsGameTo3D(path_pos.x, path_pos.z) + y_adj_line));
 				
 				if(i != 0)
 				{
@@ -146,7 +157,7 @@ public class pathDrawS : MonoBehaviour {
 						if(this_turns_travelable == -1)
 							this_turns_travelable = i-1;
 						path_widths[i-1] = 2;
-						path_colors[i-1] = enginePlayerS.disable_color;
+						path_colors[i-1] = ep.disable;
 						
 						
 //						break;

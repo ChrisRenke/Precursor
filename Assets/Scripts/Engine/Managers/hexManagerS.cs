@@ -16,22 +16,26 @@ public class hexManagerS : MonoBehaviour {
 				south
 		*/
  	
-	public static string        level_name;
-	public static HexData[,] 	hexes; 
-	public static int 			x_max = 0; //size of hex array, used for out of bounds checking
-	public static int			z_max = 0;
+	public  string        level_name;
+	public  HexData[,] 	hexes; 
+	public  int 			x_max = 0; //size of hex array, used for out of bounds checking
+	public  int			z_max = 0;
 	  
-	public 		   GameObject  	hex_display_init;
-	public  static GameObject  	hex_display;
+	public 	 GameObject  	hex_display_init;
 	
 	
 //	public static Dictionary<Vision, Color> visibility_colors;
 	 
 	
-
-	void Awake(){
+	public gameManagerS  gm;
+	public enginePlayerS ep;
+	public entityManagerS em; 
+	
+	void Start(){ 
 		
-		hex_display = hex_display_init; 
+		gm = GameObject.Find("engineGameManager").GetComponent<gameManagerS>();
+		ep = GameObject.Find("enginePlayer").GetComponent<enginePlayerS>();
+		em = GameObject.Find("engineEntityManager").GetComponent<entityManagerS>(); 
 		 
 		engineIOS ios      = GameObject.FindGameObjectWithTag("io_manager").GetComponent<engineIOS>();
 		if(!ios.LoadFromTextAsset())
@@ -41,7 +45,7 @@ public class hexManagerS : MonoBehaviour {
 		}
 	}
 	
-	public static void setNodePresenseOnHexes()
+	public  void setNodePresenseOnHexes()
 	{
 		for(int x = 0; x < x_max; x++)
 		{
@@ -54,11 +58,11 @@ public class hexManagerS : MonoBehaviour {
 		}
 	}
 	
-	public static void updateAllHexesFoWState()
+	public void updateAllHexesFoWState()
 	{
 		HashSet<HexData> visible_hexes = new HashSet<HexData>();
-		List<HexData> base_visible = getAdjacentHexes(entityManagerS.getBase().x, entityManagerS.getBase().z, entityManagerS.getBase().sight_range);
-		List<HexData> mech_visible = getAdjacentHexes(entityManagerS.getMech().x, entityManagerS.getMech().z, entityManagerS.getMech().sight_range);
+		List<HexData> base_visible = getAdjacentHexes(em.getBase().x, em.getBase().z, em.getBase().sight_range);
+		List<HexData> mech_visible = getAdjacentHexes(em.getMech().x, em.getMech().z, em.getMech().sight_range);
 	
 		visible_hexes.UnionWith(base_visible);
 		visible_hexes.UnionWith(mech_visible);
@@ -68,17 +72,17 @@ public class hexManagerS : MonoBehaviour {
 	
 	}
 	
-	public static void updateHexVisionState(HexData in_hex, Vision in_vision)
+	public  void updateHexVisionState(HexData in_hex, Vision in_vision)
 	{
 		hexes[in_hex.x, in_hex.z].vision_state = in_vision;
 	}
 	
-	public static List<HexData> getAdjacentHexes(int x, int z, int sight_range)
+	public  List<HexData> getAdjacentHexes(int x, int z, int sight_range)
 	{
-		return hexManagerS.getAdjacentHexes(getHex(x, z), sight_range);
+		return getAdjacentHexes(getHex(x, z), sight_range);
 	}
 	
-	public static List<HexData> getAdjacentHexes(HexData center, int sight_range)
+	public  List<HexData> getAdjacentHexes(HexData center, int sight_range)
 	{ 
 		List<HexData> hexes_in_range = new List<HexData>();
 		
@@ -91,48 +95,48 @@ public class hexManagerS : MonoBehaviour {
 		{
 			 
 			//draw the first "northeast" edge hex 
-			current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+			current_hex = getHex(current_hex.x, current_hex.z, Facing.NorthEast);
 			hexes_in_range.Add(current_hex); 
 			
 			//draw the "northeast" portion
 			for(int edge_hexes_drawn = 1; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{ 
-				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthEast);// = AddHexSE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
+				current_hex = getHex(current_hex.x, current_hex.z, Facing.SouthEast);// = AddHexSE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 				hexes_in_range.Add(current_hex); 
 			}
 			
 			//draw the "southeast" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.South);
+				current_hex = getHex(current_hex.x, current_hex.z, Facing.South);
 				hexes_in_range.Add(current_hex); 
 			}
 			
 			//draw the "south" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthWest);
+				current_hex = getHex(current_hex.x, current_hex.z, Facing.SouthWest);
 				hexes_in_range.Add(current_hex); 
 			}
 			
 			//draw the "southwest" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthWest);
+				current_hex = getHex(current_hex.x, current_hex.z, Facing.NorthWest);
 				hexes_in_range.Add(current_hex); 
 			}
 			
 			//draw the "northwest" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.North);
+				current_hex = getHex(current_hex.x, current_hex.z, Facing.North);
 				hexes_in_range.Add(current_hex); 
 			}
 			
 			//draw the "north" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+				current_hex = getHex(current_hex.x, current_hex.z, Facing.NorthEast);
 				hexes_in_range.Add(current_hex); 
 			}
 		}
@@ -141,12 +145,12 @@ public class hexManagerS : MonoBehaviour {
 		return hexes_in_range;
 	}
 	
-	public static Facing getFacingDirection(int x, int z, int t_x, int t_z, int sight_range)
+	public  Facing getFacingDirection(int x, int z, int t_x, int t_z, int sight_range)
 	{
-		return hexManagerS.getFacingDirectionHexes(getHex(x, z), getHex(t_x, t_z), sight_range);
+		return getFacingDirectionHexes(getHex(x, z), getHex(t_x, t_z), sight_range);
 	}
 	
-	public static Facing getFacingDirectionHexes(HexData center, HexData opponent, int sight_range)
+	public  Facing getFacingDirectionHexes(HexData center, HexData opponent, int sight_range)
 	{ 
 		//List<HexData> hexes_in_range = new List<HexData>();
 		
@@ -159,7 +163,7 @@ public class hexManagerS : MonoBehaviour {
 		{
 			 
 			//draw the first "northeast" edge hex 
-			current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+			current_hex = getHex(current_hex.x, current_hex.z, Facing.NorthEast);
 			if(current_hex.x == opponent.x && current_hex.z == opponent.z){
 				print ("hit1");
 				return Facing.NorthEast;
@@ -168,7 +172,7 @@ public class hexManagerS : MonoBehaviour {
 			//draw the "northeast" portion
 			for(int edge_hexes_drawn = 1; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{ 
-				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthEast);// = AddHexSE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
+				current_hex = getHex(current_hex.x, current_hex.z, Facing.SouthEast);// = AddHexSE(overwrite, border_mode, clicked_hex_type, brush_size, current_hex.transform.position, draw_hex_type, xcrd(current_hex), zcrd(current_hex)); 
 				if(current_hex.x == opponent.x && current_hex.z == opponent.z){
 					print ("hit2");
 					return Facing.SouthWest;
@@ -178,7 +182,7 @@ public class hexManagerS : MonoBehaviour {
 			//draw the "southeast" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.South);
+				current_hex = getHex(current_hex.x, current_hex.z, Facing.South);
 				if(current_hex.x == opponent.x && current_hex.z == opponent.z){
 					print ("hit3");
 					return Facing.SouthEast;
@@ -188,7 +192,7 @@ public class hexManagerS : MonoBehaviour {
 			//draw the "south" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.SouthWest);
+				current_hex = getHex(current_hex.x, current_hex.z, Facing.SouthWest);
 				if(current_hex.x == opponent.x && current_hex.z == opponent.z){
 					print ("hit4");
 					return Facing.South;
@@ -198,7 +202,7 @@ public class hexManagerS : MonoBehaviour {
 			//draw the "southwest" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthWest);
+				current_hex = getHex(current_hex.x, current_hex.z, Facing.NorthWest);
 				if(current_hex.x == opponent.x && current_hex.z == opponent.z){
 					print ("hit5");
 					return Facing.SouthWest;
@@ -208,7 +212,7 @@ public class hexManagerS : MonoBehaviour {
 			//draw the "northwest" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.North);
+				current_hex = getHex(current_hex.x, current_hex.z, Facing.North);
 				if(current_hex.x == opponent.x && current_hex.z == opponent.z){
 					print ("hit6");
 					return Facing.NorthWest;
@@ -218,7 +222,7 @@ public class hexManagerS : MonoBehaviour {
 			//draw the "north" portion
 			for(int edge_hexes_drawn = 0; edge_hexes_drawn < ring; ++edge_hexes_drawn)
 			{
-				current_hex = hexManagerS.getHex(current_hex.x, current_hex.z, Facing.NorthEast);
+				current_hex = getHex(current_hex.x, current_hex.z, Facing.NorthEast);
 				if(current_hex.x == opponent.x && current_hex.z == opponent.z){
 					print ("hit7");
 					return Facing.North;
@@ -233,7 +237,7 @@ public class hexManagerS : MonoBehaviour {
 	
 	
 	//Get path to base
-	public static Path getTraversablePath (HexData start, HexData destination, EntityE ignore_entity, 
+	public  Path getTraversablePath (HexData start, HexData destination, EntityE ignore_entity, 
 		Func<HexData, HexData, double> traversal_cost_func, 
 		Func<HexData, HexData, EntityE, List<HexData>> neighbor_hex_func)
 	{
@@ -264,7 +268,7 @@ public class hexManagerS : MonoBehaviour {
 	
 //	#region IPathFind implementation
 
-	public static double calcCostToDestinationHex (HexData hex_start, HexData hex_end)
+	public  double calcCostToDestinationHex (HexData hex_start, HexData hex_end)
 	{
 		//TODO: may need to be adjusted later
         return Math.Abs(hex_start.x - hex_end.x) + Math.Abs(hex_start.z - hex_end.z);
@@ -273,7 +277,7 @@ public class hexManagerS : MonoBehaviour {
 	
 	
 	//Return adjacent hexes for the given entity position
-	public static HexData[] getAdjacentHexes(int x, int z){
+	public  HexData[] getAdjacentHexes(int x, int z){
 		
 		
 		//if we're out of bounds or if we're trying to get adjacency from a perimeter hex, return false
@@ -303,7 +307,7 @@ public class hexManagerS : MonoBehaviour {
 		return output;
 	}
 	
-	public static HexData getHex(int x, int z, Facing direction)
+	public  HexData getHex(int x, int z, Facing direction)
 	{
 		if(x < 0 || x > x_max || z < 0 || z > z_max)  
 		{
@@ -358,7 +362,7 @@ public class hexManagerS : MonoBehaviour {
 	
 	
 	//Get hex at given position in the map
-	public static HexData getHex(int hex_x, int hex_z){
+	public  HexData getHex(int hex_x, int hex_z){
 		
 		if(hex_x < 0 || hex_x > x_max || hex_z < 0 || hex_z > z_max)  
 		{
@@ -370,7 +374,7 @@ public class hexManagerS : MonoBehaviour {
 	} 
 	
 	//converts engine coordinates into 3D space cordinates
-	public static Vector3 CoordsGameTo3D(int x, int z)
+	public   Vector3 CoordsGameTo3D(int x, int z)
 	{  
 		return new Vector3(x * 2.30024F + z * -0.841947F, 0, z * 1.81415F + x * 1.3280592F);
 	}
@@ -378,9 +382,9 @@ public class hexManagerS : MonoBehaviour {
 	
 	private GameObject InstantiateHex(int x, int z)
 	{ 
-		GameObject new_hex = (GameObject) Instantiate(hexManagerS.hex_display, CoordsGameTo3D(x, z), Quaternion.identity);
-		editorHexS new_hex_script = new_hex.GetComponent<editorHexS>();
-		 
+		GameObject new_hex = (GameObject) Instantiate(hex_display_init, CoordsGameTo3D(x, z), Quaternion.identity);
+		engineHexS new_hex_script = new_hex.GetComponent<engineHexS>();
+		
 		return new_hex;
 	}
 	 

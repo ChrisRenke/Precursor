@@ -7,6 +7,13 @@ public class entityNodeS : Entity {
 	public Node   node_type;
 	public NodeLevel node_level;
 	
+	public hexManagerS hm; 
+	
+	void Awake()
+	{
+		hm = GameObject.Find("engineHexManager").GetComponent<hexManagerS>();
+	}
+	
 	public NodeData getNodeData()
 	{
 		return  new NodeData(x, z, node_type, node_level);
@@ -15,7 +22,7 @@ public class entityNodeS : Entity {
 	
 	public void updateFoWState()
 	{
-		HexData occupying_hex = hexManagerS.getHex(x, z);
+		HexData occupying_hex = hm.getHex(x, z);
 		switch(occupying_hex.vision_state)
 		{
 		case Vision.Live:

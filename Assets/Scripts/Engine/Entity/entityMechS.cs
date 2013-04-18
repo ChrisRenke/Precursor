@@ -70,7 +70,7 @@ public class entityMechS : Combatable, IMove {
 	public readonly int traverse_mountain_cost		=  5;
 	public readonly int traverse_water_cost    		=  5;
 	
-	public readonly float combat_dodge_percent      = .3F;
+	public readonly int combat_dodge_percent      = 20;
 	
 	public readonly int util_recall_cost 			= 6;
 	
@@ -78,11 +78,11 @@ public class entityMechS : Combatable, IMove {
 	public readonly int scavenge_upgrade_cost     	=  2;
 	
 	public readonly int scavenge_upgrade_greed    	=  1;
-	public readonly float scavenge_empty_percent	= .3F;
+	public readonly int scavenge_empty_percent	= 25;
 	
 	public readonly int repair_base_cost            =  1; 
 		  
-	public readonly int weapon_core_damage	  		= 4;
+	public readonly int weapon_core_damage	  		= 5;
 	public readonly int weapon_upgrade_damage 		= 8;
 	
 	public readonly int weapon_core_range 	  		= 2;
@@ -107,61 +107,9 @@ public class entityMechS : Combatable, IMove {
 		return upgrade_util_parts ? part_upgrade_capacity : part_core_capacity;
 	}
 	
+
+	void Awake(){ 
 	
-	public List<HexData> adjacent_visible_hexes;
-	public List<HexData> previous_adjacent_visible_hexes;
-	
-	public static bool moving_on_path = false;
-	public static List<HexData> travel_path;
-	public static IEnumerator<HexData> travel_path_en;
-	public static bool is_standing_on_node;
-	
-	 
-	public int starting_hp_max = 30;
-	
-	public int starting_ap = 18;
-	public int starting_ap_max = 18;
-	 
-	public ParticleSystem fire;
-		
-	public static Dictionary<Part, int> part_count;
-	
-	public static int getPartCount(Part part_query)
-	{
-		return part_count[part_query];	
-	}
-	public static void adjustPartCount(Part part_query, int delta)
-	{
-		part_count[part_query] += delta;	
-	}
-	
-	public int getRepairAPCost(){
-		return repair_base_cost;
-	}
-	
-	public int getRepairHealAmount(){
-		return repair_core_heal;
-	}
-	
-	public void repair(Part part)
-	{
-		entityManagerS.createHealEffect(x,z); 
-		
-		adjustPartCount(part, -1);
-		current_ap -= getRepairAPCost();
-		current_hp += getRepairHealAmount();
-		
-		if(current_hp > max_hp)
-		{
-			current_hp = max_hp;
-		}
-	}
-	
-	public static Transform child_fire; 
-	public static Transform child_shots; 
-	
-	void Awake()
-	{
  		child_shots = gameObject.transform.GetChild(1);//.GetComponentsInChildren<ParticleSystem>();
  		child_fire = gameObject.transform.GetChild(0);//.GetComponentsInChildren<ParticleSystem>(); 
 		turnOffFire();
@@ -180,21 +128,70 @@ public class entityMechS : Combatable, IMove {
 		
 	}
 	
-	//Use this for initialization
-	void Start () {  
-		updateFoWStates();
+	public List<HexData> adjacent_visible_hexes;
+	public List<HexData> previous_adjacent_visible_hexes;
+	
+	public  bool moving_on_path = false;
+	public  List<HexData> travel_path;
+	public  IEnumerator<HexData> travel_path_en;
+	public  bool is_standing_on_node;
+	
+	 
+	public int starting_hp_max = 30;
+	
+	public int starting_ap = 18;
+	public int starting_ap_max = 18;
+	 
+	public ParticleSystem fire;
+		
+	public Dictionary<Part, int> part_count;
+	
+	public int getPartCount(Part part_query)
+	{
+		return part_count[part_query];	
+	}
+	public void adjustPartCount(Part part_query, int delta)
+	{
+		part_count[part_query] += delta;	
 	}
 	
-//	
-//	void OnGUI()
-//	{
-//		Vector3 screen_pos = Camera.main.WorldToScreenPoint (transform.position);
-//		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y+30, 200, 15), current_hp + "/" + max_hp + " HP", enginePlayerS.hover_text);
-//		GUI.Label(new Rect(screen_pos.x - 100, Screen.height - screen_pos.y + 45, 200, 15), current_ap + "/" + max_ap + " AP", enginePlayerS.hover_text);
-//	}
- 		//.GetComponentsInChildren<ParticleSystem>();
+	public int getRepairAPCost(){
+		return repair_base_cost;
+	}
 	
-	public static void shootEffect(Facing face_direction){  
+	public int getRepairHealAmount(){
+		return repair_core_heal;
+	}
+	
+	public void repair(Part part)
+	{
+		em.createHealEffect(x,z); 
+		
+		adjustPartCount(part, -1);
+		current_ap -= getRepairAPCost();
+		current_hp += getRepairHealAmount();
+		
+		if(current_hp > max_hp)
+		{
+			current_hp = max_hp;
+		}
+	}
+	
+	public  Transform child_fire; 
+	public  Transform child_shots; 
+	 
+	
+	//Use this for initialization
+	void Start () {  
+		gm = GameObject.Find("engineGameManager").GetComponent<gameManagerS>();
+		ep = GameObject.Find("enginePlayer").GetComponent<enginePlayerS>();
+		em = GameObject.Find("engineEntityManager").GetComponent<entityManagerS>();
+		hm = GameObject.Find("engineHexManager").GetComponent<hexManagerS>();
+		updateFoWStates();
+}
+	
+	
+	public  void shootEffect(Facing face_direction){  
 		switch(face_direction){ 
 			case Facing.North:
 				child_shots.GetChild(0).transform.GetChild(0).particleSystem.enableEmission = true; 
@@ -217,21 +214,21 @@ public class entityMechS : Combatable, IMove {
 		} 
 	}
 	
-	public static void turnOnFire(){
+	public  void turnOnFire(){
 		
 		child_fire.transform.GetChild(0).particleEmitter.emit = true; 
 		child_fire.transform.GetChild(1).particleEmitter.emit = true; 
 		child_fire.transform.GetChild(2).particleEmitter.emit = true; 
 	}
 	
-	public static void turnOffFire(){
+	public  void turnOffFire(){
 		
 		child_fire.transform.GetChild(0).particleEmitter.emit = false; 
 		child_fire.transform.GetChild(1).particleEmitter.emit = false; 
 		child_fire.transform.GetChild(2).particleEmitter.emit = false; 
 	}
 	
-	public static void moveToHexViaPath(Path _travel_path)
+	public  void moveToHexViaPath(Path _travel_path)
 	{
 		travel_path = _travel_path.getTraverseOrderList();
 		travel_path_en = travel_path.GetEnumerator();
@@ -244,16 +241,16 @@ public class entityMechS : Combatable, IMove {
 	}
 	
 	public bool onFire = false;
-	
+	public bool is_dead = false;
 	 
 	//Update is called once per frame
 	void Update () {
 		
 			
-		if(checkIfDead())
+		if(!is_dead && checkIfDead())
 		{
 			Debug.Log("HOLY SHIT YOU'RE DEAD!!!");
-			onDeath();
+			is_dead =onDeath();
 			
 		}
 		
@@ -271,15 +268,15 @@ public class entityMechS : Combatable, IMove {
 		}
 		
 		
-		if(gameManagerS.current_turn == Turn.Player && current_ap <= 0 && !lerp_move)
+		if(gm.current_turn == Turn.Player && current_ap <= 0 && !lerp_move)
 		{
 			moving_on_path = false;
 			travel_path_en = null;
 			travel_path    = null;
-			gameManagerS.endPlayerTurn();
+			gm.endPlayerTurn();
 		}
 		
-		if(gameManagerS.current_turn == Turn.Player)
+		if(gm.current_turn == Turn.Player)
 		{
 			
 		
@@ -290,9 +287,9 @@ public class entityMechS : Combatable, IMove {
 				
 				if(travel_path_en.MoveNext() && travel_path_en.Current.traversal_cost <= current_ap)
 				{ 	
-					moveToHex(travel_path_en.Current, entityManagerS.isNodeAt(travel_path_en.Current.x, travel_path_en.Current.z));
+					moveToHex(travel_path_en.Current, em.isNodeAt(travel_path_en.Current.x, travel_path_en.Current.z));
 				
-					enginePlayerS.popFrontOfRoute();	
+					ep.popFrontOfRoute();	
 				}
 				else{ 
 					moving_on_path = false;
@@ -324,8 +321,8 @@ public class entityMechS : Combatable, IMove {
 	public Path getPathFromMechTo(HexData destination)
 	{
 //		Debug.LogWarning("getPathFromMechTo");
-		return hexManagerS.getTraversablePath(	hexManagerS.getHex(x, z), 
-												hexManagerS.getHex(destination.x, destination.z),
+		return hm.getTraversablePath(	hm.getHex(x, z), 
+												hm.getHex(destination.x, destination.z),
 												EntityE.Player,
 												getTraverseAPCostPathVersion, 
 												getAdjacentTraversableHexesPathVersion);
@@ -336,12 +333,12 @@ public class entityMechS : Combatable, IMove {
 		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(hex.x, hex.z);
+		HexData[] adjacent_hexes = hm.getAdjacentHexes(hex.x, hex.z);
 		//Debug.Log(adjacent_hexes.Length + " found adjacent");
 		
 		//See which of the adjacent hexes are traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++){
-			if(entityManagerS.isEntityPos(adjacent_hexes[i], entity) || (canTraverse(adjacent_hexes[i]) && adjacent_hexes[i].vision_state != Vision.Unvisted))
+			if(em.isEntityPos(adjacent_hexes[i], entity) || (canTraverse(adjacent_hexes[i]) && adjacent_hexes[i].vision_state != Vision.Unvisted))
 			{
 				//add hex to traversable array
 				result_hexes.Add(adjacent_hexes[i]); 
@@ -364,20 +361,21 @@ public class entityMechS : Combatable, IMove {
 			audio.PlayOneShot(sound_attack_norm);
 		
 		Debug.LogWarning("ABOUT TO ATTCK ENTITY ON - "+ att_x + "," + att_z);
-//		entityEnemyS target = entityManagerS.getEnemyAt(att_x, att_z);
-		Enemy target = entityManagerS.getEnemyAt(att_x, att_z);
+//		entityEnemyS target = em.getEnemyAt(att_x, att_z);
+		
+		Enemy target = em.getEnemyAt(att_x, att_z);
 		current_ap -= getAttackAPCost();
 		
 		int enemy_hp_left = 15;
 		Debug.LogWarning("ABOUT TO ATTCK ENTITY "+ target.GetInstanceID());
 		if(target != null)
-			enemy_hp_left = target.acceptDamage(attack_damage);
+			enemy_hp_left = target.acceptDamage(getAttackDamage());
 		
 		if(enemy_hp_left <= 0 && upgrade_scavenge_combat)
 		{
 			int ind = (int) UnityEngine.Random.Range(0, 3.999999999999F);
 			part_count[(Part) ind] += 1;
-			entityManagerS.createPartEffect(att_x,att_z,(Part) ind);
+			em.createPartEffect(att_x,att_z,(Part) ind);
 		}
 		
 		return 0; //nothing to damage if we get here			
@@ -396,6 +394,65 @@ public class entityMechS : Combatable, IMove {
 		return  upgrade_scavenge_cost ? scavenge_upgrade_cost : scavenge_core_cost;
 	}
 	
+	
+	public bool attemptScavenge(Node node_type, NodeLevel resource_level, int x, int z)
+	{
+		
+		
+		if(getScavengeAPCost() > current_ap)
+			throw new System.Exception("Don't have enough AP to scavenge, why is this being offered????");
+		 
+		
+
+		int num_of_each_type = 1;
+		
+		if(upgrade_scavenge_greed)
+			num_of_each_type++;
+			 
+		if(((int) UnityEngine.Random.Range(0, 99.999999999999F)) < scavenge_empty_percent)
+		{
+			if(node_type == Node.Factory)
+			{
+				audio.PlayOneShot(sound_scavenge_fact);
+				part_count[Part.Piston] += num_of_each_type;
+				em.createPartEffect(x,z,Part.Piston);
+				part_count[Part.Gear] += num_of_each_type;
+				em.createPartEffect(x,z,Part.Gear);
+				
+			}
+			else if(node_type == Node.Outpost)
+			{
+				audio.PlayOneShot(sound_scavenge_outpost);
+				part_count[Part.Strut] += num_of_each_type;
+				em.createPartEffect(x,z,Part.Strut);
+				
+				part_count[Part.Plate] += num_of_each_type;
+				em.createPartEffect(x,z,Part.Plate);
+			}
+			else
+			{
+				audio.PlayOneShot(sound_scavenge_junk);
+				//increase random part count by two, twice
+				for(int i =0; i < 2; i++)
+				{
+					int ind = (int) UnityEngine.Random.Range(0, 3.999999999999F);
+					part_count[(Part) ind] += num_of_each_type;
+					em.createPartEffect(x,z,(Part) ind);
+				}
+			}
+			
+		}
+		else
+		{
+			ep.audio.PlayOneShot(ep._sound_negative);
+		}
+		current_ap -= getScavengeAPCost(); 
+		return true;
+		
+	}
+	
+	
+	
 	public bool scavengeParts(Node node_type, NodeLevel resource_level, int x, int z)
 	{
 		
@@ -406,7 +463,7 @@ public class entityMechS : Combatable, IMove {
 			return false;
 		
 
-		int num_of_each_type = 1;//(int) resource_level;
+		int num_of_each_type = (int) resource_level;
 		
 		if(upgrade_scavenge_greed)
 			num_of_each_type++;
@@ -415,19 +472,19 @@ public class entityMechS : Combatable, IMove {
 		{
 			audio.PlayOneShot(sound_scavenge_fact);
 			part_count[Part.Piston] += num_of_each_type;
-			entityManagerS.createPartEffect(x,z,Part.Piston);
+			em.createPartEffect(x,z,Part.Piston);
 			part_count[Part.Gear] += num_of_each_type;
-			entityManagerS.createPartEffect(x,z,Part.Gear);
+			em.createPartEffect(x,z,Part.Gear);
 			
 		}
 		else if(node_type == Node.Outpost)
 		{
 			audio.PlayOneShot(sound_scavenge_outpost);
 			part_count[Part.Strut] += num_of_each_type;
-			entityManagerS.createPartEffect(x,z,Part.Strut);
+			em.createPartEffect(x,z,Part.Strut);
 			
 			part_count[Part.Plate] += num_of_each_type;
-			entityManagerS.createPartEffect(x,z,Part.Plate);
+			em.createPartEffect(x,z,Part.Plate);
 		}
 		else
 		{
@@ -437,13 +494,13 @@ public class entityMechS : Combatable, IMove {
 			{
 				int ind = (int) UnityEngine.Random.Range(0, 3.999999999999F);
 				part_count[(Part) ind] += num_of_each_type;
-				entityManagerS.createPartEffect(x,z,(Part) ind);
+				em.createPartEffect(x,z,(Part) ind);
 			}
 		}
 		
 		current_ap -= getScavengeAPCost(); 
 		
-		entityManagerS.updateNodeLevel(x, z, resource_level);
+		em.updateNodeLevel(x, z, resource_level);
 		return true;
 	}
 	
@@ -451,7 +508,7 @@ public class entityMechS : Combatable, IMove {
 //	public void attackMech(int x, int z)
 //	{
 //		
-//		entityEnemyS enemy_to_attack = entityManagerS.getEnemyAt(x,z);
+//		entityEnemyS enemy_to_attack = em.getEnemyAt(x,z);
 //		enemy_to_attack.acceptDamage(getAttackDamage());
 //		//TODO ADD HOOKS FOR SOUNDS 
 //	}
@@ -470,7 +527,9 @@ public class entityMechS : Combatable, IMove {
 		
 		//now update the current ones
 		Debug.Log("Updating attackable enemies iasdfasdkjflasdjflkasjd fkasjdlf kajsdlfkaj slkfjalsn range " +  getAttackRange() + "...");
-		attackable_hexes = entityManagerS.getEnemyLocationsInRange(hexManagerS.getHex(x,z), getAttackRange());
+		if(em == null)
+			em = GameObject.Find("engineEntityManager").GetComponent<entityManagerS>();
+		attackable_hexes = em.getEnemyLocationsInRange(hm.getHex(x,z), getAttackRange());
 		
 		foreach(HexData hex in attackable_hexes)
 		{
@@ -483,14 +542,15 @@ public class entityMechS : Combatable, IMove {
 	{
 //		adjacent_visible_hexes
 //			previous_adjacent_visible_hexes
-		previous_adjacent_visible_hexes = adjacent_visible_hexes;
-		adjacent_visible_hexes = hexManagerS.getAdjacentHexes(x, z, sight_range);
+		previous_adjacent_visible_hexes = adjacent_visible_hexes; 
+			
+		adjacent_visible_hexes = hm.getAdjacentHexes(x, z, sight_range);
 		List<HexData> previously_live_now_visited_hexes = new List<HexData>();
 		
 		//turn hexes within range now to Live state
 		foreach(HexData hex in adjacent_visible_hexes)
 		{ 
-			hexManagerS.updateHexVisionState(hex, Vision.Live);
+			hm.updateHexVisionState(hex, Vision.Live);
 			if(hex.hex_script != null)
 				hex.hex_script.updateFoWState();
 		} 
@@ -499,9 +559,9 @@ public class entityMechS : Combatable, IMove {
 		if(previous_adjacent_visible_hexes != null)
 			foreach (HexData prev_hex in previous_adjacent_visible_hexes)
 			{
-			    if(!adjacent_visible_hexes.Contains(prev_hex) && !entityBaseS.adjacent_visible_hexes.Contains(prev_hex))
+			    if(!adjacent_visible_hexes.Contains(prev_hex) && !em.getBase().adjacent_visible_hexes.Contains(prev_hex))
 				{
-					hexManagerS.updateHexVisionState(prev_hex, Vision.Visited);
+					hm.updateHexVisionState(prev_hex, Vision.Visited);
 					if(prev_hex.hex_script != null){
 						prev_hex.hex_script.updateFoWState();
 					}
@@ -509,16 +569,16 @@ public class entityMechS : Combatable, IMove {
 				}	
 			}
 		
-		entityManagerS.updateEntityFoWStates();
+		em.updateEntityFoWStates();
 		
 	}
 	
 	public void moveToHex(HexData location, bool _standing_on_top_of_node)
 	{
 		
-		entityManagerS.disableFacingDirectionsRange(hexManagerS.getHex(x,z), sight_range);
+		em.disableFacingDirectionsRange(hm.getHex(x,z), sight_range);
 		
-		hexManagerS.getHex(x,z).hex_script.mech_is_here = false;
+		hm.getHex(x,z).hex_script.mech_is_here = false;
 		current_ap -= location.traversal_cost;
 		setLocation(location.x, location.z);	
 		moveInWorld(location.x, location.z, 6F);
@@ -535,9 +595,9 @@ public class entityMechS : Combatable, IMove {
 		updateFoWStates();
 		updateAttackableEnemies();
 		is_standing_on_node = _standing_on_top_of_node;
-		hexManagerS.getHex(x,z).hex_script.mech_is_here = true;
+		hm.getHex(x,z).hex_script.mech_is_here = true;
 		
-		entityManagerS.updateFacingDirectionsRange(hexManagerS.getHex(x,z), sight_range);
+		em.updateFacingDirectionsRange(hm.getHex(x,z), sight_range);
 		
 	}
 	
@@ -560,7 +620,7 @@ public class entityMechS : Combatable, IMove {
 		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
+		HexData[] adjacent_hexes = hm.getAdjacentHexes(x, z);
 		Debug.Log(adjacent_hexes.Length + " found adjacent");
 		
 		//See which of the adjacent hexes are traversable
@@ -568,7 +628,7 @@ public class entityMechS : Combatable, IMove {
 			if(canTraverse(adjacent_hexes[i]))
 			{
 				adjacent_hexes[i].traversal_cost = getTraverseAPCost(adjacent_hexes[i].hex_type);
-				adjacent_hexes[i] = entityManagerS.fillEntityData(adjacent_hexes[i]);
+				adjacent_hexes[i] = em.fillEntityData(adjacent_hexes[i]);
 				if(adjacent_hexes[i].traversal_cost <= current_ap)
 					result_hexes.Add(adjacent_hexes[i]);
 			}
@@ -582,7 +642,7 @@ public class entityMechS : Combatable, IMove {
 		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
+		HexData[] adjacent_hexes = hm.getAdjacentHexes(x, z);
 		
 		//See which of the adjacent hexes are NOT traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++)
@@ -599,14 +659,14 @@ public class entityMechS : Combatable, IMove {
 	
 	public bool canTraverse (int hex_x, int hex_z)
 	{
-		HexData hex = hexManagerS.getHex(hex_x, hex_z);
+		HexData hex = hm.getHex(hex_x, hex_z);
 		
 		//if its a perimeter tile
 		if(hex.hex_type == Hex.Perimeter)
 			return false;
 		
 		//if it has a player, base, or enemy on it
-		if(!entityManagerS.canTraverseHex(hex_x, hex_z))
+		if(!em.canTraverseHex(hex_x, hex_z))
 			return false;
 			
 		//account for upgrades here
@@ -683,19 +743,27 @@ public class entityMechS : Combatable, IMove {
 		return target.acceptDamage(getAttackDamage());
 	}
 	
-		
-	private GameObject InstantiateSelectionHex(int x, int z)
-	{ 
-		GameObject new_hex = (GameObject) Instantiate(gameManagerS.selection_hex, hexManagerS.CoordsGameTo3D(x, z) + new Vector3(0, 4, 0), Quaternion.identity); 
-		return new_hex;
+	public void idleHeal()
+	{
+		int hpblockstoheal = getCurrentAP() / 5;
+		if(hpblockstoheal > 0)
+		{
+			em.createHealEffect(x,z);
+			audio.PlayOneShot(sound_repair);
+			current_hp += hpblockstoheal;
+			
+			if(current_hp > max_hp)
+				current_hp = max_hp;
+		}
 	}
-		
+	
+	
 	
 	public void moveInWorld(int _destination_x, int _destination_z, float _time_to_complete)
 	{
 		lerp_move = true;
-		starting_pos =  entityManagerS.CoordsGameTo3DEntiy(x, z);
-		ending_pos = entityManagerS.CoordsGameTo3DEntiy(_destination_x, _destination_z);
+		starting_pos =  em.CoordsGameTo3DEntiy(x, z);
+		ending_pos = em.CoordsGameTo3DEntiy(_destination_x, _destination_z);
 		time_to_complete = _time_to_complete;
 		moveTime = 0.0f;
 		dist = Vector3.Distance(transform.position, ending_pos) * 2;
@@ -710,7 +778,7 @@ public class entityMechS : Combatable, IMove {
 	public override bool onDeath()
 	{
 //		Application.Quit();
-		entityManagerS.getGameManger().endGame(false);
+		gm.endGame(false);
 		return true;
 	}
 	
@@ -749,6 +817,16 @@ public class entityMechS : Combatable, IMove {
 		return mechupgrade_to_entries[upgrade];
 	}
 	
+	public bool checkMechDodge()
+	{ 
+		Debug.Log("Custom dodge damage being used!!!!!!!!!!!!!!!!!!!!!");
+		if(upgrade_combat_dodge && ((int) UnityEngine.Random.Range(0, 99.999999999999F)) < combat_dodge_percent)
+		{
+			return true;
+		}
+		return false;
+	}
+	
 //public enum MechUpgrade { Move_Water, Move_Mountain, Move_Marsh, Move_Legs, Combat_Damage, Combat_Cost, Combat_Range, Combat_Armor, Combat_Dodge, 
 //		Scavenge_Combat, Scavenge_Greed, Scavenge_Empty, Scavenge_Cost, Util_Recall, Util_Vision, Util_AP, Util_Heal, Util_Idle };
 	private void createUpgradeMenuEntries()
@@ -762,26 +840,26 @@ public class entityMechS : Combatable, IMove {
 		List<UpgradeEntry> utility_upgrades = new List<UpgradeEntry>();
 //		 																					 			 		gear pis plt stru
 		movement_upgrades.Add (new UpgradeEntry("Aquatic Fins", 		"Allows Water hex traversal (5 AP)",	1,	5,	1,	1,	2, upgrade_menu_entry_fins, MechUpgrade.Move_Water));
-		movement_upgrades.Add (new UpgradeEntry("Mountaineering Claws",	"Allows Mountain hex traversal (5 AP)",	2,	4,	0,	2,	2, upgrade_menu_entry_legs, MechUpgrade.Move_Mountain));
-		movement_upgrades.Add (new UpgradeEntry("Marsh Stabilizers",	"Reduces Marsh hex traversal by 1 AP",	0,	1,	4,	4,	2, upgrade_menu_entry_mountains, MechUpgrade.Move_Marsh));
-		movement_upgrades.Add (new UpgradeEntry("Re-engineered Frame",	"Reduces all hex traversal by 1 AP",	6,	3,	1,	3,	2, upgrade_menu_entry_marsh, MechUpgrade.Move_Legs));
+		movement_upgrades.Add (new UpgradeEntry("Mountaineering Claws",	"Allows Mountain hex traversal (5 AP)",	2,	4,	0,	2,	2, upgrade_menu_entry_mountains, MechUpgrade.Move_Mountain));
+		movement_upgrades.Add (new UpgradeEntry("Marsh Stabilizers",	"Reduces Marsh hex traversal by 1 AP",	0,	1,	4,	4,	2, upgrade_menu_entry_marsh, MechUpgrade.Move_Marsh));
+		movement_upgrades.Add (new UpgradeEntry("Re-engineered Frame",	"Reduces all hex traversal by 1 AP",	6,	3,	1,	3,	2, upgrade_menu_entry_legs, MechUpgrade.Move_Legs));
 			 
 		combat_upgrades.Add (new UpgradeEntry("Howizter Bore",			"Increases attack damage by 3",			1,	2,	4,	2,	2, upgrade_menu_entry_gundamage, MechUpgrade.Combat_Damage));
-		combat_upgrades.Add (new UpgradeEntry("Efficient Reload", 		"Reduces attack cost by 2 AP",			2,	2,	0,	2,	2, upgrade_menu_entry_guncost, MechUpgrade.Combat_Cost));
-		combat_upgrades.Add (new UpgradeEntry("Targeting Optics", 		"Increases attack range by 1",			4,	1,	1,	2,	2, upgrade_menu_entry_gunrange, MechUpgrade.Combat_Range));
-		combat_upgrades.Add (new UpgradeEntry("Gilded Armor", 			"Reduces damage recieved by 2",			2,	0,	6,	0,	2, upgrade_menu_entry_armor, MechUpgrade.Combat_Armor));
-//		combat_upgrades.Add (new UpgradeEntry("Reactive Manuever", 		"Gives 35% change to dodge attacks",	0,	4,	0,	4,	2, upgrade_menu_entry_dodge, MechUpgrade.Combat_Dodge));
+		combat_upgrades.Add (new UpgradeEntry("Efficient Reload", 		"Reduces attack cost by 2 AP",			2,	2,	0,	2,	2, upgrade_menu_entry_guncost,   MechUpgrade.Combat_Cost));
+		combat_upgrades.Add (new UpgradeEntry("Targeting Optics", 		"Increases attack range by 1",			4,	1,	1,	2,	2, upgrade_menu_entry_gunrange,  MechUpgrade.Combat_Range));
+		combat_upgrades.Add (new UpgradeEntry("Gilded Armor", 			"Reduces damage recieved by 2",			2,	0,	6,	0,	2, upgrade_menu_entry_armor,     MechUpgrade.Combat_Armor));
+		combat_upgrades.Add (new UpgradeEntry("Reactive Manuever", 		"Gives 20% change to dodge attacks",	0,	4,	0,	4,	2, upgrade_menu_entry_dodge,     MechUpgrade.Combat_Dodge));
 					 
 		scavenge_upgrades.Add (new UpgradeEntry("Combat Salvage",		"Gain one random part from kills",		2,	3,	0,	2,	2, upgrade_menu_entry_killscavenge, MechUpgrade.Scavenge_Combat));
 		scavenge_upgrades.Add (new UpgradeEntry("Greedy Gather", 		"Gain one extra part per scavenge",		0,	2,	1,	4,	2, upgrade_menu_entry_extrapartsscavenge, MechUpgrade.Scavenge_Greed));
-//		scavenge_upgrades.Add (new UpgradeEntry("Probing Sensors", 		"15% change to scavenge empty nodes",	4,	2,	0,	0,	2, upgrade_menu_entry_emptyscavenge, MechUpgrade.Scavenge_Empty));
-		scavenge_upgrades.Add (new UpgradeEntry("Efficient Scavenge", 	"Reduceds cost of scavenge by 1",		2,	2,	2,	2,	2, upgrade_menu_entry_costscavenge, MechUpgrade.Scavenge_Cost));
-	  	scavenge_upgrades.Add (new UpgradeEntry("Expanded Cargohold", 	"Increase part capacity to 16",			2,	2,	2,	2,	2, upgrade_menu_entry_part_capacity, MechUpgrade.Util_Parts));
+		scavenge_upgrades.Add (new UpgradeEntry("Probing Sensors", 		"25% change to scavenge empty nodes",	4,	2,	0,	0,	2, upgrade_menu_entry_ap,            MechUpgrade.Scavenge_Empty));
+		scavenge_upgrades.Add (new UpgradeEntry("Efficient Scavenge", 	"Reduceds cost of scavenge by 1",		2,	2,	2,	2,	2, upgrade_menu_entry_costscavenge,  MechUpgrade.Scavenge_Cost));
+	  	scavenge_upgrades.Add (new UpgradeEntry("Expanded Cargohold", 	"Increase part capacity to 20",			2,	2,	2,	2,	2, upgrade_menu_entry_part_capacity, MechUpgrade.Util_Parts));
 	 	
 		utility_upgrades.Add (new UpgradeEntry("Augemented Perception",	"Increase vision range by 2",			1,	2,	0,	3,	2, upgrade_menu_entry_visionrange, MechUpgrade.Util_Vision));
 		utility_upgrades.Add (new UpgradeEntry("Redline Reactor", 		"Increase max AP by 5",					3,	6,	2,	2,	2, upgrade_menu_entry_ap, MechUpgrade.Util_AP));
 		utility_upgrades.Add (new UpgradeEntry("Town Recall",			"Click base to teleport home (6 AP)",	1,	4,	5,	0,	2, upgrade_menu_entry_recallbase, MechUpgrade.Util_Recall));
-		utility_upgrades.Add (new UpgradeEntry("Idle Reconstruction", 	"Covert 3 AP into 1 HP at end of turn",	4,	0,	0,	4,	2, upgrade_menu_entry_healidle, MechUpgrade.Util_Idle));
+		utility_upgrades.Add (new UpgradeEntry("Idle Reconstruction", 	"Covert 5 AP into 1 HP at end of turn",	4,	0,	0,	4,	2, upgrade_menu_entry_healidle, MechUpgrade.Util_Idle));
 	 
 		mechupgrademode_entrieslists.Add(MechUpgradeMode.Combat, combat_upgrades);
 		mechupgrademode_entrieslists.Add(MechUpgradeMode.Movement, movement_upgrades);
@@ -883,6 +961,7 @@ public class entityMechS : Combatable, IMove {
 			
 			case MechUpgrade.Combat_Armor:
 				upgrade_combat_armor = true;
+			    base_armor += armor_upgrade;
 				break;
 			
 			case MechUpgrade.Combat_Cost:

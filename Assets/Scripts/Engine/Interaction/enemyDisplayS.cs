@@ -33,8 +33,10 @@ public class enemyDisplayS : MonoBehaviour {
 		
 	private Dictionary<Facing, Material> facing_walks;
 	
-	void Awake()
+public hexManagerS hm; 
+	void Start()
 	{ 
+		hm = GameObject.Find("engineHexManager").GetComponent<hexManagerS>();
 		facing_walks = new Dictionary<Facing, Material>();
 		facing_walks.Add (Facing.North, walk_n);
 		facing_walks.Add (Facing.SouthEast, walk_se);
@@ -42,6 +44,7 @@ public class enemyDisplayS : MonoBehaviour {
 		facing_walks.Add (Facing.NorthEast, walk_ne);
 		facing_walks.Add (Facing.South, walk_s);
 		facing_walks.Add (Facing.SouthWest, walk_sw);
+		owner = gameObject.GetComponent<entityEnemyS>();
 	}
 	
 	
@@ -55,12 +58,7 @@ public class enemyDisplayS : MonoBehaviour {
 		}
 //		SetSpriteAnimation(colCount,rowCount,rowNumber,colNumber,totalCells);  
 	}
-	
-	void Start()
-	{
-		owner = gameObject.GetComponent<entityEnemyS>();
-	}
- 
+	 
 
 	//SetSpriteAnimation
 	void SetSpriteAnimation(int colCount ,int rowCount ,int rowNumber ,int colNumber,int totalCells,int fps ){
@@ -119,7 +117,7 @@ public class enemyDisplayS : MonoBehaviour {
 	    renderer.material = facing_walks[owner.facing_direction]; 
 		setToStanding(colCount,rowCount,rowNumber,colNumber,totalCells,fps);
 		
-		if(hexManagerS.getHex(owner.x, owner.z).vision_state != Vision.Live)
+		if(hm.getHex(owner.x, owner.z).vision_state != Vision.Live)
 			renderer.enabled = false; 
 	}
 //	

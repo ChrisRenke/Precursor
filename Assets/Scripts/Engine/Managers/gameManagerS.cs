@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class gameManagerS : MonoBehaviour {
 	
-	public static Turn current_turn;
-	public static int  current_round;
-	public static Level current_level;
+	public Turn current_turn;
+	public int  current_round;
+	public Level current_level;
 	
 	
 	public AudioClip _level_complete_screen_sound;
@@ -18,26 +18,23 @@ public class gameManagerS : MonoBehaviour {
 	public static AudioClip fanfare_success;
 	public static AudioClip fanfare_failure;
 	
-	public static bool mouse_over_gui = false;
+	public bool mouse_over_gui = false;
 	
-	public GameObject  selection_hex_input;
-	public static GameObject selection_hex;
 	
-//<<<<<<< HEAD
-//	public static List<entityEnemyS>.Enumerator	enemy_enumerator;
-//	public static bool 	enemy_currently_acting = false;
-//=======
-	//public static List<entityEnemyS >.Enumerator	enemy_enumerator;
-	public static List<Enemy >.Enumerator	enemy_enumerator;
-	public static bool 	  					enemy_currently_acting = false;
-//>>>>>>> 828572593879f78233657f8d0fdf57d3582e18e2
+	public List<Enemy >.Enumerator	enemy_enumerator;
+	public bool 	  					enemy_currently_acting = false;
 	
-	public static bool rebuilt_enemy_lcoations = false;
-	public static bool spawned_enemies_this_round = false;
+	public  bool rebuilt_enemy_lcoations = false;
+	public  bool spawned_enemies_this_round = false;
 	
-	void Awake()
-	{
-		selection_hex = selection_hex_input;
+	public enginePlayerS ep;
+	public entityManagerS em; 
+	public hexManagerS hm; 
+	
+	void Awake(){ 
+		ep = GameObject.Find("enginePlayer").GetComponent<enginePlayerS>();
+		hm = GameObject.Find("engineHexManager").GetComponent<hexManagerS>();
+	
 		current_turn  = Turn.Player;
 		current_round = 1;
 		
@@ -46,14 +43,17 @@ public class gameManagerS : MonoBehaviour {
 		fanfare_failure = _fanfare_failure;
 	}
 	
+	
+	
 	// Use this for initialization
 	void Start () {
-		hexManagerS.setNodePresenseOnHexes();
+		hm.setNodePresenseOnHexes();
+		em = GameObject.Find("engineEntityManager").GetComponent<entityManagerS>();
 	}
 	 
 	public bool posted_this_round = false;
-	public static float time_after_shot_start = 0F;
-	public static bool waiting_after_shot = false;
+	public float time_after_shot_start = 0F;
+	public bool waiting_after_shot = false;
 	
 	
 	
@@ -64,13 +64,13 @@ public class gameManagerS : MonoBehaviour {
 		switch(current_level)
 		{
 			case Level.Level0: 
-				if(entityManagerS.getBase().wall_level >= BaseUpgradeLevel.Level1)
+				if(em.getBase().wall_level >= BaseUpgradeLevel.Level1)
 				{
 					endGame(true);
 				}
 			break;
 			case Level.Level1: 
-				if(entityManagerS.getEnemies().Count == 0)
+				if(em.killed_enemy_count >= 25)
 				{
 					endGame(true);
 				}
@@ -95,7 +95,8 @@ public class gameManagerS : MonoBehaviour {
 		{  
 			if(!rebuilt_enemy_lcoations)
 			{
-				entityManagerS.getMech().updateAttackableEnemies();
+				entityMechS ems = em.getMech();
+				ems.updateAttackableEnemies();
 				rebuilt_enemy_lcoations = true;
 			} 
 		}
@@ -107,9 +108,9 @@ public class gameManagerS : MonoBehaviour {
 		{ 
 			if(!spawned_enemies_this_round)
 			{
-				entityManagerS.instantiateEnemiesFromSpawns();
+				em.instantiateEnemiesFromSpawns();
 				spawned_enemies_this_round = true;
-				enemy_enumerator = entityManagerS.getEnemies().GetEnumerator();
+				enemy_enumerator = em.getEnemies().GetEnumerator();
 			}
 			else{
 				 				
@@ -128,7 +129,7 @@ public class gameManagerS : MonoBehaviour {
 						else //if there are no more enemies to move, then its the players turn again
 						{
 //							List<entityEnemyS> result = new List<entityEnemyS>();
-//							foreach(entityEnemyS current_enemy in entityManagerS.enemy_list){
+//							foreach(entityEnemyS current_enemy in em.enemy_list){
 //								current_enemy.current_ap = current_enemy.max_ap;
 //								if(!current_enemy.checkIfDead())
 //									result.Add(current_enemy);		
@@ -150,9 +151,9 @@ public class gameManagerS : MonoBehaviour {
 		}
 	}
 	
-	public static void forcePlayerTurn(){
+	public void forcePlayerTurn(){
 		current_turn = Turn.Player;
-		entityManagerS.getMech().current_ap = entityManagerS.getMech().max_ap;
+		em.getMech().current_ap = em.getMech().max_ap;
 	}
 	
 	
@@ -223,19 +224,21 @@ public class gameManagerS : MonoBehaviour {
 			GUI.DrawTexture(new Rect(0,119, 776, 92), won_the_game ? completescreen_center_victory : completescreen_center_defeat);	
 		
 			//Game Info
-			ShadowAndOutline.DrawOutline(new Rect(0, 54 ,776,19), level_complete_top_stats, enginePlayerS.gui_norm_text_static, new Color(0,0,0,.6F),Color.white, 3F);
-			ShadowAndOutline.DrawOutline(new Rect(0, 80 ,776,19), level_complete_bottom_stats, enginePlayerS.gui_norm_text_static, new Color(0,0,0,.6F),Color.white, 3F);
+			ShadowAndOutline.DrawOutline(new Rect(0, 54 ,776,19), level_complete_top_stats,ep.gui_norm_text, new Color(0,0,0,.6F),Color.white, 3F);
+			ShadowAndOutline.DrawOutline(new Rect(0, 80 ,776,19), level_complete_bottom_stats,ep.gui_norm_text, new Color(0,0,0,.6F),Color.white, 3F);
 		
-			if(GUI.Button(new Rect(223,  250, 330, 40),"",enginePlayerS.HUD_button_static))
-				endGame(Time.time % 2 == 1);
-			ShadowAndOutline.DrawOutline(new Rect(223,  250, 330, 40), won_the_game ? "Next Level" : "Restart", enginePlayerS.gui_norm_text_static, new Color(0,0,0,.6F),Color.white, 3F);
+			if(GUI.Button(new Rect(223,  232, 330, 40),"",ep.HUD_button))
+			{
+				Application.LoadLevel("Level2");	
+			} 
+			ShadowAndOutline.DrawOutline(new Rect(223,  232, 330, 38), won_the_game ? "Next Level" : "Restart",ep.gui_norm_text, new Color(0,0,0,.6F),Color.white, 3F);
 				
 		GUI.EndGroup();
 	}
 		
-    private static bool game_is_over;
-	private static string level_complete_top_stats;
-	private static string level_complete_bottom_stats;
+    private bool game_is_over;
+	private string level_complete_top_stats;
+	private string level_complete_bottom_stats;
 	
 	public void endGame(bool victory)
 	{
@@ -261,43 +264,45 @@ public class gameManagerS : MonoBehaviour {
 		
 		if(Input.GetKeyDown(KeyCode.F9))
 		{
-			entityMechS.adjustPartCount(Part.Gear, 2000);
-			entityMechS.adjustPartCount(Part.Piston, 2000);
-			entityMechS.adjustPartCount(Part.Plate, 2000);
-			entityMechS.adjustPartCount(Part.Strut, 2000);
+			em.getMech().adjustPartCount(Part.Gear, 2000);
+			em.getMech().adjustPartCount(Part.Piston, 2000);
+			em.getMech().adjustPartCount(Part.Plate, 2000);
+			em.getMech().adjustPartCount(Part.Strut, 2000);
 		}
 	}
 	
-	public static void endPlayerTurn()
+	public void endPlayerTurn()
 	{ 
-		entityManagerS.getMech().current_ap =  0;   
+		if(em.getMech().upgrade_util_idle)
+			em.getMech().idleHeal();
+		em.getMech().current_ap =  0;   
 		rebuilt_enemy_lcoations = false;
 		current_turn = Turn.Enemy;
 	}
 	
-	public static void endAllEnemeyTurn()
+	public void endAllEnemeyTurn()
 	{  
 		List<Enemy> result = new List<Enemy>();
-		foreach(Enemy current_enemy in entityManagerS.enemy_list){
+		foreach(Enemy current_enemy in em.enemy_list){
 			current_enemy.current_ap = current_enemy.max_ap;
 			if(!current_enemy.checkIfDead())
 				result.Add(current_enemy);		
 		}
-		entityManagerS.enemy_list = result; //update enemy list to account for enemies that exploded
+		em.enemy_list = result; //update enemy list to account for enemies that exploded
 		 
 		spawned_enemies_this_round = false; 
 		 
 		
-		entityManagerS.getBase().current_attacks_this_round = 0;
+		em.getBase().current_attacks_this_round = 0;
 		current_turn = Turn.Base;
 	}
 	
-	public static void endBaseTurn()
+	public void endBaseTurn()
 	{
 		//TODO: not sure if this is finished
-		entityManagerS.getMech().current_ap = entityManagerS.getMech().max_ap; 
+		em.getMech().current_ap = em.getMech().max_ap; 
 		current_round++;
-		entityManagerS.getMech().updateAttackableEnemies();
+		em.getMech().updateAttackableEnemies();
 		current_turn = Turn.Player; 
 		
 	}

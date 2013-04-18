@@ -32,9 +32,11 @@ public class enemyFlyerDisplayS : MonoBehaviour {
 //	private bool draw_mode = false; 
 		
 	private Dictionary<Facing, Material> facing_walks;
+	public hexManagerS hm; 
 	
 	void Awake()
 	{ 
+		hm = GameObject.Find("engineHexManager").GetComponent<hexManagerS>();
 		facing_walks = new Dictionary<Facing, Material>();
 		facing_walks.Add (Facing.North, walk_n);
 		facing_walks.Add (Facing.SouthEast, walk_se);
@@ -90,7 +92,7 @@ public class enemyFlyerDisplayS : MonoBehaviour {
 	{
 	    renderer.material = facing_walks[owner.facing_direction];  
 		
-		if(hexManagerS.getHex(owner.x, owner.z).vision_state != Vision.Live)
+		if(hm.getHex(owner.x, owner.z).vision_state != Vision.Live)
 			renderer.enabled = false; 
 	}
 //	

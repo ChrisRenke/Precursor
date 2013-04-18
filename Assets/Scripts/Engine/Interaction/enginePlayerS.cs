@@ -16,13 +16,9 @@ public class enginePlayerS : MonoBehaviour {
 	
 	public int 									maxZoom 	= 2;
 	public int 									minZoom 	= 25;
-	 
-	public static GUIStyle						hover_text;
-	public static GUIStyle						hp_bar_for_enemy;
-	public static GUIStyle						hp_bar_for_base;
+	  
 	public GUIStyle								hp_bar;
-	public GUIStyle								hp_bar_base;
-	public static Texture						hp_backboard;
+	public GUIStyle								hp_bar_base; 
 	public Texture								hp_backboard_test;	
 	public GUIStyle								selection_hover;
 	
@@ -34,29 +30,24 @@ public class enginePlayerS : MonoBehaviour {
 	
 	public GUIStyle								gui_upgrade_button;
 	
-	public static GUIStyle						gui_norm_text_static; 
-	public static GUIStyle						gui_norm_text_black_static; 
-	public static GUIStyle						gui_bold_text_static;
 	
 	public float								vSensitivity = 1.0F; 
 	public float 								hSensitivity = 1.0F;
 	public float 								zoomSensitivity = 1.0F;
 	
-	public static float  						camera_min_x_pos = 9999999999;
-	public static float  						camera_max_x_pos = -999999999;
-	public static float  						camera_min_z_pos = 9999999999;
-	public static float  						camera_max_z_pos = -999999999;
+	public   float  						camera_min_x_pos = 9999999999;
+	public   float  						camera_max_x_pos = -999999999;
+	public   float  						camera_min_z_pos = 9999999999;
+	public   float  						camera_max_z_pos = -999999999;
 	
 	private static GameObject maincam;
-	private static entityMechS mech;
+	private   entityMechS mech;
 	 
 	
 	public GUISkin hud_style;
 	 
 	public Texture chris_hp_bg_in;
-	public Texture chris_hp_in; 
-	public static Texture chris_hp_bg;
-	public static Texture chris_hp; 
+	public Texture chris_hp_in;  
 	
 	//gui part
 	public Texture bar_part_piston_bg;
@@ -79,16 +70,6 @@ public class enginePlayerS : MonoBehaviour {
 	public Color glow;
 	public Color upgrade;
 	
-	public static Color easy_color;
-	public static Color medium_color;
-	public static Color hard_color;
-	public static Color disable_color;
-	public static Color idle_color;
-	public static Color attack_color;
-	public static Color scavenge_color;
-	public static Color select_color;
-	public static Color glow_color;
-	public static Color upgrade_color;
 	 
 	private float northwest_angle ;
 	private float northeast_angle ;
@@ -98,39 +79,37 @@ public class enginePlayerS : MonoBehaviour {
 	private float southwest_angle ;
 	
 	 
+	public gameManagerS  gm; 
+	public hexManagerS hm; 
+	public entityManagerS em; 
+
 //	private static LineRenderer lr;
 	void Start () {
 		audio.volume = 1F;
 		audio.priority = 128;
 		audio.ignoreListenerVolume = true;
 		audio.rolloffMode = UnityEngine.AudioRolloffMode.Linear; 
+		gm = GameObject.Find("engineGameManager").GetComponent<gameManagerS>(); 
+		em = GameObject.Find("engineEntityManager").GetComponent<entityManagerS>();
 	}
 	// Use this for initialization
 	void Awake () {  
 		maincam 		= GameObject.FindGameObjectWithTag("MainCamera");
-		gui_bold_text_static = gui_bold_text;
-		gui_norm_text_static = gui_norm_text;
-		gui_norm_text_black_static = gui_norm_text_black;
-		hover_text 		= selection_hover;
-		hp_bar_for_enemy = hp_bar;
-		hp_bar_for_base = hp_bar_base;
-		hp_backboard = hp_backboard_test; 
-		
-		HUD_button_static = HUD_button;
-		chris_hp_bg = chris_hp_bg_in;
-			chris_hp = chris_hp_in;
-		
-		easy_color = easy;
-		medium_color = medium;
-		hard_color = hard;  
-		idle_color = idle;
-		attack_color = attack;
-		scavenge_color = scavenge;
-		disable_color  = disable;
-		glow_color = glow;
-		select_color = select_;
-		upgrade_color = upgrade;
+		hm = GameObject.Find("engineHexManager").GetComponent<hexManagerS>();
 		 
+		  
+		
+//		easy_color = easy;
+//		medium_color = medium;
+//		hard_color = hard;  
+//		idle_color = idle;
+//		attack_color = attack;
+//		scavenge_color = scavenge;
+//		disable_color  = disable;
+//		glow_color = glow;
+//		select_color = select_;
+//		upgrade_color = upgrade;
+//		 
 		sound_button    = _sound_button;
 		sound_negative  = _sound_negative;
 		sound_open_menu = _sound_open_menu;
@@ -157,26 +136,26 @@ public class enginePlayerS : MonoBehaviour {
 //		print("southwest_angle " + southwest_angle); //155
 	}
 	 
-	public static entityBaseS town;
-	public static void setMech()
+	public  entityBaseS town;
+	public  void setMech()
 	{
-		mech    = entityManagerS.getMech();//GameObject.FindGameObjectWithTag("player_mech").GetComponent<entityMechS>(); 
-  		hovering_hex = hexManagerS.getHex(mech.x,mech.z);
+		mech    = em.getMech();//GameObject.FindGameObjectWithTag("player_mech").GetComponent<entityMechS>(); 
+  		hovering_hex = hm.getHex(mech.x,mech.z);
 		hovering_hex.hex_script.ControllerSelect();
 		Debug.LogWarning("LOG: CREATING CONTROLLERSELECT");
 	}
 	
-	public static void setBase(){ 
-		town    = entityManagerS.getBase();
+	public  void setBase(){ 
+		town    = em.getBase();
 	}
 	
 	private void inputMac360(){
 			
 	}
-	private static HexData hovering_hex;
+	private  HexData hovering_hex;
 	private float  move_time = 0;
 	private float  move_delay = .2F;
-	public static bool drawn_path = false;
+	public  bool drawn_path = false;
 	
 	// Update is called once per frame
 	void Update() { 
@@ -279,7 +258,7 @@ public class enginePlayerS : MonoBehaviour {
 				
 				
 //				print ("DIRECTION LEFT STICK:   " + direction_to_move.ToString());
-				HexData new_selection = hexManagerS.getHex(hovering_hex.x, hovering_hex.z, direction_to_move);
+				HexData new_selection = hm.getHex(hovering_hex.x, hovering_hex.z, direction_to_move);
 				
 //				if(new_selection.x != hovering_hex.x && new_selection.z != hovering_hex.z)
 //				{
@@ -358,9 +337,9 @@ public class enginePlayerS : MonoBehaviour {
 //		{
 //			gameManagerS.forcePlayerTurn();
 //		}
-		if(Input.GetKeyDown(KeyCode.Space) & gameManagerS.current_turn == Turn.Player)
+		if(Input.GetKeyDown(KeyCode.Space) & gm.current_turn == Turn.Player)
 		{
-			gameManagerS.endPlayerTurn();
+			gm.endPlayerTurn();
 		}
 		
 		
@@ -497,13 +476,13 @@ public class enginePlayerS : MonoBehaviour {
 		}
     }
 	
-	public static void popFrontOfRoute()
+	public   void popFrontOfRoute()
 	{
 		if(current_path_display!=null)
 			current_path_display.removeFrontNode();
 	}	
 	
-	public static void setRoute(PathDisplay in_path, List<string> _hex_display_text, HexData _hex_display_text_at)
+	public   void setRoute(PathDisplay in_path, List<string> _hex_display_text, HexData _hex_display_text_at)
 	{
 		hex_display_text_at = _hex_display_text_at;
 		hex_display_text = _hex_display_text;
@@ -628,7 +607,7 @@ public class enginePlayerS : MonoBehaviour {
 		
 		//draw round counter
 		if(!base_menu_displayed)
-			drawButtonBool(408, Screen.height - 28, 104,"Round " + gameManagerS.current_round); 
+			drawButtonBool(408, Screen.height - 28, 104,"Round " + gm.current_round); 
 		
 		//draw end turn button5
 		if(!mech_menu_displayed)
@@ -665,31 +644,31 @@ public class enginePlayerS : MonoBehaviour {
 		if((base_menu_zone.Contains(mouse_pos) && base_menu_displayed) 
 			|| (mech_menu_zone.Contains(mouse_pos) && mech_menu_displayed) 
 			|| (repair_menu_zone.Contains(mouse_pos) && repair_menu_displayed) ) 
-			gameManagerS.mouse_over_gui = true; 
+			gm.mouse_over_gui = true; 
 		else
-			gameManagerS.mouse_over_gui = false;
+			gm.mouse_over_gui = false;
 	}
 	
 	private void drawEndTurnButton(){
 		
-		if(gameManagerS.current_turn == Turn.Player) 
+		if(gm.current_turn == Turn.Player) 
 		{
 			if(drawButtonBool(976, Screen.height - 28, 104,"Finish Turn?"))
 			{
-				gameManagerS.endPlayerTurn(); 
+				gm.endPlayerTurn(); 
 				audio.PlayOneShot(sound_button);
 			}
 		}
 		else
 		
-		if(gameManagerS.current_turn == Turn.Enemy) 
+		if(gm.current_turn == Turn.Enemy) 
 		{
 			if(drawButtonBool(976, Screen.height - 28, 104,"Enemy Turn...")) 
 				audio.PlayOneShot(sound_negative); 
 		}
 		else
 		
-		if(gameManagerS.current_turn == Turn.Base) 
+		if(gm.current_turn == Turn.Base) 
 		{
 			if(drawButtonBool(976, Screen.height - 28, 104,"Base Turn..."))
 				audio.PlayOneShot(sound_negative);
@@ -698,25 +677,25 @@ public class enginePlayerS : MonoBehaviour {
 	
 	
 	public void drawHexText(){
-		if(!gameManagerS.mouse_over_gui)
+		if(!gm.mouse_over_gui)
 		{
 			
-			Vector3 spot_on_screen = Camera.main.WorldToScreenPoint (hexManagerS.CoordsGameTo3D(hex_display_text_at.x, hex_display_text_at.z)); 
+			Vector3 spot_on_screen = Camera.main.WorldToScreenPoint (hm.CoordsGameTo3D(hex_display_text_at.x, hex_display_text_at.z)); 
 			 
 			
 			switch(hex_display_text.Count){
 			case 0: break;
 			case 1: 
-				ShadowAndOutline.DrawOutline(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 10, 200, 20), "<size=21>"+hex_display_text[0]+"</size>", enginePlayerS.hover_text, Color.black, Color.white, 2F); 
+				ShadowAndOutline.DrawOutline(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 10, 200, 20), "<size=21>"+hex_display_text[0]+"</size>", selection_hover, Color.black, Color.white, 2F); 
 				break;
 			case 2:
-				ShadowAndOutline.DrawOutline(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 20, 200, 20), "<size=21>"+hex_display_text[0]+"</size>", enginePlayerS.hover_text, Color.black, Color.white, 2F); 
-				ShadowAndOutline.DrawOutline(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 00, 200, 20), hex_display_text[1], enginePlayerS.hover_text, Color.black, Color.white, 2F); 
+				ShadowAndOutline.DrawOutline(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 20, 200, 20), "<size=21>"+hex_display_text[0]+"</size>", selection_hover, Color.black, Color.white, 2F); 
+				ShadowAndOutline.DrawOutline(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 00, 200, 20), hex_display_text[1], selection_hover, Color.black, Color.white, 2F); 
 				break;
 			case 3:
-				ShadowAndOutline.DrawOutline(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 30, 200, 20), "<size=21>"+hex_display_text[0]+"</size>", enginePlayerS.hover_text, Color.black, Color.white, 2F); 
-				ShadowAndOutline.DrawOutline(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 10, 200, 20), hex_display_text[1], enginePlayerS.hover_text, Color.black, Color.white, 2F); 
-				ShadowAndOutline.DrawOutline(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y + 10, 200, 20), hex_display_text[2], enginePlayerS.hover_text, Color.black, Color.white, 2F); 
+				ShadowAndOutline.DrawOutline(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 30, 200, 20), "<size=21>"+hex_display_text[0]+"</size>", selection_hover, Color.black, Color.white, 2F); 
+				ShadowAndOutline.DrawOutline(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 10, 200, 20), hex_display_text[1], selection_hover, Color.black, Color.white, 2F); 
+				ShadowAndOutline.DrawOutline(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y + 10, 200, 20), hex_display_text[2], selection_hover, Color.black, Color.white, 2F); 
 				break;
 			}
 			
@@ -799,7 +778,7 @@ public class enginePlayerS : MonoBehaviour {
 			if(GUI.Button(new Rect(329,17,30, 29),"",menu_close_button))
 			{
 				hideMechUpgradeMenu();
-				gameManagerS.mouse_over_gui = false;
+				gm.mouse_over_gui = false;
 			}
 			//menu title
 			ShadowAndOutline.DrawOutline(new Rect(18,18, 342, 47), "Mech Upgrades", menu_heading, new Color(0,0,0,.5F),Color.white, 3F);
@@ -957,7 +936,7 @@ public class enginePlayerS : MonoBehaviour {
 		if(!enabled)
 			price_color = disabled_afford;
 		else
-			if(part_cost > entityMechS.getPartCount(part_to_price))
+			if(part_cost > em.getMech().getPartCount(part_to_price))
 				price_color = cannot_afford;
 			else
 				price_color = can_afford;
@@ -978,7 +957,7 @@ public class enginePlayerS : MonoBehaviour {
 			if(GUI.Button(new Rect(329,17,30, 29),"",menu_close_button))
 			{
 				hideBaseUpgradeMenu();
-				gameManagerS.mouse_over_gui = false;
+				gm.mouse_over_gui = false;
 			}
 		
 			GUI.BeginGroup (new Rect (18, 80, 342, 29));   
@@ -1044,10 +1023,10 @@ public class enginePlayerS : MonoBehaviour {
 						if(can_afford_upgrade)
 						{
 							
-							if( (new List<HexData>(hexManagerS.getAdjacentHexes(entityManagerS.getBase().x, entityManagerS.getBase().z)))
-							.Contains(hexManagerS.getHex(entityManagerS.getMech().x,entityManagerS.getMech().z)))
+							if( (new List<HexData>(hm.getAdjacentHexes(em.getBase().x, em.getBase().z)))
+							.Contains(hm.getHex(em.getMech().x,em.getMech().z)))
 							{
-								entityManagerS.getBase().upgradeBase(base_upgrade_tab, entry.base_level); 
+								em.getBase().upgradeBase(base_upgrade_tab, entry.base_level); 
 								audio.PlayOneShot(sound_button);
 							}
 							else
@@ -1064,8 +1043,8 @@ public class enginePlayerS : MonoBehaviour {
 					 
 					if(Input.GetMouseButton(0) && click_started[entry_row])
 					{  
-						if((can_afford_upgrade) && (new List<HexData>(hexManagerS.getAdjacentHexes(entityManagerS.getBase().x, entityManagerS.getBase().z)))
-								.Contains(hexManagerS.getHex(entityManagerS.getMech().x,entityManagerS.getMech().z)))
+						if((can_afford_upgrade) && (new List<HexData>(hm.getAdjacentHexes(em.getBase().x, em.getBase().z)))
+								.Contains(hm.getHex(em.getMech().x,em.getMech().z)))
 								{
 								GUI.DrawTexture(new Rect(0,0,342,74), menu_upgrade_down_canafford);	 
 							}
@@ -1115,7 +1094,6 @@ public class enginePlayerS : MonoBehaviour {
 	}
 	  
 	public GUIStyle HUD_button;
-	public static GUIStyle HUD_button_static;
 	public GUIStyle HUD_bar;
 	public Texture  energy_bar;
 	public Texture  menu_background;
@@ -1132,14 +1110,14 @@ public class enginePlayerS : MonoBehaviour {
 	
 	private void drawHUDPartBar(int from_left, int from_bottom, Texture background, Part part_type)
 	{  
-		int part_cap = entityManagerS.getMech().getPartCapacity();
+		int part_cap = em.getMech().getPartCapacity();
 		GUI.BeginGroup (new Rect (from_left, Screen.height - from_bottom, 168, 44));
 			GUI.DrawTexture(new Rect (0,0, 168, 44), background);
-			GUI.BeginGroup (new Rect (36, 8, (int)128*(float)entityMechS.getPartCount(part_type)/(float)part_cap, 24));
+			GUI.BeginGroup (new Rect (36, 8, (int)128*(float)em.getMech().getPartCount(part_type)/(float)part_cap, 24));
 				GUI.DrawTexture(new Rect (0,0, 128, 24), bar_part_scale);
 			GUI.EndGroup (); 
-			ShadowAndOutline.DrawOutline(new Rect(36, 8, 128, 24), entityMechS.getPartCount(part_type) + "/" + part_cap, 
-				enginePlayerS.gui_norm_text_static, new Color(0,0,0,.5F),Color.white, 3F);
+			ShadowAndOutline.DrawOutline(new Rect(36, 8, 128, 24), em.getMech().getPartCount(part_type) + "/" + part_cap, 
+				gui_norm_text, new Color(0,0,0,.5F),Color.white, 3F);
 		GUI.EndGroup (); 
 	}
 		
@@ -1164,7 +1142,7 @@ public class enginePlayerS : MonoBehaviour {
 				GUI.color = prev;
 			GUI.EndGroup (); 
 			ShadowAndOutline.DrawOutline(new Rect(3, 3, bar_width, 24),  current + "/" + max, 
-				enginePlayerS.gui_norm_text_static, new Color(0, 0, 0, .5F),Color.white, 3F);
+				gui_norm_text, new Color(0, 0, 0, .5F),Color.white, 3F);
 		GUI.EndGroup (); 
 	}
 	
@@ -1179,7 +1157,7 @@ public class enginePlayerS : MonoBehaviour {
 				GUI.DrawTexture(new Rect (0,0, bar_width, 24), energy_bar); 
 			GUI.EndGroup (); 
 			ShadowAndOutline.DrawOutline(new Rect(3, 3, bar_width, 24),  current + "/" + max + " AP", 
-				enginePlayerS.gui_norm_text_static, new Color(0, 0, 0, .5F),Color.white, 3F);
+				gui_norm_text, new Color(0, 0, 0, .5F),Color.white, 3F);
 		GUI.EndGroup (); 
 	}
 	
@@ -1250,7 +1228,7 @@ public class enginePlayerS : MonoBehaviour {
 	
 	private void drawRepairMenuPartButton(Texture button_image, int position, Part part_type)
 	{ 
-		if(entityMechS.getPartCount(part_type) > 0 && mech.getCurrentAP() >= mech.getRepairAPCost() && mech.getCurrentHP() < mech.getMaxHP())
+		if(mech.getPartCount(part_type) > 0 && mech.getCurrentAP() >= mech.getRepairAPCost() && mech.getCurrentHP() < mech.getMaxHP())
 		{ 
 			if(GUI.Button(new Rect(position*48 + position*2, 0, 48,48),button_image,repair_menu_button_canafford))
 			{

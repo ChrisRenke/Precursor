@@ -247,7 +247,7 @@ public class mechDisplayS : MonoBehaviour {
 				legs.enabled = owner.upgrade_move_cost;
 				mountain.enabled = owner.upgrade_move_mountain;
 				water.enabled = owner.upgrade_move_water;
-				gunrange.enabled = owner.upgrade_combat_range;
+				gunrange.enabled = owner.upgrade_combat_range || owner.upgrade_util_vision;
 				gunsize.enabled = owner.upgrade_combat_damage;
 				marsh.enabled = owner.upgrade_move_marsh;
 				scav.enabled = owner.upgrade_scavenge_greed || owner.upgrade_scavenge_cost;

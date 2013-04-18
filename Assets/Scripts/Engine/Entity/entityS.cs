@@ -3,7 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Entity : MonoBehaviour {
+		
+	public gameManagerS  gm;
+	public enginePlayerS ep;
+	public entityManagerS em; 
+	public hexManagerS hm; 
 	
+	void Awake(){ 
+		gm = GameObject.Find("engineGameManager").GetComponent<gameManagerS>();
+		ep = GameObject.Find("enginePlayer").GetComponent<enginePlayerS>();
+		em = GameObject.Find("engineEntityManager").GetComponent<entityManagerS>();
+		hm = GameObject.Find("engineHexManager").GetComponent<hexManagerS>();
+	}
 	public int x;
 	public int z;
 	
@@ -14,7 +25,7 @@ public class Entity : MonoBehaviour {
 	
 	public void updateFoWState()
 	{
-		HexData occupying_hex = hexManagerS.getHex(x, z);
+		HexData occupying_hex = hm.getHex(x, z);
 		switch(occupying_hex.vision_state)
 		{
 		case Vision.Live:
@@ -89,19 +100,19 @@ public abstract class  Combatable : Entity{
 	 *  @param   x - x coord
 	 *  @param   z - z coord
 	 *  @return  damage delt
-	 */
-	public int attackHex(int att_x, int att_z)
-	{
-		Debug.LogWarning("ABOUT TO ATTCK ENTITY ON - "+ att_x + "," + att_z);
-		Combatable target = entityManagerS.getCombatableAt(att_x, att_z);
-		
-		Debug.LogWarning("ABOUT TO ATTCK ENTITY "+ target.GetInstanceID());
-		if(target != null)
-			return target.acceptDamage(attack_damage);
-		
-		return 0; //nothing to damage if we get here			
-	}
-	
+//	 */
+//	public int attackHex(int att_x, int att_z)
+//	{
+//		Debug.LogWarning("ABOUT TO ATTCK ENTITY ON - "+ att_x + "," + att_z);
+//		Combatable target = em.getCombatableAt(att_x, att_z);
+//		
+//		Debug.LogWarning("ABOUT TO ATTCK ENTITY "+ target.GetInstanceID());
+//		if(target != null)
+//			return target.acceptDamage(attack_damage);
+//		
+//		return 0; //nothing to damage if we get here			
+//	}
+//	
 	/**
 	 *	Get the percentage of hp remaining
 	 *  @return  remaining ratio of hp current to total
@@ -145,7 +156,7 @@ public abstract class  Combatable : Entity{
 	 */
 	public int healhp(int amount_to_heal)
 	{ 
-		entityManagerS.createHealEffect(x,z);
+		em.createHealEffect(x,z);
 		current_hp += amount_to_heal;
 		current_hp = current_hp > max_hp ? max_hp : current_hp;
 		return current_hp;

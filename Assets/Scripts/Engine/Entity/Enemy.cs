@@ -31,6 +31,8 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 	
 	public Vector3 center_top;
 	
+	 
+	
 	//Extract hexes from path and put hexes into a List 
 	public List<HexData> extractPath (Path path)
 	{
@@ -71,7 +73,7 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 		//bool found_mech = false;
 		
 		//get all hexes in attack range
-		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z,attack_range)){
+		foreach(HexData h in hm.getAdjacentHexes(x,z,attack_range)){
 			//check to see if base or mech is at one the hexes
 			if(h.x == base_s.x && h.z == base_s.z){
 				final_target = base_s;
@@ -109,7 +111,7 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(_x, _z);
+		HexData[] adjacent_hexes = hm.getAdjacentHexes(_x, _z);
 		////Debug.Log(adjacent_hexes.Length + " found adjacent");
 		
 		//See which of the adjacent hexes are traversable
@@ -126,7 +128,7 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
+		HexData[] adjacent_hexes = hm.getAdjacentHexes(x, z);
 		
 		//See which of the adjacent hexes are NOT traversable
 		for(int i = 0; i < adjacent_hexes.Length; i++)
@@ -230,7 +232,7 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 		List<HexData> result_hexes = new List<HexData>(); //hold resulting hexes
 		
 		//Get adjacent tiles around player mech
-		HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(hex.x, hex.z);
+		HexData[] adjacent_hexes = hm.getAdjacentHexes(hex.x, hex.z);
 		////Debug.Log(adjacent_hexes.Length + " found adjacent");
 		
 		//See which of the adjacent hexes are traversable
@@ -254,7 +256,7 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 		if(knows_opponents_location){
 			//if enemy already "knows opponents location" then don't worry about visibility just get path to opponent
 			//Debug.Log ("canGetToOpponent: knows enemy location, get path:" + entity_opponent);
-			path_to_opp = extractPath(hexManagerS.getTraversablePath(enemy, opponent, EntityE.Node, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
+			path_to_opp = extractPath(hm.getTraversablePath(enemy, opponent, EntityE.Node, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
 			
 			if(path_to_opp.Count == 0){
 				//Debug.Log ("canGetToOpponent: knows enemy location, but can't find path");
@@ -271,7 +273,7 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 			if(canSeeHex(opponent)){ 
 			//if(canSeeHex(opponent)){ ****
 				//Debug.Log ("canGetToOpponent: doesn't know enemy location, get path to " + entity_opponent);
-				path_to_opp = extractPath(hexManagerS.getTraversablePath(enemy, opponent, EntityE.Node, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
+				path_to_opp = extractPath(hm.getTraversablePath(enemy, opponent, EntityE.Node, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
 				if(path_to_opp.Count == 0){
 					//Debug.Log ("canGetToOpponent: enemy is visible, but can't find path");
 					return false;
@@ -292,7 +294,7 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 	{		
 
 		//Debug.Log(hex + " = hex | " + hex.x + " | " + hex.z);  
-			foreach(HexData h in hexManagerS.getAdjacentHexes(x,z, sight_range)){
+			foreach(HexData h in hm.getAdjacentHexes(x,z, sight_range)){
 				if(h.x == hex.x && h.z == hex.z)
 				{
 					//opponent is in sight range of enemy
@@ -344,24 +346,38 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 		}
 	}
 	
+	public void getDirectionToFaceToAttack(Combatable target){ 
+		Facing new_facing = getDirectionFacing(target.x, target.z);
+		if(new_facing != facing_direction)
+			facing_direction = new_facing;
+	}
+	
 	public override int attackTarget (Combatable target)
 	{
 		//subtract ap cost from total
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY ON - " + target.x + "," + target.z);
-		Facing new_facing = getDirectionFacing(target.x, target.z);
-		if(new_facing != facing_direction)
-			facing_direction = new_facing;
+		getDirectionToFaceToAttack(target);
 		
 		print ("FACING" + facing_direction);
 		
 		current_ap -= attack_cost; 
 		
+		gm.time_after_shot_start = Time.time;
+		
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY " + target.GetInstanceID());
 		if(target != null)
-			 target.acceptDamage(attack_damage);
+			if(target.x == em.getMech().x && target.z == em.getMech().z)
+			{
+				if(!em.getMech().checkMechDodge())
+				{
+					 target.acceptDamage(attack_damage);
+				}
+			}
+			else
+				target.acceptDamage(attack_damage);
 		
-		gameManagerS.waiting_after_shot = true;
-		gameManagerS.time_after_shot_start = Time.time;
+		gm.waiting_after_shot = true;
+		gm.time_after_shot_start = Time.time;
 		//Debug.Log ("ERROR: didn't pick a combatable target");
 		
 //		StartCoroutine(DelayStuff(.8f));
@@ -370,15 +386,15 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 	
 	public Facing getDirectionFacing(int target_x, int target_z){
 				
-		return hexManagerS.getFacingDirection(x,z,target_x,target_z,attack_range);
+		return hm.getFacingDirection(x,z,target_x,target_z,attack_range);
 	}
 	
 	
 	public void moveInWorld(int _destination_x, int _destination_z, float _time_to_complete)
 	{
 		lerp_move = true;
-		starting_pos =  entityManagerS.CoordsGameTo3DEntiy(x, z);
-		ending_pos = entityManagerS.CoordsGameTo3DEntiy(_destination_x, _destination_z);
+		starting_pos =  em.CoordsGameTo3DEntiy(x, z);
+		ending_pos = em.CoordsGameTo3DEntiy(_destination_x, _destination_z);
 		time_to_complete = _time_to_complete;
 		moveTime = 0.0f;
 		dist = Vector3.Distance(transform.position, ending_pos) * 2;
@@ -389,7 +405,5 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 	public bool lerp_move = false; 
 	public float time_to_complete = 2F;
 	public float moveTime = 0.0f;
-
-
 
 }

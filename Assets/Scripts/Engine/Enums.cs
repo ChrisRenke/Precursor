@@ -9,7 +9,7 @@ public enum Facing       { North, NorthEast, SouthEast, South, SouthWest, NorthW
 public enum NodeLevel    { Empty, Sparse, Full };
 public enum Node         { Factory, Junkyard, Outpost}
 public enum Turn         { Player, Enemy, Base };
-public enum SelectLevel  { Disabled, Easy, Medium, Hard, Scavenge, Attack, Town, TownUpgrade, MechUpgrade, TownRecall, Move};
+public enum SelectLevel  { Disabled, Easy, Medium, Hard, Scavenge, Attack, Town, TownUpgrade, MechUpgrade, TownRecall, Move, AttempScavenge};
 public enum Action       { Repair, UpgradeMech, UpgradeBase, Scavenge, Attack, Traverse, End };
 public enum Vision       { Live, Visited, Unvisted }; 
 public enum MouseState   { Idle, Over, Click } 

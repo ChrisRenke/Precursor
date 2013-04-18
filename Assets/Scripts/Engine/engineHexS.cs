@@ -27,7 +27,26 @@ public class engineHexS : MonoBehaviour {
 	public bool node_occupier = false;
 	private bool base_is_here = false;
 	public bool mech_is_here = false;
+		
+	public gameManagerS  gm;
+	public enginePlayerS ep;
+	public entityManagerS em; 
+	public hexManagerS hm; 
+	
+	private pathDrawS pd;
+	void Awake(){ 
+		gm = GameObject.Find("engineGameManager").GetComponent<gameManagerS>();
+		ep = GameObject.Find("enginePlayer").GetComponent<enginePlayerS>();
+		em = GameObject.Find("engineEntityManager").GetComponent<entityManagerS>();
+//		print ("em is null: " + em == null);
+		hm = GameObject.Find("engineHexManager").GetComponent<hexManagerS>();
+//		print ("hm is null: " + hm == null);
+		pd =  GameObject.Find("camera").GetComponent<pathDrawS>();
+		
+	}
 
+
+	
 	public void setDirectionTowardsActor(Facing direction){
 		direction_towards_actor = direction;
 		direction_in_range = true;	
@@ -55,7 +74,7 @@ public class engineHexS : MonoBehaviour {
 		if(!glow.active)
 			glow.active = true; 
 		
-		border.SetColor(enginePlayerS.upgrade_color);
+		border.SetColor(ep.upgrade);
 		border.Draw3DAuto();
 		glow.Draw3DAuto();
 	}
@@ -69,15 +88,10 @@ public class engineHexS : MonoBehaviour {
 	}
 	
 	
-	
-	void Start(){
-		 
-		
-	}
-	
+	 
 	public void setAsTownHex()
 	{
-		town_adj_hexes = new List<HexData>(hexManagerS.getAdjacentHexes(hex_data.x, hex_data.z));
+		town_adj_hexes = new List<HexData>(hm.getAdjacentHexes(hex_data.x, hex_data.z));
 		base_is_here = true;
 	}
 	 
@@ -99,10 +113,10 @@ public class engineHexS : MonoBehaviour {
 	
 	public bool setNodePresence()
 	{
-		node_occupier = entityManagerS.isNodeAt(hex_data.x, hex_data.z);
+		node_occupier = em.isNodeAt(hex_data.x, hex_data.z);
 		if(node_occupier)
 		{
-			node_data = entityManagerS.getNodeInfoAt(hex_data.x, hex_data.z);
+			node_data = em.getNodeInfoAt(hex_data.x, hex_data.z);
 		}
 		
 		return node_occupier;
@@ -110,20 +124,32 @@ public class engineHexS : MonoBehaviour {
 	
 	public void updateFoWState()
 	{
-		hex_data = hexManagerS.getHex(hex_data.x, hex_data.z);
+		hex_data = hm.getHex(hex_data.x, hex_data.z);
 		
 		switch(hex_data.vision_state)
 		{
 			case Vision.Live:
 			renderer.material.SetColor("_Color", Color.white);
+			Debug.Log("live!");
 				break;
 			case Vision.Visited:
 			renderer.material.SetColor("_Color", Color.gray);
+						Debug.Log("Visited!");
 				break;
 			case Vision.Unvisted:
 			renderer.material.SetColor("_Color", Color.black);
+						Debug.Log("Unvisted!");
+				break;
+		default: 
+			renderer.material.SetColor("", Color.black);
 				break;
 		}
+		
+	}
+	
+	public void setBlack(){
+		
+		renderer.material.SetColor("", Color.black);
 		
 	}
 	
@@ -134,7 +160,7 @@ public class engineHexS : MonoBehaviour {
 	
 	public void genTextString(SelectLevel select_level, int action_cost)
 	{
-		int current_ap = entityManagerS.getMech().current_ap;
+		int current_ap = em.getMech().current_ap;
 		switch(select_level)
 		{
 				
@@ -150,6 +176,17 @@ public class engineHexS : MonoBehaviour {
 															   "-" + action_cost + " AP"};//"<b><size=21></size></b>\n" ;
 					else 
 						hex_display_text = new List<string>(){ "<color=red>Scavenge</color>",
+															   node_data.node_level.ToString() + " " + node_data.node_type.ToString(),
+															   "<color=red>-" + action_cost + " AP</color>"};//"<b><size=21></size></b>\n" ;
+				 break;
+				
+			case SelectLevel.AttempScavenge: 	
+					if(current_ap >= action_cost)
+						hex_display_text = new List<string>(){ "Attempt Scavenge",
+															   node_data.node_level.ToString() + " " + node_data.node_type.ToString(),
+															   "-" + action_cost + " AP"};//"<b><size=21></size></b>\n" ;
+					else 
+						hex_display_text = new List<string>(){ "<color=red>Attempt Scavenge</color>",
 															   node_data.node_level.ToString() + " " + node_data.node_type.ToString(),
 															   "<color=red>-" + action_cost + " AP</color>"};//"<b><size=21></size></b>\n" ;
 				 break;
@@ -192,14 +229,14 @@ public class engineHexS : MonoBehaviour {
 				break;
 			case SelectLevel.TownRecall:
 				
-				if(current_ap >= entityManagerS.getMech().getRecallAPCost()) 
+				if(current_ap >= em.getMech().getRecallAPCost()) 
 					hex_display_text = new List<string>(){ "Recall",
 															   "Town",
-															   "-" + entityManagerS.getMech().getRecallAPCost() + " AP"};
+															   "-" + em.getMech().getRecallAPCost() + " AP"};
 				else
 					hex_display_text = new List<string>(){ "<color=red>Recall</color>",
 															   "Town",
-															   "<color=red>-" + entityManagerS.getMech().getRecallAPCost() + " AP</color>"};
+															   "<color=red>-" + em.getMech().getRecallAPCost() + " AP</color>"};
 				break;
 			case SelectLevel.TownUpgrade:
 				hex_display_text = new List<string>(){ "Upgrade",
@@ -222,18 +259,18 @@ public class engineHexS : MonoBehaviour {
 ////			GUI.DrawTexture(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15, 200,30), 
 //			GUI.Label(new Rect(spot_on_screen.x - 100, Screen.height - spot_on_screen.y - 15, 200,30),
 //				display_text, 
-//				enginePlayerS.hover_text);
+//				ep.hover_text);
 //		}
 //		 
 //	}
 	
 	void createBorder()
 	{ 
-		border = pathDrawS.getSelectHex(hex_data);
-		border.SetColor(enginePlayerS.select_color);
-		glow = pathDrawS.getGlowHex(hex_data);
+		border = pd.getSelectHex(hex_data);
+		border.SetColor(ep.select_);
+		glow = pd.getGlowHex(hex_data);
 		glow.lineWidth = border.lineWidth * 1.75F;
-		glow.SetColor(enginePlayerS.glow_color);
+		glow.SetColor(ep.glow);
 	}
 	
 	void popFrontOfPath() 
@@ -243,12 +280,12 @@ public class engineHexS : MonoBehaviour {
 	
 	void OnMouseEnter()
 	{
-		if(!gameManagerS.mouse_over_gui)
+		if(!gm.mouse_over_gui)
 		{
 			createBorder();
 
-			if(direction_in_range && !entityManagerS.getMech().lerp_move)
-				entityManagerS.getMech().setFacingDirection(direction_towards_actor);
+			if(direction_in_range && !em.getMech().lerp_move)
+				em.getMech().setFacingDirection(direction_towards_actor);
 			
 		}
 		  
@@ -256,7 +293,7 @@ public class engineHexS : MonoBehaviour {
 	
 	void OnMouseOver()
 	{
-		if(!gameManagerS.mouse_over_gui)
+		if(!gm.mouse_over_gui)
 		{
 			if(border == null)
 				createBorder();
@@ -274,24 +311,24 @@ public class engineHexS : MonoBehaviour {
 				if(!glow.active)
 					glow.active = true; 
 				
-				border.SetColor(enginePlayerS.select_color);
+				border.SetColor(ep.select_);
 				border.Draw3DAuto();
 				glow.Draw3DAuto();
-				HexData mech_hex = hexManagerS.getHex(entityManagerS.getMech().x, entityManagerS.getMech().z);
+				HexData mech_hex = hm.getHex(em.getMech().x, em.getMech().z);
 				
 				
 				if(base_is_here && Input.GetMouseButtonUp(1))
 				{
 					if(town_adj_hexes.Contains(mech_hex)){
-						entityManagerS.getPlayer().displayBaseUpgradeMenu();
+						ep.displayBaseUpgradeMenu();
 					}
 					return;
 				}
 									
 				if(mech_is_here && Input.GetMouseButtonUp(1))
 				{
-						entityManagerS.getPlayer().displayMechUpgradeMenu();
-						return;
+					ep.displayMechUpgradeMenu();
+					return;
 				}
 				
 				
@@ -299,14 +336,14 @@ public class engineHexS : MonoBehaviour {
 				if(base_is_here){
 					if(!town_adj_hexes.Contains(mech_hex)){
 						genTextString(SelectLevel.Town, -1);
-						enginePlayerS.setRoute(null, hex_display_text, hex_data);	
+						ep.setRoute(null, hex_display_text, hex_data);	
 					} 
 					else	
 					{ 
 						genTextString(SelectLevel.TownUpgrade, -1);
-						enginePlayerS.setRoute(null, hex_display_text, hex_data);
+						ep.setRoute(null, hex_display_text, hex_data);
 					}
-					border.SetColor(enginePlayerS.upgrade_color); 
+					border.SetColor(ep.upgrade); 
 					return;
 				}
 				
@@ -322,27 +359,36 @@ public class engineHexS : MonoBehaviour {
 					if(node_occupier)
 					{
 	//					Debug.LogWarning("STANDING ON HEX WITH NODE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-						genTextString(SelectLevel.Scavenge, entityManagerS.getMech().getScavengeAPCost());
+						genTextString(SelectLevel.Scavenge, em.getMech().getScavengeAPCost());
 						
 						if(node_data.node_level != NodeLevel.Empty)
-							border.SetColor(enginePlayerS.scavenge_color);
+							border.SetColor(ep.scavenge);
 						else
 						{ 
-							genTextString(SelectLevel.Scavenge, -1);
-							border.SetColor(enginePlayerS.disable_color);
+							if(em.getMech().upgrade_scavenge_empty)
+							{
+								genTextString(SelectLevel.AttempScavenge, em.getMech().getScavengeAPCost());
+								border.SetColor(ep.scavenge); 
+							}
+							else{
+								
+								genTextString(SelectLevel.Scavenge, -1);
+								border.SetColor(ep.disable);
+								
+							}
 						}
-						enginePlayerS.setRoute(null, hex_display_text, hex_data);
+						ep.setRoute(null, hex_display_text, hex_data);
 						return;
 					}
 					
 					if(mech_is_here){
 						genTextString(SelectLevel.MechUpgrade, -1);
-						enginePlayerS.setRoute(null, hex_display_text, hex_data);
-						border.SetColor(enginePlayerS.upgrade_color); 
+						ep.setRoute(null, hex_display_text, hex_data);
+						border.SetColor(ep.upgrade); 
 						return;
 					}
 					
-					enginePlayerS.setRoute(null, null, hex_data);
+					ep.setRoute(null, null, hex_data);
 					
 					return;
 				} 
@@ -351,19 +397,19 @@ public class engineHexS : MonoBehaviour {
 				
 				if(can_attack_hex)
 				{  
-					genTextString(SelectLevel.Attack, entityManagerS.getMech().getAttackAPCost());
-					enginePlayerS.setRoute(null, hex_display_text, hex_data);
-					if(entityManagerS.getMech().current_ap >= entityManagerS.getMech().getAttackAPCost()){
-						border.SetColor(enginePlayerS.attack_color);
+					genTextString(SelectLevel.Attack, em.getMech().getAttackAPCost());
+					ep.setRoute(null, hex_display_text, hex_data);
+					if(em.getMech().current_ap >= em.getMech().getAttackAPCost()){
+						border.SetColor(ep.attack);
 					}
 					else
-						border.SetColor(enginePlayerS.disable_color);
+						border.SetColor(ep.disable);
 						
 					return;
 				} 
 				
 				
-				if(!entityManagerS.getMech().canTraverse(hex_data))
+				if(!em.getMech().canTraverse(hex_data))
 					return;
 				
 				
@@ -378,13 +424,13 @@ public class engineHexS : MonoBehaviour {
 						can_attack_hex = false;
 						
 						
-						path_from_mech = entityManagerS.getMech().getPathFromMechTo(hexManagerS.getHex (hex_data.x, hex_data.z));
-						path_display = pathDrawS.getPathLine(path_from_mech);
+						path_from_mech = em.getMech().getPathFromMechTo(hm.getHex (hex_data.x, hex_data.z));
+						path_display = pd.getPathLine(path_from_mech);
 						
-						last_mech_upgrade_count = entityManagerS.getMech().getUpgradeCount();
+						last_mech_upgrade_count = em.getMech().getUpgradeCount();
 						mech_location_when_path_made = mech_hex; 
 						
-						Debug.Log("Currently trying to find a path from hex " + x_DISPLAYONLY + "|" + z_DISPLAYONLY + " for round " + gameManagerS.current_round);
+						Debug.Log("Currently trying to find a path from hex " + x_DISPLAYONLY + "|" + z_DISPLAYONLY + " for round " + gm.current_round);
 						if(path_from_mech == null)
 						{
 							unreachable_hex_from_current_mech_location = true; 
@@ -394,7 +440,7 @@ public class engineHexS : MonoBehaviour {
 						}
 				}
 				else
-				if((last_mech_upgrade_count != entityManagerS.getMech().getUpgradeCount())) //|| path_display == null || path_display.path_line == null)
+				if((last_mech_upgrade_count != em.getMech().getUpgradeCount())) //|| path_display == null || path_display.path_line == null)
 				{	
 					if(path_display != null)
 							path_display.destroySelf();
@@ -402,15 +448,15 @@ public class engineHexS : MonoBehaviour {
 					can_attack_hex = false;
 					
 					
-//					if(last_mech_upgrade_count != entityManagerS.getMech().getUpgradeCount() && unreachable_hex_from_current_mech_location)
+//					if(last_mech_upgrade_count != em.getMech().getUpgradeCount() && unreachable_hex_from_current_mech_location)
 //					{
-						path_from_mech = entityManagerS.getMech().getPathFromMechTo(hexManagerS.getHex (hex_data.x, hex_data.z));
-						path_display = pathDrawS.getPathLine(path_from_mech);
+						path_from_mech = em.getMech().getPathFromMechTo(hm.getHex (hex_data.x, hex_data.z));
+						path_display = pd.getPathLine(path_from_mech);
 						
-						last_mech_upgrade_count = entityManagerS.getMech().getUpgradeCount();
+						last_mech_upgrade_count = em.getMech().getUpgradeCount();
 						mech_location_when_path_made = mech_hex; 
 						
-						Debug.Log("Currently trying to find a path from hex " + x_DISPLAYONLY + "|" + z_DISPLAYONLY + " for round " + gameManagerS.current_round);
+						Debug.Log("Currently trying to find a path from hex " + x_DISPLAYONLY + "|" + z_DISPLAYONLY + " for round " + gm.current_round);
 						if(path_from_mech == null)
 						{
 							unreachable_hex_from_current_mech_location = true; 
@@ -431,15 +477,15 @@ public class engineHexS : MonoBehaviour {
 //				}
 				
 					
-//					if(!unreachable_hex_from_current_mech_location &&  last_mech_upgrade_count == entityManagerS.getMech().getUpgradeCount())    //mech_location_when_path_made.Equals(mech_hex))
+//					if(!unreachable_hex_from_current_mech_location &&  last_mech_upgrade_count == em.getMech().getUpgradeCount())    //mech_location_when_path_made.Equals(mech_hex))
 //					{
 //						 
-//						if(entityManagerS.canTraverseHex(hex_data))
+//						if(em.canTraverseHex(hex_data))
 //						{
-//							path_from_mech = entityManagerS.getMech().getPathFromMechTo(hexManagerS.getHex (hex_data.x, hex_data.z));
-//							path_display = pathDrawS.getPathLine(path_from_mech);
+//							path_from_mech = em.getMech().getPathFromMechTo(hm.getHex (hex_data.x, hex_data.z));
+//							path_display = pd.getPathLine(path_from_mech);
 //							
-//							last_mech_upgrade_count = entityManagerS.getMech().getUpgradeCount();
+//							last_mech_upgrade_count = em.getMech().getUpgradeCount();
 //							mech_location_when_path_made = mech_hex; 
 //							
 //							Debug.Log("Currently trying to find a path from hex " + x_DISPLAYONLY + "|" + z_DISPLAYONLY + " for round " + gameManagerS.current_round);
@@ -455,19 +501,19 @@ public class engineHexS : MonoBehaviour {
 //					}
 				
 				//if the mech could possibly walk here
-				if(path_display != null && entityManagerS.getMech().canTraverse(hex_data))
+				if(path_display != null && em.getMech().canTraverse(hex_data))
 				{
 					genTextString(SelectLevel.Move, (int) path_from_mech.TotalCost);
 					
 					if(path_display == null || path_display.path_line == null)
-						path_display = pathDrawS.getPathLine(path_from_mech);
+						path_display = pd.getPathLine(path_from_mech);
 					
-					enginePlayerS.setRoute(path_display, hex_display_text, hex_data);
+					ep.setRoute(path_display, hex_display_text, hex_data);
 				}
 				else
 				{
 					genTextString(SelectLevel.Disabled, -1);
-					enginePlayerS.setRoute(null, hex_display_text, hex_data);
+					ep.setRoute(null, hex_display_text, hex_data);
 				}
 			}
 		}
@@ -479,9 +525,9 @@ public class engineHexS : MonoBehaviour {
 	void OnMouseUpAsButton()
 	{		
 		
-		if(!gameManagerS.mouse_over_gui && !entityManagerS.getMech().lerp_move)
+		if(!gm.mouse_over_gui && !em.getMech().lerp_move)
 		{
-			HexData mech_hex = hexManagerS.getHex(entityManagerS.getMech().x, entityManagerS.getMech().z);//if mech standing on this hex
+			HexData mech_hex = hm.getHex(em.getMech().x, em.getMech().z);//if mech standing on this hex
 			
 		
 			
@@ -489,19 +535,23 @@ public class engineHexS : MonoBehaviour {
 			{
 				
 				//if the mech is on this hex, and this hex has a node as well
-				if(node_occupier && entityManagerS.getMech().current_ap >= entityManagerS.getMech().getScavengeAPCost())
+				if(node_occupier && em.getMech().current_ap >= em.getMech().getScavengeAPCost())
 				{
 					
-					node_data = entityManagerS.getNodeInfoAt(hex_data.x, hex_data.z);
+					node_data = em.getNodeInfoAt(hex_data.x, hex_data.z);
 					if(node_data.node_level!=NodeLevel.Empty)
 					{
-						entityManagerS.getMech().scavengeParts(node_data.node_type, node_data.node_level, node_data.x, node_data.z);
-						node_data = entityManagerS.getNodeInfoAt(hex_data.x, hex_data.z);
+						em.getMech().scavengeParts(node_data.node_type, node_data.node_level, node_data.x, node_data.z);
+						node_data = em.getNodeInfoAt(hex_data.x, hex_data.z);
 						return;
 					}
 					else{ 
-//						entityManagerS.getPlayer().displayMechUpgradeMenu();
-						return; 
+						if(em.getMech().upgrade_scavenge_empty)
+						{ 
+							Debug.Log("Scavenge empty attempt!");
+							em.getMech().attemptScavenge(node_data.node_type, node_data.node_level, node_data.x, node_data.z);
+						} 
+						return;
 					}
 				}
 				
@@ -509,23 +559,23 @@ public class engineHexS : MonoBehaviour {
 //			 
 //			if(mech_is_here)
 //			{  
-//				entityManagerS.getPlayer().displayMechUpgradeMenu();
+//				em.getPlayer().displayMechUpgradeMenu();
 //				return;
 //			}
 			
 			//if your're selecting an enemy within range
 			if(can_attack_hex)
 			{ 
-				if(entityManagerS.getMech().current_ap >= entityManagerS.getMech().getAttackAPCost())
+				if(em.getMech().current_ap >= em.getMech().getAttackAPCost())
 				{
-					entityManagerS.getMech().attackEnemy(hex_data.x, hex_data.z);
+					em.getMech().attackEnemy(hex_data.x, hex_data.z);
 					return;
 				}
 			}
 			else
-			if(path_from_mech != null && entityManagerS.getMech().canTraverse(hex_data))
+			if(path_from_mech != null && em.getMech().canTraverse(hex_data))
 			{
-				entityMechS.moveToHexViaPath(path_from_mech);
+				em.getMech().moveToHexViaPath(path_from_mech);
 			}
 		}
 	}
@@ -595,6 +645,6 @@ public class engineHexS : MonoBehaviour {
 //		renderer.material.s
 	    renderer.material.SetTextureOffset ("_MainTex", offset); 
 	    renderer.material.SetTextureScale  ("_MainTex", size);
-//		renderer.material.SetColor("_Color", Color.gray);
+//		renderer.material.SetColor("", Color.gray);
 	}
 }

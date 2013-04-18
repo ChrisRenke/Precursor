@@ -25,14 +25,15 @@ public class entityBaseS : Combatable {
 	public AudioClip sound_attack_upgrade;
 	public AudioClip sound_attack_gatling;
 	public AudioClip sound_upgrade;
-	 
-	public static bool show_health_bar = true; 
+	  
 	
 	public int current_attacks_this_round = 0;
 	public int max_attacks_this_round = 2;
 	
 	
-	public static List<HexData> adjacent_visible_hexes;
+	public List<HexData> adjacent_visible_hexes;
+	
+	
 	//Use this for initialization
 	void Start () {
  		child_fire = gameObject.transform.GetChild(4);//.GetComponentsInChildren<ParticleSystem>();
@@ -43,8 +44,8 @@ public class entityBaseS : Combatable {
 		walls_f = transform.FindChild("entityBaseWallsBack").renderer;
 		walls_b	= transform.FindChild("entityBaseWallsFore").renderer;
 		
-		max_hp = 100;
-		current_hp = 100;
+		max_hp = 70;
+		current_hp = 70;
 		
 		max_ap = 10;
 		current_ap = 10;
@@ -59,15 +60,15 @@ public class entityBaseS : Combatable {
 		
 		sight_range = 5;
 		
-		adjacent_visible_hexes = hexManagerS.getAdjacentHexes(x, z, sight_range);
+		adjacent_visible_hexes = hm.getAdjacentHexes(x, z, sight_range);
 		
 		//turn hexes within range now to Live state
 		foreach(HexData hex in adjacent_visible_hexes)
 		{ 
-			hexManagerS.updateHexVisionState(hex, Vision.Live);
+			hm.updateHexVisionState(hex, Vision.Live);
 			hex.hex_script.updateFoWState();
 		} 
-		entityManagerS.updateEntityFoWStates();
+		em.updateEntityFoWStates();
 		createUpgradeMenuEntries();
 	}
 	
@@ -132,8 +133,11 @@ public class entityBaseS : Combatable {
 	
 	
 	public List<UpgradeEntry> getUpgradeEntries(BaseUpgradeMode upgrade_type){
+		if(baseupgrademode_entrieslists[upgrade_type] == null)
+			throw new System.Exception("HOLY FUCK CANT GET BASE SHIT!");
 		return baseupgrademode_entrieslists[upgrade_type];
 	}
+	
 			//vars for the whole sheet
 	public int colCount    = 4;
 	public int rowCount    = 2;
@@ -143,16 +147,16 @@ public class entityBaseS : Combatable {
 	public int colNumber   = 4; //Zero Indexed
 	public int totalCells  = 12;
 	
-	public static Transform child_fire;  
+	public  Transform child_fire;  
 	
-	public static void turnOnFire(){
+	public  void turnOnFire(){
 		
 		child_fire.transform.GetChild(0).particleEmitter.emit = true; 
 		child_fire.transform.GetChild(1).particleEmitter.emit = true; 
 		child_fire.transform.GetChild(2).particleEmitter.emit = true; 
 	}
 	
-	public static void turnOffFire(){
+	public  void turnOffFire(){
 		
 		child_fire.transform.GetChild(0).particleEmitter.emit = false; 
 		child_fire.transform.GetChild(1).particleEmitter.emit = false; 
@@ -174,13 +178,8 @@ public class entityBaseS : Combatable {
 	    def.material.SetTextureOffset	  ("_MainTex", def_offset);
 	    walls_f.material.SetTextureOffset ("_MainTex", wall_offset_b); 
 	    walls_b.material.SetTextureOffset ("_MainTex", wall_offset_f);
-	    struc.material.SetTextureOffset   ("_MainTex", struct_offset);
-//	    def.material.SetTextureOffset ("_MainTex", def_offset);
-//	    renderer.material.SetTextureScale  ("_MainTex", size);
-//	
-//		def.renderer.material.SetColor("_Color",Color.green);
-//		struc.renderer.material.SetColor("_Color",Color.red);
-//		walls.renderer.material.SetColor("_Color",Color.blue);  
+	    struc.material.SetTextureOffset   ("_MainTex", struct_offset); 
+		
 	}
 	
 	public bool onFire = false;
@@ -209,7 +208,7 @@ public class entityBaseS : Combatable {
 			print (this.GetInstanceID() + " is DEAD!!");
 			onDeath();
 		}
-		if(gameManagerS.current_turn == Turn.Base)
+		if(gm.current_turn == Turn.Base)
 		{
  
 			if(!waiting_after_shot)
@@ -226,72 +225,22 @@ public class entityBaseS : Combatable {
 				if(current_attacks_this_round == 0)
 				{
 					
-					if(current_hp <= max_hp)
+					if(current_hp < max_hp)
 					{
-						entityManagerS.createHealEffect(x,z);
+						em.createHealEffect(x,z);
 						audio.PlayOneShot(sound_repair);
-						current_hp += heal_amount;						
+						current_hp += heal_amount;		
+						if(current_hp > max_hp)
+							current_hp = max_hp;
 					}
 						
-					gameManagerS.endBaseTurn();
+					gm.endBaseTurn();
 				}
 				else
 				{
-					gameManagerS.endBaseTurn();
+					gm.endBaseTurn();
 				}
 				
-//					
-//					
-//					//check ap
-//					if(current_ap <= 0 || (can_not_heal && can_not_attack))
-//					{
-//						//Debug.Log("Ran out of Ap or can't make a move");
-//						gameManagerS.endBaseTurn();
-//						can_not_heal = false;
-//						can_not_attack = false;
-//					}
-//					else
-//					{
-//						//Check to see if base can heal
-//						int temp = current_hp;
-//						if(current_hp < max_hp && canHeal()){ 
-//							int heal_points = healhp(heal_amount);
-//							if(heal_points == temp){
-//								//Debug.Log ("no healing occurred");
-//								can_not_heal = true;
-//							}else{
-//								if(current_ap - heal_cost < 0){
-//									//Debug.Log ("not enough ap to heal");
-//									can_not_heal = true;
-//								}else{
-//									//Debug.Log ("healing occured");
-//									current_ap -= heal_cost;
-//								}
-//							}
-//						}else{
-//							//Debug.Log ("can't heal, under attack");
-//							can_not_heal = true;
-//						}
-//						
-//						//Check to see if base can attack
-//						//entityEnemyS enemy_s = getWeakestEnemy();
-//						Enemy enemy_s = getWeakestEnemy();
-//						if(enemy_s != null){	
-//							if(current_ap - attack_cost < 0){
-//								//Debug.Log ("Can't attack, not enough ap, so END TURN");
-//								can_not_attack = true;
-//							}else{
-//								//current_ap -= attack_cost;
-//								int damage_done = attackTarget (enemy_s);
-//								//Debug.Log ("ATTACK opponent, damage done = " + damage_done);
-//							}
-//							
-//						}else{
-//							//Debasug.Log ("no enemies in range, can't attack");
-//							can_not_attack = true;
-//						}
-//					}
-//						
 			}
 			else
 			{
@@ -357,7 +306,7 @@ public class entityBaseS : Combatable {
 	
 	public override bool onDeath()
 	{
-		entityManagerS.getGameManger().endGame(false);
+		gm.endGame(false);
 		return true;
 	}
 	
@@ -367,7 +316,7 @@ public class entityBaseS : Combatable {
 		//increase health, walls(armour), attack/range cost, and reduce ap
 		//Upgrades can only be applied once
 		
-		entityManagerS.getMech().subtractPartCosts(baseupgrademode_entrieslists[category][(int)upgrade -1 ]);
+		em.getMech().subtractPartCosts(baseupgrademode_entrieslists[category][(int)upgrade -1 ]);
 		audio.PlayOneShot(sound_upgrade);
 		switch(category){ 
 
@@ -502,52 +451,16 @@ public class entityBaseS : Combatable {
 			health_last_turn = current_hp;
 		return true;
 	}
-//		
-//		
-//			HexData[] adjacent_hexes = hexManagerS.getAdjacentHexes(x, z);
-//			
-//			//See if any of the adjacent_hexes are an enemy
-//			for(int i = 0; i < adjacent_hexes.Length; i++)
-//				if(entityManagerS.getEnemyAt(adjacent_hexes[i].x, adjacent_hexes[i].z) != null)
-//					return false; 
-//			
-//			return true;
-	
-	//return script of weakest enemy, this method seems slow, may adjust later
-//	entityEnemyS getWeakestEnemy(){
-//		int low_health = 9999;
-//		entityEnemyS final_weak_enemy = null;
-//		//get all hexes in attack range
-//		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z,attack_range)){
-//				//check to see if enemy is at hex
-//				entityEnemyS weak_enemy = entityManagerS.getEnemyAt(h.x, h.z);
-//				if(weak_enemy != null){
-//					if( weak_enemy.current_hp < low_health){
-//						//Debug.Log("Weakest enemy is: " + weak_enemy.x + ":" + weak_enemy.z);
-//						low_health = weak_enemy.current_hp;
-//						final_weak_enemy = weak_enemy;
-//					}
-//				}
-//		}
-//		
-//		if(low_health == 9999){ 
-//			//Debug.Log ("no enemy's in attack range");
-//			return null;
-//		}
-//		
-//		return final_weak_enemy;
-//		
-//	}
 	
 	//return script of weakest enemy, this method seems slow, may adjust later
 	private Enemy getWeakestEnemy(){
 		int low_health = 9999;
 		Enemy final_weak_enemy = null;
 		//get all hexes in attack range
-		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z,attack_range)){
+		foreach(HexData h in hm.getAdjacentHexes(x,z,attack_range)){
 				//check to see if enemy is at hex
 			
-				Enemy current_enemy = entityManagerS.getEnemyAt(h.x, h.z);
+				Enemy current_enemy = em.getEnemyAt(h.x, h.z);
 			
 				//is an enemy there?
 				if(current_enemy != null){
@@ -565,7 +478,7 @@ public class entityBaseS : Combatable {
 	//return script of weakest enemy, this method seems slow, may adjust later
 	public bool mechNextToBase(int m_x, int m_z){
 		//get all hexes in attack range
-		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z)){
+		foreach(HexData h in hm.getAdjacentHexes(x,z)){
 			//check to see if enemy is at hex
 			if(m_x == h.x && m_z == h.z){
 				return true;
@@ -577,10 +490,10 @@ public class entityBaseS : Combatable {
 	
 	public bool transportMechToBase(){
 		//get all hexes in attack range
-		foreach(HexData h in hexManagerS.getAdjacentHexes(x,z)){
+		foreach(HexData h in hm.getAdjacentHexes(x,z)){
 			//check to see if enemy is at hex
-			if(!entityManagerS.isEntityPos(h,EntityE.Enemy)){
-				entityMechS script_mech = entityManagerS.getMech();
+			if(!em.isEntityPos(h,EntityE.Enemy)){
+				entityMechS script_mech = em.getMech();
 				script_mech.transportToHex(h,false);
 				return true;
 			}

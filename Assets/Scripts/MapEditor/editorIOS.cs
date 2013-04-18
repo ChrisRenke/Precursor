@@ -10,13 +10,13 @@ using System.IO;
 public class editorIOS : MonoBehaviour {
 	
 	
-	public static string       level_name = "untitled level";  
-	public static string	   level_number = "0"; 
-	public static int          level_editor_format_version = 8;
-	public static string 	   LAST_EDITED  = "LASTEDITED";
-	private static String      key_list_key = "LEVELKEYS";
+	public string       level_name = "untitled level";  
+	public string	   level_number = "0"; 
+	public int          level_editor_format_version = 8;
+	public string 	   LAST_EDITED  = "LASTEDITED";
+	private String      key_list_key = "LEVELKEYS";
 	
-	private	static string[] stringSeparators = new string[] {" = "};  
+	private	string[] stringSeparators = new string[] {" = "};  
 	
 	// Use this for initialization
 	void Start () 
@@ -162,7 +162,7 @@ public class editorIOS : MonoBehaviour {
 	}
 	
 	
-	public static bool Load()
+	public bool Load()
 	{
 		// 1 - delete EVERYTHING that exists in map
 		// 2 - start drawing hexes from file
@@ -174,7 +174,7 @@ public class editorIOS : MonoBehaviour {
 		FileInfo filer = new FileInfo(Application.dataPath + "/" + level_name + ".txt");
 		if(filer != null && filer.Exists)
 		{
-		   reader  = filer.OpenText();  // returns StreamReader
+		   reader = null;//  = filer.OpenText();  // returns StreamReader
 		} 
 		else
 		{
@@ -351,57 +351,57 @@ public class editorIOS : MonoBehaviour {
 		return true;
 	}
 	
-	public static BaseUpgradeLevel getBaseUpgrade(String line)
+	public BaseUpgradeLevel getBaseUpgrade(String line)
 	{  
     	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
 		return (BaseUpgradeLevel)BaseUpgradeLevel.Parse(typeof(BaseUpgradeLevel), items[1]);
 	}
-	public static EntityE getEnemyUpgrade(String line)
+	public EntityE getEnemyUpgrade(String line)
 	{  
     	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
 		return (EntityE)EntityE.Parse(typeof(EntityE), items[1]);
 	}
-	public static NodeLevel getNodeLevelR(String line)
+	public NodeLevel getNodeLevelR(String line)
 	{  
     	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
 		return (NodeLevel)NodeLevel.Parse(typeof(NodeLevel), items[1]);
 	}
 	
-	public static string getStringR(String line)
+	public  string getStringR(String line)
 	{  
     	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
 		return items[1];
 	}
 	 
-	public static int getIntR(String line)
+	public  int getIntR(String line)
 	{  
     	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
 		return int.Parse(items[1]);
 	}
 	
-	public static bool getBoolR(String line)
+	public  bool getBoolR(String line)
 	{  
     	string[] items = line.Split(stringSeparators, StringSplitOptions.None);
 		return bool.Parse(items[1]);
 	}
 	
-	public static bool getCBR(String line) //close bracket Reader
+	public  bool getCBR(String line) //close bracket Reader
 	{  
 		print ("CBR CHECK: " + line);
     	return line.Contains("}"); 
 	}
 	
-	public static  bool getOBR(String reader) //close bracket Reader
+	public   bool getOBR(String reader) //close bracket Reader
 	{  
     	return reader.Contains("{"); 
 	}
 	
-	public static bool getHexR(String reader) //close bracket Reader
+	public  bool getHexR(String reader) //close bracket Reader
 	{  
     	return reader.Contains("HEX{"); 
 	}
 	
-	public static bool getEntR(String reader) //close bracket Reader
+	public   bool getEntR(String reader) //close bracket Reader
 	{  
     	return reader.Contains("ENTITY{"); 
 	} 

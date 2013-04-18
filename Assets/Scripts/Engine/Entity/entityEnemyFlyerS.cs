@@ -7,7 +7,6 @@ public class entityEnemyFlyerS : Enemy {
 	private bool   end_turn;
 	private HexData last_move; //Can't Move Backwards unless can't move anywhere else; 
 	
-	public static bool show_health_bar = true;
 	
 	int t = 0; //test
 	
@@ -32,7 +31,7 @@ public class entityEnemyFlyerS : Enemy {
 		attack_cost = 2;
 		attack_range = 1;
 		attack_damage = 10;
-		last_move = hexManagerS.getHex(x,z); //last move = current position  
+		last_move = hm.getHex(x,z); //last move = current position  
 		
 //        while (i < vertices.Length) {
 //			print (vertices[i].z);
@@ -69,24 +68,22 @@ public class entityEnemyFlyerS : Enemy {
 		center_top = new Vector3((max.x + min.x)/2, max.y+5, max.z);
 		
 		//script variable used to check whether menu screen is on
-		if(hexManagerS.getHex(x,z).vision_state == Vision.Live && show_health_bar){
+		if(hm.getHex(x,z).vision_state == Vision.Live){
 			Vector3 center_top_ss = Camera.main.WorldToScreenPoint (center_top);
 //			Vector3 center_top_ss = Camera.main.WorldToScreenPoint (transform.position + new Vector3(0,0,1.3F));
 			
-			GUI.DrawTexture(new Rect(center_top_ss.x - 43, Screen.height - center_top_ss.y, 83, 18), enginePlayerS.chris_hp_bg); 
+			GUI.DrawTexture(new Rect(center_top_ss.x - 43, Screen.height - center_top_ss.y, 83, 18), ep.chris_hp_bg_in); 
 			GUI.BeginGroup (new Rect (center_top_ss.x - 38, Screen.height - center_top_ss.y+4, (int)(73*((float)current_hp/(float)max_hp)), 10));
-				GUI.DrawTexture(new Rect (0, 0, 73, 10), enginePlayerS.chris_hp, ScaleMode.StretchToFill);
+				GUI.DrawTexture(new Rect (0, 0, 73, 10), ep.chris_hp_in, ScaleMode.StretchToFill);
 			GUI.EndGroup (); 
 		 	
-			GUI.Label(new Rect(center_top_ss.x - 39, Screen.height - center_top_ss.y+4, 75, 10),  current_hp + "/" +  max_hp,  enginePlayerS.hp_bar_for_enemy); 
+			GUI.Label(new Rect(center_top_ss.x - 39, Screen.height - center_top_ss.y+4, 75, 10),  current_hp + "/" +  max_hp,  ep.hp_bar); 
 		}
 	}
 	
 	// Update is called once per frame
-	void Update () {	 
-		//print("checking if alive enemy " + this.GetInstanceID());
-		if(t==0){
-			//Debug.Log ("enemies on board: " + entityManagerS.enemy_list.Count);
+	void Update () {	  
+		if(t==0){ 
 			t=1;
 		}
 		
@@ -100,7 +97,7 @@ public class entityEnemyFlyerS : Enemy {
 			//Debug.Log(this.GetInstanceID() + " is DEAD!!");
 			onDeath();
 			is_this_enemies_turn = false;
-			gameManagerS.enemy_currently_acting = false;
+			gm.enemy_currently_acting = false;
 			end_turn = false;
 			last_path_cost = 0;
 			path_to_base = new List<HexData>();
@@ -109,7 +106,7 @@ public class entityEnemyFlyerS : Enemy {
 		}
 		else
 		{
-			if(gameManagerS.current_turn == Turn.Enemy  && !lerp_move && is_this_enemies_turn)
+			if(gm.current_turn == Turn.Enemy  && !lerp_move && is_this_enemies_turn)
 			{
 				//if( t== 0 || t == 1 || t == 2){
 				//Debug.Log ("ENEMY TURN NOW " + x + ":" + z);
@@ -117,8 +114,8 @@ public class entityEnemyFlyerS : Enemy {
 //				print ("ENEMY Ap = " + current_ap);
 				
 				//get base and mech positions
-				entityBaseS base_s = entityManagerS.getBase();
-				entityMechS mech_s = entityManagerS.getMech();
+				entityBaseS base_s = em.getBase();
+				entityMechS mech_s = em.getMech();
 				chosen_path_is_mech = false;
 				chosen_path_is_base = false;
 				
@@ -127,7 +124,7 @@ public class entityEnemyFlyerS : Enemy {
 				{
 					//Debug.Log("Ran out of Ap or can't make a move");
 					is_this_enemies_turn = false;
-					gameManagerS.enemy_currently_acting = false;
+					gm.enemy_currently_acting = false;
 					end_turn = false;
 					last_path_cost = 0;
 					path_to_base = new List<HexData>();
@@ -151,7 +148,7 @@ public class entityEnemyFlyerS : Enemy {
 					
 					
 					//Debug.Log ("Determine whether you can get to MECH and store path cost");
-					can_get_to_mech_location = canGetToOpponent(hexManagerS.getHex(x,z),hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Player, knows_mech_location, ref path_to_mech);
+					can_get_to_mech_location = canGetToOpponent(hm.getHex(x,z),hm.getHex(mech_s.x,mech_s.z), EntityE.Player, knows_mech_location, ref path_to_mech);
 					double mech_path_cost = last_path_cost;
 					if(!can_get_to_mech_location)
 						mech_path_cost = 0;
@@ -160,7 +157,7 @@ public class entityEnemyFlyerS : Enemy {
 					//Debug.Log ("-------------------------------------------------");
 					
 					//Debug.Log ("Determine whether you can get to BASE and store path cost");
-					can_get_to_base_location = canGetToOpponent(hexManagerS.getHex(x,z),hexManagerS.getHex(base_s.x,base_s.z), EntityE.Base, knows_base_location, ref path_to_base);
+					can_get_to_base_location = canGetToOpponent(hm.getHex(x,z),hm.getHex(base_s.x,base_s.z), EntityE.Base, knows_base_location, ref path_to_base);
 					double base_path_cost = last_path_cost;
 					if(!can_get_to_base_location)
 						base_path_cost = 0;
@@ -199,7 +196,7 @@ public class entityEnemyFlyerS : Enemy {
 						}
 						else if(can_get_to_base_location){	
 							//Debug.Log ("Update 2:2: knows base location, can't get to mech, check for shorter path to base assuming we can't see mech");
-							path_to_base = extractPath(hexManagerS.getTraversablePath(hexManagerS.getHex(x,z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
+							path_to_base = extractPath(hm.getTraversablePath(hm.getHex(x,z), hm.getHex(base_s.x,base_s.z), EntityE.Player, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
 							base_path_cost = last_path_cost;
 							if(path_to_base.Count == 0){
 								//Debug.Log ("Update 2:3: knows base location, shouldn't reach this code, since path to base already found");
@@ -215,7 +212,7 @@ public class entityEnemyFlyerS : Enemy {
 							path_to_opponent = path_to_mech;
 						}else{
 							//Debug.Log ("Update 2:6: knows base location, can't find a path to either but try to find path to base assuming mech may be blocking path");
-							path_to_base =  extractPath(hexManagerS.getTraversablePath (hexManagerS.getHex(x,z), hexManagerS.getHex(base_s.x,base_s.z), EntityE.Player, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
+							path_to_base =  extractPath(hm.getTraversablePath (hm.getHex(x,z), hm.getHex(base_s.x,base_s.z), EntityE.Player, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
 							base_path_cost = last_path_cost;
 							if(path_to_base.Count == 0){
 								//Debug.Log ("Update 2:7: knows base location, path not found to base or mech");
@@ -233,7 +230,7 @@ public class entityEnemyFlyerS : Enemy {
 							path_to_opponent = minCostPath(mech_weight, base_weight, mech_path_cost, base_path_cost, ref path_to_mech, ref path_to_base);
 						}else if(can_get_to_mech_location){
 							//Debug.Log ("Update 3:2: knows mech location, can't see base so try to find shorter path to mech");
-							path_to_mech = extractPath(hexManagerS.getTraversablePath(hexManagerS.getHex(x,z), hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Base, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
+							path_to_mech = extractPath(hm.getTraversablePath(hm.getHex(x,z), hm.getHex(mech_s.x,mech_s.z), EntityE.Base, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
 							mech_path_cost = last_path_cost;
 							if(path_to_mech.Count == 0){
 								//Debug.Log ("Update 3:3: knows mech location, shouldn't reach this code since path to mech known");
@@ -249,7 +246,7 @@ public class entityEnemyFlyerS : Enemy {
 							chosen_path_is_base = true;
 						}else{
 							//Debug.Log ("Update 3:6: knows mech location, try to find path to mech assuming path is blocked by base");
-							path_to_mech = extractPath(hexManagerS.getTraversablePath(hexManagerS.getHex(x,z), hexManagerS.getHex(mech_s.x,mech_s.z), EntityE.Base, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
+							path_to_mech = extractPath(hm.getTraversablePath(hm.getHex(x,z), hm.getHex(mech_s.x,mech_s.z), EntityE.Base, getTraverseAPCostPathVersion, getAdjacentTraversableHexes));
 							mech_path_cost = last_path_cost;
 							if(path_to_mech.Count == 0){
 								//Debug.Log ("Update 3:7: knows mech location, can't find a path to base or mech");
@@ -293,6 +290,7 @@ public class entityEnemyFlyerS : Enemy {
 							}else{
 								int damage_done = -1;
 								damage_done = attackTarget (target);
+								em.killed_enemy_count--;
 								current_hp = 0;
 							}
 						}else{
@@ -321,7 +319,7 @@ public class entityEnemyFlyerS : Enemy {
 									end_turn = true;
 								}else{
 									//Debug.Log ("Update 5:3: Move to random position");
-									last_move = hexManagerS.getHex(x,z);
+									last_move = hm.getHex(x,z);
 									makeMove(path_to_opponent[move]);
 								}
 								
@@ -340,10 +338,12 @@ public class entityEnemyFlyerS : Enemy {
 							int damage_done = -1;
 							if(chosen_path_is_mech){
 								damage_done = attackTarget (mech_s);
+								em.killed_enemy_count--;
 								current_hp = 0;
 								//Debug.Log ("Target is Mech , damage done = " + damage_done);
 							}else if (chosen_path_is_base){
 								damage_done = attackTarget (base_s);
+								em.killed_enemy_count--;
 								current_hp = 0;
 								//Debug.Log ("Target is Base , damage done = " + damage_done);
 							}else{
@@ -362,6 +362,7 @@ public class entityEnemyFlyerS : Enemy {
 							}else{
 								int damage_done = -1;
 								damage_done = attackTarget (target);
+								em.killed_enemy_count--;
 								current_hp = 0;
 							}
 						}else{
@@ -371,7 +372,7 @@ public class entityEnemyFlyerS : Enemy {
 								end_turn = true;
 							}else{
 								//Debug.Log ("Update 5:9: Move enemy one position on path");
-								last_move = hexManagerS.getHex(x,z);
+								last_move = hm.getHex(x,z);
 								makeMove(path_to_opponent[0]);
 							}
 						}
@@ -387,7 +388,7 @@ public class entityEnemyFlyerS : Enemy {
 		
 			if(lerp_move)
 			{	
-				if(hexManagerS.getHex(x,z).vision_state != Vision.Live)
+				if(hm.getHex(x,z).vision_state != Vision.Live)
 				{
 					
 					lerp_move = false;
@@ -414,9 +415,9 @@ public class entityEnemyFlyerS : Enemy {
 	
 	public override bool canTraverseHex (int hex_x, int hex_z, EntityE entity)
 	{
-		HexData hex = hexManagerS.getHex(hex_x, hex_z);
+		HexData hex = hm.getHex(hex_x, hex_z);
 		
-		if(!entityManagerS.canTraverseHex(hex.x, hex.z, entity)){
+		if(!em.canTraverseHex(hex.x, hex.z, entity)){
 			//Debug.Log ("enemy hex");
 			return false;
 		}else if(hex.hex_type == Hex.Perimeter){
@@ -428,9 +429,9 @@ public class entityEnemyFlyerS : Enemy {
 	
 	public override bool canTraverseHex (int hex_x, int hex_z)
 	{
-		HexData hex = hexManagerS.getHex(hex_x, hex_z);
+		HexData hex = hm.getHex(hex_x, hex_z);
 		
-		if(!entityManagerS.canTraverseHex(hex.x, hex.z)){
+		if(!em.canTraverseHex(hex.x, hex.z)){
 			//Debug.Log ("enemy hex");
 			return false;
 		}else if(hex.hex_type == Hex.Perimeter){
@@ -468,7 +469,7 @@ public class entityEnemyFlyerS : Enemy {
 	
 	public void updateFoWState()
 	{
-		HexData occupying_hex = hexManagerS.getHex(x, z);
+		HexData occupying_hex = hm.getHex(x, z);
 		switch(occupying_hex.vision_state)
 		{
 		case Vision.Live:
@@ -490,7 +491,7 @@ public class entityEnemyFlyerS : Enemy {
 	
 	public override bool onDeath()
 	{
-		entityManagerS.purgeEnemy(this);
+		em.purgeEnemy(this);
 		return false;
 	}
 }
