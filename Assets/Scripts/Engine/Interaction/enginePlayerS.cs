@@ -865,7 +865,7 @@ public class enginePlayerS : MonoBehaviour {
 		if(gm.display_hud_obj_area)
 		{
 			GUI.DrawTexture(new Rect(562,59,156,31), hud_indicator_box);
-			ShadowAndOutline.DrawOutline(new Rect(562,59,156,26), gm.getHUDIndicatorText(), menu_filter_text, new Color(0,0,0,.7F),Color.white, 3F);
+			ShadowAndOutline.DrawOutline(new Rect(562,59,156,23), gm.getHUDIndicatorText(), menu_filter_text, new Color(0,0,0,.7F),Color.white, 3F);
 		}
 		
 		 

@@ -82,14 +82,11 @@
      <None Include="Assets\Vectrosity\Shaders\ParticleZwrite.shader" />
      <None Include="Assets\Scripts\_Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
      <None Include="Assets\BETALEVELs\Level_4.txt" />
-     <None Include="Assets\level_testE_02.txt" />
      <None Include="Assets\Vectrosity\Shaders\Unlit .shader" />
-     <None Include="Assets\yourtextfile.txt" />
-     <None Include="Assets\test_before_alex.txt" />
-     <None Include="Assets\level_testE2.txt" />
-     <None Include="Assets\supertestbs.txt" />
+     <None Include="Assets\tut_v1.txt" />
      <None Include="Assets\Vectrosity\Shaders\UnlitAlpha.shader" />
      <None Include="Assets\BETALEVELs\Level_00_Tutorial.txt" />
+     <None Include="Assets\tt1.txt" />
      <None Include="Assets\BETALEVELs\Level_3.txt" />
      <None Include="Assets\Scripts\_Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
      <None Include="Assets\Materials\mat terrain textures\draft_terrain_sprite.txt" />
@@ -98,9 +95,7 @@
      <None Include="Assets\Scripts\_Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
      <None Include="Assets\Scripts\_Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
      <None Include="Assets\BETALEVELs\Level_1.txt" />
-     <None Include="Assets\supertest.txt" />
-     <None Include="Assets\level_testE.txt" />
-     <None Include="Assets\testyE.txt" />
+     <None Include="Assets\tut_v1e.txt" />
      <None Include="Assets\Vectrosity\Shaders\DepthMask.shader" />
      <None Include="Assets\Materials\texture.shader" />
      <None Include="Assets\Vectrosity\Shaders\SolidColor.shader" />

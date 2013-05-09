@@ -628,17 +628,34 @@ public class gameManagerS : MonoBehaviour {
 			GUI.DrawTexture(new Rect(0,0,Screen.width, Screen.height), repair_alert_corner);
 		}
 		
-		if(Input.GetKeyDown(KeyCode.F10))
-		{
-			endGame((int)Time.time % 2 == 1);
-		}
+	 
 		
-		if(Input.GetKeyDown(KeyCode.F9))
+		if(Input.GetKeyDown(KeyCode.F4))
 		{
-			em.getMech().adjustPartCount(Part.Gear, 2000);
-			em.getMech().adjustPartCount(Part.Piston, 2000);
-			em.getMech().adjustPartCount(Part.Plate, 2000);
-			em.getMech().adjustPartCount(Part.Strut, 2000);
+			em.getMech().adjustPartCount(Part.Gear, 4);
+			em.getMech().adjustPartCount(Part.Piston, 4);
+			em.getMech().adjustPartCount(Part.Plate, 4);
+			em.getMech().adjustPartCount(Part.Strut, 4);
+		}
+		if(Input.GetKeyDown(KeyCode.F5))
+		{
+			Application.LoadLevel("Level0");
+		}
+		if(Input.GetKeyDown(KeyCode.F6))
+		{
+			Application.LoadLevel("Level1");
+		}
+		if(Input.GetKeyDown(KeyCode.F6))
+		{
+			Application.LoadLevel("Level2");
+		}
+		if(Input.GetKeyDown(KeyCode.F7))
+		{
+			Application.LoadLevel("Level3");
+		}
+		if(Input.GetKeyDown(KeyCode.F8))
+		{
+			Application.LoadLevel("Level4");
 		}
 	}
 	
