@@ -26,6 +26,7 @@ public hexManagerS hm;
 	public  int					enemy_max_hp      = 15;
 	 
 	
+	public   GameObject     particle_shot;
 	public GameObject base_entity_1;
 	public GameObject player_entity;
 	public GameObject enemy_entity;
@@ -95,6 +96,11 @@ public hexManagerS hm;
 				node.SetVisiual();		
 			}
 	}
+	
+	public  void createShotEffect(int x, int z)
+    {
+        Instantiate( particle_shot, CoordsGameTo3DEntiy(x, z) + new Vector3(0,-2F, 0), Quaternion.identity);
+    }
 	
 	public  NodeData getNodeInfoAt(int x, int z)
 	{

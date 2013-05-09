@@ -379,9 +379,17 @@ public class engineHexS : MonoBehaviour {
 								border.SetColor(ep.scavenge); 
 							}
 							else{
-								
-								genTextString(SelectLevel.Scavenge, -1);
-								border.SetColor(ep.disable);
+								if(mech_is_here){
+                                    genTextString(SelectLevel.MechUpgrade, -1);
+                                    ep.setRoute(null, hex_display_text, hex_data);
+                                    border.SetColor(ep.upgrade); 
+                                    return;
+                                }else{
+                                    genTextString(SelectLevel.Scavenge, -1);
+                                    border.SetColor(ep.disable);
+                                }
+//								genTextString(SelectLevel.Scavenge, -1);
+//								border.SetColor(ep.disable);
 								
 							}
 						}

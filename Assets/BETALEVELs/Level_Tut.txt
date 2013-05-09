@@ -1,0 +1,11425 @@
+LEVEL{
+	EDITOR VER   = 8
+	Level Name   = Level_Tut
+	Level Number = 0
+	Round Num    = 1
+	Turn         = Player
+	Current_ap   = 18
+	X_dim        = 56
+	Z_dim        = 59
+	X_min        = -11
+	X_max        = 44
+	Z_min        = -22
+	Z_max        = 36
+	Total_Hexes  = 2259
+	Game_Hexes   = 2063
+	Border_Hexes = 196
+	HEXES{
+		HEX{ 
+			X    = 0
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = -17
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 0
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 0
+			Z    = 16
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 1
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 1
+			Z    = 16
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 1
+			Z    = -18
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -1
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = -17
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -1
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = -1
+			Z    = 15
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -1
+			Z    = 16
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 2
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = 16
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 2
+			Z    = 17
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 2
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 2
+			Z    = -19
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 3
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = 17
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 3
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 3
+			Z    = -19
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 4
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = 17
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 4
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 4
+			Z    = -20
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -2
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = -16
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -2
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = -2
+			Z    = 15
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -3
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = -15
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -3
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = -3
+			Z    = 15
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -4
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = -14
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -4
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = -4
+			Z    = 14
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -4
+			Z    = 15
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -5
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = -13
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -5
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = -5
+			Z    = 13
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -5
+			Z    = 14
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -6
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = -12
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -6
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = -6
+			Z    = 11
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -6
+			Z    = 12
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -6
+			Z    = 13
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -7
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = -11
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -7
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = -7
+			Z    = 10
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -7
+			Z    = 11
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 5
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = 17
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 5
+			Z    = 18
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 5
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 5
+			Z    = -21
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 6
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = 18
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 6
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 6
+			Z    = -21
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 7
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -4
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 7
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = 18
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 7
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 7
+			Z    = -21
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 8
+			Z    = 1
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 8
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -3
+			Type = Grass
+		}
+		HEX{ 
+			X    = 8
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -4
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 8
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = 18
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 8
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 8
+			Z    = -21
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 8
+			Z    = 19
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 8
+			Z    = 20
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 8
+			Z    = 21
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 8
+			Z    = 22
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 8
+			Z    = 23
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 9
+			Z    = 0
+			Type = Grass
+		}
+		HEX{ 
+			X    = 9
+			Z    = -1
+			Type = Desert
+		}
+		HEX{ 
+			X    = 9
+			Z    = 1
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 9
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -2
+			Type = Desert
+		}
+		HEX{ 
+			X    = 9
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -3
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 9
+			Z    = -4
+			Type = Hills
+		}
+		HEX{ 
+			X    = 9
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 18
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 9
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -21
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = -22
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 9
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 23
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 9
+			Z    = 24
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 9
+			Z    = 25
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 9
+			Z    = 26
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 9
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 9
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 0
+			Type = Grass
+		}
+		HEX{ 
+			X    = 10
+			Z    = -1
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 10
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -2
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 10
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -21
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = -22
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 10
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 10
+			Z    = 26
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 10
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -2
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 11
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -1
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 11
+			Z    = 0
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 11
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -21
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = -22
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 11
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 11
+			Z    = 26
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 12
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -1
+			Type = Hills
+		}
+		HEX{ 
+			X    = 12
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -21
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = -22
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 12
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 12
+			Z    = 26
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 13
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -1
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 13
+			Z    = 0
+			Type = Grass
+		}
+		HEX{ 
+			X    = 13
+			Z    = 1
+			Type = Forest
+		}
+		HEX{ 
+			X    = 13
+			Z    = 2
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 13
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -21
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = -22
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 13
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 13
+			Z    = 26
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 13
+			Z    = 27
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 13
+			Z    = 28
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 13
+			Z    = 29
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 13
+			Z    = 30
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 13
+			Z    = 31
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 13
+			Z    = 32
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 14
+			Z    = -1
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 14
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 0
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 14
+			Z    = 1
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 14
+			Z    = 2
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 14
+			Z    = 3
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 14
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -21
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = -22
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 14
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 27
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 14
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 14
+			Z    = 32
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 15
+			Z    = 2
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 15
+			Z    = 1
+			Type = Forest
+		}
+		HEX{ 
+			X    = 15
+			Z    = 0
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 15
+			Z    = 3
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 15
+			Z    = -1
+			Type = Hills
+		}
+		HEX{ 
+			X    = 15
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -21
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = -22
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 15
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 32
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 15
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 15
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 2
+			Type = Hills
+		}
+		HEX{ 
+			X    = 16
+			Z    = 1
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 16
+			Z    = 0
+			Type = Grass
+		}
+		HEX{ 
+			X    = 16
+			Z    = -1
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 16
+			Z    = -2
+			Type = Hills
+		}
+		HEX{ 
+			X    = 16
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -21
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = -22
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 16
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 32
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 16
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 16
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 1
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 17
+			Z    = 0
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 17
+			Z    = -1
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 17
+			Z    = -2
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 17
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 2
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 17
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = -21
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 17
+			Z    = -22
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 17
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 32
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 17
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 17
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 0
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 18
+			Z    = 1
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 18
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = -21
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 18
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 18
+			Z    = 32
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 19
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -1
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 19
+			Z    = 0
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 19
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 3
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 19
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 12
+			Type = Desert
+		}
+		HEX{ 
+			X    = 19
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = -21
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 19
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 19
+			Z    = 32
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 19
+			Z    = 33
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 19
+			Z    = 34
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 19
+			Z    = 35
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 19
+			Z    = 36
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 20
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -1
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 20
+			Z    = -2
+			Type = Hills
+		}
+		HEX{ 
+			X    = 20
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 1
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 20
+			Z    = 2
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 20
+			Z    = 3
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 20
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 4
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 20
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 12
+			Type = Desert
+		}
+		HEX{ 
+			X    = 20
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -20
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = -21
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 20
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 32
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 33
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 34
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 35
+			Type = Water
+		}
+		HEX{ 
+			X    = 20
+			Z    = 36
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -8
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = 8
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -8
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = -8
+			Z    = -10
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -8
+			Z    = 9
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -8
+			Z    = 10
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 21
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 0
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 21
+			Z    = -1
+			Type = Grass
+		}
+		HEX{ 
+			X    = 21
+			Z    = -2
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 21
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 1
+			Type = Desert
+		}
+		HEX{ 
+			X    = 21
+			Z    = 2
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 21
+			Z    = 3
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 21
+			Z    = 4
+			Type = Grass
+		}
+		HEX{ 
+			X    = 21
+			Z    = 5
+			Type = Forest
+		}
+		HEX{ 
+			X    = 21
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 6
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 21
+			Z    = 7
+			Type = Hills
+		}
+		HEX{ 
+			X    = 21
+			Z    = 8
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 21
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = -20
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 21
+			Z    = -21
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 21
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 32
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 33
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 34
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 35
+			Type = Water
+		}
+		HEX{ 
+			X    = 21
+			Z    = 36
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -9
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 7
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -9
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = -9
+			Z    = -7
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -9
+			Z    = -8
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -9
+			Z    = -9
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -9
+			Z    = 8
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -10
+			Z    = 5
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -10
+			Z    = 6
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -10
+			Z    = 7
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -10
+			Z    = 4
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -10
+			Z    = 3
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -10
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = -10
+			Z    = -6
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 22
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 1
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 22
+			Z    = 0
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 22
+			Z    = -1
+			Type = Grass
+		}
+		HEX{ 
+			X    = 22
+			Z    = 2
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 22
+			Z    = 3
+			Type = Grass
+		}
+		HEX{ 
+			X    = 22
+			Z    = 4
+			Type = Hills
+		}
+		HEX{ 
+			X    = 22
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 5
+			Type = Hills
+		}
+		HEX{ 
+			X    = 22
+			Z    = 6
+			Type = Forest
+		}
+		HEX{ 
+			X    = 22
+			Z    = 7
+			Type = Grass
+		}
+		HEX{ 
+			X    = 22
+			Z    = 8
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 22
+			Z    = 9
+			Type = Grass
+		}
+		HEX{ 
+			X    = 22
+			Z    = 10
+			Type = Grass
+		}
+		HEX{ 
+			X    = 22
+			Z    = 11
+			Type = Grass
+		}
+		HEX{ 
+			X    = 22
+			Z    = 12
+			Type = Grass
+		}
+		HEX{ 
+			X    = 22
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = -20
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 22
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 32
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 33
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 34
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 35
+			Type = Water
+		}
+		HEX{ 
+			X    = 22
+			Z    = 36
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 23
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 6
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 23
+			Z    = 7
+			Type = Grass
+		}
+		HEX{ 
+			X    = 23
+			Z    = 8
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 23
+			Z    = 9
+			Type = Grass
+		}
+		HEX{ 
+			X    = 23
+			Z    = 10
+			Type = Grass
+		}
+		HEX{ 
+			X    = 23
+			Z    = 11
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 23
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 12
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 23
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -19
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = -20
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 23
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 32
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 33
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 34
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 35
+			Type = Water
+		}
+		HEX{ 
+			X    = 23
+			Z    = 36
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -11
+			Z    = 1
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -11
+			Z    = 2
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -11
+			Z    = 3
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -11
+			Z    = 0
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -11
+			Z    = -1
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -11
+			Z    = -2
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -11
+			Z    = -5
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -11
+			Z    = -4
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = -11
+			Z    = -3
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 24
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 6
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 24
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 7
+			Type = Forest
+		}
+		HEX{ 
+			X    = 24
+			Z    = 8
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 24
+			Z    = 9
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 24
+			Z    = 10
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 24
+			Z    = 11
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 24
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 12
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 24
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = -19
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 24
+			Z    = -20
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 24
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 32
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 33
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 34
+			Type = Water
+		}
+		HEX{ 
+			X    = 24
+			Z    = 35
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 25
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 8
+			Type = Marsh
+		}
+		HEX{ 
+			X    = 25
+			Z    = 9
+			Type = Grass
+		}
+		HEX{ 
+			X    = 25
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 10
+			Type = Farmland
+		}
+		HEX{ 
+			X    = 25
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 11
+			Type = Forest
+		}
+		HEX{ 
+			X    = 25
+			Z    = 12
+			Type = Forest
+		}
+		HEX{ 
+			X    = 25
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -18
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = -19
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 25
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 32
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 33
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 34
+			Type = Water
+		}
+		HEX{ 
+			X    = 25
+			Z    = 35
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 26
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 9
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 26
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 10
+			Type = Forest
+		}
+		HEX{ 
+			X    = 26
+			Z    = 11
+			Type = Grass
+		}
+		HEX{ 
+			X    = 26
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 12
+			Type = Grass
+		}
+		HEX{ 
+			X    = 26
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = -18
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 26
+			Z    = -19
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 26
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 32
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 33
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 34
+			Type = Water
+		}
+		HEX{ 
+			X    = 26
+			Z    = 35
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 27
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 9
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 27
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 10
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 27
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = -18
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 27
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 32
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 33
+			Type = Water
+		}
+		HEX{ 
+			X    = 27
+			Z    = 34
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 28
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 9
+			Type = Mountain
+		}
+		HEX{ 
+			X    = 28
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = -18
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 28
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 32
+			Type = Water
+		}
+		HEX{ 
+			X    = 28
+			Z    = 33
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 29
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -17
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = -18
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 29
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 31
+			Type = Water
+		}
+		HEX{ 
+			X    = 29
+			Z    = 32
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 30
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = -17
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 30
+			Z    = -18
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 30
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 30
+			Z    = 31
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 31
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -16
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = -17
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 31
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 30
+			Type = Water
+		}
+		HEX{ 
+			X    = 31
+			Z    = 31
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 32
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = -16
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 32
+			Z    = -17
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 32
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 29
+			Type = Water
+		}
+		HEX{ 
+			X    = 32
+			Z    = 30
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 33
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -15
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = -16
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 33
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 28
+			Type = Water
+		}
+		HEX{ 
+			X    = 33
+			Z    = 29
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 34
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = -13
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = -14
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = -15
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 34
+			Z    = -16
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 34
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 27
+			Type = Water
+		}
+		HEX{ 
+			X    = 34
+			Z    = 28
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 35
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = -12
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = -13
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 35
+			Z    = -14
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 35
+			Z    = -15
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 35
+			Z    = -11
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = -10
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 26
+			Type = Water
+		}
+		HEX{ 
+			X    = 35
+			Z    = 27
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 36
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = -10
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 36
+			Z    = -11
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 36
+			Z    = -12
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 36
+			Z    = -13
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 36
+			Z    = -9
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = -8
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = -7
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = -6
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = -5
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = -4
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = -3
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 25
+			Type = Water
+		}
+		HEX{ 
+			X    = 36
+			Z    = 26
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 37
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = -7
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 37
+			Z    = -8
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 37
+			Z    = -9
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 37
+			Z    = -10
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 37
+			Z    = -6
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 37
+			Z    = -5
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 37
+			Z    = -4
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 37
+			Z    = -3
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 37
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 37
+			Z    = 25
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 38
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 24
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 25
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 38
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 38
+			Z    = -3
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 39
+			Z    = 23
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 24
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 39
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 39
+			Z    = -3
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 40
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 22
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 23
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 40
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = -2
+			Type = Water
+		}
+		HEX{ 
+			X    = 40
+			Z    = -3
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 41
+			Z    = 21
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 20
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 19
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 18
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 22
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 41
+			Z    = 17
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 16
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 15
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 1
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = 0
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = -1
+			Type = Water
+		}
+		HEX{ 
+			X    = 41
+			Z    = -2
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 41
+			Z    = -3
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 42
+			Z    = 21
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 42
+			Z    = 20
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 42
+			Z    = 19
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 42
+			Z    = 18
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 42
+			Z    = 17
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 42
+			Z    = 16
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 42
+			Z    = 15
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 42
+			Z    = 14
+			Type = Water
+		}
+		HEX{ 
+			X    = 42
+			Z    = 13
+			Type = Water
+		}
+		HEX{ 
+			X    = 42
+			Z    = 12
+			Type = Water
+		}
+		HEX{ 
+			X    = 42
+			Z    = 11
+			Type = Water
+		}
+		HEX{ 
+			X    = 42
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 42
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 42
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 42
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 42
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 42
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 42
+			Z    = 4
+			Type = Water
+		}
+		HEX{ 
+			X    = 42
+			Z    = 3
+			Type = Water
+		}
+		HEX{ 
+			X    = 42
+			Z    = 2
+			Type = Water
+		}
+		HEX{ 
+			X    = 42
+			Z    = 1
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 42
+			Z    = 0
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 42
+			Z    = -1
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 42
+			Z    = -2
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 43
+			Z    = 14
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 43
+			Z    = 13
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 43
+			Z    = 12
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 43
+			Z    = 11
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 43
+			Z    = 10
+			Type = Water
+		}
+		HEX{ 
+			X    = 43
+			Z    = 9
+			Type = Water
+		}
+		HEX{ 
+			X    = 43
+			Z    = 8
+			Type = Water
+		}
+		HEX{ 
+			X    = 43
+			Z    = 7
+			Type = Water
+		}
+		HEX{ 
+			X    = 43
+			Z    = 6
+			Type = Water
+		}
+		HEX{ 
+			X    = 43
+			Z    = 5
+			Type = Water
+		}
+		HEX{ 
+			X    = 43
+			Z    = 4
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 43
+			Z    = 3
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 43
+			Z    = 2
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 43
+			Z    = 1
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 44
+			Z    = 10
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 44
+			Z    = 9
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 44
+			Z    = 8
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 44
+			Z    = 7
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 44
+			Z    = 6
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 44
+			Z    = 5
+			Type = Perimeter
+		}
+		HEX{ 
+			X    = 44
+			Z    = 4
+			Type = Perimeter
+		}
+	}
+	ENTITIES{
+		ENTITY{ 
+			X          = 16
+			Z          = 0
+			Type       = Junkyard
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = 26
+			Z          = 11
+			Type       = Spawn
+			spawn_id   = 4
+			cadence    = 1/7,0/8
+			mech_loc   = False
+			base_loc   = True
+			enemy_typ  = Enemy
+		}
+		ENTITY{ 
+			X          = 26
+			Z          = 12
+			Type       = Spawn
+			spawn_id   = 3
+			cadence    = 1/7,0/8
+			mech_loc   = False
+			base_loc   = True
+			enemy_typ  = Enemy
+		}
+		ENTITY{ 
+			X          = 13
+			Z          = -1
+			Type       = Outpost
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = 13
+			Z          = 2
+			Type       = Factory
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = 11
+			Z          = -1
+			Type       = Junkyard
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = 23
+			Z          = 9
+			Type       = Town
+			current_hp = 100
+			max_hp     = 100
+			Wall_Lvl   = Level0
+			Def_lvl    = Level0
+			Struc_lvl  = Level0
+		}
+		ENTITY{ 
+			X          = 25
+			Z          = 8
+			Type       = Factory
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = 25
+			Z          = 9
+			Type       = Outpost
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = 24
+			Z          = 7
+			Type       = Junkyard
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = 7
+			Z          = -4
+			Type       = Mech
+			current_hp = 30
+			max_hp     = 30
+			gun_range  = False
+			gun_cost   = False
+			gun_damage = False
+			mobi_cost  = False
+			mobi_water = False
+			mobi_mntn  = False
+			ex_tele    = False
+			ex_armor   = False
+			ex_scav    = False
+		}
+		ENTITY{ 
+			X          = 21
+			Z          = 1
+			Type       = Enemy
+			current_hp = 15
+			max_hp     = 15
+			owner_id   = 0
+			mech_loc   = False
+			base_loc   = False
+			enemy_typ  = Enemy
+		}
+		ENTITY{ 
+			X          = 19
+			Z          = 12
+			Type       = Spawn
+			spawn_id   = 2
+			cadence    = 1/7,0/8
+			mech_loc   = False
+			base_loc   = True
+			enemy_typ  = Flyer
+		}
+	}
+}

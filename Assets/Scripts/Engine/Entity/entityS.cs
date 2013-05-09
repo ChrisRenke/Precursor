@@ -134,8 +134,11 @@ public abstract class  Combatable : Entity{
 		current_hp -= adjusted_damage;
 		
 		int hp_remaning = current_hp; 
-		if(checkIfDead())
-			onDeath();
+		if(checkIfDead()){
+            onDeath();
+        }else{
+            em.createShotEffect(x,z);
+        }
 			
 		return hp_remaning;
 	}

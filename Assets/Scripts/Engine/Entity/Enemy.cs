@@ -366,7 +366,7 @@ public abstract class Enemy : Combatable, IMove, IPathFind {
 		gm.time_after_shot_start = Time.time;
 		
 		//Debug.LogWarning("ABOUT TO ATTACK ENTITY " + target.GetInstanceID());
-		if(target != null)
+		if(target != null & target.current_hp > 0)
 			if(target.x == em.getMech().x && target.z == em.getMech().z)
 			{
 				if(!em.getMech().checkMechDodge())

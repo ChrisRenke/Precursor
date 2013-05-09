@@ -399,21 +399,41 @@ public class entityMechS : Combatable, IMove {
 		return  upgrade_scavenge_cost ? scavenge_upgrade_cost : scavenge_core_cost;
 	}
 	
-	public void recallBase(){
-		
-		if(upgrade_util_recall)
-		{
-			List<HexData> adj_to_town = new List<HexData>(hm.getAdjacentHexes(em.getBase().x, em.getBase().z));
-			foreach(HexData hex in adj_to_town)
-			{
-				if(!em.getEnemyAt(hex.x, hex.z))
-				{
-					moveToHex(hex,false);
-					audio.PlayOneShot(sound_recall);
-				}
-			}
-		}
-	}
+	public bool about_to_transport = false;
+    public void recallBase(){
+        
+        if(upgrade_util_recall & current_ap >= util_recall_cost)
+        {
+            List<HexData> adj_to_town = new List<HexData>(hm.getAdjacentHexes(em.getBase().x, em.getBase().z));
+            foreach(HexData hex in adj_to_town)
+            {
+                if(!em.getEnemyAt(hex.x, hex.z))
+                {
+                    about_to_transport = true;
+                    moveToHex(hex,false);
+                    audio.PlayOneShot(sound_recall);
+                    about_to_transport = false;
+                    break;
+                }
+            }
+        }
+    }
+//	
+//	public void recallBase(){
+//		
+//		if(upgrade_util_recall)
+//		{
+//			List<HexData> adj_to_town = new List<HexData>(hm.getAdjacentHexes(em.getBase().x, em.getBase().z));
+//			foreach(HexData hex in adj_to_town)
+//			{
+//				if(!em.getEnemyAt(hex.x, hex.z))
+//				{
+//					moveToHex(hex,false);
+//					audio.PlayOneShot(sound_recall);
+//				}
+//			}
+//		}
+//	}
 	
 	public int parts_collected = 0;
 	public bool attemptScavenge(Node node_type, NodeLevel resource_level, int x, int z)
@@ -650,7 +670,10 @@ public class entityMechS : Combatable, IMove {
 		em.disableFacingDirectionsRange(hm.getHex(x,z), sight_range);
 		
 		hm.getHex(x,z).hex_script.mech_is_here = false;
-		current_ap -= location.traversal_cost;
+		if(about_to_transport)
+            current_ap -= util_recall_cost;
+        else
+            current_ap -= location.traversal_cost;
 		setLocation(location.x, location.z);	
 		moveInWorld(location.x, location.z, 6F);
 		

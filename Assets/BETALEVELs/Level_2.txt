@@ -438,7 +438,7 @@ LEVEL{
 		HEX{ 
 			X    = 1
 			Z    = 16
-			Type = Mountain
+			Type = Grass
 		}
 		HEX{ 
 			X    = 1
@@ -788,7 +788,7 @@ LEVEL{
 		HEX{ 
 			X    = -1
 			Z    = 14
-			Type = Mountain
+			Type = Grass
 		}
 		HEX{ 
 			X    = -1
@@ -4353,7 +4353,7 @@ LEVEL{
 		HEX{ 
 			X    = -7
 			Z    = 16
-			Type = Water
+			Type = Grass
 		}
 		HEX{ 
 			X    = -7
@@ -4638,17 +4638,17 @@ LEVEL{
 		HEX{ 
 			X    = -8
 			Z    = 16
-			Type = Water
+			Type = Grass
 		}
 		HEX{ 
 			X    = -8
 			Z    = 17
-			Type = Water
+			Type = Grass
 		}
 		HEX{ 
 			X    = -8
 			Z    = 18
-			Type = Water
+			Type = Grass
 		}
 		HEX{ 
 			X    = -8
@@ -8143,22 +8143,22 @@ LEVEL{
 		HEX{ 
 			X    = -9
 			Z    = 16
-			Type = Water
+			Type = Grass
 		}
 		HEX{ 
 			X    = -9
 			Z    = 17
-			Type = Water
+			Type = Grass
 		}
 		HEX{ 
 			X    = -9
 			Z    = 18
-			Type = Water
+			Type = Grass
 		}
 		HEX{ 
 			X    = -9
 			Z    = 19
-			Type = Water
+			Type = Grass
 		}
 		HEX{ 
 			X    = -9
@@ -8463,12 +8463,12 @@ LEVEL{
 		HEX{ 
 			X    = -10
 			Z    = 18
-			Type = Water
+			Type = Grass
 		}
 		HEX{ 
 			X    = -10
 			Z    = 19
-			Type = Water
+			Type = Grass
 		}
 		HEX{ 
 			X    = -10
@@ -8808,7 +8808,7 @@ LEVEL{
 		HEX{ 
 			X    = -11
 			Z    = 19
-			Type = Water
+			Type = Grass
 		}
 		HEX{ 
 			X    = -11
@@ -15603,6 +15603,18 @@ LEVEL{
 			enemy_typ  = Enemy
 		}
 		ENTITY{ 
+			X          = 7
+			Z          = 14
+			Type       = Junkyard
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = 7
+			Z          = 20
+			Type       = Outpost
+			node_level = Full
+		}
+		ENTITY{ 
 			X          = 9
 			Z          = -2
 			Type       = Outpost
@@ -15629,6 +15641,12 @@ LEVEL{
 		ENTITY{ 
 			X          = 9
 			Z          = 12
+			Type       = Junkyard
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = 9
+			Z          = 9
 			Type       = Junkyard
 			node_level = Full
 		}
@@ -15672,6 +15690,12 @@ LEVEL{
 			Struc_lvl  = Level0
 		}
 		ENTITY{ 
+			X          = 6
+			Z          = 17
+			Type       = Outpost
+			node_level = Full
+		}
+		ENTITY{ 
 			X          = -3
 			Z          = 25
 			Type       = Outpost
@@ -15698,6 +15722,18 @@ LEVEL{
 		ENTITY{ 
 			X          = 2
 			Z          = 24
+			Type       = Factory
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = 2
+			Z          = 17
+			Type       = Factory
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = 2
+			Z          = 7
 			Type       = Factory
 			node_level = Full
 		}
@@ -15741,6 +15777,18 @@ LEVEL{
 			enemy_typ  = Enemy
 		}
 		ENTITY{ 
+			X          = -4
+			Z          = 15
+			Type       = Factory
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = -4
+			Z          = 7
+			Type       = Factory
+			node_level = Full
+		}
+		ENTITY{ 
 			X          = -9
 			Z          = 10
 			Type       = Junkyard
@@ -15766,6 +15814,18 @@ LEVEL{
 		ENTITY{ 
 			X          = -9
 			Z          = 11
+			Type       = Junkyard
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = -9
+			Z          = 18
+			Type       = Factory
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = -9
+			Z          = 17
 			Type       = Junkyard
 			node_level = Full
 		}
@@ -15889,10 +15949,40 @@ LEVEL{
 			Z          = 3
 			Type       = Spawn
 			spawn_id   = 1
-			cadence    = 1/5,0/6,2/10,0/12,3/15,5/19,6/25,10/38
+			cadence    = 1/3,0/6,1/8,2/10,0/12,3/15,0/19,1/21,2/25,0/30,2/33,1/35,3/38
 			mech_loc   = False
 			base_loc   = True
 			enemy_typ  = Enemy
+		}
+		ENTITY{ 
+			X          = 3
+			Z          = -4
+			Type       = Outpost
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = 3
+			Z          = 21
+			Type       = Factory
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = 12
+			Z          = 9
+			Type       = Factory
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = 4
+			Z          = 11
+			Type       = Junkyard
+			node_level = Full
+		}
+		ENTITY{ 
+			X          = -10
+			Z          = 18
+			Type       = Outpost
+			node_level = Full
 		}
 	}
 }

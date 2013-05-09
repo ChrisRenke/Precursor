@@ -187,6 +187,7 @@ public class entityBaseS : Combatable {
 	}
 	
 	public bool onFire = false;
+	public bool is_dead = false;
 	// Update is called once per frame
 	
 	void Update () {
@@ -206,12 +207,13 @@ public class entityBaseS : Combatable {
 		}
 		 
 		
-		 
-		if(checkIfDead()){
-			Debug.LogError("SHIT BE DEAD YO!");
-			print (this.GetInstanceID() + " is DEAD!!");
-			onDeath();
-		}
+		 if(!is_dead & checkIfDead()){
+            //Debug.LogError("SHIT BE DEAD YO!");
+            print (this.GetInstanceID() + " is DEAD!!");
+            onDeath();
+            is_dead = true;
+            gm.endBaseTurn();
+        } 
 		if(gm.current_turn == Turn.Base)
 		{
  
