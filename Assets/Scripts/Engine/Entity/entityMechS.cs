@@ -126,8 +126,6 @@ public class entityMechS : Combatable, IMove {
 		
 		current_ap = starting_ap;
 		max_ap = starting_ap_max;
-		createUpgradeMenuEntries();
-		
 	}
 	
 	public List<HexData> adjacent_visible_hexes;
@@ -189,6 +187,11 @@ public class entityMechS : Combatable, IMove {
 		ep = GameObject.Find("enginePlayer").GetComponent<enginePlayerS>();
 		em = GameObject.Find("engineEntityManager").GetComponent<entityManagerS>();
 		hm = GameObject.Find("engineHexManager").GetComponent<hexManagerS>();
+		
+		if(gm.current_level != Level.Level0)
+			createUpgradeMenuEntries();
+		else
+			createUpgradeMenuEntriesTutorial();
 		updateFoWStates();
 }
 	
@@ -931,6 +934,83 @@ public class entityMechS : Combatable, IMove {
 	
 //public enum MechUpgrade { Move_Water, Move_Mountain, Move_Marsh, Move_Legs, Combat_Damage, Combat_Cost, Combat_Range, Combat_Armor, Combat_Dodge, 
 //		Scavenge_Combat, Scavenge_Greed, Scavenge_Empty, Scavenge_Cost, Util_Recall, Util_Vision, Util_AP, Util_Heal, Util_Idle };
+	
+	private void createUpgradeMenuEntriesTutorial()
+	{
+	mechupgrademode_entrieslists = new Dictionary<MechUpgradeMode, List<UpgradeEntry>>(); 
+		mechupgrade_to_entries = new Dictionary<MechUpgrade, UpgradeEntry>();
+		
+		List<UpgradeEntry> movement_upgrades = new List<UpgradeEntry>();
+		List<UpgradeEntry> combat_upgrades = new List<UpgradeEntry>();
+		List<UpgradeEntry> scavenge_upgrades = new List<UpgradeEntry>();
+		List<UpgradeEntry> utility_upgrades = new List<UpgradeEntry>();
+//		 																					 			 		gear pis plt stru
+		movement_upgrades.Add (new UpgradeEntry("Aquatic Fins", 		"Allows Water hex traversal (5 AP)",	99,	99,	99,	99,	2, upgrade_menu_entry_fins, MechUpgrade.Move_Water, false));
+		movement_upgrades.Add (new UpgradeEntry("Mountaineering Claws",	"Allows Mountain hex traversal (5 AP)",	2,	4,	0,	2,	2, upgrade_menu_entry_mountains, MechUpgrade.Move_Mountain, true));
+		movement_upgrades.Add (new UpgradeEntry("Marsh Stabilizers",	"Reduces Marsh hex traversal by 1 AP",	99,	99,	99,	99,	2, upgrade_menu_entry_marsh, MechUpgrade.Move_Marsh, false));
+		movement_upgrades.Add (new UpgradeEntry("Re-engineered Frame",	"Reduces all hex traversal by 1 AP",	99,	99,	99,	99,	2, upgrade_menu_entry_legs, MechUpgrade.Move_Legs, false));
+					 																	                	                          
+		combat_upgrades.Add (new UpgradeEntry("Howizter Bore",			"Increases attack damage by 3",			99,	99,	99,	99,	2, upgrade_menu_entry_gundamage, MechUpgrade.Combat_Damage, false));
+		combat_upgrades.Add (new UpgradeEntry("Efficient Reload", 		"Reduces attack cost by 2 AP",			99,	99,	99,	99,	2, upgrade_menu_entry_guncost,   MechUpgrade.Combat_Cost, false));
+		combat_upgrades.Add (new UpgradeEntry("Targeting Optics", 		"Increases attack range by 1",			99,	99,	99,	99,	2, upgrade_menu_entry_gunrange,  MechUpgrade.Combat_Range, false));
+		combat_upgrades.Add (new UpgradeEntry("Gilded Armor", 			"Reduces damage recieved by 2",			99,	99,	99,	99,	2, upgrade_menu_entry_armor,     MechUpgrade.Combat_Armor, false));
+		combat_upgrades.Add (new UpgradeEntry("Reactive Manuever", 		"Gives 20% change to dodge attacks",	99,	99,	99,	99,	2, upgrade_menu_entry_dodge,     MechUpgrade.Combat_Dodge, false));
+					 																	                	                          
+		scavenge_upgrades.Add (new UpgradeEntry("Combat Salvage",		"Gain one random part from kills",		99,	99,	99,	99,	2, upgrade_menu_entry_killscavenge, MechUpgrade.Scavenge_Combat, false));
+		scavenge_upgrades.Add (new UpgradeEntry("Greedy Gather", 		"Gain one extra part per scavenge",		99,	99,	99,	99,	2, upgrade_menu_entry_extrapartsscavenge, MechUpgrade.Scavenge_Greed, false));
+		scavenge_upgrades.Add (new UpgradeEntry("Probing Sensors", 		"25% change to scavenge empty nodes",	99,	99,	99,	99,	2, upgrade_menu_entry_ap,            MechUpgrade.Scavenge_Empty, false));
+		scavenge_upgrades.Add (new UpgradeEntry("Efficient Scavenge", 	"Reduceds cost of scavenge by 1",	99,99,99,99,	2, upgrade_menu_entry_costscavenge,  MechUpgrade.Scavenge_Cost, false));
+	  	scavenge_upgrades.Add (new UpgradeEntry("Expanded Cargohold", 	"Increase part capacity to 20",		99,99,99,99,	2, upgrade_menu_entry_part_capacity, MechUpgrade.Util_Parts, false));
+					 																	                	                          
+		utility_upgrades.Add (new UpgradeEntry("Augemented Perception",	"Increase vision range by 2",			99,	99,	99,	99,	2, upgrade_menu_entry_visionrange, MechUpgrade.Util_Vision, false));
+		utility_upgrades.Add (new UpgradeEntry("Redline Reactor", 		"Increase max AP by 5",					99,	99,	99,	99,	2, upgrade_menu_entry_ap, MechUpgrade.Util_AP, false));
+		utility_upgrades.Add (new UpgradeEntry("Town Recall",			"Click base to teleport home (6 AP)",	99,	99,	99,	99,	2, upgrade_menu_entry_recallbase, MechUpgrade.Util_Recall, false));
+		utility_upgrades.Add (new UpgradeEntry("Idle Reconstruction", 	"Covert 5 AP into 1 HP at end of turn",	99,	99,	99,	99,	2, upgrade_menu_entry_healidle, MechUpgrade.Util_Idle, false));
+	 
+		
+		
+//																						 			 		gear pis plt stru
+//		movement_upgrades.Add (new UpgradeEntry("Aquatic Fins", 		"Allows Water hex traversal (5 AP)",	1,	5,	1,	1,	2, upgrade_menu_entry_fins, MechUpgrade.Move_Water, false));
+//		movement_upgrades.Add (new UpgradeEntry("Mountaineering Claws",	"Allows Mountain hex traversal (5 AP)",	2,	4,	0,	2,	2, upgrade_menu_entry_mountains, MechUpgrade.Move_Mountain, true));
+//		movement_upgrades.Add (new UpgradeEntry("Marsh Stabilizers",	"Reduces Marsh hex traversal by 1 AP",	0,	1,	4,	4,	2, upgrade_menu_entry_marsh, MechUpgrade.Move_Marsh, false));
+//		movement_upgrades.Add (new UpgradeEntry("Re-engineered Frame",	"Reduces all hex traversal by 1 AP",	6,	3,	1,	3,	2, upgrade_menu_entry_legs, MechUpgrade.Move_Legs, false));
+//			 
+//		combat_upgrades.Add (new UpgradeEntry("Howizter Bore",			"Increases attack damage by 3",			1,	2,	4,	2,	2, upgrade_menu_entry_gundamage, MechUpgrade.Combat_Damage, false));
+//		combat_upgrades.Add (new UpgradeEntry("Efficient Reload", 		"Reduces attack cost by 2 AP",			2,	2,	0,	2,	2, upgrade_menu_entry_guncost,   MechUpgrade.Combat_Cost, false));
+//		combat_upgrades.Add (new UpgradeEntry("Targeting Optics", 		"Increases attack range by 1",			4,	1,	1,	2,	2, upgrade_menu_entry_gunrange,  MechUpgrade.Combat_Range, false));
+//		combat_upgrades.Add (new UpgradeEntry("Gilded Armor", 			"Reduces damage recieved by 2",			2,	0,	6,	0,	2, upgrade_menu_entry_armor,     MechUpgrade.Combat_Armor, false));
+//		combat_upgrades.Add (new UpgradeEntry("Reactive Manuever", 		"Gives 20% change to dodge attacks",	0,	4,	0,	4,	2, upgrade_menu_entry_dodge,     MechUpgrade.Combat_Dodge, false));
+//					 
+//		scavenge_upgrades.Add (new UpgradeEntry("Combat Salvage",		"Gain one random part from kills",		2,	3,	0,	2,	2, upgrade_menu_entry_killscavenge, MechUpgrade.Scavenge_Combat, false));
+//		scavenge_upgrades.Add (new UpgradeEntry("Greedy Gather", 		"Gain one extra part per scavenge",		0,	2,	1,	4,	2, upgrade_menu_entry_extrapartsscavenge, MechUpgrade.Scavenge_Greed, false));
+//		scavenge_upgrades.Add (new UpgradeEntry("Probing Sensors", 		"25% change to scavenge empty nodes",	4,	2,	0,	0,	2, upgrade_menu_entry_ap,            MechUpgrade.Scavenge_Empty, false));
+//		scavenge_upgrades.Add (new UpgradeEntry("Efficient Scavenge", 	"Reduceds cost of scavenge by 1",		2,	2,	2,	2,	2, upgrade_menu_entry_costscavenge,  MechUpgrade.Scavenge_Cost, false));
+//	  	scavenge_upgrades.Add (new UpgradeEntry("Expanded Cargohold", 	"Increase part capacity to 20",			2,	2,	2,	2,	2, upgrade_menu_entry_part_capacity, MechUpgrade.Util_Parts, false));
+//	 	
+//		utility_upgrades.Add (new UpgradeEntry("Augemented Perception",	"Increase vision range by 2",			1,	2,	0,	3,	2, upgrade_menu_entry_visionrange, MechUpgrade.Util_Vision, false));
+//		utility_upgrades.Add (new UpgradeEntry("Redline Reactor", 		"Increase max AP by 5",					3,	6,	2,	2,	2, upgrade_menu_entry_ap, MechUpgrade.Util_AP, false));
+//		utility_upgrades.Add (new UpgradeEntry("Town Recall",			"Click base to teleport home (6 AP)",	1,	4,	5,	0,	2, upgrade_menu_entry_recallbase, MechUpgrade.Util_Recall, false));
+//		utility_upgrades.Add (new UpgradeEntry("Idle Reconstruction", 	"Covert 5 AP into 1 HP at end of turn",	4,	0,	0,	4,	2, upgrade_menu_entry_healidle, MechUpgrade.Util_Idle, false));
+//	 
+		mechupgrademode_entrieslists.Add(MechUpgradeMode.Combat, combat_upgrades);
+		mechupgrademode_entrieslists.Add(MechUpgradeMode.Movement, movement_upgrades);
+		mechupgrademode_entrieslists.Add(MechUpgradeMode.Scavenge, scavenge_upgrades);
+		mechupgrademode_entrieslists.Add(MechUpgradeMode.Utility, utility_upgrades); 
+		
+		foreach(UpgradeEntry entry in movement_upgrades) 
+			mechupgrade_to_entries.Add(entry.upgrade_type, entry); 
+		
+		foreach(UpgradeEntry entry in combat_upgrades) 
+			mechupgrade_to_entries.Add(entry.upgrade_type, entry); 
+		
+		foreach(UpgradeEntry entry in scavenge_upgrades) 
+			mechupgrade_to_entries.Add(entry.upgrade_type, entry); 
+		
+		foreach(UpgradeEntry entry in utility_upgrades) 
+			mechupgrade_to_entries.Add(entry.upgrade_type, entry); 
+		
+	}
+	
 	private void createUpgradeMenuEntries()
 	{
 		mechupgrademode_entrieslists = new Dictionary<MechUpgradeMode, List<UpgradeEntry>>(); 

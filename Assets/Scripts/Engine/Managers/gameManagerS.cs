@@ -71,7 +71,7 @@ public class gameManagerS : MonoBehaviour {
 		switch(current_level)
 		{
 			case Level.Level0: 
-				if(em.getMech().player_kills >= 2 && em.getMech().getUpgradeCount() > 0 && current_fst >= 12)
+				if(em.killed_enemy_count >= 3)
 				{
 					if(!fired_win_already)
 					{
@@ -236,7 +236,7 @@ public class gameManagerS : MonoBehaviour {
 		switch(current_level)
 		{
 			case Level.Level0:
-				return "Enemy Kills: " + em.getMech().player_kills + "/2";
+				return "Enemy Kills: " + em.killed_enemy_count + "/3";
 			
 			case Level.Level1:
 				return "Enemy Kills: " + em.killed_enemy_count + "/20";
@@ -296,92 +296,122 @@ public class gameManagerS : MonoBehaviour {
 	
 	public int current_fst = 0;
 	public bool show_fst = true;
+//	
+//	public Texture getCurrentFullscreenTip()
+//	{
+//		if(current_level == Level.Level0)
+//		{
+//			if(!show_fst)
+//				return null;
+//			if(show_fst && current_level == Level.Level0)
+//				switch(current_fst){ 
+//					case 0: return camera_controls;
+//					case 1: return ap_info;
+//					case 2: return movement_information;
+//				
+//					case 3: return hp_parts;
+//					case 4: return enemies_spawns;
+//					case 5: return repair_town;
+//					case 6: return rounds_objectives;
+//					case 7: return town_defend;
+//				
+//					case 8: return upgrade_base_objective;
+//					case 9: return upgrade_base;
+//					case 10: return nodes;
+//				
+//					case 11: return kill_5; 
+//					case 12: return upgrade_mech;
+//				}
+//		return null;
+//		}
+//		else
+//			if(current_level == Level.Level3){
+//				if(current_fst == 0)  
+//					return flyer_warning;
+//				else
+//					return null;
+//			
+//		}
+//		return null;
+//	}
 	
-	public Texture getCurrentFullscreenTip()
-	{
-		if(current_level == Level.Level0)
-		{
-			if(!show_fst)
-				return null;
-			if(show_fst && current_level == Level.Level0)
-				switch(current_fst){ 
-					case 0: return camera_controls;
-					case 1: return ap_info;
-					case 2: return movement_information;
-				
-					case 3: return hp_parts;
-					case 4: return enemies_spawns;
-					case 5: return repair_town;
-					case 6: return rounds_objectives;
-					case 7: return town_defend;
-				
-					case 8: return upgrade_base_objective;
-					case 9: return upgrade_base;
-					case 10: return nodes;
-				
-					case 11: return kill_5; 
-					case 12: return upgrade_mech;
-				}
-		return null;
-		}
-		else
-			if(current_level == Level.Level3){
-				if(current_fst == 0)  
-					return flyer_warning;
-				else
-					return null;
-			
-		}
-		return null;
-	}
 	
-	
-	public Texture ap_info; 
-	public Texture camera_controls;
-	public Texture enemies_spawns;
-	public Texture hp_parts;
-	public Texture kill_5;
-	public Texture nodes;
-	public Texture repair_town;
-	public Texture rounds_objectives;
-	public Texture upgrade_mech;
-	public Texture upgrade_base;
-	public Texture upgrade_base_objective;
-	public Texture movement_information;
-	public Texture town_defend;
-	public Texture repair_alert_corner;
-	
+//	public Texture ap_info; 
+//	public Texture camera_controls;
+//	public Texture enemies_spawns;
+//	public Texture hp_parts;
+//	public Texture kill_5;
+//	public Texture nodes;
+//	public Texture repair_town;
+//	public Texture rounds_objectives;
+//	public Texture upgrade_mech;
+//	public Texture upgrade_base;
+//	public Texture upgrade_base_objective;
+//	public Texture movement_information;
+//	public Texture town_defend;
+//	public Texture repair_alert_corner;
+//	
 	public bool first_move_popup_display = false;
-	
-	public Vector3 getScreenSpot(int x, int z)
+//	
+	public Vector3 getScreenSpotInt(int x, int z)
 	{
 		return Camera.main.WorldToScreenPoint (hm.CoordsGameTo3D(x, z)); 
+	}		
+	
+	public Vector3 getScreenSpot(float xx, float yy)
+	{
+		Vector2 v2 = new Vector2(xx,yy);
+		return Camera.main.WorldToScreenPoint (new Vector3(v2.x,0,v2.y)); 
 	}		 
 	public List<PopupInfo> getPopupInfoForLevel(){
-		
+		return new List<PopupInfo>();
 		switch(current_level)
 		{
 			case Level.Level0:
-			List<PopupInfo> values = new List<PopupInfo>();
-			PopupInfo temp  = new PopupInfo("This is your Town.\nDefend it at all costs!",getScreenSpot(21,21), Trigger.AlwaysOn, 1);
-			temp.widthless = 100; temp.heightless = 140;
-			values.Add(temp);
+				List<PopupInfo> values = new List<PopupInfo>();
+				PopupInfo temp  = new PopupInfo("Click here to move.", getScreenSpot(28.54951F, 57.88783F), Trigger.Visible, 1);
+				temp.widthless = 100; temp.heightless = 152;
+				values.Add(temp);
+				
+				temp  = new PopupInfo("Next, move here!", getScreenSpot(27.5F, 66.5F), Trigger.Visible, 1);
+				temp.widthless = 100; temp.heightless = 152;
+				values.Add(temp);
 			
-			temp  = new PopupInfo("This is a FACTORY.\nScavenge here to get\nPistons and Gears!",getScreenSpot(27 		,19), Trigger.AlwaysOn, 2);
-			temp.widthless = 100; temp.heightless = 120;
-			values.Add(temp);
+				temp  = new PopupInfo("Move on to this tile,\nthen click it to <b>Scavenge</b>\nfor <b>Parts</b> when here.", getScreenSpot(33F,67.3F), Trigger.Visible, 1);
+				temp.widthless = 100; temp.heightless = 106;
+				values.Add(temp);
 			
-			temp  = new PopupInfo("This is an OUTPOST.\nScavenge here to get\nPlates and Struts!",getScreenSpot(23,31), Trigger.AlwaysOn, 3);
-			temp.widthless = 100; temp.heightless = 120;
-			values.Add(temp);
+				temp  = new PopupInfo("This is an <b>Outpost</b>.\nIt gives you <b>Plates</b> & <b>Struts</b>.\nClick here to <b>Scavenge</b>."
+				, getScreenSpot(37.5F,69.9F), Trigger.Visible, 1);
+				temp.widthless = 100; temp.heightless = 106;
+				values.Add(temp);
+				temp  = new PopupInfo("This is a <b>Factory</b>.\nIt gives you <b>Pistons</b> & <b>Gears</b>.\nClick here to<b> Scavenge</b>.", getScreenSpot(35F,75.4F), Trigger.Visible, 1);
+				temp.widthless = 100; temp.heightless = 106;
+				values.Add(temp);
+				temp  = new PopupInfo("This is a <b>Junkyard</b>.\nIt gives you random parts.\nClick here to <b>Scavenge</b>.", getScreenSpot(43.6F,75.8F), Trigger.Visible, 1);
+				temp.widthless = 100; temp.heightless = 106;
+				values.Add(temp);
+			 
+				temp  = new PopupInfo("When you have upgraded <b>Mountaineering Claws,</b>\ncross to here!", getScreenSpot(53.6F,79.2F), Trigger.Visible, 1);
+				temp.widthless = 100; temp.heightless = 106;
+				values.Add(temp);
 			
-			temp  = new PopupInfo("This is a JUNKYARD.\nScavenge here to get\nrandom parts!",getScreenSpot(12,29), Trigger.AlwaysOn, 4);
-			temp.widthless = 100; temp.heightless = 120;
-			values.Add(temp);
-			
-			temp  = new PopupInfo("Click on this tile to move here!\nNotice your mech will automatically\nnavigate the shortest parth!",getScreenSpot(22,13), Trigger.Proximity, 5);
-			temp.widthless = 50; temp.heightless = 90;
-			values.Add(temp);
+			 
+			 
+			 
+
+			 
+//				temp  = new PopupInfo("This is an OUTPOST.\nScavenge here to get\nPlates and Struts!",getScreenSpot(23,31), Trigger.AlwaysOn, 3);
+//				temp.widthless = 100; temp.heightless = 120;
+//				values.Add(temp);
+//				
+//				temp  = new PopupInfo("This is a JUNKYARD.\nScavenge here to get\nrandom parts!",getScreenSpot(12,29), Trigger.AlwaysOn, 4);
+//				temp.widthless = 100; temp.heightless = 120;
+//				values.Add(temp);
+//				
+//				temp  = new PopupInfo("Click on this tile to move here!\nNotice your mech will automatically\nnavigate the shortest parth!",getScreenSpot(22,13), Trigger.Proximity, 5);
+//				temp.widthless = 50; temp.heightless = 90;
+//				values.Add(temp);
  				return values;
 			
 			case Level.Level1:
@@ -407,6 +437,100 @@ public class gameManagerS : MonoBehaviour {
 		return null;
 	}
 	public bool display_hud_obj_area = false;
+	
+	
+	
+	
+	
+	
+	
+	public bool step_1_popup = false;
+	public bool step_2_popup = false;
+	public bool step_5_popup = false; 
+	public bool step_9_popup = false; 
+	
+//	Step 1 
+//Click here to move.
+//x = 28.54951
+//z = 57.88783
+//
+//Step 2 
+//Now move here!
+//x = 27.48197
+//z = 66.47248
+//
+//Step 5 
+//Move on to this tile, and then click here to Scavenge for parts.
+//x = 32.92439
+//z = 67.31445
+//
+//Step 6
+//This is an outpost. It can give you [metal plates] and [struts]. Click here to Scavenge.
+//x = 37.52487
+//z = 69.97057
+//
+//This is a factory. It can give you [pistons] and [gears]. Click here to Scavenge.
+//x = 34.99903
+//z = 75.41302
+//
+//This is a junkyard. It randomly gives you any kind of part. Click here to Scavenge.
+//x = 43.58364
+//z = 75.7689
+//
+//Step 9 
+//Move here
+//x = 53.62655
+//z = 79.26698
+//
+//Step 9.5 Hovering over walker enemy
+//Enemies Mechs get a turn after you take your turn. This enemy walks across the land. They also have an attack range of 2 tiles.
+//
+//Step 10 Hovering over the town
+//This is your Town. It takes its turn after the Enemy Mechs’ turn ends.
+//x = 52.1078
+//z = 101.3927
+//
+//Step 12 Town location
+//Thanks for the walls! Please protect us from the enemies that have been terrorizing our town.
+//x = 52.1078
+//z = 101.3927
+//
+//
+//Step 13 Hover over flyer enemy and spawn point
+//This enemy can fly across the water and mountains. They can move twice and explode on impact inflicting 10 damage.
+//
+//This is an enemy spawn point. During the Enemy’s Turn, an Enemy may appear from here and come to attack your Town.
+//
+//Flyer enemy spawn point
+//x = 40.381
+//z = 101.5229
+//
+//Walker enemy spawn point 1
+//x = 56.48268
+//z = 110.8193
+//
+//Walker enemy spawn point 2
+//x = 57.32463
+//z = 109.0051
+//
+//Step 15 Town location
+//Good job! An earthquake has released rogue mechs into our peaceful world. Please protect us!
+//x = 52.1078
+//z = 101.3927
+//
+//Extra Nodes: (Hover) near Town
+//Outpost
+//56.70828
+//104.0488
+//
+//Factory
+//57.55023
+//102.2346
+//
+//Junkyard
+//56.09194
+//99.09242
+
 	
 	public void requiresHUDIndicatorAtStart()
 	{
@@ -496,7 +620,7 @@ public class gameManagerS : MonoBehaviour {
 		switch(current_level)
 		{
 		case Level.Level0:
-			return "1.) Move towards base.\n2.) Kill an enemy.\n3.) Upgrade base.\n4.) Upgrade Mech.\n5.) Kill 2 additional enemies." ;
+			return "1.) Learn the basics of the game.\n2.) Upgrade your mech with Mountaineering Claws.\n3.) Kill an enemy.\n4.) Upgrade base with Ironplate Retrofit.\n5.) Kill 2 additional enemies." ;
 		case Level.Level1:
 			return "1.) Kill 20 enemies.\n2.) Protect yourself and your base.";	
 		case Level.Level2:
@@ -504,7 +628,7 @@ public class gameManagerS : MonoBehaviour {
 		case Level.Level3:
 			return "1.) Survive for 35 rounds."; 
 		case Level.Level4:
-			return "1. Travel Southeast and reach the sacred valley farm in the mountain crater.\n2.) Beware of the kamikaze mechs.";
+			return "1.) Travel Southeast and reach the sacred valley farm in the mountain crater.\n2.) Beware of the kamikaze mechs.";
 	
 			 
 		}
@@ -623,11 +747,11 @@ public class gameManagerS : MonoBehaviour {
 			drawLevelOverScreen();
 		
 		
-		if(current_level == Level.Level0 && em.getMech().current_hp <= em.getMech().getMaxHP()/2)
-		{
-			GUI.DrawTexture(new Rect(0,0,Screen.width, Screen.height), repair_alert_corner);
-		}
-		
+//		if(current_level == Level.Level0 && em.getMech().current_hp <= em.getMech().getMaxHP()/2)
+//		{
+//			GUI.DrawTexture(new Rect(0,0,Screen.width, Screen.height), repair_alert_corner);
+//		}
+//		
 	 
 		
 		if(Input.GetKeyDown(KeyCode.F4))

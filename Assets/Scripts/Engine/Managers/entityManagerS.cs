@@ -124,6 +124,9 @@ public hexManagerS hm;
 		return false;
 	}
 	
+	public bool isPlayerAt(int x, int z){
+		return mech_s.x == x && mech_s.z == z;
+	}
 	
 	public  entityBaseS getBase(){
 		return base_s;
@@ -605,7 +608,7 @@ public hexManagerS hm;
 			new_enemy_s = (entityEnemyS) new_entity.GetComponent("entityEnemyS");
 		}else{
 			new_entity = instantiateEntity(x, z, EntityE.Flyer); 
-			new_enemy_s = (entityEnemyFlyerS) new_entity.GetComponent("entityEnemyFlyerS");
+			new_enemy_s = (entityEnemyFlyerS) new_entity.GetComponent("entityEnemyFlyerS"); 
 		}
 
 		//entityEnemyS new_enemy_s = (entityEnemyS) new_entity.AddComponent("entityEnemyS");
@@ -623,6 +626,7 @@ public hexManagerS hm;
 		new_enemy_s.knows_base_location = enemy_knows_base_loc;
 		new_enemy_s.knows_mech_location = enemy_knows_mech_loc;
 		new_enemy_s.enemy_type = enemy_type;
+		
 		enemy_list.Add(new_enemy_s);
 	
 		//past the first turn of the game, spawned enemies manage their own presence in the spawner number data shit

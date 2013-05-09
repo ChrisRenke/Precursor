@@ -356,7 +356,38 @@ public class engineHexS : MonoBehaviour {
 				}
 				
 				
-				
+				if(node_occupier)
+				{
+					PopupInfo  temp ;
+					if(node_data.node_type == Node.Outpost)
+					{
+						temp = new PopupInfo("This is an <b>Outpost</b>.\nIt gives you <b>Plates</b> & <b>Struts</b>.\nClick here to <b>Scavenge</b>.", gm.getScreenSpotInt(x_DISPLAYONLY,z_DISPLAYONLY) , Trigger.Visible, 1);
+				 		temp.widthless = 100; temp.heightless = 106; 
+//						ep.drawSpecificPopup(temp.placement, temp.text, temp.widthless, temp.heightless, temp.ID); 
+					}
+					else
+					if(node_data.node_type == Node.Factory)
+					{
+						temp = new PopupInfo("This is an <b>Factory</b>.\nIt gives you <b>Pistons</b> & <b>Gears</b>.\nClick here to <b>Scavenge</b>.", gm.getScreenSpotInt(x_DISPLAYONLY,z_DISPLAYONLY) , Trigger.Visible, 1);
+				 		temp.widthless = 100; temp.heightless = 106; 
+//						ep.drawSpecificPopup(temp.placement, temp.text, temp.widthless, temp.heightless, temp.ID); 
+					}
+					else 
+					{
+						temp = new PopupInfo("This is an <b>Junkyard</b>.\nIt gives you random parts.\nClick here to <b>Scavenge</b>.", gm.getScreenSpotInt(x_DISPLAYONLY,z_DISPLAYONLY) , Trigger.Visible, 1);
+				 		temp.widthless = 100; temp.heightless = 106; 
+//						ep.drawSpecificPopup(temp.placement, temp.text, temp.widthless, temp.heightless, temp.ID); 
+					}
+							
+					ep.drawHoverNodeInfo(temp, true);
+			  
+				}
+				else
+				{
+						
+					ep.disablePI();
+			  
+				}
 				
 				 
 				//if mech standing on this hex

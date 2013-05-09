@@ -765,24 +765,302 @@ public class enginePlayerS : MonoBehaviour {
 	
 	public GUIStyle popup_text;
 	
+	public Texture s1;
+	public Texture s2;
+	public Texture s3_1;
+	public Texture s3_2;
+	public Texture s4;
+	public Texture s5;
+	public Texture s6;
+	public Texture s6_f;
+	public Texture s6_j;
+	public Texture s6_o;
+	public Texture s7;
+	public Texture s8;
+	public Texture s9_1;
+	public Texture s9_2;
+	public Texture s10;
+	public Texture s11;
+	public Texture s14;
 	
+	public bool bs1   = false;
+	public bool bs2   = false;
+	public bool bs3_1   = false;
+	public bool bs3_2   = false;
+	public bool bs4   = false;
+	public bool bs5   = false;
+	public bool bs6   = false;
+	public bool bs6_f   = false;
+	public bool bs6_j   = false;
+	public bool bs6_o   = false;
+	public bool bs7   = false;
+	public bool bs8   = false;
+	public bool bs9_1   = false;
+	public bool bs9_2   = false;
+	public bool bs10   = false;
+	public bool bs11   = false;
+	public bool bs14   = false;
 	
-	private void drawFullscreenTips()
-	{
-		Texture fst = gm.getCurrentFullscreenTip();
-		if(fst!= null)
+	private void drawOverlay(Texture fst, ref bool closer)
+	{ 
+		if(fst!= null && !closer)
 		{
-			GUI.DrawTexture(new Rect (0,0, Screen.width, Screen.height), gm.getCurrentFullscreenTip());	
-			ShadowAndOutline.DrawOutline(new Rect(Screen.width/2 - 100, Screen.height - 100, 200, 50), "Press [SHIFT] to continue.", popup_text, new Color(0,0,0,.7F),Color.white, 3F);
-		}
+			game_paused_overlay = true;
+			GUI.DrawTexture(new Rect (0,0, Screen.width, Screen.height), fst);	
+//			ShadowAndOutline.DrawOutline(new Rect(Screen.width/2 - 100, Screen.height - 100, 200, 50), "Press [SHIFT] to continue.", popup_text, new Color(0,0,0,.7F),Color.white, 3F);
+			if(drawButtonBool(740, 160, 200, "Click Here to Continue"))
+			{
+				closer = true;
+				game_paused_overlay = false;
+			}
+				
+		} 
+	}	
+	
+	public Vector3 getScreenSpot(float xx, float yy)
+	{
+		Vector2 v2 = new Vector2(xx,yy);
+		return Camera.main.WorldToScreenPoint (new Vector3(v2.x,0,v2.y)); 
+	}	
+	
+	bool popup_visible = false;
+	bool beginning_of_game = true;
+	bool spot1 = false;
+	bool spot2 = false;
+	bool spot3 = false;
+	bool spot4 = false;
+	bool spot5 = false;
+	bool spot6 = false;
+	bool spot7 = false;
+	bool spot8 = false;
+	bool upgradedlegs = false;
+	bool nodeflags = false; 
+	
+	public void drawGmaps()
+	{
 		
+		if(gm.current_level == Level.Level0)
+		{
+			if(!spot1)
+			{
+				if(em.isPlayerAt(19,18))
+				{
+					spot1 = true;
+				}
+				PopupInfo temp  = new PopupInfo("Click here to move.", getScreenSpot(28.54951F, 57.88783F), Trigger.Visible, 1);
+					temp.widthless = 100; temp.heightless = 152;
+				drawSpecificPopup(temp.placement, temp.text, temp.widthless, temp.heightless, temp.ID); 
+			}
+			else
+			if(!spot2)
+			{ 
+				if(em.isPlayerAt(20,22))
+				{
+					spot2 = true;
+				} 
+				PopupInfo temp  = new PopupInfo("Next, move here!", getScreenSpot(27.5F, 66.5F), Trigger.Visible, 1);
+				temp.widthless = 100; temp.heightless = 152;
+				drawSpecificPopup(temp.placement, temp.text, temp.widthless, temp.heightless, temp.ID); 
+			}
+			else
+			if(!spot3)
+			{ 
+				if(em.isPlayerAt(23,21))
+				{
+					spot3 = true;
+				} 
+				if(em.getNodeInfoAt(22,21).node_level == NodeLevel.Empty)
+					spot3 = true;
+				PopupInfo temp  = new PopupInfo("Move on to this tile,\nthen click it to <b>Scavenge</b>\nfor <b>Parts</b> until it's empty.", getScreenSpot(33F,67.3F), Trigger.Visible, 1);
+				temp.widthless = 100; temp.heightless = 106;
+				drawSpecificPopup(temp.placement, temp.text, temp.widthless, temp.heightless, temp.ID); 
+			}
+			else
+			if(!nodeflags)
+			{
+				
+				
+				PopupInfo  temp  = new PopupInfo("This is an <b>Outpost</b>.\nIt gives you <b>Plates</b> & <b>Struts</b>.\nClick here to <b>Scavenge</b>."
+					, getScreenSpot(37.5F,69.9F), Trigger.Visible, 1);
+					temp.widthless = 100; temp.heightless = 106;
+				drawSpecificPopup(temp.placement, temp.text, temp.widthless, temp.heightless, temp.ID); 
+					temp  = new PopupInfo("This is a <b>Factory</b>.\nIt gives you <b>Pistons</b> & <b>Gears</b>.\nClick here to<b> Scavenge</b>.", getScreenSpot(35F,75.4F), Trigger.Visible, 1);
+					temp.widthless = 100; temp.heightless = 106;
+				drawSpecificPopup(temp.placement, temp.text, temp.widthless, temp.heightless, temp.ID); 
+					temp  = new PopupInfo("This is a <b>Junkyard</b>.\nIt gives you random parts.\nClick here to <b>Scavenge</b>.", getScreenSpot(43.6F,75.8F), Trigger.Visible, 1);
+					temp.widthless = 100; temp.heightless = 106;
+				drawSpecificPopup(temp.placement, temp.text, temp.widthless, temp.heightless, temp.ID); 
+				
+				if(em.mech_s.getPartCount(Part.Gear) >= 2 && em.mech_s.getPartCount(Part.Piston) >= 4 && em.mech_s.getPartCount(Part.Strut) >= 2)
+				{	nodeflags = true;
+					List<Enemy> enemies = em.getEnemies();
+					foreach(entityEnemyS es in enemies)
+					{
+						((entityEnemyS)es).displayhelper = true;
+					}
+				}
+			}
+			 
+			
+			if(em.mech_s.checkUpgrade(MechUpgrade.Move_Mountain) && !upgradedlegs)
+			{ 
+				if(em.isPlayerAt(31,21))
+				{
+					upgradedlegs = true;
+				} 
+				PopupInfo temp  = new PopupInfo("Now that you have <b>Mountaineering Claws,</b>\ncross over to here!", getScreenSpot(53.6F,79.2F), Trigger.Visible, 1);
+					temp.widthless = 100; temp.heightless = 106; 
+				drawSpecificPopup(temp.placement, temp.text, temp.widthless, temp.heightless, temp.ID); 
+				 
+			}
+			
+			if(upgradedlegs && em.base_s.getHighestLevelUpgrade(BaseUpgradeMode.Walls) == BaseUpgradeLevel.Level0)
+			{
+				//Protect it at all costs!
+				PopupInfo temp  = new PopupInfo("This is the <b>Town</b>.\n" +
+					"It has its turn to defend\n" +
+					 "after the <b>Enemy Turn</b>.\n" +
+					 "Upgrade it <b>Ironplate Retrofit</b>.", getScreenSpot(52.1F,101.4F), Trigger.Visible, 1);
+					temp.widthless = 100; temp.heightless = 86;
+					drawSpecificPopup(temp.placement, temp.text, temp.widthless, temp.heightless, temp.ID); 
+				
+				 
+			} 
+			if(upgradedlegs && em.base_s.getHighestLevelUpgrade(BaseUpgradeMode.Walls) != BaseUpgradeLevel.Level0)
+			{
+				//Protect it at all costs!
+				PopupInfo temp  = new PopupInfo("This is the <b>Town</b>.\n" +
+					"Thanks for the town, now\nplease defend us from those \n<b>Enemy Mechs</b>!", getScreenSpot(52.1F,101.4F), Trigger.Visible, 1);
+					temp.widthless = 100; temp.heightless = 86;
+					drawSpecificPopup(temp.placement, temp.text, temp.widthless, temp.heightless, temp.ID); 
+				
+				if(!spawned_last_wave)
+				{
+					em.instantiateEnemy(37,33,15,15,1,true,false,EntityE.Enemy);
+					em.instantiateEnemy(37,34,15,15,1,true,false,EntityE.Enemy);
+					spawned_last_wave  = true;
+				}
+				 
+			}
+			
+					
+			{
+				 
+				PopupInfo temp  = new PopupInfo("This is an enemy <b>Spawner</b>.\n<b>Enemies</b> will emerge from here sometimes.", getScreenSpot(40.38F,101.5F), Trigger.Visible, 1);
+				temp.widthless = 100; temp.heightless = 106;
+				drawSpecificPopup(temp.placement, temp.text, temp.widthless, temp.heightless, temp.ID); 
+			
+			 
+				temp  = new PopupInfo("This is an enemy <b>Spawner</b>.\n<b>Enemies</b> will emerge from here sometimes.", getScreenSpot(57.48F,110.81F), Trigger.Visible, 1);
+				temp.widthless = 100; temp.heightless = 106;
+				drawSpecificPopup(temp.placement, temp.text, temp.widthless, temp.heightless, temp.ID); 
+				
+				if(em.mech_s.gethpPercent() < .333)
+				{ 
+					drawOverlay(s14, ref bs14);
+				}
+			}
+		}
+//		else
+	}
+	
+	public bool spawned_last_wave =false;
+	
+	public void drawPopups(){
+		
+		if(gm.current_level == Level.Level0)
+		{
+			
+		if(!bs1)
+		{
+			drawOverlay(s1, ref bs1);
+		}
+		else
+		if(!bs2)
+		{
+			drawOverlay(s2, ref bs2);
+		}
+		else
+		if(!bs6)
+		{
+			drawOverlay(s6, ref bs6);
+		}
+		else
+		if(spot2 && !bs3_1)
+		{ 
+			drawOverlay(s3_1, ref bs3_1);
+		}
+		else
+		if(spot2 && !bs3_2)
+		{ 
+			drawOverlay(s3_2, ref bs3_2);
+		}
+		else
+		if(spot2 && !bs4)
+		{ 
+			drawOverlay(s4, ref bs4);
+		}
+		else
+		if(spot2 && !bs5)
+		{ 
+			drawOverlay(s5, ref bs5);
+		}  
+		else	//got the parts now
+		if(nodeflags && !bs8 )
+		{
+			drawOverlay(s8, ref bs8);
+		}   
+		else
+		if(nodeflags && !bs7)
+		{
+			nodeflags = true;
+			drawOverlay(s7, ref bs7);
+		}
+		else
+		if(nodeflags && em.mech_s.checkUpgrade(MechUpgrade.Move_Mountain) && !bs9_1)
+		{
+			drawOverlay(s9_1, ref bs9_1);
+		}
+		else
+		if(upgradedlegs && !bs9_2)
+		{
+			drawOverlay(s9_2, ref bs9_2);
+		}
+		else
+			//either killed or ran past enemy, now near base
+		if(upgradedlegs && !bs10)
+		{
+			if(em.isPlayerAt(32,28) || em.isPlayerAt(33,27))
+				drawOverlay(s10, ref bs10);
+		}
+		else
+		if(upgradedlegs && !bs11)
+		{
+			drawOverlay(s11, ref bs11);
+		}  
+		
+		}
 	}
 	
 	
 	
+	private bool draw_hover_node = false;
+	private PopupInfo pi;
 	
+	public void drawHoverNodeInfo(PopupInfo pii, bool draw_it)
+	{
+		if(!draw_it)
+			pi.enabled = false;
+		else
+			pi = pii;
+	}
 	
-	private void drawSpecificPopup(Vector2 placement, string text, int widthless, int heightless, int ID)
+	public void disablePI()
+	{
+		pi.enabled = false; 
+	}
+	
+	public void drawSpecificPopup(Vector2 placement, string text, int widthless, int heightless, int ID)
 	{ 
 		int popup_width = 304;
 		int popup_height = 271;
@@ -819,6 +1097,13 @@ public class enginePlayerS : MonoBehaviour {
 	void OnGUI()
 	{	
 		drawHexText();
+		drawGmaps();
+		if(pi.enabled && nodeflags)
+		{
+			drawSpecificPopup(pi.placement,pi.text,pi.widthless,pi.heightless,pi.ID);
+		}
+		
+		drawPopups(); 
 		
 		drawInGamePopups();
 		
@@ -881,7 +1166,7 @@ public class enginePlayerS : MonoBehaviour {
 		if(repair_menu_displayed) 
 			drawRepairMenu(); 
 //	  	 
-		drawFullscreenTips();
+//		drawFullscreenTips();
 		
 		if(objective_menu_displayed)
 			drawObjectivesMenu();
@@ -906,7 +1191,15 @@ public class enginePlayerS : MonoBehaviour {
 			gm.mouse_over_gui = true; 
 		else
 			gm.mouse_over_gui = false;
+		
+		if(game_paused_overlay)
+			gm.mouse_over_gui = true; 
+			
+		
+		
 	}
+	
+	public bool game_paused_overlay = false;
 	
 	private void drawEndTurnButton(){
 		

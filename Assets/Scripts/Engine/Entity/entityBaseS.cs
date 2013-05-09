@@ -108,7 +108,7 @@ public class entityBaseS : Combatable {
 		temp.base_level = BaseUpgradeLevel.Level3;
 		armament_upgrades.Add(temp); 
 		 	 
-		temp = new UpgradeEntry("Iron Plate Retrofit",			"Reduces incoming attack damage by 1",	0,	0,	4,	3,	2, walls_1);
+		temp = new UpgradeEntry("Ironplate Retrofit",			"Reduces incoming attack damage by 1",	0,	0,	4,	3,	2, walls_1);
 		temp.base_level = BaseUpgradeLevel.Level1;
 		walls_upgrades.Add(temp); 
 		temp = new UpgradeEntry("Copper Battlements", 			"Reduces incoming attack damage by 1",	1,	1,	5,	4,	3, walls_2);

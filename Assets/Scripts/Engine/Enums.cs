@@ -16,7 +16,7 @@ public enum MouseState   { Idle, Over, Click }
 public enum editor_entity { Mech, Enemy, Flyer, Town, Spawn, Factory, Outpost, Junkyard };
 public enum Level        {Level0,Level1,Level2,Level3,Level4,Level5} ;
 
-public enum Trigger      { AlwaysOn, Proximity, SpecialCase }
+public enum Trigger      { AlwaysOn, Proximity, SpecialCase, Visible, Hover }
 
 public enum MechUpgradeMode        { Movement, Combat, Scavenge, Utility };
 public enum BaseUpgradeMode        { Walls, Armament, Structure, Utility };  
@@ -76,6 +76,7 @@ public struct PopupInfo{
 	public readonly int ID;
 	public int heightless; 
 	public int widthless;
+	public bool enabled; 
 	public PopupInfo(string t, Vector3 v, Trigger tr, int i)
 	{
 		text = t;
@@ -83,6 +84,7 @@ public struct PopupInfo{
 		trigger = tr;
 		ID = i;
 	  heightless = 0; 
+		enabled = true;
 	  widthless = 0;
 	}
 }
@@ -184,6 +186,7 @@ public struct UpgradeEntry{
 	public readonly int		ap_cost;
 	public readonly Texture thumbnail; 
 	public readonly MechUpgrade upgrade_type;   
+	public readonly bool    enabled_this_level;
 	
 	public BaseUpgradeLevel base_level; 
 	
@@ -199,6 +202,21 @@ public struct UpgradeEntry{
 		this.thumbnail = thumbnail; 
 		this.upgrade_type = upgrade_type;
 		base_level = BaseUpgradeLevel.Level0;
+		 enabled_this_level = true;
+	}
+	public UpgradeEntry(string title, string description, int gear_cost, int piston_cost, int plate_cost, int strut_cost, int ap_cost, Texture thumbnail, MechUpgrade upgrade_type, bool etl)
+	{
+		this.title = title;
+		this.description = description; 
+		this.gear_cost = gear_cost;
+		this.piston_cost = piston_cost;
+		this.plate_cost = plate_cost;
+		this.strut_cost = strut_cost;
+		this.ap_cost = ap_cost;
+		this.thumbnail = thumbnail; 
+		this.upgrade_type = upgrade_type;
+		base_level = BaseUpgradeLevel.Level0;
+		 enabled_this_level = etl;
 	}
 	
 	public UpgradeEntry(string title, string description, int gear_cost, int piston_cost, int plate_cost, int strut_cost, int ap_cost, Texture thumbnail)
@@ -213,5 +231,6 @@ public struct UpgradeEntry{
 		this.thumbnail = thumbnail; 
 		this.upgrade_type = MechUpgrade.DEBUG_NONE;
 		base_level = BaseUpgradeLevel.Level0; 
+		enabled_this_level = true;
 	}
 }

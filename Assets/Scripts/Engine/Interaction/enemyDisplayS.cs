@@ -31,6 +31,7 @@ public class enemyDisplayS : MonoBehaviour {
 	public Material walk_nw;
 //	private bool draw_mode = false; 
 		
+	public bool displayhelper = true;
 	private Dictionary<Facing, Material> facing_walks;
 	
 public hexManagerS hm; 

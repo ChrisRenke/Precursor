@@ -58,7 +58,7 @@ public class entityEnemyS : Enemy {
 	}
 	
 	public bool onFire = false;
-	
+	public bool displayhelper = false;
 	void OnGUI()
 	{ 
         Mesh mesh = GetComponent<MeshFilter>().mesh;
@@ -79,7 +79,17 @@ public class entityEnemyS : Enemy {
 			GUI.EndGroup (); 
 		 	
 			GUI.Label(new Rect(center_top_ss.x - 39, Screen.height - center_top_ss.y+4, 75, 10),  current_hp + "/" +  max_hp,  ep.hp_bar); 
+		
+			if(displayhelper && gm.current_level == Level.Level0)
+			{
+				PopupInfo temp  = new PopupInfo("Destroy this <b>Enemy Mech!</b>\nIt has an attack range of 2.", gm.getScreenSpot(em.CoordsGameTo3DEntiy(x,z).x,em.CoordsGameTo3DEntiy(x,z).z), Trigger.Visible, 1);
+					temp.widthless = 100; temp.heightless = 146; 
+				ep.drawSpecificPopup(temp.placement, temp.text, temp.widthless, temp.heightless, temp.ID); 
+				
+			}
 		}
+		
+		
 	}
 	
 	// Update is called once per frame

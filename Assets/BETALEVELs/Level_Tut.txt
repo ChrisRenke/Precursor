@@ -11322,8 +11322,8 @@ LEVEL{
 			X          = 26
 			Z          = 11
 			Type       = Spawn
-			spawn_id   = 4
-			cadence    = 1/7,0/8
+			spawn_id   = 1
+			cadence    = 0/0
 			mech_loc   = False
 			base_loc   = True
 			enemy_typ  = Enemy
@@ -11332,8 +11332,8 @@ LEVEL{
 			X          = 26
 			Z          = 12
 			Type       = Spawn
-			spawn_id   = 3
-			cadence    = 1/7,0/8
+			spawn_id   = 1
+			cadence    = 0/0
 			mech_loc   = False
 			base_loc   = True
 			enemy_typ  = Enemy
@@ -11353,7 +11353,7 @@ LEVEL{
 		ENTITY{ 
 			X          = 11
 			Z          = -1
-			Type       = Junkyard
+			Type       = Factory
 			node_level = Full
 		}
 		ENTITY{ 
@@ -11369,7 +11369,7 @@ LEVEL{
 		ENTITY{ 
 			X          = 25
 			Z          = 8
-			Type       = Factory
+			Type       = Outpost
 			node_level = Full
 		}
 		ENTITY{ 
@@ -11416,7 +11416,7 @@ LEVEL{
 			Z          = 12
 			Type       = Spawn
 			spawn_id   = 2
-			cadence    = 1/7,0/8
+			cadence    = 0/0
 			mech_loc   = False
 			base_loc   = True
 			enemy_typ  = Flyer
